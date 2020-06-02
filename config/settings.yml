@@ -17,18 +17,20 @@ database:
   test:
     database: partecipo_test
     username: postgres
+    password: MyPassword
     host: localhost
     sslmode:
   staging:
     database: partecipo_staging
     username: partecipo
-    host: db.intranet.isprambiente.it
+    password: MyPassword
+    host: localhost
     sslmode:
   production:
     database: partecipo_production
     username: partecipo
-    password: dsl.kdd-12L
-    host: db.intranet.isprambiente.it
+    password: MyPassword
+    host: localhost
     sslmode:
 action_mailer:
   default_url_option: 
