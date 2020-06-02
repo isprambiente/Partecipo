@@ -1,0 +1,30 @@
+#loader
+  z-index: 9999
+  position: fixed
+  top: 0px
+  left: 0px
+  width: 100%
+  height: 4px
+  overflow: hidden
+  background-color: $ispra-darker
+  margin:auto
+  border-radius: 2px
+
+  .is-loading
+    background-color: $white-bis
+    margin-top: 0
+    margin-left: -58px
+    animation-name: bounce_loading
+    animation-duration: 3s
+    animation-iteration-count: infinite
+    animation-timing-function: linear
+    width: 10%
+    height: 4px
+
+
+
+@keyframes bounce_loading
+  0%
+    margin-left: -10%
+  100%
+    margin-left: 110%

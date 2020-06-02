@@ -1,0 +1,14 @@
+%a.box.is-hoverable{href: admin_user_path(user), data: {action: "ajax:success->page#goPage", remote: true}}
+  .columns.is-mobile.is-gapless
+    .column
+      %i.fas.fa-user
+      = user.username
+    - if user.editor?
+      .column.is-narrow
+        %span.icon
+          %i.fas.fa-user-cog
+    - if user.admin? 
+      .column.is-narrow
+        %span.icon
+          %i.fas.fa-user-shield
+

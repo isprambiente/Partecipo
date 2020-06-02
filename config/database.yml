@@ -1,0 +1,36 @@
+default: &default
+  adapter: postgresql
+  encoding: unicode
+  schema_search_path: public
+  pool: 5
+
+development:
+  <<: *default
+  database: <%= Rails.application.credentials.development_db_name || Settings.database.development.database %>
+  username: <%= Rails.application.credentials.development_db_username || Settings.database.development.username %>
+  password: <%= Rails.application.credentials.development_db_password || Settings.database.development.password %>
+  host: <%= Rails.application.credentials.development_db_host || Settings.database.development.host %>
+  sslmode: <%= Settings.database.test.sslmode %>
+test:
+  <<: *default
+  database: <%= Rails.application.credentials.test_db_name || Settings.database.test.database %>
+  username: <%= Rails.application.credentials.test_db_username || Settings.database.test.username %>
+  password: <%= Rails.application.credentials.test_db_password || Settings.database.test.password %>
+  host: <%= Rails.application.credentials.test_db_host || Settings.database.test.host %>
+  sslmode: <%= Settings.database.test.sslmode %>
+
+staging:
+  <<: *default
+  database: <%= Rails.application.credentials.staging_db_name || Settings.database.staging.database %>
+  username: <%= Rails.application.credentials.staging_db_username || Settings.database.staging.username %>
+  password: <%= Rails.application.credentials.staging_db_password || Settings.database.staging.password %>
+  host: <%= Rails.application.credentials.staging_db_host || Settings.database.staging.host %>
+  sslmode: <%= Settings.database.staging.sslmode %>
+
+production:
+  <<: *default
+  database: <%= Rails.application.credentials.production_db_name || Settings.database.production.database %>
+  username: <%= Rails.application.credentials.production_db_username || Settings.database.production.username %>
+  password: <%= Rails.application.credentials.production_db_password || Settings.database.production.password %>
+  host: <%= Rails.application.credentials.production_db_host || Settings.database.production.host %>
+  sslmode: <%= Settings.database.production.sslmode %>

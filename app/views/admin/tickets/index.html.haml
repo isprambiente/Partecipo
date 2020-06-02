@@ -1,0 +1,10 @@
+%h4.title.is-size-5
+  %i.fas.fa-ticket-alt.fa-fw
+  Prenotazioni
+
+%hr
+= render @tickets || 'Nessuna prenotazione registrata'
+%hr
+= pagy_bulma_nav(@pagy).html_safe
+%nav.has-text-centered
+  %a.button.is-link{href: admin_users_path(), data: {remote: true, action: "ajax:success->page#goPage"}}= fas_icon 'chevron-left', text: 'Indietro'

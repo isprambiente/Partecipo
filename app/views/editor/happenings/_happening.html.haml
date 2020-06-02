@@ -1,0 +1,15 @@
+%a.box.is-hoverable{href: editor_fact_happening_path(@fact,happening), data: {action: "ajax:success->page#goPage", remote: true}}
+  .columns.is-mobile.is-gapless
+    .column
+      %span.title.is-size-5
+        = fas_icon 'tools'
+        = fas_icon 'calendar-day'
+        = l happening.start_at, format: :short
+    .column.is-narrow.has-text-right
+      %span.subtitle.is-size-6
+        = happening.tickets_count
+        \\
+        = happening.max_seats
+        = fas_icon 'chair'
+  Prenotazioni dal #{l happening.start_sale_at, format: :short} al #{l happening.stop_sale_at, format: :short}
+

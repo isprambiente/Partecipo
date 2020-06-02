@@ -1,0 +1,34 @@
+%h4.title.is-size-5.has-text-centered
+  %i.fas.fa-ticket-alt
+  Prenotazioni
+.box
+  - if @ticket.persisted?
+    %h4.title.is-size.has-text-centered Aggiorna ticket
+  - else
+    %h4.title.is-size-6.has-text-centered Nuovo ticket
+
+  = form_with model: [:editor, @fact, @happening, @ticket], data: {action: "ajax:success->section#goPage", remote: true} do |f|
+    %fieldset
+      .columns
+        .column
+          .field
+            = f.label :user_id
+            .control.has-icons-left
+              %span.select.is-fullwidth= f.select :user_id, @users, {}
+              %span.icon.is-left= fas_icon 'user'
+              %p.help.is-danger= @ticket.errors.messages[:user].join(' - ') 
+
+        .column
+          .field
+            = f.label :seats
+            .control.has-icons-left
+              = f.number_field :seats, min: 1, max: @happening.max_seats - @happening.seats_count, class: 'input'
+              %span.icon.is-left= fas_icon 'chair'
+              %p.help.is-danger= @ticket.errors.messages[:seats].join(' - ')
+    .has-text-centered
+      = link_to fas_icon('chevron-left', text: 'Indietro'), editor_fact_happening_tickets_path(@fact,@happening), class: 'button is-link', data: {action: "ajax:success->section#goPage", remote: true}
+      = f.button fas_icon('save', text: 'Salva'), class: 'button is-success'
+      - if @ticket.persisted?
+        = link_to fas_icon('trash', text: 'Elimina'), fact_happening_ticket_path(@fact,@happening,@ticket), class: 'button is-warning', data: {action: "ajax:success->section#goPage", remote: true, method: :delete, confirm: 'Operazione irreversibile! Confermi eliminazione?'}
+
+

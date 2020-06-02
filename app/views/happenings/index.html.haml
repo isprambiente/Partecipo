@@ -1,0 +1,7 @@
+%h3.title.is-size-4.has-text-centered
+  %i.fas.fa-calendar-alt
+  Date
+= render @happenings
+%hr
+= pagy_bulma_nav(@pagy).html_safe
+

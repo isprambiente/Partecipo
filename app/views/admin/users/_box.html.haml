@@ -1,0 +1,20 @@
+.box.has-ribbon
+  %a.ribbon.is-link{href: edit_admin_user_path(@user), data: {remote: true, action: "ajax:success->page#goPage"}}
+    %i.fas.fa-edit
+  %nav.level
+    .level-item.has-text-centered
+      %div
+        %p.heading Username
+        %p.title.is-size-5= @user.username
+    .level-item.has-text-centered
+      %div
+        %p.heading Ticket
+        %p.title.is-size-5= @user.tickets.count
+    .level-item.has-text-centered
+      %div
+        %p.heading Editor
+        %p.title.is-size-5= @user.editor?
+    .level-item.has-text-centered
+      %div
+        %p.heading Admin
+        %p.title.is-size-5= @user.admin?

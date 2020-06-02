@@ -1,0 +1,30 @@
+it:
+  activerecord:
+    errors:
+      models:
+        fact:
+          attributes:
+            title:
+              required: Il titolo è richiesto
+    attributes:
+      fact:
+        title: Titolo
+        start_on: Inizio
+        stop_on: Fine
+        body: Desctizione
+      user:
+        username: Nome utente
+    models:
+      fact:
+        one: Evento
+        other: Eventi
+      happening:
+        one: Data
+        other: Date
+      ticket:
+        one: Prenotazione
+        other: Prenotazioni
+      user:
+        one: Utente
+        other: Utenti
+

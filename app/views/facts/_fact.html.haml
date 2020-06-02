@@ -1,0 +1,11 @@
+%article.card.tile.is-child
+  .card-image
+    %figure.image= link_to image_tag(fact.image.variant(resize_to_limit: [417, 278]).processed), fact, data: {action: "ajax:success->page#goPage", remote: true}
+  .card-content
+    %a{href: fact_path(fact), data: {action: "ajax:success->page#goPage", remote: true}}
+      .title= fact.title
+      .subtitle
+        = l fact.start_on
+        - if fact.start_on != fact.stop_on
+          \-
+          = l fact.stop_on

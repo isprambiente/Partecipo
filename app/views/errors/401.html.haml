@@ -1,0 +1,11 @@
+.dialog
+    .container
+        %h1
+            .text-center= "Accesso non autorizzato".upcase
+        .body
+            .text-justify
+                La pagina a cui stai tentando di accedere non è disponibile o non possiedi le credenziali per accedervi.
+            %br
+            .text-justify
+                Se ritieni di avere i livelli di accesso necessari, ti consigliamo di contattare il supporto tecnico per maggiori verifiche.
+    .footer= link_to fas_icon('exclamation-triangle', text: t('return', scope: 'errors')), root_path, class: 'button warning expanded tiny'

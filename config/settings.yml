@@ -1,0 +1,50 @@
+title: Partecipo
+group: Partecipo Group
+header: /head.html
+footer: /footer.html
+subtitle: Gestione prenotazioni
+email: partecipo@partecipo.com
+domain: isprambiente.it
+cas: https://auth.partecipo.com/cas/
+app:
+  url: https://partecipo.com
+database:
+  development:
+    database: partecipo_development
+    username: postgres
+    host: localhost
+    sslmode:
+  test:
+    database: partecipo_test
+    username: postgres
+    host: localhost
+    sslmode:
+  staging:
+    database: partecipo_staging
+    username: partecipo
+    host: db.intranet.isprambiente.it
+    sslmode:
+  production:
+    database: partecipo_production
+    username: partecipo
+    password: dsl.kdd-12L
+    host: db.intranet.isprambiente.it
+    sslmode:
+action_mailer:
+  default_url_option: 
+    host: 'partecipo.com'
+    protocol: 'https'
+  smtp_settings:
+   address: 'smtp.partecipo.com'
+   port: 465
+   domain: 'partecipo.com'
+   ssl: true
+   username: 'partecipo@partecipo.com'
+   sender: 'partecipo@partecipo.com'
+deploy:
+  repo_url: git@github.com:isprambiente/Partecipo.git
+  server: partecipo.com
+  user: partecipo
+  tmp_dir: /home/partecipo/production/shared/tmp
+  deploy_to: /home/partecipo/production
+

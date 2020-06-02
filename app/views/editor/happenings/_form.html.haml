@@ -1,0 +1,53 @@
+= form_with(model: [:editor, fact, happening], data: {action: "ajax:success->section#goPage"}) do |form|
+  .field
+    = form.label :detail
+    .control.has-icons-left
+      = form.text_field :detail, class: 'input'
+      .icon.is-small.is-left
+        %i.fas.fa-heading
+    %p.help.is-danger= happening.errors[:detail].join(' - ')
+    .field
+      = form.label :start_at
+      .control.has-icons-left
+        = form.datetime_field :start_at, class: 'input'
+        %span.icon.is-small.is-left
+          %i.fas.fa-calendar-day
+      %p.help.is-danger= happening.errors[:start_at].join(' - ')
+  .columns
+    .column
+      .field
+        = form.label :start_sale_at
+        .control.has-icons-left
+          = form.datetime_field :start_sale_at, class: 'input'
+          %span.icon.is-small.is-left
+            %i.fas.fa-calendar-day
+        %p.help.is-danger= happening.errors[:start_sale_at].join(' - ')
+    .column
+      .field
+        = form.label :stop_sale_at
+        .control.has-icons-left
+          = form.datetime_field :stop_sale_at, class: 'input'
+          %span.icon.is-small.is-left
+            %i.fas.fa-calendar-day
+        %p.help.is-danger= happening.errors[:stop_sale_at].join(' - ')
+
+  .columns
+    .column
+      .field
+        = form.label :max_seats
+        .control.has-icons-left
+          = form.number_field :max_seats, class: 'input'
+          %span.icon.is-small.is-left
+            %i.fas.fa-chair
+        %p.help.is-danger= happening.errors[:max_seats].join(' - ')
+    .column
+      .field
+        = form.label :max_seats_for_ticket
+        .control.has-icons-left
+          = form.number_field :max_seats_for_ticket, class: 'input'
+          %span.icon.is-small.is-left
+            %i.fas.fa-chair
+        %p.help.is-danger= happening.errors[:max_seats_for_ticket].join(' - ')
+  .has-text-centered
+    = form.button fas_icon('save', text: 'Salva'), class: 'button is-success'
+    = link_to fas_icon('chevron-left', text: 'Indietro'), editor_fact_happenings_path(fact), class: 'button is-light', data: {remote: true, action: "ajax:success->section#goPage"}

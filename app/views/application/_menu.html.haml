@@ -1,0 +1,11 @@
+#menu.quickview.is-left{ data: { target: "page.menu" } }
+  %header.quickview-header
+    %p.title.has-text-weight-bold= fas_icon('bars', text: 'Menù' )
+    %span.delete{ data: { dismiss: "quickview", target: 'page.close', action: "click->page#menu" } }
+  .quickview-body
+    .quickview-block
+      %aside.menu
+        %ul.menu-list
+          %li= link_to( fas_icon('home', text: 'Home'), root_path)
+    %footer.quickview-footer
+      %a{ href: destroy_user_session_path, data: { confirm: 'Sei sicuro di voler uscire?', method: :delete }  }= fas_icon('sign-out-alt', text: t('logout', default: 'Logout'))

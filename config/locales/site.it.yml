@@ -1,0 +1,24 @@
+it:
+  site:
+    generic:
+      search: 'Ricerca'
+    fact:
+      scope:
+        future: Prossimi eventi
+        history: Storico eventi
+      search: Ricerca eventi
+    happening:
+      scope:
+        future: Prossime date
+        history: Storico date
+      search: Ricerca date
+    ticket:
+      scope:
+        future: Prenotazioni
+        history: Storico prenotazioni
+      search: Ricerca prenotazioni
+    editor:
+      ticket:
+        search: Ricerca prenotazioni
+        export_csv: Esporta CSV
+        export_pdf: Esporta PDF

@@ -1,0 +1,70 @@
+= form_with(model: [:editor, fact], data: {action: "ajax:success->page#goPage"}) do |form|
+  .field
+    = form.label :title
+    .control.has-icons-left
+      = form.text_field :title, class: 'input'
+      .icon.is-small.is-left
+        %i.fas.fa-heading
+    %p.help.is-danger= fact.errors[:title].join(' - ')
+  .field
+    = form.label :groups
+    %p.control.has-icons-left
+      %span.select.is-fullwidth
+        = form.select :group_id, @groups
+      %span.icon.is-small.is-left
+        %i.fas.fa-user
+    %p.help.is-danger= fact.errors[:groups].join(' - ')
+  .field
+    Selezione Immagine
+    .file.has-name.is-fullwidth
+      = form.label :image, class: 'file-label' do
+        = form.file_field :image, class: 'file-input'
+        %span.file-cta
+          %span.file-icon
+            %i.fas.fa-upload
+          %span.file-label Seleziona un file
+        %span.file-name
+    %p.help.is-danger= fact.errors[:image].join(' - ')
+
+
+  .field
+    = form.label :body
+    = form.rich_text_area :body
+    %p.help.is-danger= fact.errors[:body].join(' - ')
+  .field
+    = form.label :where
+    .control.has-icons-left
+      = form.text_field :where, class: 'input'
+      .icon.is-small.is-left
+        %i.fas.fa-map-marker
+    %p.help.is-danger= fact.errors[:body].join(' - ')
+  .columns
+    .column.field
+      = form.label :pinned
+      .control.has-icons-left
+        %span.select.is-fullwidth= form.select :pinned, [['SI',true],['No',false]], include_blank: false
+        %span.icon.is-small.is-left
+          %i.fas.fa-user
+      %p.help.is-danger= fact.errors[:pinned].join(' - ')
+    .column
+      .field
+        = form.label :start_on
+        .control.has-icons-left
+          = form.date_field :start_on, class: 'input'
+          %span.icon.is-small.is-left
+            %i.fas.fa-calendar-day
+        %p.help.is-danger= fact.errors[:start_on].join(' - ')
+    .column
+      .field
+        = form.label :stop_on
+        .control.has-icons-left
+          = form.date_field :stop_on, class: 'input'
+          %span.icon.is-small.is-left
+            %i.fas.fa-calendar-day
+        %p.help.is-danger= fact.errors[:stop_on].join(' - ')
+  .has-text-centered
+    - if fact.persisted?
+      %a.button.is-link{href: editor_fact_path(fact), data: {remote: true, action: "ajax:success->section#goPage"}}= fas_icon 'chevron-left', text: 'Indietro'
+    - else
+      %a.button.is-link{href: editor_facts_path, data: {action: "ajax:success->page#goPage"}}= fas_icon 'chevron-left', text: 'Indietro'
+    = form.button fas_icon('save', text: 'Salva'), class: 'button is-success'

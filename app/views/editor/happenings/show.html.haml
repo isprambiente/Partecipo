@@ -1,0 +1,31 @@
+%section{ data: { controller: 'section', section_url: editor_fact_happening_tickets_path(@fact, @happening)}}
+  %h3.title.has-text-centered
+    %i.fas.fa-tools
+    = @fact.title
+  .columns
+    %aside.column.is-3
+      %nav.panel
+        %p.panel-heading= t 'site.editor.ticket.search'
+        = form_with scope: 'filter', url: editor_fact_happening_tickets_path(@fact,@happening), method: :get, data: {action: "ajax:success->section#goPage"} do |f|
+          .panel-block
+            %p.control.has-icons-left
+              = f.text_field :text, placeholder: 'Nome', class: 'input', data: {action: 'keyup->section#delayedSendForm'}
+              %span.icon.is-left
+                %i.fas.fa-search
+        %a.panel-block{href: export_editor_fact_happening_tickets_path(@fact, @happening, format: :csv)}
+          %span.panel-icon
+            %i.fas.fa-file-csv
+          = t 'site.editor.ticket.export_csv'
+        %a.panel-block{href: export_editor_fact_happening_tickets_path(@fact, @happening, format: :pdf)}
+          %span.panel-icon
+            %i.fas.fa-file-csv
+          = t 'site.editor.ticket.export_pdf'
+      %figure.image= image_tag(@fact.image.variant(resize_to_limit: [318,318]).processed)
+    .column
+      = render 'editor/facts/box'
+      %h4.title.is-size-5.has-text-centered
+        %i.fas.fa-calendar-day
+        Ingresso
+        = @happening.code
+      = render 'box'
+      .div{data: {target: 'section.container'}}

@@ -1,0 +1,30 @@
+%section{ data: { controller: 'section', section_url: admin_user_tickets_path(@user)}}
+  %h3.title.has-text-centered
+    %i.fas.fa-users
+    Gestione
+    = t 'activerecord.models.user.other'
+    %i.fas.fa-tools
+  .columns
+    %aside.column.is-3
+      %nav.panel
+        %p.panel-heading= t 'site.ticket.search'
+        = form_with scope: 'filter', url: list_admin_users_path, method: :get, data: {action: "ajax:success->section#goPage"} do |f|
+          .panel-block
+            %p.control.has-icons-left
+              = f.text_field :text, placeholder: 'Testo', class: 'input', data: {action: 'keyup->section#delayedSendForm'}
+              %span.icon.is-left
+                %i.fas.fa-search
+    .column
+      = render 'box'
+      - if @user.groups.present?
+        %h5.title.is-size-5
+          %i.fas.fa-users.fa-fw
+          Groups
+        .box
+          %ul
+            - @user.groups.each do |group|
+              %li= link_to group.title, admin_group_path(group)
+      %div{ data: { target: 'section.container' } }
+
+
+

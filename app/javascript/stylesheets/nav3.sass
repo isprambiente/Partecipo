@@ -1,0 +1,39 @@
+#nav3
+  background: $ispra-darker 
+  .navbar-burger
+    color: #ffffff
+    border-left: $rgba-primary-4 solid 1px
+  .navbar-brand
+    &.is-editor
+      background: $rgba-secondary-2-4
+    a
+      color: #ffffff
+      span
+        color: $rgba-complement-2
+  nav.navbar
+    background: transparent
+    min-height: 40px
+    .navbar-menu
+      a.navbar-item
+        white-space: nowrap
+        color: $white
+        font-size: 1rem
+
+        &:hover 
+          transition: all 0.5s ease  
+          background: $primary
+        &:focus, &:active
+          background: transparent
+
+@media screen and (max-width: 1023px)
+  #nav3
+    .navbar-menu
+      background: transparent
+      a
+        background: transparent
+        &:hover 
+          transition: all 0.5s ease  
+          background: $primary
+        &:focus, &:active
+          background: transparent
+

@@ -1,0 +1,58 @@
+%section{ data: { controller: 'section', section_url: admin_user_tickets_path(@user)}}
+  %h3.title.has-text-centered
+    %i.fas.fa-users
+    Gestione
+    = t 'activerecord.models.user.other'
+    %i.fas.fa-tools
+  .columns
+    %aside.column.is-3
+      %nav.panel
+        %p.panel-heading= t 'site.ticket.search'
+        = form_with scope: 'filter', url: list_admin_users_path, method: :get, data: {action: "ajax:success->section#goPage"} do |f|
+          .panel-block
+            %p.control.has-icons-left
+              = f.text_field :text, placeholder: 'Testo', class: 'input', data: {action: 'keyup->section#delayedSendForm'}
+              %span.icon.is-left
+                %i.fas.fa-search
+    .column
+      = render 'box'
+      - if @user.groups.present?
+        %h4.title.is-size-5
+          %i.fas.fa-users.fa-fw
+          Groups
+        .box
+          %ul
+            - @user.groups.each do |group|
+              %li= link_to group.title, admin_group_path(group)
+
+      %h4.title.is-size-5
+        %i.fas.fa-user
+        Modifica utente
+      .box
+        = form_with model: [:admin, @user], data: {action: "ajax:success->section#goPage", remote: true} do |f|
+          %fieldset
+            .columns
+              .column
+                .field
+                  = f.label :editor
+                  .control.has-icons-left
+                    %span.select.is-fullwidth= f.select :editor, [['Si',true],['No',false]], {}
+                    %span.icon.is-left= fas_icon 'user-cog'
+                    %p.help.is-danger= @user.errors.messages[:editor].join(' - ') 
+              .column
+                .field
+                  = f.label :admin
+                  .control.has-icons-left
+                    %span.select.is-fullwidth= f.select :admin, [['Si',true],['No',false]], {}
+                    %span.icon.is-left= fas_icon 'user-shield'
+                    %p.help.is-danger= @user.errors.messages[:admin].join(' - ')
+            .field
+              .control
+                = f.label :group_ids
+                = f.select :group_ids, @groups, {}, {multiple: true, data: {controller: 'slim', target: 'slim.simple'}}
+                %p.help.is-danger= @user.errors.messages[:groups].join(' - ')
+
+          .has-text-centered
+            = link_to fas_icon('chevron-left', text: 'Indietro'), admin_user_path(@user), class: 'button is-link', data: {action: "ajax:success->page#goPage", remote: true}
+            = f.button fas_icon('save', text: 'Salva'), class: 'button is-success'
+

@@ -1,0 +1,14 @@
+<p id="notice"><%= notice %></p>
+
+<p>
+  <strong>Title:</strong>
+  <%= @admin_group.title %>
+</p>
+
+<p>
+  <strong>User ids:</strong>
+  <%= @admin_group.user_ids %>
+</p>
+
+<%= link_to 'Edit', edit_admin_group_path(@admin_group) %> |
+<%= link_to 'Back', admin_groups_path %>
