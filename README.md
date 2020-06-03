@@ -1,3 +1,5 @@
+[![Coverage Status](https://coveralls.io/repos/github/isprambiente/Partecipo/badge.svg?branch=master)](https://coveralls.io/github/isprambiente/Partecipo?branch=master)
+
 # Partecipo!
 
 Il programma, interamente sviluppato all'interno del settore Sviluppo di AGP-INF, nasce da una specifica necessità di [I.S.P.R.A.](http://www.isprambiente.gov.it) nel gestire le prenotazioni degli eventi per i dipendenti ISPRA.
