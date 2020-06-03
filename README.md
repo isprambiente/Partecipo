@@ -1,4 +1,7 @@
 [![Coverage Status](https://coveralls.io/repos/github/isprambiente/Partecipo/badge.svg?branch=master)](https://coveralls.io/github/isprambiente/Partecipo?branch=master)
+[![Inline docs](http://inch-ci.org/github/remote-exec/command-designer.png)](http://inch-ci.org/github/isprambiente/Partecipo)
+[![Yard Docs](http://img.shields.io/badge/yard-docs-blue.svg)](http://rubydoc.info/github/isprambiente/partecipo/master)
+[![Maintainability](https://api.codeclimate.com/v1/badges/be06f3229dd434cdd732/maintainability)](https://codeclimate.com/github/isprambiente/Partecipo/maintainability)
 
 # Partecipo!
 
