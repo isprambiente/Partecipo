@@ -2,11 +2,9 @@
 lock '~> 3.14.0'
 
 set :application, 'partecipo'
-set :repo_url, Settings.deploy.repo_url
-
+set :repo_url, 'git@github.com:isprambiente/Partecipo.git'
 set :linked_files, fetch(:linked_files, []).push('config/master.key')
 set :linked_dirs, fetch(:linked_dirs, []).push('log', 'tmp/pids', 'tmp/cache', 'tmp/sockets', 'tmp/sessions', 'tmp/state', 'vendor/bundle', 'public/system', 'config/settings', 'storage')
-
 # Default branch is :master
 # ask :branch, `git rev-parse --abbrev-ref HEAD`.chomp
 
