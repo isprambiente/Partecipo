@@ -3,7 +3,7 @@ lock '~> 3.14.0'
 
 set :application, 'partecipo'
 set :repo_url, 'git@github.com:isprambiente/Partecipo.git'
-set :linked_files, fetch(:linked_files, []).push('config/master.key')
+set :linked_files, fetch(:linked_files, []).push('config/master.key', 'config/settings.local.yml')
 set :linked_dirs, fetch(:linked_dirs, []).push('log', 'tmp/pids', 'tmp/cache', 'tmp/sockets', 'tmp/sessions', 'tmp/state', 'vendor/bundle', 'public/system', 'config/settings', 'storage')
 # Default branch is :master
 # ask :branch, `git rev-parse --abbrev-ref HEAD`.chomp
@@ -34,7 +34,18 @@ set :linked_dirs, fetch(:linked_dirs, []).push('log', 'tmp/pids', 'tmp/cache', '
 # set :local_user, -> { `git config user.name`.chomp }
 
 # Default value for keep_releases is 5
-3 # set :keep_releases, 5
+# set :keep_releases, 5
 
 # Uncomment the following to require manually verifying the host key before first deploy.
 # set :ssh_options, verify_host_key: :secure
+
+namespace :deploy do
+  namespace :check do
+    before :linked_files, :set_master_key do
+      on roles(:app), in: :sequence, wait: 10 do
+        upload! 'config/master.key', "#{shared_path}/config/master.key"
+        upload! 'config/master.key', "#{shared_path}/config/settings.local.yml"
+      end
+    end
+  end
+end
