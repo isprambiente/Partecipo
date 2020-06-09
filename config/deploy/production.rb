@@ -31,7 +31,7 @@ server 'prenotazioni.intranet.isprambiente.it', user: 'partecipo', roles: %w{web
 set :tmp_dir, '/home/partecipo/production/tmp'
 set :deploy_to, '/home/partecipo/production'
 set :rails_env, 'production'
-set :rvm_ruby_version, '2.7.1@partecipo'
+set :rvm_ruby_version, '2.7.1@Partecipo'
 
 # Custom SSH Options
 # ==================
