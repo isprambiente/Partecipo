@@ -6,8 +6,7 @@
 # server "example.com", user: "deploy", roles: %w{app db web}, my_property: :my_value
 # server "example.com", user: "deploy", roles: %w{app web}, other_property: :other_value
 # server "db.example.com", user: "deploy", roles: %w{db}
-
-server Settings.deploy.server, user: Settings.deploy.user, roles: %w[web app db]
+server 'prenotazioni.intranet.isprambiente.it', user: 'partecipo', roles: %w{web app db}
 
 # role-based syntax
 # ==================
@@ -29,8 +28,8 @@ server Settings.deploy.server, user: Settings.deploy.user, roles: %w[web app db]
 # http://capistranorb.com/documentation/getting-started/configuration/
 # Feel free to add new variables to customise your setup.
 
-set :tmp_dir, Settings.deploy.tmp_dir
-set :deploy_to, Settings.deploy.deploy_to
+set :tmp_dir, '/home/partecipo/production/tmp'
+set :deploy_to, '/home/partecipo/production'
 set :rails_env, 'production'
 set :rvm_ruby_version, '2.7.1@partecipo'
 
