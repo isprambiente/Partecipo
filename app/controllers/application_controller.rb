@@ -32,7 +32,7 @@ class ApplicationController < ActionController::Base
   # Render 401 page and stop the work
   # @return [nil]
   def access_denied!
-    render 'errors/401', status: :unauthorized # && return
+    render 'errors/401', status: :unauthorized, layout: 'empty' # && return
   end
 
   # {access_denied!} unless the request.xhr == true
