@@ -6,12 +6,11 @@ class Admin::GroupsController < Admin::ApplicationController
   # GET /admin/groups
   # GET /admin/groups.json
   def index
-    @groups = Group.all
   end
 
   def list
     @text = ['title ilike :text', text: "%#{filter_params[:text]}%"] if filter_params[:text].present?
-    @pagy, @facts = pagy(Group.all.where(@text))
+    @pagy, @groups = pagy(Group.all.where(@text))
   end
 
   # GET /admin/groups/1
@@ -71,6 +70,10 @@ class Admin::GroupsController < Admin::ApplicationController
   # Use callbacks to share common setup or constraints between actions.
   def set_group
     @group = Group.find(params[:id])
+  end
+
+  def filter_params
+     params.fetch(:filter, {}).permit(:text)
   end
 
   # Only allow a list of trusted parameters through.
