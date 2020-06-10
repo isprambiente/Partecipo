@@ -12,7 +12,6 @@
 /tmp/*
 !/log/.keep
 !/tmp/.keep
-.yardoc/
 
 # Ignore uploaded files in development.
 /storage/*
@@ -28,10 +27,15 @@
 /public/packs
 /public/packs-test
 /node_modules
+
+# Ignore documents 
+/doc
 /yarn-error.log
+.yardoc/
 yarn-debug.log*
 .yarn-integrity
 
+# ignore local settings
 config/settings.local.yml
 config/settings/*.local.yml
 config/environments/*.local.yml
