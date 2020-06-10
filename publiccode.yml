@@ -28,6 +28,11 @@ description:
       consentire l'accesso alle risorse interne tramite l'utilizzo di un  comune
       browser web.
     shortDescription: 'Programma di gestione prenotazioni eventi '
+    screenshots:
+       - doc/screen-1.png
+       - doc/screen-2.png
+       - doc/screen-3.png
+       - doc/screen-4.png
 developmentStatus: stable
 inputTypes:
   - text/plain
