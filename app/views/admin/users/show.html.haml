@@ -20,10 +20,7 @@
         %h5.title.is-size-5
           %i.fas.fa-users.fa-fw
           Groups
-        .box
-          %ul
-            - @user.groups.each do |group|
-              %li= link_to group.title, admin_group_path(group)
+        = render @user.groups
       %div{ data: { target: 'section.container' } }
 
 
