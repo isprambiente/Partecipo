@@ -18,6 +18,9 @@ it:
       fact:
         one: Evento
         other: Eventi
+      group:
+        one: Gruppo
+        other: Gruppi
       happening:
         one: Data
         other: Date
