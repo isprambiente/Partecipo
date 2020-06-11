@@ -2,16 +2,16 @@
 
 class Admin::GroupsController < Admin::ApplicationController
   before_action :set_group, only: %i[show edit update destroy]
+  before_action :set_users, only: %i[edit update]
 
   # GET /admin/groups
   # GET /admin/groups.json
   def index
-    @groups = Group.all
   end
 
   def list
     @text = ['title ilike :text', text: "%#{filter_params[:text]}%"] if filter_params[:text].present?
-    @pagy, @facts = pagy(Group.all.where(@text))
+    @pagy, @groups = pagy(Group.all.where(@text))
   end
 
   # GET /admin/groups/1
@@ -21,38 +21,39 @@ class Admin::GroupsController < Admin::ApplicationController
   # GET /admin/groups/new
   def new
     @group = Group.new
+    @users = []
   end
 
   # GET /admin/groups/1/edit
-  def edit; end
+  def edit
+    @users = @group.users.pluck :username, :id
+  end
 
   # POST /admin/groups
   # POST /admin/groups.json
   def create
     @group = Group.new(group_params)
+    set_users
 
-    respond_to do |format|
-      if @group.save
-        format.html { redirect_to @group, notice: 'Group was successfully created.' }
-        format.json { render :show, status: :created, location: @group }
-      else
-        format.html { render :new }
-        format.json { render json: @group.errors, status: :unprocessable_entity }
-      end
+    if @group.save
+      @status = { success: 'Gruppo creato' } 
+      render :show
+    else
+      @status = { error: 'Creazione gruppo fallita' }
+      render :new 
     end
   end
 
   # PATCH/PUT /admin/groups/1
   # PATCH/PUT /admin/groups/1.json
   def update
-    respond_to do |format|
-      if @group.update(group_params)
-        format.html { redirect_to @group, notice: 'Group was successfully updated.' }
-        format.json { render :show, status: :ok, location: @group }
-      else
-        format.html { render :edit }
-        format.json { render json: @group.errors, status: :unprocessable_entity }
-      end
+    @users = @group.users.pluck :username, :id
+    if @group.update(group_params)
+      @status = { success: 'Gruppo aggiornato' } 
+      render :show
+    else
+      @status = { error: 'Aggiornamento gruppo fallito'}
+      render :edit 
     end
   end
 
@@ -73,8 +74,17 @@ class Admin::GroupsController < Admin::ApplicationController
     @group = Group.find(params[:id])
   end
 
+  # preset users value
+  def set_users
+    @users = @group.users
+  end
+
+  def filter_params
+     params.fetch(:filter, {}).permit(:text)
+  end
+
   # Only allow a list of trusted parameters through.
   def group_params
-    params.require(:group).permit(:title, :user_ids)
+    params.require(:group).permit(:title, user_ids: [])
   end
 end

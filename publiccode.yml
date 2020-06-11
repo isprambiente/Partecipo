@@ -29,10 +29,10 @@ description:
       browser web.
     shortDescription: 'Programma di gestione prenotazioni eventi '
     screenshots:
-       - doc/screen-1.png
-       - doc/screen-2.png
-       - doc/screen-3.png
-       - doc/screen-4.png
+      - doc/screen-1.png
+      - doc/screen-2.png
+      - doc/screen-3.png
+      - doc/screen-4.png
 developmentStatus: stable
 inputTypes:
   - text/plain
@@ -81,7 +81,7 @@ platforms:
   - windows
 releaseDate: '2020-06-02'
 softwareType: standalone/web
-softwareVersion: 1.0.0
+softwareVersion: 1.0.1
 url: 'https://github.com/isprambiente/Partecipo.git'
 usedBy:
   - ISPRA
