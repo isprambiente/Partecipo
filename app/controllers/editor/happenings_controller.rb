@@ -1,14 +1,14 @@
 # frozen_string_literal: true
 
+# This controller manafe {Happening} model for editors
 class Editor::HappeningsController < Editor::ApplicationController
   before_action :set_fact
   before_action :set_happening, only: %i[show edit update destroy]
 
-  # GET /editor/happenings
-  # GET /editor/happenings.json
+  # GET /editor/facts/:fact_id/happenings
   def index
-    type = happenings_filter[:type] == 'history' ? 'history' : 'future'
-    @text = ['detail ilike :text', text: "%#{happenings_filter[:text]}%"] if happenings_filter[:text].present?
+    type = filter_params[:type] == 'history' ? 'history' : 'future'
+    @text = ['detail ilike :text', text: "%#{filter_params[:text]}%"] if filter_params[:text].present?
     @pagy, @happenings = pagy(
       @fact.happenings.send(type).where(@text),
       link_extra: "data-remote='true' data-action='ajax:success->section#goPage'",
@@ -16,22 +16,20 @@ class Editor::HappeningsController < Editor::ApplicationController
     )
   end
 
-  # GET /editor/happenings/1
-  # GET /editor/happenings/1.json
+  # GET /editor/facts/:fact_id/happenings/:id
   def show
     set_tickets
   end
 
-  # GET /editor/happenings/new
+  # GET /editor/facts/fact_id/happenings/new
   def new
     @happening = @fact.happenings.new
   end
 
-  # GET /editor/happenings/1/edit
+  # GET /editor/facts/:fact_id/happenings/:id/edit
   def edit; end
 
   # POST /editor/happenings
-  # POST /editor/happenings.json
   def create
     @happening = @fact.happenings.new(happening_params)
 
@@ -43,8 +41,7 @@ class Editor::HappeningsController < Editor::ApplicationController
     end
   end
 
-  # PATCH/PUT /editor/happenings/1
-  # PATCH/PUT /editor/happenings/1.json
+  # PATCH/PUT /editor/facts/:fact_id/happenings/:id
   def update
     if @happening.update(happening_params)
       set_tickets
@@ -54,8 +51,7 @@ class Editor::HappeningsController < Editor::ApplicationController
     end
   end
 
-  # DELETE /editor/happenings/1
-  # DELETE /editor/happenings/1.json
+  # DELETE /editor/facts/:fact_id/happenings/:id
   def destroy
     @happening.destroy
     redirect_to editor_root_path
@@ -63,15 +59,17 @@ class Editor::HappeningsController < Editor::ApplicationController
 
   private
 
+  # Set @fact beore each action
   def set_fact
     @fact = current_user.facts.find(params[:fact_id])
   end
 
-  # Use callbacks to share common setup or constraints between actions.
+  # Set @happening when needed
   def set_happening
     @happening = @fact.happenings.find(params[:id])
   end
 
+  # Set tickets 
   def set_tickets
     @pagy, @tickets = pagy(
       @happening.tickets,
@@ -80,12 +78,13 @@ class Editor::HappeningsController < Editor::ApplicationController
     )
   end
 
-  # Only allow a list of trusted parameters through.
+  # Filter params for set an {Happening}
   def happening_params
     params.require(:happening).permit(:detail, :start_at, :start_sale_at, :stop_sale_at, :max_seats, :max_seats_for_ticket)
   end
 
-  def happenings_filter
+  # Filter params for search an {Happening}
+  def search_filter
     params.fetch(:filter, {}).permit(:text, :type)
   end
 end

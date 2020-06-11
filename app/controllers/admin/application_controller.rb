@@ -1,5 +1,6 @@
 # frozen_string_literal: true
 
+# This controller contain the methods shared for all admin controller
 class Admin::ApplicationController < ApplicationController
   before_action :authenticate_admin!
 

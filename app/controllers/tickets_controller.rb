@@ -1,5 +1,6 @@
 # frozen_string_literal: true
 
+# this controller manage {Ticket} model
 class TicketsController < ApplicationController
   before_action :set_ticket, only: %i[create destroy]
 

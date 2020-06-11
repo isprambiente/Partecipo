@@ -1,12 +1,13 @@
 # frozen_string_literal: true
 
+# This controller manage {Ticket} model for editors
 class Editor::TicketsController < Editor::ApplicationController
   require 'csv'
   before_action :set_fact
   before_action :set_happening
   before_action :set_ticket, only: %i[show edit update destroy]
 
-  # GET /editor/tickets
+  # GET /editor/facts/:fact_id/happenings/:happening_id/tickets
   # GET /editor/tickets.json
   def index
     @text = ["users.username ilike '%:string%'", string: params[:text]] if params[:text].present?
@@ -17,6 +18,7 @@ class Editor::TicketsController < Editor::ApplicationController
     )
   end
 
+  # GET /editor/facts/:fact_id/happenings/:happening_id/tickets/export
   def export
     @tickets = [%w[Username Posti]]
     @tickets += @happening.tickets.includes(:user).all.map { |t| [t.user.username, t.seats] }
@@ -29,21 +31,21 @@ class Editor::TicketsController < Editor::ApplicationController
     end
   end
 
-  # GET /editor/tickets/new
+  # GET /editor/facts/:fact_id/happenings/:happening_id/tickets/new
   def new
     @ticket = @happening.tickets.new
     @users = User.pluck :username, :id
     render :form
   end
 
-  # GET /editor/tickets/1/edit
+  # GET /editor/facts/:fact_id/happenings/:happening_id/tickets/:id/edit
   def edit
     @users = User.pluck :username, :id
     render :form
   end
 
-  # POST /editor/tickets
-  # POST /editor/tickets.json
+
+  # POST /editor/facts/:fact_id/happenings/:happening_id/tickets/
   def create
     @ticket = @happening.tickets.new(ticket_params)
     @ticket.by_editor = true
@@ -57,8 +59,7 @@ class Editor::TicketsController < Editor::ApplicationController
     end
   end
 
-  # PATCH/PUT /editor/tickets/1
-  # PATCH/PUT /editor/tickets/1.json
+  # PATCH/PUT /editor/facts/:fact_id/happenings/:happening_id/tickets/:id
   def update
     @ticket.by_editor = true
     if @ticket.update(ticket_params)
@@ -71,8 +72,7 @@ class Editor::TicketsController < Editor::ApplicationController
     end
   end
 
-  # DELETE /editor/tickets/1
-  # DELETE /editor/tickets/1.json
+  # DELETE /editor/facts/:fact_id/happenings/:happening_id/tickets/:id
   def destroy
     @ticket.destroy
     flash[:success] = 'Prenotazione eliminata'
@@ -81,21 +81,22 @@ class Editor::TicketsController < Editor::ApplicationController
 
   private
 
+  # set @fact before any action
   def set_fact
     @fact = current_user.facts.find(params[:fact_id])
   end
 
-  # Use callbacks to share common setup or constraints between actions.
+  # Set @happening before any action
   def set_happening
     @happening = @fact.happenings.find(params[:happening_id])
   end
 
-  # Use callbacks to share common setup or constraints between actions.
+  # Set ticket when needed
   def set_ticket
     @ticket = @happening.tickets.find(params[:id])
   end
 
-  # Only allow a list of trusted parameters through.
+  # Filter params for set a ticket
   def ticket_params
     params.require(:ticket).permit(:happenings_id, :user_id, :seats)
   end

@@ -1,5 +1,7 @@
 # frozen_string_literal: true
 
+# this controller manage the {Happening} model.
+# this model is under {FactsController}
 class HappeningsController < ApplicationController
   before_action :set_fact
   before_action :set_happening, only: %i[show]
@@ -8,8 +10,8 @@ class HappeningsController < ApplicationController
   # GET /fact/:fact_id/happenings
   # show a paginate list of {Happening}
   def index
-    type = filter_happenings[:type] == 'history' ? 'history' : 'future'
-    @text = ['detail ilike :text', text: "%#{filter_happenings[:text]}%"] if filter_happenings[:text].present?
+    type = filter_paramss[:type] == 'history' ? 'history' : 'future'
+    @text = ['detail ilike :text', text: "%#{filter_paramss[:text]}%"] if filter_paramss[:text].present?
     @pagy, @happenings = pagy(
       @fact.happenings.send(type).where(@text),
       link_extra: "data-remote='true' data-action='ajax:success->section#goPage'",
@@ -28,7 +30,7 @@ class HappeningsController < ApplicationController
     @fact = Fact.find(params[:fact_id])
   end
 
-  # set @happening needed
+  # set @happening when needed
   def set_happening
     @happening = @fact.happenings.find(params[:id])
   end
@@ -39,7 +41,7 @@ class HappeningsController < ApplicationController
   end
 
   # filter params for search {Happening}
-  def filter_happenings
+  def filter_paramss
     params.fetch(:filter, {}).permit(:text, :type)
   end
 

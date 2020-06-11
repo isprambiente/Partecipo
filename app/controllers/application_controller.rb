@@ -1,5 +1,6 @@
 # frozen_string_literal: true
 
+# This controller contain the methods shared for all controller
 class ApplicationController < ActionController::Base
   include Pagy::Backend
   layout :set_layout
