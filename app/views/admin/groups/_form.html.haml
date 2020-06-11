@@ -1,0 +1,20 @@
+= form_with(model: [:admin, group], data: {action: "ajax:success->page#goPage"}) do |form|
+  .field
+    = form.label :title
+    .control.has-icons-left
+      = form.text_field :title, class: 'input'
+      .icon.is-small.is-left
+        %i.fas.fa-heading
+    %p.help.is-danger= group.errors[:title].join(' - ')
+  .field
+    = form.label :user_ids
+    .control.has-icons-left
+      = form.select :user_ids, @users, {}, {multiple: true, data: {controller: 'slim', target: 'slim.editor'}}
+      %p.help.is-danger= group.errors.messages[:user].join(' - ')
+
+  .has-text-centered
+    = form.button fas_icon('save', text: 'Salva'), class: 'button is-success'
+    - if group.persisted?
+      = link_to fas_icon('chevron-left', text: 'Indietro'), admin_group_path(@group), class: 'button is-link', data: {action: "ajax:success->page#goPage", remote: true}
+    - else
+      = link_to fas_icon('chevron-left', text: 'Indietro'), admin_groups_path, class: 'button is-link', data: {action: "ajax:success->page#goPage", remote: true}

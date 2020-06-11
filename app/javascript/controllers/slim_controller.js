@@ -11,21 +11,26 @@ import { Controller } from "stimulus"
 import SlimSelect from 'slim-select'
 
 export default class extends Controller {
-  static targets = [ 'simple', 'user', 'istitute' ]
+  static targets = [ 'simple', 'user', 'editor' ]
 
   connect() {
     if (this.hasSimpleTarget) {this.simpleTargets.forEach(element => this.simple(element))}
-    if (this.hasIstituteTarget) {this.istituteTargets.forEach(element => this.istitute(element))}
+    if (this.hasUserTarget) {this.userTargets.forEach(element => this.user(element))}
+    if (this.hasEditorTarget) {this.editorTargets.forEach(element => this.editor(element))}
   }
 
   simple(element) {
     new SlimSelect({ select: element })
   }
 
-  user(element) {
+  editor(element) {
+    this.ajax(element, '/admin/users/list?filter[editor]=1&')
+  }
+
+  ajax(element, url) {
     new SlimSelect({
       select: element,
-      placeholder: 'Seleziona un docente',
+      placeholder: 'Seleziona un utente',
       searchingText: 'Sto cercando...',
       searchPlaceholder:  'Digita per ricercare',
       searchText: 'Nessun risultato',
@@ -38,14 +43,12 @@ export default class extends Controller {
         }
 
         // Perform your own ajax request here
-        fetch(`/users/list.json?text=${search}`)
-        .then(function (response) {
-          return response.json()
-        })
+        fetch(`${url}filter[text]=${search}`)
+        .then(function (response) { return response.json() })
         .then(function (json) {
           let data = []
           for (let i = 0; i < json.users.length; i++) {
-            data.push({text: `${json.users[i].name} ${json.users[i].surname}`, value: json.users[i].id})
+            data.push({text: json.users[i].username, value: json.users[i].id})
           }
 
           // Upon successful fetch send data to callback function.
@@ -53,49 +56,9 @@ export default class extends Controller {
           // Refer to the method setData for examples of proper format.
           callback(data)
         })
-        .catch(function(error) {
-          // If any erros happened send false back through the callback
-          callback(false)
-        })
+        .catch(function(error) { callback(false) })
       }
     })
   }
 
-  istitute(element) {
-    new SlimSelect({
-      select: element,
-      placeholder: 'Seleziona un utente',
-      searchingText: 'Sto cercando...',
-      searchPlaceholder:  'Digita per ricercare',
-      searchText: 'Nessun risultato',
-      ajax: function (search, callback) {
-        // Check search value. If you dont like it callback(false) or callback('Message String')
-        if (search.length < 3) {
-          callback('Inserire almeno 3 caratteri')
-          return
-        }
-
-        // Perform your own ajax request here
-        fetch(`/users/list.json?text=${search}&list=1`)
-        .then(function (response) {
-          return response.json()
-        })
-        .then(function (json) {
-          let data = []
-          for (let i = 0; i < json.istitutes.length; i++) {
-            data.push({text: json.istitutes[i].title, value: json.istitutes[i].id})
-          }
-
-          // Upon successful fetch send data to callback function.
-          // Be sure to send data back in the proper format.
-          // Refer to the method setData for examples of proper format.
-          callback(data)
-        })
-        .catch(function(error) {
-          // If any erros happened send false back through the callback
-          callback(false)
-        })
-      }
-    })
-  }
 }
