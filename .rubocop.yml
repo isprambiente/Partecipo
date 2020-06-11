@@ -1,1 +1,5 @@
+Style/ClassAndModuleChildren:
+  Enabled: false
+Layout/LineLength:
+  Enabled: false
 inherit_from: .rubocop_todo.yml

@@ -10,8 +10,8 @@ class FactTest < ActiveSupport::TestCase
   ### Associations
   test 'has many happenings' do
     f = create(:fact)
-    h1 = create(:happening)
-    h2 = create(:happening, fact: f)
+    create(:happening)
+    create(:happening, fact: f)
     assert_equal 1, f.happenings.count
   end
 
@@ -28,10 +28,10 @@ class FactTest < ActiveSupport::TestCase
 
   ### scope
   test 'future scope' do
-    f1 = create :fact, start_on: Time.zone.today - 2.days, stop_on: Time.zone.today - 1.day
+    create :fact, start_on: Time.zone.today - 2.days, stop_on: Time.zone.today - 1.day
     f2 = create :fact, start_on: Time.zone.today - 1.day, stop_on: Time.zone.today + 1.day
     f3 = create :fact, start_on: Time.zone.today + 2.days, stop_on: Time.zone.today + 3.days
-    f4 = create :fact, start_on: Time.zone.today - 4.days, stop_on: Time.zone.today - 3.days
+    create :fact, start_on: Time.zone.today - 4.days, stop_on: Time.zone.today - 3.days
 
     assert_equal 2, Fact.future.count
     assert_equal f2, Fact.future.first
@@ -41,8 +41,8 @@ class FactTest < ActiveSupport::TestCase
   end
   test 'history scope' do
     f1 = create :fact, start_on: Time.zone.today - 2.days, stop_on: Time.zone.today - 1.day
-    f2 = create :fact, start_on: Time.zone.today - 1.day, stop_on: Time.zone.today + 1.day
-    f3 = create :fact, start_on: Time.zone.today + 2.days, stop_on: Time.zone.today + 3.days
+    create :fact, start_on: Time.zone.today - 1.day, stop_on: Time.zone.today + 1.day
+    create :fact, start_on: Time.zone.today + 2.days, stop_on: Time.zone.today + 3.days
     f4 = create :fact, start_on: Time.zone.today - 4.days, stop_on: Time.zone.today - 3.days
     assert_equal 2, Fact.history.count
     assert_equal f1, Fact.history.first
