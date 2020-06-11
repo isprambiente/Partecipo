@@ -9,6 +9,11 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 ### Changed
 - fix admin group
 - fix show events new line
+- update *devise* from 4.7.1 to 4.7.2
+- update *ffi* from 1.13.0 to 1.13.1
+- update *capistrano* from 3.14.0 to 3.14.1
+- update *ast* from 2.4.0 to 2.4.1
+- update *net-ssh* from 6.0.2 to 6.1.0
 
 ## [1.0.0] - 2020-06-11
 First release
