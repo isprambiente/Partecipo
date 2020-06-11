@@ -25,7 +25,7 @@
 # @!attribute [rw] ticketss_count
 #   @return [Integer] counter cache for {Ticket}
 # @!attribute [rw] seats_count
-#   @return [Integer] counter cache of sum of {Ticket.seat}
+#   @return [Integer] counter cache of sum of {Ticket.seats}
 # @!attribute [rw] created_at
 #   @return [DateTime] when the record was created
 # @!attribute [rw] updated_at
