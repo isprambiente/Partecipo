@@ -1,21 +1,20 @@
 # frozen_string_literal: true
 
+# This controller manage {Group} model for admin {User}
 class Admin::GroupsController < Admin::ApplicationController
   before_action :set_group, only: %i[show edit update destroy]
   before_action :set_users, only: %i[edit update]
 
   # GET /admin/groups
-  # GET /admin/groups.json
-  def index
-  end
+  def index; end
 
+  # GET /admin/groups/list
   def list
     @text = ['title ilike :text', text: "%#{filter_params[:text]}%"] if filter_params[:text].present?
     @pagy, @groups = pagy(Group.all.where(@text))
   end
 
   # GET /admin/groups/1
-  # GET /admin/groups/1.json
   def show; end
 
   # GET /admin/groups/new
@@ -30,35 +29,32 @@ class Admin::GroupsController < Admin::ApplicationController
   end
 
   # POST /admin/groups
-  # POST /admin/groups.json
   def create
     @group = Group.new(group_params)
     set_users
 
     if @group.save
-      @status = { success: 'Gruppo creato' } 
+      @status = { success: 'Gruppo creato' }
       render :show
     else
       @status = { error: 'Creazione gruppo fallita' }
-      render :new 
+      render :new
     end
   end
 
   # PATCH/PUT /admin/groups/1
-  # PATCH/PUT /admin/groups/1.json
   def update
     @users = @group.users.pluck :username, :id
     if @group.update(group_params)
-      @status = { success: 'Gruppo aggiornato' } 
+      @status = { success: 'Gruppo aggiornato' }
       render :show
     else
-      @status = { error: 'Aggiornamento gruppo fallito'}
-      render :edit 
+      @status = { error: 'Aggiornamento gruppo fallito' }
+      render :edit
     end
   end
 
   # DELETE /admin/groups/1
-  # DELETE /admin/groups/1.json
   def destroy
     @group.destroy
     respond_to do |format|
@@ -69,7 +65,7 @@ class Admin::GroupsController < Admin::ApplicationController
 
   private
 
-  # Use callbacks to share common setup or constraints between actions.
+  # Set {Group} when needed
   def set_group
     @group = Group.find(params[:id])
   end
@@ -79,11 +75,12 @@ class Admin::GroupsController < Admin::ApplicationController
     @users = @group.users
   end
 
+  # filter params for search groups
   def filter_params
-     params.fetch(:filter, {}).permit(:text)
+    params.fetch(:filter, {}).permit(:text)
   end
 
-  # Only allow a list of trusted parameters through.
+  # Filter params for create/change a {Ticket} istance
   def group_params
     params.require(:group).permit(:title, user_ids: [])
   end

@@ -25,7 +25,7 @@
 # @!attribute [rw] ticketss_count
 #   @return [Integer] counter cache for {Ticket}
 # @!attribute [rw] seats_count
-#   @return [Integer] counter cache of sum of {Ticket.seat}
+#   @return [Integer] counter cache of sum of {Ticket.seats}
 # @!attribute [rw] created_at
 #   @return [DateTime] when the record was created
 # @!attribute [rw] updated_at
@@ -54,10 +54,12 @@ class Happening < ApplicationRecord
     save touch: false
   end
 
+  # @return [Boolean] check seaelability time
   def saleable?
     Time.zone.now >= start_sale_at && Time.zone.now <= stop_sale_at
   end
 
+  # @return [String] unique code to identify the {Happening}
   def code
     [fact_id, id].join(' - ')
   end

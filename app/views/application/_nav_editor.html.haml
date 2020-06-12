@@ -12,7 +12,7 @@
       #nav3-menu.navbar-menu{data: {target: 'page.menu'}}
         .navbar-start
           = link_to fas_icon('tools', text: 'Gestione eventi'), editor_root_path, class: "navbar-item", data: {action: "ajax:success->page#goPage", remote: true}
-          = link_to fas_icon('users', text: 'Vista utenti'), root_path, class: "navbar-item", data: {action: "ajax:success->page#goPage", remote: true}
+          = link_to fas_icon('user', text: 'Vista utente'), root_path, class: "navbar-item"
         .navbar-end
           = link_to fas_icon('user-cog', text: current_user.username), editor_root_path, class: 'navbar-item'
           %a.navbar-item{href: destroy_user_session_path, data: {method: :delete}}

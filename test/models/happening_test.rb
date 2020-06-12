@@ -16,8 +16,8 @@ class HappeningTest < ActiveSupport::TestCase
 
   test 'has many tickets' do
     h = create :happening
-    t1 = create :ticket
-    t2 = create :ticket, happening: h
+    create :ticket
+    create :ticket, happening: h
     assert_equal 1, h.tickets.count
   end
 
@@ -39,7 +39,7 @@ class HappeningTest < ActiveSupport::TestCase
 
   ### Scope
   test 'future scope' do
-    h1 = create :happening, start_at: Time.zone.now - 1.day
+    create :happening, start_at: Time.zone.now - 1.day
     h2 = create :happening, start_at: Time.zone.now + 1.day
     h3 = create :happening, start_at: Time.zone.now + 2.days
     assert_equal 2, Happening.future.count
@@ -50,7 +50,7 @@ class HappeningTest < ActiveSupport::TestCase
   test 'history scope' do
     h1 = create :happening, start_at: Time.zone.now - 2.days
     h2 = create :happening, start_at: Time.zone.now - 1.day
-    h3 = create :happening, start_at: Time.zone.now + 2.days
+    create :happening, start_at: Time.zone.now + 2.days
     assert_equal 2, Happening.history.count
     assert_equal h2, Happening.history.first
     assert_equal h1, Happening.history.last

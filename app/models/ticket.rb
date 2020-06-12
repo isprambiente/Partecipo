@@ -25,7 +25,6 @@
 #   @return [DateTime] when the record was created
 # @!attribute [rw] updated_at
 #   @return [DateTime] when the record was created
-
 class Ticket < ApplicationRecord
   belongs_to :happening, counter_cache: true
   belongs_to :user
@@ -43,25 +42,31 @@ class Ticket < ApplicationRecord
 
   after_save :update_seats_count!
 
+  # @return [Boolean] true if by_editor is true
   def by_editor?
     by_editor == true
   end
 
   private
 
+  # Add an error unless {Happening.saleable?} is true
   def validate_saleability
     errors.add(:seats, 'Posti non assegnabili') unless saleable?
   end
 
-  # Add error if
+  # Add error unless requested seats are minor than available seatc
   def validate_total_seats
     errors.add(:seats, 'Posti non disponibili') if seats_count + seats.to_i > max_seats
   end
 
-  # add error if exist another {Ticket} in same day for same {Fact} f
+  # add error if {same_day_tickets} is a positive number
   def validate_same_day
+    errors.add(:seats, 'Non e` possibile prenotare piu` volte un evento nello stesso giorno') if same_day_tickets.positive?
+  end
+
+  # Count Tickets from same {User} for same {Happening} in same day
+  def same_day_tickets
     h = Happening.where(fact: happening.fact, start_at: (start_at.beginning_of_day..start_at.end_of_day))
-    tickets = Ticket.where(user: user, happening: h).where.not(id: id).count
-    errors.add(:seats, 'Non e` possibile prenotare piu` volte un evento nello stesso giorno') if tickets > 0
+    Ticket.where(user: user, happening: h).where.not(id: id).count
   end
 end
