@@ -14,6 +14,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - Fix link in editor bar to user view
 - Fix link in admin bar to user view
 - Fix link in admin bar to editor view
+- Fix save on Happening update
 
 ## [1.0.1] - 2020-06-11
 ### Changed
