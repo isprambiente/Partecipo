@@ -79,7 +79,7 @@ platforms:
   - web
   - linux
   - windows
-roadmap: 'https://github.com/isprambiente/Partecipo/issues'
+roadmap: 'https://github.com/isprambiente/Partecipo/projects'
 releaseDate: '2020-06-12'
 softwareType: standalone/web
 softwareVersion: 1.0.2
