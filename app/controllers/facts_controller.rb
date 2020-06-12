@@ -19,7 +19,7 @@ class FactsController < ApplicationController
 
   private
 
-  # set fact when is needed 
+  # set fact when is needed
   def set_fact
     @fact = Fact.find(params[:id])
   end

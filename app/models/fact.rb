@@ -31,7 +31,6 @@
 #   @return [Array] list of [Fact] with stop_on egual or greather than Time.zone.today, ordered by pinnes asc, stop_on asc
 # @!method self.history()
 #   @return [Array] list of [Fact] with stop_on minor than Time.zone.today, ordered by start_on desc
-
 class Fact < ApplicationRecord
   has_rich_text :body
   has_one_attached :image

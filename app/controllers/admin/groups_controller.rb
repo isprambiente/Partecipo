@@ -8,6 +8,7 @@ class Admin::GroupsController < Admin::ApplicationController
   # GET /admin/groups
   def index; end
 
+  # GET /admin/groups/list
   def list
     @text = ['title ilike :text', text: "%#{filter_params[:text]}%"] if filter_params[:text].present?
     @pagy, @groups = pagy(Group.all.where(@text))

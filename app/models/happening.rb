@@ -54,10 +54,12 @@ class Happening < ApplicationRecord
     save touch: false
   end
 
+  # @return [Boolean] check seaelability time
   def saleable?
     Time.zone.now >= start_sale_at && Time.zone.now <= stop_sale_at
   end
 
+  # @return [String] unique code to identify the {Happening}
   def code
     [fact_id, id].join(' - ')
   end

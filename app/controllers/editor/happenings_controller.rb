@@ -69,7 +69,7 @@ class Editor::HappeningsController < Editor::ApplicationController
     @happening = @fact.happenings.find(params[:id])
   end
 
-  # Set tickets 
+  # Set tickets
   def set_tickets
     @pagy, @tickets = pagy(
       @happening.tickets,
@@ -84,7 +84,7 @@ class Editor::HappeningsController < Editor::ApplicationController
   end
 
   # Filter params for search an {Happening}
-  def search_filter
+  def filter_params
     params.fetch(:filter, {}).permit(:text, :type)
   end
 end

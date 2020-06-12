@@ -20,15 +20,12 @@ class Editor::TicketsController < Editor::ApplicationController
 
   # GET /editor/facts/:fact_id/happenings/:happening_id/tickets/export
   def export
-    @tickets = [%w[Username Posti]]
-    @tickets += @happening.tickets.includes(:user).all.map { |t| [t.user.username, t.seats] }
-    @tickets += [['Totale', @happening.seats_count]]
-
-    respond_to do |format|
-      format.html { redirect_to editor_fact_happening_path(@fact, @happening) }
-      format.pdf  { redirect_to editor_fact_happening_path(@fact, @happening) }
-      format.csv  { send_data @tickets.map(&:to_csv).join, filename: 'tickets.csv' }
-    end
+    @tickets = [
+      %w[Username Posti],
+      @happening.tickets.includes(:user).all.map { |t| [t.user.username, t.seats] },
+      ['Totale', @happening.seats_count]
+    ]
+    send_data @tickets.map(&:to_csv).join, filename: 'tickets.csv'
   end
 
   # GET /editor/facts/:fact_id/happenings/:happening_id/tickets/new
@@ -43,7 +40,6 @@ class Editor::TicketsController < Editor::ApplicationController
     @users = User.pluck :username, :id
     render :form
   end
-
 
   # POST /editor/facts/:fact_id/happenings/:happening_id/tickets/
   def create
