@@ -6,6 +6,12 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+## [1.0.3] - 2020-06-25
+### Changed
+- Bump rails from 6.0.3.1 to 6.0.3.2 (fix CVE-2020-8185)
+- Bump rack from 2.2.2 to 2.2.3
+- Bump bulma to 9.0
+
 ## [1.0.2] - 2020-06-12
 ### Added
 - new documentation for model, controller, helper
