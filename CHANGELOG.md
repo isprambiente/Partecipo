@@ -6,6 +6,11 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+## [1.0.4] - 2020-09-24
+### Changed
+- Bump rails from 6.0.3.2 to 6.0.3.3
+- Bump Devise from 4.7.2 to 4.7.3
+
 ## [1.0.3] - 2020-06-25
 ### Changed
 - Bump rails from 6.0.3.1 to 6.0.3.2 (fix CVE-2020-8185)
