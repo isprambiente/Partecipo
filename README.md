@@ -38,7 +38,7 @@ Il sito è sviluppato in linguaggio Ruby 2.7, framework Rails 6.0 e webpacker St
 * Sistema operativo: Linux
 * Gestore pacchetto ruby: RVM
 * Linguaggio di programmazione: Ruby 2.7
-* Framework: Rais 6.0
+* Framework: Rais 6.1
 * Webpacker: StimulusJS
 * Database: PostgreSQL >= 12.2
 * NodeJS: JavaScript runtime >= v13.10
