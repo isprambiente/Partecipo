@@ -8,7 +8,7 @@ class Editor::HappeningsController < Editor::ApplicationController
   # GET /editor/facts/:fact_id/happenings
   def index
     type = filter_params[:type] == 'history' ? 'history' : 'future'
-    @text = ['detail ilike :text', text: "%#{filter_params[:text]}%"] if filter_params[:text].present?
+    @text = ['detail ilike :text', { text: "%#{filter_params[:text]}%" }] if filter_params[:text].present?
     @pagy, @happenings = pagy(
       @fact.happenings.send(type).where(@text),
       link_extra: "data-remote='true' data-action='ajax:success->section#goPage'",

@@ -10,7 +10,7 @@ class TicketsController < ApplicationController
   # GET /tickets/list
   def list
     type = filter_tickets[:type] == 'history' ? 'start_at < :from' : 'start_at > :from'
-    @text = ['facts.title ilike :text', text: "%#{filter_tickets[:text]}%"] if filter_tickets[:text].present?
+    @text = ['facts.title ilike :text', { text: "%#{filter_tickets[:text]}%" }] if filter_tickets[:text].present?
     pagy current_user.tickets.joins(happening: [:fact]).where(type, from: Time.zone.now).where(@text)
   end
 

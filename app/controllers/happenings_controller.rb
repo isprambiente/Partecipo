@@ -11,7 +11,7 @@ class HappeningsController < ApplicationController
   # show a paginate list of {Happening}
   def index
     type = filter_paramss[:type] == 'history' ? 'history' : 'future'
-    @text = ['detail ilike :text', text: "%#{filter_paramss[:text]}%"] if filter_paramss[:text].present?
+    @text = ['detail ilike :text', { text: "%#{filter_paramss[:text]}%" }] if filter_paramss[:text].present?
     @pagy, @happenings = pagy(
       @fact.happenings.send(type).where(@text),
       link_extra: "data-remote='true' data-action='ajax:success->section#goPage'",

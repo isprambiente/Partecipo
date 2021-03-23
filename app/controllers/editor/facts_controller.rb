@@ -11,7 +11,7 @@ class Editor::FactsController < Editor::ApplicationController
   # GET /editor/facts/list
   def list
     type = filter_params[:type] == 'history' ? 'history' : 'future'
-    @text = ['title ilike :text', text: "%#{filter_params[:text]}%"] if filter_params[:text].present?
+    @text = ['title ilike :text', { text: "%#{filter_params[:text]}%" }] if filter_params[:text].present?
     @pagy, @facts = pagy(current_user.facts.send(type).where(@text))
   end
 

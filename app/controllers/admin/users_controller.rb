@@ -13,7 +13,7 @@ class Admin::UsersController < Admin::ApplicationController
     @search = {}
     @search[:editor] = true if filter_params[:editor] == '1'
     @search[:admin] = true if filter_params[:admin] == '1'
-    @text = ['username ilike :text', text: "%#{filter_params[:text]}%"] if filter_params[:text].present?
+    @text = ['username ilike :text', { text: "%#{filter_params[:text]}%" }] if filter_params[:text].present?
     @pagy, @users = pagy(User.where(@search).where(@text))
   end
 
