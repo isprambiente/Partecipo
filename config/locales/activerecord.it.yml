@@ -9,9 +9,12 @@ it:
     attributes:
       fact:
         title: Titolo
+        groups: Gruppo di amministrazione
         start_on: Inizio
         stop_on: Fine
-        body: Desctizione
+        body: Descrizione
+        tickets_frequency: Frequenza prenotazioni
+        where: Dove
       user:
         username: Nome utente
     models:

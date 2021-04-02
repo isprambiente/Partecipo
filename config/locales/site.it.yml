@@ -7,6 +7,12 @@ it:
         future: Prossimi eventi
         history: Storico eventi
       search: Ricerca eventi
+      tickets_frequency:
+        any: Nessun limite
+        single: Singolo
+        daily: Giornaliero
+        weekly: Settimanale
+        montly: Mensile
     happening:
       scope:
         future: Prossime date

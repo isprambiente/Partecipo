@@ -36,9 +36,11 @@ class Fact < ApplicationRecord
   has_one_attached :image
   belongs_to :group
   has_many :happenings
+  has_many :tickets, through: :happenings
   validates :title, presence: true
   validates :start_on, presence: true
   validates :stop_on, presence: true
+  enum tickets_frequency: [:any, :single, :daily, :weekly, :monthly]
 
   after_create :add_default_image, unless: proc { |fact| fact.image.attached? }
 

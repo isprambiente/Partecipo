@@ -14,18 +14,28 @@
       %span.icon.is-small.is-left
         %i.fas.fa-user
     %p.help.is-danger= fact.errors[:groups].join(' - ')
-  .field
-    Selezione Immagine
-    .file.has-name.is-fullwidth
-      = form.label :image, class: 'file-label' do
-        = form.file_field :image, class: 'file-input'
-        %span.file-cta
-          %span.file-icon
-            %i.fas.fa-upload
-          %span.file-label Seleziona un file
-        %span.file-name
-    %p.help.is-danger= fact.errors[:image].join(' - ')
-
+  .columns
+    .column
+      .field
+        Selezione Immagine
+        .file.has-name.is-fullwidth
+          = form.label :image, class: 'file-label' do
+            = form.file_field :image, class: 'file-input'
+            %span.file-cta
+              %span.file-icon
+                %i.fas.fa-upload
+              %span.file-label Seleziona un file
+            %span.file-name
+        %p.help.is-danger= fact.errors[:image].join(' - ')
+    .column
+      .field
+        = form.label :tickets_frequency
+        %p.control.has-icons-left
+          %span.select.is-fullwidth
+            = form.select :tickets_frequency, Fact.tickets_frequencies.keys.map{|e| [t(e, scope: 'site.fact.tickets_frequency'),e]}
+          %span.icon.is-small.is-left
+            %i.fas.fa-calendar
+        %p.help.is-danger= fact.errors[:groups].join(' - ')
 
   .field
     = form.label :body

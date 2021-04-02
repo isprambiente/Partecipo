@@ -79,6 +79,6 @@ class Editor::FactsController < Editor::ApplicationController
 
   # Filter params for set a {Fact}
   def fact_params
-    params.require(:fact).permit(:title, :group_id, :body, :start_on, :stop_on, :pinned, :image, :where)
+    params.require(:fact).permit(:tickets_frequency, :title, :group_id, :body, :start_on, :stop_on, :pinned, :image, :where)
   end
 end

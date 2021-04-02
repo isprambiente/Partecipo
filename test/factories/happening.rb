@@ -6,8 +6,8 @@ FactoryBot.define do
     detail { 'detail' }
     max_seats { 10 }
     max_seats_for_ticket { 1 }
-    start_at { Time.zone.nowg }
-    start_sale_at { Time.zone.nowg - 1.day }
-    stop_sale_at { Time.zone.nowg + 1.day }
+    start_at { Time.zone.now }
+    start_sale_at { Time.zone.now - 1.day }
+    stop_sale_at { Time.zone.now + 1.day }
   end
 end

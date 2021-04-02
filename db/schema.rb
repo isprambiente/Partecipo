@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2021_03_23_143456) do
+ActiveRecord::Schema.define(version: 2021_04_02_070340) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -63,6 +63,7 @@ ActiveRecord::Schema.define(version: 2021_03_23_143456) do
     t.integer "happenings_count", default: 0, null: false
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
+    t.integer "tickets_frequency", default: 0, null: false
     t.index ["group_id"], name: "index_facts_on_group_id"
   end
 
