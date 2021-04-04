@@ -1,6 +1,7 @@
-= @facts.each_slice(2) do |a,b|
-  .tile.is-ancestor
-    .tile.is-parent= render a
-    .tile.is-parent= render b if b.present?
-%hr
-= pagy_bulma_nav(@pagy).html_safe
+%turbo-frame#facts
+  = @facts.each_slice(2) do |a,b|
+    .tile.is-ancestor
+      .tile.is-parent= render a
+      .tile.is-parent= render b if b.present?
+  %hr
+  = pagy_bulma_nav(@pagy).html_safe

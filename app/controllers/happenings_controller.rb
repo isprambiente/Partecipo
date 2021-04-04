@@ -17,6 +17,7 @@ class HappeningsController < ApplicationController
       link_extra: "data-remote='true' data-action='ajax:success->section#goPage'",
       items: 6
     )
+    render layout: false
   end
 
   # GET /fact/:fact_id/happenings/:id

@@ -1,4 +1,4 @@
-%section{ data: { controller: 'section', section_url: list_tickets_path}}
+%turbo-frame#yield
   %h3.title.is-size-3.has-text-centered
     %i.fas.fa-ticket-alt
     = t('activerecord.models.ticket.other')
@@ -6,18 +6,19 @@
     %aside.column.is-3
       %nav.panel
         %p.panel-heading= t 'site.ticket.search'
-        = form_with scope: 'filter', url: list_tickets_path, method: :get, data: {action: "ajax:success->section#goPage"} do |f|
+        = form_with scope: 'filter', url: list_tickets_path, method: :get, data: {turbo_frame: 'tickets', controller: 'form', form_target: 'sender'} do |f|
           .panel-block
             %p.control.has-icons-left
-              = f.text_field :text, placeholder: 'Testo', class: 'input', data: {action: 'keyup->section#delayedSendForm'}
+              = f.text_field :text, placeholder: 'Testo', class: 'input', data: {action: 'keyup->form#delayedSendForm'}
               %span.icon.is-left
                 %i.fas.fa-search
           %label.panel-block
-            = f.radio_button :type, '', selected: true, data: {action: "section#sendForm"}
+            = f.radio_button :type, '', selected: true, data: {action: "form#sendForm"}
             %span= t('future', scope: 'site.fact.scope')
           %label.panel-block
-            = f.radio_button :type, 'history', selected: true, data: {action: "section#sendForm"}
+            = f.radio_button :type, 'history', selected: true, data: {action: "form#sendForm"}
             %span= t('history', scope: 'site.fact.scope')
-    .column{ data: { target: 'section.container' } }
+    .column
+      %turbo-frame#tickets{src: list_tickets_path}
 
 

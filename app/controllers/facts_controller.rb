@@ -15,6 +15,7 @@ class FactsController < ApplicationController
     type = filter_params[:type] == 'history' ? 'history' : 'future'
     @text = ['title ilike :text', { text: "%#{filter_params[:text]}%" }] if filter_params[:text].present?
     @pagy, @facts = pagy(Fact.send(type).where(@text))
+    render layout: false
   end
 
   private

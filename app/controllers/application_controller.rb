@@ -11,7 +11,6 @@ class ApplicationController < ActionController::Base
     record_not_found!
   end
 
-  # return the default nav for all views
   def nav
     'nav_user'
   end
@@ -34,11 +33,5 @@ class ApplicationController < ActionController::Base
   # @return [nil]
   def access_denied!
     render 'errors/401', status: :unauthorized, layout: 'empty' # && return
-  end
-
-  # {access_denied!} unless the request.xhr == true
-  # @return [nil]
-  def xhr_required!
-    access_denied! unless request.xhr?
   end
 end
