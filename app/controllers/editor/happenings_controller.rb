@@ -17,7 +17,6 @@ class Editor::HappeningsController < Editor::ApplicationController
 
   # GET /editor/facts/:fact_id/happenings/:id
   def show
-    set_tickets
   end
 
   # GET /editor/facts/fact_id/happenings/new
@@ -66,15 +65,6 @@ class Editor::HappeningsController < Editor::ApplicationController
   # Set @happening when needed
   def set_happening
     @happening = @fact.happenings.find(params[:id])
-  end
-
-  # Set tickets
-  def set_tickets
-    @pagy, @tickets = pagy(
-      @happening.tickets,
-      link_extra: "data-remote='true' data-action='ajax:success->section#goPage'",
-      items: 6
-    )
   end
 
   # Filter params for set an {Happening}

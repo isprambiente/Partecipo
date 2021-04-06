@@ -70,5 +70,8 @@
 
 
   .has-text-centered
-    %a.button.is-link{href: editor_fact_happenings_path(fact), data: {turbo_frame: 'happenings'}}= fas_icon 'chevron-left', text: 'Indietro'
+    - if happening.persisted?
+      %a.button.is-link{href: editor_fact_happening_tickets_path(fact, happening), data: {turbo_frame: 'tickets'}}= fas_icon 'chevron-left', text: 'Indietro'
+    -else
+      %a.button.is-link{href: editor_fact_happenings_path(fact), data: {turbo_frame: 'happenings'}}= fas_icon 'chevron-left', text: 'Indietro'
     = form.button fas_icon('save', text: 'Salva'), class: 'button is-success'

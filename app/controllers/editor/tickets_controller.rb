@@ -8,12 +8,10 @@ class Editor::TicketsController < Editor::ApplicationController
   before_action :set_ticket, only: %i[show edit update destroy]
 
   # GET /editor/facts/:fact_id/happenings/:happening_id/tickets
-  # GET /editor/tickets.json
   def index
     @text = ["users.username ilike '%:string%'", { string: params[:text] }] if params[:text].present?
     @pagy, @tickets = pagy(
       @happening.tickets.joins(:user).where(@text),
-      link_extra: "data-remote='true' data-action='ajax:success->section#goPage'",
       items: 6
     )
   end

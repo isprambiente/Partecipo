@@ -82,7 +82,7 @@ platforms:
 roadmap: 'https://github.com/isprambiente/Partecipo/projects'
 releaseDate: '2021-03-23'
 softwareType: standalone/web
-softwareVersion: 1.0.5
+softwareVersion: 2.0.0
 url: 'https://github.com/isprambiente/Partecipo.git'
 usedBy:
   - ISPRA

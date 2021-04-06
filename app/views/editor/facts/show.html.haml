@@ -6,5 +6,5 @@
     %aside.column.is-3= render 'fact_menu', fact: @fact
     .column
       = render 'box'
-      %turbo-frame#happenings{src: editor_fact_happenings_path(@fact)}
+      %turbo-frame#tickets{src: editor_fact_happening_tickets_path(@fact)}
 

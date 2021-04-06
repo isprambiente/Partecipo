@@ -15,6 +15,13 @@ it:
         body: Descrizione
         tickets_frequency: Frequenza prenotazioni
         where: Dove
+      happening:
+        detail: Dettagli
+        start_at: Data di inizio evento
+        start_sale_at: Data di inizio prenotazioni
+        stop_sale_at: Data di fine prenotazioni
+        repeat_in: Giorni in cui ripetere la data
+        repeat_fo: N. di giorni per cui ripetere l'evento
       user:
         username: Nome utente
     models:
