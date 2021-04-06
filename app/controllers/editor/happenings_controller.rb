@@ -11,7 +11,6 @@ class Editor::HappeningsController < Editor::ApplicationController
     @text = ['detail ilike :text', { text: "%#{filter_params[:text]}%" }] if filter_params[:text].present?
     @pagy, @happenings = pagy(
       @fact.happenings.send(type).where(@text),
-      link_extra: "data-remote='true' data-action='ajax:success->section#goPage'",
       items: 6
     )
   end
@@ -35,7 +34,7 @@ class Editor::HappeningsController < Editor::ApplicationController
 
     if @happening.save
       set_tickets
-      render :show
+      render 'editor/facts/show'
     else
       render :new
     end
@@ -80,7 +79,7 @@ class Editor::HappeningsController < Editor::ApplicationController
 
   # Filter params for set an {Happening}
   def happening_params
-    params.require(:happening).permit(:detail, :start_at, :start_sale_at, :stop_sale_at, :max_seats, :max_seats_for_ticket, :repeat_for, :repeat_in)
+    params.require(:happening).permit(:detail, :start_at, :start_sale_at, :stop_sale_at, :max_seats, :max_seats_for_ticket, :repeat_for, repeat_in: [])
   end
 
   # Filter params for search an {Happening}

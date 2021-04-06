@@ -1,4 +1,4 @@
-= form_with(model: [:editor, fact, happening], data: {action: "ajax:success->page#goPage"}) do |form|
+= form_with(model: [:editor, fact, happening], data: {turbo_frame: 'yield'}) do |form|
   .field
     = form.label :detail
     .control.has-icons-left
@@ -48,24 +48,25 @@
           %span.icon.is-small.is-left
             %i.fas.fa-chair
         %p.help.is-danger= happening.errors[:max_seats_for_ticket].join(' - ')
-  .columns
-    .column
-      .field
-        = form.label :repeat_in
-        %p.control.has-icons-left
-          %span.select.is-fullwidth.is-multiple
-            = form.select :repeat_in, [['lun',1],['mar',2],['mer',3],['gio',4],['ven',5],['sab',6],['dom',0]], {}, multiple: true
-          %span.icon.is-small.is-left
-            %i.fas.fa-calendar
-        %p.help.is-danger= fact.errors[:repeat_in].join(' - ')
-    .column
-      .field
-        = form.label :repeat_for
-        .control.has-icons-left
-          = form.number_field :repeat_for, class: 'input'
-          %span.icon.is-small.is-left
-            %i.fas.fa-chair
-        %p.help.is-danger= happening.errors[:repeat_for].join(' - ')
+  - unless happening.persisted?
+    .columns
+      .column
+        .field
+          = form.label :repeat_in
+          %p.control.has-icons-left
+            %span.select.is-fullwidth.is-multiple
+              = form.select :repeat_in, [['lun',1],['mar',2],['mer',3],['gio',4],['ven',5],['sab',6],['dom',0]], {}, multiple: true
+            %span.icon.is-small.is-left
+              %i.fas.fa-calendar
+          %p.help.is-danger= fact.errors[:repeat_in].join(' - ')
+      .column
+        .field
+          = form.label :repeat_for
+          .control.has-icons-left
+            = form.number_field :repeat_for, class: 'input'
+            %span.icon.is-small.is-left
+              %i.fas.fa-chair
+          %p.help.is-danger= happening.errors[:repeat_for].join(' - ')
 
 
   .has-text-centered
