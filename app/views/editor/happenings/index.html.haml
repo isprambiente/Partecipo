@@ -1,10 +1,7 @@
-%h3.title.is-size-4.has-text-centered
-  %i.fas.fa-calendar-alt
-  Date
-= render @happenings
-%hr
-= pagy_bulma_nav(@pagy).html_safe
-%nav.has-text-centered
-  %a.button.is-link{href: editor_facts_path, data: {remote: true, action: "ajax:success->page#goPage"}}= fas_icon 'chevron-left', text: 'Indietro'
-  %a.button.is-success{href: new_editor_fact_happening_path(@fact), data: {remote: true, action: "ajax:success->section#goPage"}}= fas_icon 'plus', text: 'aggiungi data'
-
+%turbo-frame#happenings
+  %h3.title.is-size-4.has-text-centered
+    %i.fas.fa-calendar-alt
+    Date
+  = render @happenings
+  %hr
+  = pagy_bulma_nav(@pagy).html_safe

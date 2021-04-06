@@ -23,7 +23,7 @@ class Editor::HappeningsController < Editor::ApplicationController
 
   # GET /editor/facts/fact_id/happenings/new
   def new
-    @happening = @fact.happenings.new
+    @happening = @fact.happenings.new(repeat_for: 0, repeat_in: [1,2,3,4,5])
   end
 
   # GET /editor/facts/:fact_id/happenings/:id/edit
@@ -80,7 +80,7 @@ class Editor::HappeningsController < Editor::ApplicationController
 
   # Filter params for set an {Happening}
   def happening_params
-    params.require(:happening).permit(:detail, :start_at, :start_sale_at, :stop_sale_at, :max_seats, :max_seats_for_ticket)
+    params.require(:happening).permit(:detail, :start_at, :start_sale_at, :stop_sale_at, :max_seats, :max_seats_for_ticket, :repeat_for, :repeat_in)
   end
 
   # Filter params for search an {Happening}

@@ -44,6 +44,9 @@ class Happening < ApplicationRecord
   validates  :stop_sale_at, presence: true
   validates  :max_seats, presence: true
   validates  :max_seats_for_ticket, presence: true
+  validates :repeat_for, numericality: {greather_to: 0, only_integer: true}, on: :create
+
+  attr_accessor :repeat_for, :repeat_in
 
   scope :future,  -> { where('start_at >= :from', from: Time.zone.now).order('start_at asc') }
   scope :history, -> { where('start_at < :from', from: Time.zone.now).order('start_at desc') }

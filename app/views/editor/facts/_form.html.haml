@@ -1,4 +1,4 @@
-= form_with(model: [:editor, fact], data: {action: "ajax:success->page#goPage"}) do |form|
+= form_with(model: [:editor, fact], data: {turbo_frame: 'yield'}) do |form|
   .field
     = form.label :title
     .control.has-icons-left
@@ -74,7 +74,7 @@
         %p.help.is-danger= fact.errors[:stop_on].join(' - ')
   .has-text-centered
     - if fact.persisted?
-      %a.button.is-link{href: editor_fact_path(fact), data: {remote: true, action: "ajax:success->section#goPage"}}= fas_icon 'chevron-left', text: 'Indietro'
+      %a.button.is-link{href: editor_fact_happenings_path(fact), data: {turbo_frame: 'happenings'}}= fas_icon 'chevron-left', text: 'Indietro'
     - else
-      %a.button.is-link{href: editor_facts_path, data: {action: "ajax:success->page#goPage"}}= fas_icon 'chevron-left', text: 'Indietro'
+      %a.button.is-link{href: list_editor_facts_path, data: {turbo_frame: 'facts'}}= fas_icon 'chevron-left', text: 'Indietro'
     = form.button fas_icon('save', text: 'Salva'), class: 'button is-success'

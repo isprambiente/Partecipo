@@ -30,6 +30,8 @@ class Ticket < ApplicationRecord
   belongs_to :user
   delegate :fact, :fact_id, :max_seats, :max_seats_for_ticket, :saleable?, :seats_count, :start_at, :update_seats_count!, to: :happening, allow_nil: true
 
+  attr_accessor :by_editor
+
   validates :happening, presence: true
   validates :user, presence: true, uniqueness: { scope: :happening_id }
   validates :seats, presence: true
@@ -38,7 +40,6 @@ class Ticket < ApplicationRecord
   validate  :validate_total_seats, unless: :by_editor?
   validate  :validate_frequency, unless: :by_editor?
 
-  attr_accessor :by_editor
 
   after_save :update_seats_count!
 

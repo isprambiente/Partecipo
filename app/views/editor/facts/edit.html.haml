@@ -1,23 +1,11 @@
-%h3.title.has-text-centered
-  %i.fas.fa-calendar
-  Modifica evento
-.columns
-  %aside.column.is-3
-    %nav.panel
-      %p.panel-heading= t 'site.happening.search'
-      = form_with scope: 'filter', url: '#', method: :get, data: {action: "ajax:success->section#goPage"} do |f|
-        .panel-block
-          %p.control.has-icons-left
-            = f.text_field :text, placeholder: 'Testo', class: 'input', data: {action: 'keyup->section#delayedSendForm'}, disabled: true
-            %span.icon.is-left
-              %i.fas.fa-search
-        %label.panel-block
-          = f.radio_button :type, '', selected: true, data: {action: "section#sendForm"}, disabled: true
-          %span= t('future', scope: 'site.happening.scope')
-        %label.panel-block
-          = f.radio_button :type, 'history', selected: true, data: {action: "section#sendForm"}, disabled: true
-          %span= t('history', scope: 'site.happening.scope')
-    %figure.image= image_tag(@fact.image.variant(resize_to_limit: [318,318]).processed)
-  .column
-    .box= render 'form', fact: @fact
+%turbo-frame#yield
+  %h3.title.has-text-centered
+    %i.fas.fa-tools
+    = @fact.title
+  .columns
+    %aside.column.is-3= render 'fact_menu', fact: @fact
+    .column
+      = render 'box'
+      %turbo-frame#happenings
+        .box= render 'form', fact: @fact
 

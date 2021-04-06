@@ -1,0 +1,18 @@
+%nav.panel
+  %p.panel-heading= t 'site.happening.search'
+  = form_with scope: 'filter', url: editor_fact_happenings_path(fact), method: :get, data: {turbo_frame: 'happenings', controller: 'form', form_target: 'sender'} do |f|
+    .panel-block
+      %p.control.has-icons-left
+        = f.text_field :text, placeholder: 'Testo', class: 'input', data: {action: 'keyup->form#delayedSendForm'}
+        %span.icon.is-left
+          %i.fas.fa-search
+    %label.panel-block
+      = f.radio_button :type, '', selected: true, data: {action: "form#sendForm"}
+      %span= t('future', scope: 'site.happening.scope')
+    %label.panel-block
+      = f.radio_button :type, 'history', selected: true, data: {action: "form#sendForm"}
+      %span= t('history', scope: 'site.happening.scope')
+    %a.panel-block{href: edit_editor_fact_path(@fact), data: {turbo_frame: 'happenings'}}= fas_icon 'edit', text: 'Modifica evento'
+    %a.panel-block{href: new_editor_fact_happening_path(@fact), data: {turbo_frame: 'happenings'}}= fas_icon 'plus', text: 'Aggiungi date'
+
+%figure.image= image_tag(fact.image.variant(resize_to_limit: [318,318]).processed) 

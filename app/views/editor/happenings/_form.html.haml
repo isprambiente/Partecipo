@@ -48,6 +48,26 @@
           %span.icon.is-small.is-left
             %i.fas.fa-chair
         %p.help.is-danger= happening.errors[:max_seats_for_ticket].join(' - ')
+  .columns
+    .column
+      .field
+        = form.label :repeat_in
+        %p.control.has-icons-left
+          %span.select.is-fullwidth.is-multiple
+            = form.select :repeat_in, [['lun',1],['mar',2],['mer',3],['gio',4],['ven',5],['sab',6],['dom',0]], {}, multiple: true
+          %span.icon.is-small.is-left
+            %i.fas.fa-calendar
+        %p.help.is-danger= fact.errors[:repeat_in].join(' - ')
+    .column
+      .field
+        = form.label :repeat_for
+        .control.has-icons-left
+          = form.number_field :repeat_for, class: 'input'
+          %span.icon.is-small.is-left
+            %i.fas.fa-chair
+        %p.help.is-danger= happening.errors[:repeat_for].join(' - ')
+
+
   .has-text-centered
+    %a.button.is-link{href: editor_fact_happenings_path(fact), data: {turbo_frame: 'happenings'}}= fas_icon 'chevron-left', text: 'Indietro'
     = form.button fas_icon('save', text: 'Salva'), class: 'button is-success'
-    = link_to fas_icon('chevron-left', text: 'Indietro'), editor_fact_happenings_path(fact), class: 'button is-light', data: {remote: true, action: "ajax:success->section#goPage"}
