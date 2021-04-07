@@ -5,8 +5,8 @@
 
   %hr
   - if @tickets.present?
-    %turbo_frame#new_ticket
     = render @tickets, fact: @fact, happening: @happening
+    %turbo_frame#new_ticket
   - else
     %turbo_frame#new_ticket
       .has-text-centered Nessuna prenotazione registrata

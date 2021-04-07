@@ -1,5 +1,5 @@
 = turbo_frame_tag ticket do
-  %a.box.is-hoverable{href: edit_editor_fact_happening_ticket_path(fact,happening,ticket)}
+  %a.box.is-hoverable.mb-2{href: edit_editor_fact_happening_ticket_path(fact,happening,ticket)}
     .columns.is-mobile.is-gapless
       .column.is-narrow.is
         .figure.image.is-boxed-left-image= image_tag ticket.happening.fact.image.variant(resize_to_limit: [150, 68]).processed

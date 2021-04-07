@@ -30,13 +30,11 @@ class Editor::TicketsController < Editor::ApplicationController
   def new
     @ticket = @happening.tickets.new
     @users = User.pluck :username, :id
-    render partial: 'form', locals: {ticket: @ticket, happening: @happening, fact: @fact, users: @users}
   end
 
   # GET /editor/facts/:fact_id/happenings/:happening_id/tickets/:id/edit
   def edit
     @users = User.pluck :username, :id
-    render partial: 'form', locals: {ticket: @ticket, happening: @happening, fact: @fact, users: @users}
   end
 
   # POST /editor/facts/:fact_id/happenings/:happening_id/tickets/
@@ -45,11 +43,11 @@ class Editor::TicketsController < Editor::ApplicationController
     @ticket.by_editor = true
     if @ticket.save
       flash[:success] = 'Prenotazione salvata'
-      redirect_to editor_fact_happening_path(@fact, @happening)
+      redirect_to editor_fact_happening_tickets_path(@fact, @happening)
     else
       @users = User.pluck :username, :id
       @status = { error: 'Creatione prenotazione fallita' }
-      render :form
+      render action: 'new'
     end
   end
 

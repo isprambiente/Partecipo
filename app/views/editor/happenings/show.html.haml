@@ -15,7 +15,7 @@
         %a.panel-block{href: export_editor_fact_happening_tickets_path(@fact, @happening, format: :csv)}= fas_icon 'file-csv', text: t('site.editor.ticket.export_pdf')
         %a.panel-block{href: edit_editor_fact_happening_path(@fact, @happening), data: {turbo_frame: 'tickets'}}= fas_icon 'edit', text: 'Modifica ingresso'
         %a.panel-block{href: new_editor_fact_happening_ticket_path(@fact, @happening), data: {turbo_frame: 'tickets'}}= fas_icon 'plus', text: 'Aggiungi prenotazione'
-        %a.panel-block{href: editor_fact_happening_path(@fact, @happening), data: {turbo_frame: 'yield'}}= fas_icon 'chevron-left', text: 'Indietro'
+        %a.panel-block{href: editor_fact_path(@fact)}= fas_icon 'chevron-left', text: 'Indietro'
       %figure.image= image_tag(@fact.image.variant(resize_to_limit: [318,318]).processed)
     .column
       = render 'editor/facts/box'
