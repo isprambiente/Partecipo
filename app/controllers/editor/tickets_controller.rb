@@ -30,7 +30,7 @@ class Editor::TicketsController < Editor::ApplicationController
   def new
     @ticket = @happening.tickets.new
     @users = User.pluck :username, :id
-    render :form
+    render partial: 'form', locals: {ticket: @ticket, happening: @happening, fact: @fact, users: @users}
   end
 
   # GET /editor/facts/:fact_id/happenings/:happening_id/tickets/:id/edit
