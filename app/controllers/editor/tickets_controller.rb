@@ -58,11 +58,11 @@ class Editor::TicketsController < Editor::ApplicationController
     @ticket.by_editor = true
     if @ticket.update(ticket_params)
       flash[:success] = 'Prenotazione salvata'
-      redirect_to editor_fact_happening_path(@fact, @happening)
+      render partial: 'ticket', locals: {ticket: @ticket, happening: @happening, fact: @fact}
     else
       @users = User.pluck :username, :id
       @status = { error: 'Aggionramento prenotazione fallito' }
-      render :form
+      render partial: 'form', locals: {ticket: @ticket, happening: @happening, fact: @fact}
     end
   end
 
