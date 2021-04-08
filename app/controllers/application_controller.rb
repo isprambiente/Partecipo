@@ -11,10 +11,6 @@ class ApplicationController < ActionController::Base
     record_not_found!
   end
 
-  def nav
-    'nav_user'
-  end
-
   private
 
   # Render 404 page and stop the work

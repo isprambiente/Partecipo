@@ -10,7 +10,7 @@
     = csp_meta_tag
     = stylesheet_pack_tag 'application', media: 'all', 'data-turbo-track': 'reload'
     = javascript_pack_tag 'application', 'data-turbo-track': 'reload'
-  %body
+  %body{ data: { controller: "page" } }
     %header
       %turbo-frame#nav1{ src: Settings.header}
       = render partial: 'nav'

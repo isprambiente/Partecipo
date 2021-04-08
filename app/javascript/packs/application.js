@@ -20,7 +20,3 @@ import './awesome.js'
 // Stilesheet
 import '../stylesheets/application'
 require.context("images", true, /\.(png|svg|jpg|gif|ico)$/);
-// const images = require.context('../images', true)
-// const imagePath = (name) => images(name, true)
-
-

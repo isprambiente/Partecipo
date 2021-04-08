@@ -1,6 +1,6 @@
 #nav3.has-background-primary-dark
   .container
-    %nav.navbar{role: 'navigation', aria_label: 'main navigation'}
+    %nav.navbar.has-background-primary-dark{role: 'navigation', aria_label: 'main navigation'}
       .navbar-brand
         %a.navbar-item.has-text-weight-bold.is-italic.is-size-5{href: root_path, data: {turbo_frame: 'yield'}}
           %span.icon
@@ -14,9 +14,13 @@
           = link_to fas_icon('calendar', text: 'Eventi'), root_path, class: "navbar-item", data: {turbo_frame: 'yield'}
           = link_to fas_icon('ticket-alt', text: 'Prenotazioni'), tickets_path, class: 'navbar-item', data: {turbo_frame: 'yield'}
         .navbar-end
-          = link_to fas_icon('user', text: current_user.username), tickets_path, class: 'navbar-item'
-          %a.navbar-item{href: destroy_user_session_path, data: {method: :delete}}
-            %span.icon
-              %i.fas.fa-sign-out-alt
-            %span.is-hidden-desktop Disconnettiti
+          .navbar-item.has-dropdown.is-hoverable.has-background-primary-dark
+            %a.navbar-link{src: tickets_path}= fas_icon('user', text: current_user.username)
+            .navbar-dropdown
+              - if current_user.editor?
+                %a.navbar-item{ href: editor_root_path, data: {turbo_frame: 'yield'}}= fas_icon('tools', text: 'Gestione eventi')
+              -if current_user.admin?
+                %a.navbar-item{ href: admin_root_path, data: {turbo_frame: 'yield'}}= fas_icon('users', text: 'Gestione Utenti')
+                %a.navbar-item{ href: admin_groups_path, data: {turbo_frame: 'yield'}}= fas_icon('users', text: 'Gestione Gruppi')
 
+              %a.navbar-item{href: destroy_user_session_path, data: {method: :delete}}= fas_icon 'sign-out-alt', text: 'Disconnetti'
