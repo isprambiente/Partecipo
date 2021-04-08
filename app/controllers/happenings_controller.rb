@@ -14,10 +14,9 @@ class HappeningsController < ApplicationController
     @text = ['detail ilike :text', { text: "%#{filter_paramss[:text]}%" }] if filter_paramss[:text].present?
     @pagy, @happenings = pagy(
       @fact.happenings.send(type).where(@text),
-      link_extra: "data-remote='true' data-action='ajax:success->section#goPage'",
       items: 6
     )
-    render layout: false
+    render layout: 'empty'
   end
 
   # GET /fact/:fact_id/happenings/:id

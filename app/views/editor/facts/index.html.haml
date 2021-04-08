@@ -1,26 +1,23 @@
-%turbo-frame#yield
-  %h3.title.has-text-centered
-    %i.fas.fa-tools
-    Gestione
-    = t 'activerecord.models.fact.other'
-  .columns
-    %aside.column.is-3
-      %nav.panel
-        %p.panel-heading= t 'site.fact.search'
-        = form_with scope: 'filter', url: list_editor_facts_path, method: :get, data: {turbo_frame: 'facts', controller: 'form', form_target: 'sender'} do |f|
-          .panel-block
-            %p.control.has-icons-left
-              = f.text_field :text, placeholder: 'Testo', class: 'input', data: {action: 'keyup->form#delayedSendForm'}
-              %span.icon.is-left
-                %i.fas.fa-search
-          %label.panel-block
-            = f.radio_button :type, '', selected: true, data: {action: "form#sendForm"}
-            %span= t('future', scope: 'site.fact.scope')
-          %label.panel-block
-            = f.radio_button :type, 'history', selected: true, data: {action: "form#sendForm"}
-            %span= t('history', scope: 'site.fact.scope')
-          .panel-block= link_to fas_icon('calendar', text: 'Nuovo evento'), new_editor_fact_path, class: 'button is-success is-fullwidth', data: {turbo_frame: 'facts'}
-    .column
-      %turbo-frame#facts{src: list_editor_facts_path }
-
-
+%h3.title.has-text-centered
+  %i.fas.fa-tools
+  Gestione
+  = t 'activerecord.models.fact.other'
+.columns
+  %aside.column.is-3
+    %nav.panel
+      %p.panel-heading= t 'site.fact.search'
+      = form_with scope: 'filter', url: list_editor_facts_path, method: :get, data: {turbo_frame: 'facts', controller: 'form', form_target: 'sender'} do |f|
+        .panel-block
+          %p.control.has-icons-left
+            = f.text_field :text, placeholder: 'Testo', class: 'input', data: {action: 'keyup->form#delayedSendForm'}
+            %span.icon.is-left
+              %i.fas.fa-search
+        %label.panel-block
+          = f.radio_button :type, '', selected: true, data: {action: "form#sendForm"}
+          %span= t('future', scope: 'site.fact.scope')
+        %label.panel-block
+          = f.radio_button :type, 'history', selected: true, data: {action: "form#sendForm"}
+          %span= t('history', scope: 'site.fact.scope')
+        .panel-block= link_to fas_icon('calendar', text: 'Nuovo evento'), new_editor_fact_path, class: 'button is-success is-fullwidth', data: {turbo_frame: 'facts'}
+  .column
+    %turbo-frame#facts{src: list_editor_facts_path }

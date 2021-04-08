@@ -15,7 +15,8 @@
       %turbo-frame#nav1{ src: Settings.header}
       = render partial: 'nav'
     %section.section
-      .container= yield
+      .container
+        %turbo-frame#yield= yield
     %footer 
       %turbo-frame#footer{src: Settings.footer}
 
