@@ -7,10 +7,12 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 ## [2.0.0 Unreleased]
 ## Added
 - Add tickets frequency: in the fact model you can select how often a ticket is bookable 
-- Rewrited facts list: less code, more simplicity
-- Migrated from turbolinks to hotwire turbo
 - Now you can reserve a ticket from the happening list page
 - Now you can make many happening at same time
+- top menu unified for entire site
+### changed
+- Rewrited facts list: less code, more simplicity
+- Migrated from turbolinks to hotwire turbo
 
 ## [1.0.4] - 2020-09-24
 ### Changed
