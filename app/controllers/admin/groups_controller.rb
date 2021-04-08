@@ -15,7 +15,7 @@ class Admin::GroupsController < Admin::ApplicationController
   end
 
   # GET /admin/groups/1
-  def show; end
+  def show;end
 
   # GET /admin/groups/new
   def new
@@ -35,7 +35,8 @@ class Admin::GroupsController < Admin::ApplicationController
 
     if @group.save
       @status = { success: 'Gruppo creato' }
-      render :show
+      redirect_to [:admin, @group]
+      #render turbo_stream: turbo_stream.replate(@group)
     else
       @status = { error: 'Creazione gruppo fallita' }
       render :new

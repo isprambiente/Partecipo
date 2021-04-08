@@ -1,18 +1,2 @@
-%section{ data: { controller: 'section'}}
-  %h3.title.has-text-centered
-    %i.fas.fa-users
-    Nuovo
-    = t 'activerecord.models.group.other'
-    %i.fas.fa-tools
-  .columns
-    %aside.column.is-3
-      %nav.panel
-        %p.panel-heading= t 'site.group.search'
-        = form_with scope: 'filter', url: '#', method: :get, data: {action: "ajax:success->section#goPage"} do |f|
-          .panel-block
-            %p.control.has-icons-left
-              = f.text_field :text, placeholder: 'Testo', class: 'input', disabled: true, data: {action: 'keyup->section#delayedSendForm'}
-              %span.icon.is-left
-                %i.fas.fa-search
-    .column
-      .box= render 'form', group: @group
+%turbo-frame#groups
+  .box= render 'form', group: @group
