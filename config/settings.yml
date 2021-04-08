@@ -43,6 +43,7 @@ action_mailer:
    ssl: true
    username: 'partecipo@partecipo.com'
    sender: 'partecipo@partecipo.com'
+devise: :cas_authenticatable
 deploy:
   repo_url: git@github.com:isprambiente/Partecipo.git
   server: partecipo.com

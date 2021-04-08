@@ -29,7 +29,7 @@
 # @!attribute [rw] updated_at
 #   @return [DateTime] when the record was updated
 class User < ApplicationRecord
-  devise :cas_authenticatable, :timeoutable, :trackable
+  devise Settings.devise, :timeoutable, :trackable
   has_many :tickets
   has_and_belongs_to_many :groups
   has_many :facts, through: :groups
