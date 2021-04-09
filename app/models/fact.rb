@@ -22,6 +22,8 @@
 #   @return [date] when end {Fact}
 # @!attribute [rw] happenings_count
 #   @return [Integer] counter cache for {Happening}
+# @!attribute [rw] tickets_frequency
+#   @return [String] enum of tickets frequency statuses
 # @!attribute [rw] created_at
 #   @return [DateTime] when the record was created
 # @!attribute [rw] updated_at
