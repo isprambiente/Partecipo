@@ -74,8 +74,8 @@ end
 gem 'caxlsx_rails'
 gem 'config'
 gem 'devise'
-gem 'devise_cas_authenticatable' 
-# gem 'devise_ldap_authenticatable' 
+gem 'devise_cas_authenticatable'
+# gem 'devise_ldap_authenticatable'
 gem 'hamlit'
 gem 'high_voltage' # pagine statiche
 gem 'image_processing'

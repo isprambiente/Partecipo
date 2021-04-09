@@ -11,7 +11,7 @@ class TicketsController < ApplicationController
   def list
     type = filter_tickets[:type] == 'history' ? 'start_at < :from' : 'start_at > :from'
     @text = ['facts.title ilike :text', { text: "%#{filter_tickets[:text]}%" }] if filter_tickets[:text].present?
-    pagy current_user.tickets.joins(happening: [:fact]).where(type, from: Time.zone.now).where(@text)
+    @pagy, @tickets = pagy current_user.tickets.joins(happening: [:fact]).where(type, from: Time.zone.now).where(@text), items: 10
   end
 
   # POST /fact/:fact_id/happenings/:happening_id/tickets
@@ -51,13 +51,5 @@ class TicketsController < ApplicationController
   # filter params for {Happening}'s {Ticket}
   def filter_ticket
     params.fetch(:ticket, {}).permit(:seats)
-  end
-
-  def pagy(query)
-    @pagy, @tickets = super(
-      query,
-      link_extra: "data-remote='true' data-action='ajax:success->section#goPage'",
-      items: 15
-    )
   end
 end

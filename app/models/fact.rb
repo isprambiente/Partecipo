@@ -22,6 +22,8 @@
 #   @return [date] when end {Fact}
 # @!attribute [rw] happenings_count
 #   @return [Integer] counter cache for {Happening}
+# @!attribute [rw] tickets_frequency
+#   @return [String] enum of tickets frequency statuses
 # @!attribute [rw] created_at
 #   @return [DateTime] when the record was created
 # @!attribute [rw] updated_at
@@ -40,7 +42,7 @@ class Fact < ApplicationRecord
   validates :title, presence: true
   validates :start_on, presence: true
   validates :stop_on, presence: true
-  enum tickets_frequency: [:any, :single, :daily, :weekly, :monthly]
+  enum tickets_frequency: %i[any single daily weekly monthly]
 
   after_create :add_default_image, unless: proc { |fact| fact.image.attached? }
 

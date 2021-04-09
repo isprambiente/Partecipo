@@ -16,12 +16,11 @@ class Editor::HappeningsController < Editor::ApplicationController
   end
 
   # GET /editor/facts/:fact_id/happenings/:id
-  def show
-  end
+  def show; end
 
   # GET /editor/facts/fact_id/happenings/new
   def new
-    @happening = @fact.happenings.new(repeat_for: 0, repeat_in: [1,2,3,4,5])
+    @happening = @fact.happenings.new(repeat_for: 0, repeat_in: [1, 2, 3, 4, 5])
   end
 
   # GET /editor/facts/:fact_id/happenings/:id/edit

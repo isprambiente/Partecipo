@@ -36,7 +36,6 @@ class Admin::GroupsController < Admin::ApplicationController
     if @group.save
       @status = { success: 'Gruppo creato' }
       redirect_to [:admin, @group]
-      #render turbo_stream: turbo_stream.replate(@group)
     else
       @status = { error: 'Creazione gruppo fallita' }
       render :new

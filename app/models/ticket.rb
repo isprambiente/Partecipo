@@ -40,7 +40,6 @@ class Ticket < ApplicationRecord
   validate  :validate_total_seats, unless: :by_editor?
   validate  :validate_frequency, unless: :by_editor?
 
-
   after_save :update_seats_count!
 
   # @return [Boolean] true if by_editor is true
@@ -63,23 +62,23 @@ class Ticket < ApplicationRecord
   # check {User}'s ticket presence based of {Fact#tickets_frequency}
   def validate_frequency
     exist, message = case fact.tickets_frequency
-    when 'single'
-      [fact_ticket_exist?,I18n.t('site.ticket.errors.single')]     
-    when 'daily'
-      [fact_ticket_exist?(start_at.beginning_of_day..start_at.end_of_day),I18n.t('site.ticket.errors.daily')]
-    when 'weekly'
-      [fact_ticket_exist?(start_at.-(7.days)..start_at.+(7.days)),I18n.t('site.ticket.errors.weekly')]
-    when 'monthly'
-      [fact_ticket_exist?(start_at.-(30.days)..start_at.+(30.days)),I18n.t('site.ticket.errors.montly')]
-    else
-      return true
-    end
-    errors.add(:seats,message) if exist
+                     when 'single'
+                       [fact_ticket_exist?, I18n.t('site.ticket.errors.single')]
+                     when 'daily'
+                       [fact_ticket_exist?(start_at.beginning_of_day..start_at.end_of_day), I18n.t('site.ticket.errors.daily')]
+                     when 'weekly'
+                       [fact_ticket_exist?(start_at.-(7.days)..start_at.+(7.days)), I18n.t('site.ticket.errors.weekly')]
+                     when 'monthly'
+                       [fact_ticket_exist?(start_at.-(30.days)..start_at.+(30.days)), I18n.t('site.ticket.errors.montly')]
+                     elseapp/controllers/tickets_controller.rb
+                       return true
+                     end
+    errors.add(:seats, message) if exist
   end
 
   # check if exists {Fact}'s {Ticket} for {User} in a time period
   def fact_ticket_exist?(period = nil)
-    @when = {happenings: {start_at: period }} if period.present?
+    @when = { happenings: { start_at: period } } if period.present?
     fact.tickets.where(@when).where(user: user).exists?
   end
 end
