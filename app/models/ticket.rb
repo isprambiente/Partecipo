@@ -70,7 +70,7 @@ class Ticket < ApplicationRecord
                        [fact_ticket_exist?(start_at.-(7.days)..start_at.+(7.days)), I18n.t('site.ticket.errors.weekly')]
                      when 'monthly'
                        [fact_ticket_exist?(start_at.-(30.days)..start_at.+(30.days)), I18n.t('site.ticket.errors.montly')]
-                     elseapp/controllers/tickets_controller.rb
+                       elseapp / controllers / tickets_controller.rb
                        return true
                      end
     errors.add(:seats, message) if exist

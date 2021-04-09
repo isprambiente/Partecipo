@@ -15,7 +15,7 @@ class Admin::GroupsController < Admin::ApplicationController
   end
 
   # GET /admin/groups/1
-  def show;end
+  def show; end
 
   # GET /admin/groups/new
   def new
