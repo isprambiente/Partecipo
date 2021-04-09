@@ -1,8 +1,8 @@
-%article.card.tile.is-child
-  .card-image
-    %figure.image= link_to image_tag(fact.image.variant(resize_to_limit: [417, 278]).processed), fact, data: {action: "ajax:success->page#goPage", remote: true}
-  .card-content
-    %a{href: fact_path(fact), data: {action: "ajax:success->page#goPage", remote: true}}
+%a.tile.is-child{href: fact_path(fact), data: {turbo_frame: 'yield'}}
+  %article.card
+    .card-image
+      %figure.image= image_tag fact.image.variant(resize_to_limit: [417, 278]).processed
+    .card-content
       .title= fact.title
       .subtitle
         = l fact.start_on

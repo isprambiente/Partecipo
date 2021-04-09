@@ -44,6 +44,11 @@ class Happening < ApplicationRecord
   validates  :stop_sale_at, presence: true
   validates  :max_seats, presence: true
   validates  :max_seats_for_ticket, presence: true
+  validates :repeat_for, numericality: {greather_to: 0, only_integer: true}, on: :create
+
+  after_create :add_repetitions
+
+  attr_accessor :repeat_for, :repeat_in
 
   scope :future,  -> { where('start_at >= :from', from: Time.zone.now).order('start_at asc') }
   scope :history, -> { where('start_at < :from', from: Time.zone.now).order('start_at desc') }
@@ -62,5 +67,22 @@ class Happening < ApplicationRecord
   # @return [String] unique code to identify the {Happening}
   def code
     [fact_id, id].join(' - ')
+  end
+
+  private
+
+  # save multiple copies of the elements
+  def add_repetitions
+    (1..repeat_for.to_i).each do |n|
+      fact.happenings.create(
+        detail: detail, 
+          start_at: start_at + n.days, 
+          start_sale_at: start_at + n.days, 
+          stop_sale_at: stop_sale_at + n.days, 
+        max_seats: max_seats, 
+        max_seats_for_ticket: max_seats_for_ticket, 
+        repeat_for: 0
+      ) if repeat_for.include?(start_at.+(n.days).wday.to_s)
+    end
   end
 end

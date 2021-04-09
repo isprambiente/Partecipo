@@ -8,20 +8,15 @@
     %title= Settings.title
     = csrf_meta_tags
     = csp_meta_tag
-    = stylesheet_pack_tag 'application', media: 'all', 'data-turbolinks-track': 'reload'
-    = javascript_pack_tag 'application', 'data-turbolinks-track': 'reload'
+    = stylesheet_pack_tag 'application', media: 'all', 'data-turbo-track': 'reload'
+    = javascript_pack_tag 'application', 'data-turbo-track': 'reload'
   %body{ data: { controller: "page" } }
-    = render 'js_statuses', cache: true
     %header
-      #remote-header{ data: {controller: 'section', section_url: Settings.header, target: 'section.container'}}
-      = render partial: nav
-    = notifications.html_safe
-    = notify_status(@status)
-    %section
-      <!--[if lt IE 11]><div class="callout alert radius">ATTENZIONE! Il tuo browser non è più supportato e non è garantita la compatibilità con questo sito. Le consigliamo di <a href='http://windows.microsoft.com/it-it/internet-explorer/download-ie'>aggiornarlo ad una versione successiva</a> o di utilizzare <a href='https://www.mozilla.org/it/'>Firefox</a> o <a href='https://www.google.it/chrome'>Chrome</a></div><![endif]-->
-      <!--[if lt IE 11]><div class="callout secondary radius">ATTENZIONE! Il tuo browser non è completamente compatibile con questo sito. Questo significa che alcune procedure potrebbero non funzionare e/o la visualizzazione delle pagine potrebbe non essere corretta. Per risolvere il problema è necessario utilizzare un browser più recente scelto tra: Firefox, Chrome, Edge nelle rispettive ultime versioni disponibili.</div><![endif]-->
-      <noscript><div class="callout alert radius">ATTENZIONE! questo sito richiede le funzioni javascript abilitate per funzionare correttamente.</div></noscript>
+      %turbo-frame#nav1{ src: Settings.header}
+      = render partial: 'nav'
     %section.section
-      .container{ data: { target: "page.container" } }= yield
-    %footer{ data: {controller: 'section', section_url: Settings.footer, target: 'section.container'}}
+      .container
+        %turbo-frame#yield= yield
+    %footer 
+      %turbo-frame#footer{src: Settings.footer}
 

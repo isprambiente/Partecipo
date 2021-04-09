@@ -1,0 +1,12 @@
+= form_with model: ticket, url: fact_happening_tickets_path(fact,happening), method: :post do |f|
+  %fieldset
+    .field.has-addons.has-icons-left
+      .control
+        = f.label :seats, class: 'button', disabled: ticket.persisted? do
+          = fas_icon 'chair', text: 'Posti' 
+      .control.is-expanded
+        .select.is-fullwidth= f.select :seats, (1..happening.max_seats_for_ticket), {}
+        %p.help.is-danger= @ticket.errors.messages[:seats].join(' - ')
+      .control
+        = f.button fas_icon('ticket-alt', text: 'Prenota'), class: 'button is-success'
+

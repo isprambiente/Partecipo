@@ -7,6 +7,12 @@ it:
         future: Prossimi eventi
         history: Storico eventi
       search: Ricerca eventi
+      tickets_frequency:
+        any: Nessun limite
+        single: Singolo
+        daily: Giornaliero
+        weekly: Settimanale
+        monthly: Mensile
     happening:
       scope:
         future: Prossime date
@@ -17,6 +23,10 @@ it:
         future: Prenotazioni
         history: Storico prenotazioni
       search: Ricerca prenotazioni
+      errors:
+        single: Attenzione! Non è possibile prenotare più volte questo evento, risulta già attiva una prenotazione.
+        weekly: Attenzione! Non è possibile prenotare questo evento con frequenza inferiore a sette giorni. Sono già presenti prenotazioni nel periodo. 
+        monthly: Attenzione! Non è possibile prenotare questo evento con frequenza inferiore a trenta giorni. Sono già presenti prenotazioni nel periodo.
     editor:
       ticket:
         search: Ricerca prenotazioni

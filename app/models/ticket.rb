@@ -28,7 +28,9 @@
 class Ticket < ApplicationRecord
   belongs_to :happening, counter_cache: true
   belongs_to :user
-  delegate :max_seats, :max_seats_for_ticket, :saleable?, :seats_count, :start_at, :update_seats_count!, to: :happening, allow_nil: true
+  delegate :fact, :fact_id, :max_seats, :max_seats_for_ticket, :saleable?, :seats_count, :start_at, :update_seats_count!, to: :happening, allow_nil: true
+
+  attr_accessor :by_editor
 
   validates :happening, presence: true
   validates :user, presence: true, uniqueness: { scope: :happening_id }
@@ -36,9 +38,8 @@ class Ticket < ApplicationRecord
   validates :seats, numericality: { less_than_or_equal_to: :max_seats_for_ticket }, unless: :by_editor?
   validate  :validate_saleability, unless: :by_editor?
   validate  :validate_total_seats, unless: :by_editor?
-  validate  :validate_same_day, unless: :by_editor?
+  validate  :validate_frequency, unless: :by_editor?
 
-  attr_accessor :by_editor
 
   after_save :update_seats_count!
 
@@ -59,14 +60,26 @@ class Ticket < ApplicationRecord
     errors.add(:seats, 'Posti non disponibili') if seats_count + seats.to_i > max_seats
   end
 
-  # add error if {same_day_tickets} is a positive number
-  def validate_same_day
-    errors.add(:seats, 'Non e` possibile prenotare piu` volte un evento nello stesso giorno') if same_day_tickets.positive?
+  # check {User}'s ticket presence based of {Fact#tickets_frequency}
+  def validate_frequency
+    exist, message = case fact.tickets_frequency
+    when 'single'
+      [fact_ticket_exist?,I18n.t('site.ticket.errors.single')]     
+    when 'daily'
+      [fact_ticket_exist?(start_at.beginning_of_day..start_at.end_of_day),I18n.t('site.ticket.errors.daily')]
+    when 'weekly'
+      [fact_ticket_exist?(start_at.-(7.days)..start_at.+(7.days)),I18n.t('site.ticket.errors.weekly')]
+    when 'monthly'
+      [fact_ticket_exist?(start_at.-(30.days)..start_at.+(30.days)),I18n.t('site.ticket.errors.montly')]
+    else
+      return true
+    end
+    errors.add(:seats,message) if exist
   end
 
-  # Count Tickets from same {User} for same {Happening} in same day
-  def same_day_tickets
-    h = Happening.where(fact: happening.fact, start_at: (start_at.beginning_of_day..start_at.end_of_day))
-    Ticket.where(user: user, happening: h).where.not(id: id).count
+  # check if exists {Fact}'s {Ticket} for {User} in a time period
+  def fact_ticket_exist?(period = nil)
+    @when = {happenings: {start_at: period }} if period.present?
+    fact.tickets.where(@when).where(user: user).exists?
   end
 end

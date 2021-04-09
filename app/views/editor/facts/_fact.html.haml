@@ -1,4 +1,4 @@
-%a.box.is-hoverable{href: editor_fact_path(fact), data: {action: "ajax:success->page#goPage", remote: true}}
+%a.box.is-hoverable{href: editor_fact_path(fact), data: {turbo_frame: 'yield'}}
   .columns.is-mobile.is-gapless
     .column.is-narrow
       .figure.image.is-boxed-left-image= image_tag fact.image.variant(resize_to_limit: [200, 88]).processed

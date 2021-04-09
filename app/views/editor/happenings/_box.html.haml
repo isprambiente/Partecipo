@@ -1,5 +1,5 @@
 .box.has-ribbon
-  %a.ribbon.is-link{href: edit_editor_fact_happening_path(@fact, @happening), data: {remote: true, action: "ajax:success->section#goPage"}}
+  %a.ribbon.is-link{href: edit_editor_fact_happening_path(@fact, @happening), data: {turbo_frame: 'tickets'}}
     %i.fas.fa-edit
   %nav.level
     .level-item.has-text-centered

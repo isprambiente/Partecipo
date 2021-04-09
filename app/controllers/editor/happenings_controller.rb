@@ -8,22 +8,20 @@ class Editor::HappeningsController < Editor::ApplicationController
   # GET /editor/facts/:fact_id/happenings
   def index
     type = filter_params[:type] == 'history' ? 'history' : 'future'
-    @text = ['detail ilike :text', text: "%#{filter_params[:text]}%"] if filter_params[:text].present?
+    @text = ['detail ilike :text', { text: "%#{filter_params[:text]}%" }] if filter_params[:text].present?
     @pagy, @happenings = pagy(
       @fact.happenings.send(type).where(@text),
-      link_extra: "data-remote='true' data-action='ajax:success->section#goPage'",
       items: 6
     )
   end
 
   # GET /editor/facts/:fact_id/happenings/:id
   def show
-    set_tickets
   end
 
   # GET /editor/facts/fact_id/happenings/new
   def new
-    @happening = @fact.happenings.new
+    @happening = @fact.happenings.new(repeat_for: 0, repeat_in: [1,2,3,4,5])
   end
 
   # GET /editor/facts/:fact_id/happenings/:id/edit
@@ -35,7 +33,7 @@ class Editor::HappeningsController < Editor::ApplicationController
 
     if @happening.save
       set_tickets
-      render :show
+      render 'editor/facts/show'
     else
       render :new
     end
@@ -69,18 +67,9 @@ class Editor::HappeningsController < Editor::ApplicationController
     @happening = @fact.happenings.find(params[:id])
   end
 
-  # Set tickets
-  def set_tickets
-    @pagy, @tickets = pagy(
-      @happening.tickets,
-      link_extra: "data-remote='true' data-action='ajax:success->section#goPage'",
-      items: 6
-    )
-  end
-
   # Filter params for set an {Happening}
   def happening_params
-    params.require(:happening).permit(:detail, :start_at, :start_sale_at, :stop_sale_at, :max_seats, :max_seats_for_ticket)
+    params.require(:happening).permit(:detail, :start_at, :start_sale_at, :stop_sale_at, :max_seats, :max_seats_for_ticket, :repeat_for, repeat_in: [])
   end
 
   # Filter params for search an {Happening}

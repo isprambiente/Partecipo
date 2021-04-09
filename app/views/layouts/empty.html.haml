@@ -1,3 +1,4 @@
-= notifications.html_safe
-= notify_status(@status) if @status
-= yield
+%turbo-frame#yield
+  = notifications.html_safe
+  = notify_status(@status) if @status
+  = yield

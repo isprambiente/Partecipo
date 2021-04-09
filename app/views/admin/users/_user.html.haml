@@ -1,14 +1,14 @@
-%a.box.is-hoverable{href: admin_user_path(user), data: {action: "ajax:success->page#goPage", remote: true}}
-  .columns.is-mobile.is-gapless
-    .column
-      %i.fas.fa-user
-      = user.username
-    - if user.editor?
-      .column.is-narrow
-        %span.icon
-          %i.fas.fa-user-cog
-    - if user.admin? 
-      .column.is-narrow
-        %span.icon
-          %i.fas.fa-user-shield
-
+= turbo_frame_tag user do
+  %a.box.is-hoverable.mb-2{href: edit_admin_user_path(user)}
+    .columns.is-mobile.is-gapless
+      .column
+        %i.fas.fa-user
+        = user.username
+      - if user.editor?
+        .column.is-narrow
+          %span.icon
+            %i.fas.fa-user-cog
+      - if user.admin? 
+        .column.is-narrow
+          %span.icon
+            %i.fas.fa-user-shield

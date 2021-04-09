@@ -8,12 +8,10 @@ class Editor::TicketsController < Editor::ApplicationController
   before_action :set_ticket, only: %i[show edit update destroy]
 
   # GET /editor/facts/:fact_id/happenings/:happening_id/tickets
-  # GET /editor/tickets.json
   def index
-    @text = ["users.username ilike '%:string%'", string: params[:text]] if params[:text].present?
+    @text = ["users.username ilike '%:string%'", { string: params[:text] }] if params[:text].present?
     @pagy, @tickets = pagy(
       @happening.tickets.joins(:user).where(@text),
-      link_extra: "data-remote='true' data-action='ajax:success->section#goPage'",
       items: 6
     )
   end
@@ -32,13 +30,11 @@ class Editor::TicketsController < Editor::ApplicationController
   def new
     @ticket = @happening.tickets.new
     @users = User.pluck :username, :id
-    render :form
   end
 
   # GET /editor/facts/:fact_id/happenings/:happening_id/tickets/:id/edit
   def edit
     @users = User.pluck :username, :id
-    render :form
   end
 
   # POST /editor/facts/:fact_id/happenings/:happening_id/tickets/
@@ -47,11 +43,11 @@ class Editor::TicketsController < Editor::ApplicationController
     @ticket.by_editor = true
     if @ticket.save
       flash[:success] = 'Prenotazione salvata'
-      redirect_to editor_fact_happening_path(@fact, @happening)
+      redirect_to editor_fact_happening_tickets_path(@fact, @happening)
     else
       @users = User.pluck :username, :id
       @status = { error: 'Creatione prenotazione fallita' }
-      render :form
+      render action: 'new'
     end
   end
 
@@ -60,11 +56,11 @@ class Editor::TicketsController < Editor::ApplicationController
     @ticket.by_editor = true
     if @ticket.update(ticket_params)
       flash[:success] = 'Prenotazione salvata'
-      redirect_to editor_fact_happening_path(@fact, @happening)
+      render partial: 'ticket', locals: {ticket: @ticket, happening: @happening, fact: @fact}
     else
       @users = User.pluck :username, :id
       @status = { error: 'Aggionramento prenotazione fallito' }
-      render :form
+      render partial: 'form', locals: {ticket: @ticket, happening: @happening, fact: @fact}
     end
   end
 

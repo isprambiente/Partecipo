@@ -1,4 +1,4 @@
-%a.box.is-hoverable{href: editor_fact_happening_path(@fact,happening), data: {action: "ajax:success->page#goPage", remote: true}}
+%a.box.is-hoverable{href: editor_fact_happening_path(@fact,happening), data: {turbo_frame: 'yield'}}
   .columns.is-mobile.is-gapless
     .column
       %span.title.is-size-5

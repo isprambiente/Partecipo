@@ -1,10 +1,10 @@
-%a.box.is-hoverable{href: admin_group_path(group), data: {action: "ajax:success->page#goPage", remote: true}}
-  .columns.is-mobile.is-gapless
-    .column
-      %i.fas.fa-users
-      = group.title
-    .column.is-narrow
-      %span.icon
-        %i.fas.fa-user-cog
-      = group.users.count
-
+= turbo_frame_tag group do
+  %a.box.mb-2.is-hoverable{href: edit_admin_group_path(group)}
+    .columns.is-mobile.is-gapless
+      .column
+        %i.fas.fa-users
+        = group.title
+      .column.is-narrow
+        %span.icon
+          %i.fas.fa-user-cog
+        = group.users.count

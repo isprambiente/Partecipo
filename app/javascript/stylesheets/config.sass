@@ -1,45 +1,6 @@
-// Colors
-$black:        hsl(0, 0%, 4%) !default
-$black-bis:    hsl(0, 0%, 7%) !default
-$black-ter:    hsl(0, 0%, 14%) !default
-
-$grey-darker:  hsl(0, 0%, 21%) !default
-$grey-dark:    hsl(0, 0%, 29%) !default
-$grey:         hsl(0, 0%, 48%) !default
-$grey-light:   hsl(0, 0%, 71%) !default
-$grey-lighter: hsl(0, 0%, 86%) !default
-
-$white-ter:    hsl(0, 0%, 96%) !default
-$white-bis:    hsl(0, 0%, 98%) !default
-$white:        hsl(0, 0%, 100%) !default
-
-$orange:       hsl(37, 100%, 48%) !default
-$orange-light: hsl(37, 100%, 71%) !default
-$orange-darker: hsl(37, 100%, 21%) !default
-$orange-dark:  hsl(37, 100%, 35%) !default
-$yellow:       hsl(60,  100%, 66%) !default
-$yellow-light: hsl(60,  100%, 71%) !default
-$yellow-lighter: hsl(60,  100%, 81%) !default
-$yellow-darker: hsl(60,  100%, 21%) !default
-$yellow-dark:  hsl(60,  100%, 35%) !default
-$green:        hsl(140, 52%, 66%) !default
-$green-darker: hsl(140, 52%, 21%) !default
-$green-dark:   hsl(140, 52%, 35%) !default
-$turquoise:    hsl(171, 100%, 41%) !default
-$cyan:         hsl(204, 86%,  53%) !default
-$blue:         hsl(217, 71%,  53%) !default
-$purple:       hsl(271, 100%, 71%) !default
-$red:          hsl(8, 59%, 51%) !default
-
-// Colori pannello
-$subtitle-color: hsl(0, 0%, 48%) !default
-$panel-heading-background-color: #444 !default
-$panel-heading-color: #fff !default
-$panel-heading-size: 1rem !default
-
 // Typography
-$family-sans-serif: BlinkMacSystemFont, -apple-system, "Segoe UI", "Roboto", "Oxygen", "Ubuntu", "Cantarell", "Fira Sans", "Droid Sans", "Helvetica Neue", "Helvetica", "Arial", sans-serif !default
-$family-monospace: monospace !default
+//$family-sans-serif: BlinkMacSystemFont, -apple-system, "Segoe UI", "Roboto", "Oxygen", "Ubuntu", "Cantarell", "Fira Sans", "Droid Sans", "Helvetica Neue", "Helvetica", "Arial", sans-serif !default
+//$family-monospace: monospace !default
 
 $rgba-primary-0: rgba(135, 38, 67,1); // Main Primary color */
 $rgba-primary-1: rgba(209,125,151,1);
@@ -67,7 +28,7 @@ $rgba-complement-4: rgba( 28, 62,  0,1);
 
 // Colori sito
 $ispra:                   rgb(135, 38, 67);
-$ispra-darker:            rgb(102, 18, 36);
+$ispra-darker:            rgb(66, 12, 24);
 $ispra-secondary:         rgb(30, 74, 96);
 $ispra-secondary-darker:  rgb(2, 30, 44);
 $ispra-tertiary:          rgb(151, 101, 43);
@@ -76,15 +37,27 @@ $ispra-opposite:          rgb(82, 134, 38);
 $ispra-opposite-darker:   rgb(28, 62, 0);
 
 // Variabili globali
-$primary: $ispra
-$primary-darker: $ispra-darker
-$link: $ispra-secondary
-$info: $cyan
-$success: $green
-$warning: $yellow-lighter
-$danger: $red
-$dark: $grey-darker
-$text: $grey-dark
-$background: $white-ter
-$family-primary: 'Titillium Web', sans-serif
-$family-sans-serif: 'Titillium Web', sans-serif  // 'Roboto Mono', monospace
+//$primary: $ispra
+//$link: $ispra-secondary
+//$family-primary: 'Titillium Web', sans-serif
+//$family-sans-serif: 'Titillium Web', sans-serif  // 'Roboto Mono', monospace
+
+
+@charset "utf-8";
+
+// Import a Google Font
+@import url('https://fonts.googleapis.com/css?family=Nunito:400,700');
+
+// Update Bulma's global variables
+$primary: $rgba-primary-0;
+$primary-dark: #661224
+$secondary:         $rgba-complement-0;
+$secondary-darker:  rgb(2, 30, 44);
+$tertiary:          rgb(151, 101, 43);
+$grey-lighter: #e3e0d7
+
+// Update some of Bulma's component variables
+//$body-background-color: $beige-lighter;
+
+// Import only what you need from Bulma
+@import "~bulma/bulma"

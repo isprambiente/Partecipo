@@ -1,0 +1,23 @@
+.box.mb-2
+  = form_with model: [:editor, fact, happening, ticket] do |f|
+    %fieldset
+      .columns
+        .column
+          .field
+            = f.label :user_id
+            .control.has-icons-left
+              %span.select.is-fullwidth= f.select :user_id, users, {}
+              %span.icon.is-left= fas_icon 'user'
+              %p.help.is-danger= ticket.errors.messages[:user].join(' - ') 
+
+        .column
+          .field
+            = f.label :seats
+            .control.has-icons-left
+              = f.number_field :seats, min: 1, max: happening.max_seats - happening.seats_count, class: 'input'
+              %span.icon.is-left= fas_icon 'chair'
+              %p.help.is-danger= ticket.errors.messages[:seats].join(' - ')
+        .column.is-narrow
+          .field
+            %br
+            = f.button fas_icon('save', text: 'Salva'), class: 'button is-success'

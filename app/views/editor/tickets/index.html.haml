@@ -1,14 +1,14 @@
-%h4.title.is-size-5.has-text-centered
-  %i.fas.fa-ticket-alt
-  Prenotazioni
+%turbo-frame#tickets
+  %h4.title.is-size-5.has-text-centered
+    %i.fas.fa-ticket-alt
+    Prenotazioni
 
-%hr
-- if @tickets.present?
-  = render @tickets
-- else
-  .has-text-centered Nessuna prenotazione registrata
-%hr
-= pagy_bulma_nav(@pagy).html_safe
-%nav.has-text-centered
-  %a.button.is-link{href: editor_fact_path(@fact), data: {remote: true, action: "ajax:success->page#goPage"}}= fas_icon 'chevron-left', text: 'Indietro'
-  %a.button.is-success{href: new_editor_fact_happening_ticket_path(@fact, @happening), data: {remote: true, action: "ajax:success->section#goPage"}}= fas_icon 'plus', text: 'Nuova prenotazione'
+  %hr
+  - if @tickets.present?
+    = render @tickets, fact: @fact, happening: @happening
+    %turbo_frame#new_ticket
+  - else
+    %turbo_frame#new_ticket
+      .has-text-centered Nessuna prenotazione registrata
+  %hr
+  = pagy_bulma_nav(@pagy).html_safe

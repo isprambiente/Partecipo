@@ -1,0 +1,5 @@
+.notification.is-warning.is-light.has-text-centered
+  - if @ticket.start_at > Time.zone.now
+    Prenotazioni aperte dalle #{l @happening.start_sale_at, format: :time_first} alle #{l @happening.stop_sale_at, format: :time_first}
+  - else
+    Prenotazioni terminate #{l @happening.stop_sale_at, format: :detailed}

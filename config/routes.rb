@@ -19,6 +19,7 @@ Rails.application.routes.draw do
       get :list, on: :collection
       resources :happenings do
         resources :tickets, except: %i[show] do
+          get :list, on: :collection
           get :export, on: :collection
         end
       end

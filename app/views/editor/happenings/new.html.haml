@@ -1,5 +1,4 @@
-%h3.title.is-size-4.has-text-centered
-  %i.fas.fa-calendar-alt
-  crea nuovo evento
-
-= render 'form', fact: @fact, happening: @happening 
+%turbo-frame#happenings
+  %h5.title.is-size-5.has-text-centered= fas_icon 'calendar-alt', text: 'Nuove date'
+  .box
+    = render 'form', fact: @fact, happening: @happening 
