@@ -44,7 +44,7 @@ class Happening < ApplicationRecord
   validates  :stop_sale_at, presence: true
   validates  :max_seats, presence: true
   validates  :max_seats_for_ticket, presence: true
-  validates :repeat_for, numericality: {greather_to: 0, only_integer: true}, on: :create
+  validates :repeat_for, numericality: { greather_to: 0, only_integer: true }, on: :create
 
   after_create :add_repetitions
 
@@ -74,15 +74,17 @@ class Happening < ApplicationRecord
   # save multiple copies of the elements
   def add_repetitions
     (1..repeat_for.to_i).each do |n|
+      next unless repeat_for.include?(start_at.+(n.days).wday.to_s)
+
       fact.happenings.create(
-        detail: detail, 
-          start_at: start_at + n.days, 
-          start_sale_at: start_at + n.days, 
-          stop_sale_at: stop_sale_at + n.days, 
-        max_seats: max_seats, 
-        max_seats_for_ticket: max_seats_for_ticket, 
+        detail: detail,
+        start_at: start_at + n.days,
+        start_sale_at: start_at + n.days,
+        stop_sale_at: stop_sale_at + n.days,
+        max_seats: max_seats,
+        max_seats_for_ticket: max_seats_for_ticket,
         repeat_for: 0
-      ) if repeat_for.include?(start_at.+(n.days).wday.to_s)
+      )
     end
   end
 end
