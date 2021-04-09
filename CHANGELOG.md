@@ -14,6 +14,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - devise_lsap_authenticable preconfigured for easy switch
 - devise module configured with settings.yml
 ### changed
+- Move to ruby-3.0.0
 - Rewrited facts list: less code, more simplicity
 - Migrated from turbolinks to hotwire turbo
 
