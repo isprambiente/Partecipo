@@ -187,10 +187,9 @@ GEM
       addressable (~> 2.7)
     letter_opener (1.7.0)
       launchy (~> 2.2)
-    listen (3.1.5)
+    listen (3.0.8)
       rb-fsevent (~> 0.9, >= 0.9.4)
       rb-inotify (~> 0.9, >= 0.9.7)
-      ruby_dep (~> 1.2)
     loofah (2.9.1)
       crass (~> 1.0.2)
       nokogiri (>= 1.5.9)
@@ -211,7 +210,7 @@ GEM
       mini_portile2 (~> 2.5.0)
       racc (~> 1.4)
     orm_adapter (0.5.0)
-    pagy (3.12.0)
+    pagy (4.1.0)
     parallel (1.20.1)
     parser (3.0.1.0)
       ast (~> 2.4.1)
@@ -280,7 +279,6 @@ GEM
     ruby-progressbar (1.11.0)
     ruby-vips (2.1.0)
       ffi (~> 1.12)
-    ruby_dep (1.5.0)
     rubycas-client (2.3.9)
       activesupport
     rubyzip (2.3.0)
@@ -387,7 +385,7 @@ DEPENDENCIES
   yard
 
 RUBY VERSION
-   ruby 2.7.1p83
+   ruby 3.0.0p0
 
 BUNDLED WITH
-   2.1.4
+   2.2.3

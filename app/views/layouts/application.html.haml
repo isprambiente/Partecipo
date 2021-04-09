@@ -12,8 +12,9 @@
     = javascript_pack_tag 'application', 'data-turbo-track': 'reload'
   %body{ data: { controller: "page" } }
     %header
-      %turbo-frame#nav1{ src: Settings.header}
-      = render partial: 'nav'
+      %turbo-frame#nav1{ src: Settings.header }
+      .has-background-primary-dark
+        %turbo-frame#nav3{ src: home_top_menu_path }
     %section.section
       .container
         %turbo-frame#yield= yield

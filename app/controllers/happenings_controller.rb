@@ -16,7 +16,6 @@ class HappeningsController < ApplicationController
       @fact.happenings.send(type).where(@text),
       items: 6
     )
-    render layout: 'empty'
   end
 
   # GET /fact/:fact_id/happenings/:id
