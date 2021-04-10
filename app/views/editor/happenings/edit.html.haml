@@ -1,6 +1,7 @@
-%turbo-frame#tickets
-  %h5.title.is-size-5.has-text-centered
-    %i.fas.fa-calendar-alt
-    Modifica evento
+%turbo-frame#yield
+  %turbo-frame#tickets
+    %h5.title.is-size-5.has-text-centered
+      %i.fas.fa-calendar-alt
+      Modifica evento
 
-  .box= render 'form', fact: @fact, happening: @happening 
+    .box= render 'form', fact: @fact, happening: @happening 

@@ -16,8 +16,7 @@
       .has-background-primary-dark
         %turbo-frame#nav3{ src: home_top_menu_path }
     %section.section
-      .container
-        %turbo-frame#yield= yield
+      .container= yield
     %footer 
       %turbo-frame#footer{src: Settings.footer}
 

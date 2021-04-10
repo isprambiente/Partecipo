@@ -1,4 +1,5 @@
-%turbo-frame#groups
-  = render @groups
-  %hr
-  = pagy_bulma_nav(@pagy).html_safe
+%turbo-frame#yield
+  %turbo-frame#groups
+    = render @groups
+    %hr
+    = pagy_bulma_nav(@pagy).html_safe
