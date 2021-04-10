@@ -41,8 +41,7 @@ class Editor::HappeningsController < Editor::ApplicationController
   # PATCH/PUT /editor/facts/:fact_id/happenings/:id
   def update
     if @happening.update(happening_params)
-      set_tickets
-      render :show
+      render action: :show
     else
       render :edit
     end

@@ -35,7 +35,7 @@ class Admin::GroupsController < Admin::ApplicationController
 
     if @group.save
       @status = { success: 'Gruppo creato' }
-      redirect_to [:admin, @group]
+      redirect_to list_admin_groups_path
     else
       @status = { error: 'Creazione gruppo fallita' }
       render :new
