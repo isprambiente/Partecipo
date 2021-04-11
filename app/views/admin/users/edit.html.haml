@@ -2,7 +2,7 @@
   = turbo_frame_tag @user do
     .box.mb-2
       %h5.title.is-size-5= @user.username
-      = form_with model: [:admin, @user], data: {action: "ajax:success->section#goPage", remote: true} do |f|
+      = form_with model: [:admin, @user] do |f|
         %fieldset
           .columns
             .column
