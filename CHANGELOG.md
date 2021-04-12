@@ -11,8 +11,10 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - Now you can make many happening at same time
 - top menu unified for entire site
 - css colors configurable with settings.yml
+- email notifier on tickets creation
 - devise_lsap_authenticable preconfigured for easy switch
 - devise module configured with settings.yml
+- SMTP configured via settigns.yml
 ### changed
 - Move to ruby-3.0.0
 - Rewrited facts list: less code, more simplicity

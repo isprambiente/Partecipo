@@ -6,13 +6,6 @@
 module ApplicationHelper
   include Pagy::Frontend
 
-  # @param [String] url source of remote page
-  # @return [String] write a content tag for load a remote page
-  def loader(url)
-    # "<div data-target='page.loader', url='#{url}'>Sto caricando</div>".html_safe
-    content_tag(:div, 'Sto caricando', url: url, data: { target: 'page.loader' })
-  end
-
   # make a div for the font-awesome icons
   def fas_icon(fa_style, span_style: nil, style: false, text: '', tooltip: false)
     # "<span class='icon #{span_style}' #{"style='#{style}'" if style.present?} data-tooltip=\"#{tooltip if tooltip.present?}\" ><i class='fas fa-#{fa_style}' aria-hidden='true'></i></span> #{"<span>#{text}</span>" if text.present?}".html_safe

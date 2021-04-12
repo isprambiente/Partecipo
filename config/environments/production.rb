@@ -119,4 +119,19 @@ Rails.application.configure do
   # config.active_record.database_selector = { delay: 2.seconds }
   # config.active_record.database_resolver = ActiveRecord::Middleware::DatabaseSelector::Resolver
   # config.active_record.database_resolver_context = ActiveRecord::Middleware::DatabaseSelector::Resolver::Session
+
+  ## SMTP
+  config.action_mailer.delivery_method = :smtp
+  config.action_mailer.default_url_options = {
+    host: Rails.application.credentials.default_url_host || Settings.action_mailer.default_url_option.host || '',
+    protocol: Rails.application.credentials.default_url_protocol || Settings.action_mailer.default_url_option.protocol || ''
+  }
+  config.action_mailer.smtp_settings = {
+    address: Rails.application.credentials.smtp_address || Settings.action_mailer.smtp_settings.address,
+    port: Rails.application.credentials.smtp_port || Settings.action_mailer.smtp_settings.port,
+    domain: Rails.application.credentials.smtp_domain || Settings.action_mailer.smtp_settings.domain,
+    ssl: Rails.application.credentials.smtp_ssl || Settings.action_mailer.smtp_settings.ssl,
+    user_name: Rails.application.credentials.smtp_username || Settings.action_mailer.smtp_settings.username,
+    password: Rails.application.credentials.smtp_password || Settings.action_mailer.smtp_settings.password
+  }
 end

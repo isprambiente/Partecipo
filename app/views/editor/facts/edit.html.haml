@@ -1,9 +1,10 @@
-%h3.title.has-text-centered
-  %i.fas.fa-tools
-  = @fact.title
-.columns
-  %aside.column.is-3= render 'fact_menu', fact: @fact
-  .column
-    = render 'box'
-    %turbo-frame#happenings
-      .box= render 'form', fact: @fact
+%turbo-frame#yield
+  %h3.title.has-text-centered
+    %i.fas.fa-tools
+    = @fact.title
+  .columns
+    %aside.column.is-3= render 'fact_menu', fact: @fact
+    .column
+      = render 'box'
+      %turbo-frame#happenings
+        .box= render 'form', fact: @fact

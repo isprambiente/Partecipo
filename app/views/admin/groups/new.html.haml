@@ -1,2 +1,3 @@
-%turbo-frame#groups
-  .box= render 'form', group: @group
+%turbo-frame#yield
+  %turbo-frame#groups
+    .box= render 'form', group: @group

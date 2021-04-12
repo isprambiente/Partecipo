@@ -16,21 +16,13 @@ class TicketsController < ApplicationController
 
   # POST /fact/:fact_id/happenings/:happening_id/tickets
   def create
-    @status = if @ticket.update filter_ticket
-                { success: 'Prenotazione eseguita' }
-              else
-                { error: 'Prenotazione fallita' }
-              end
+    TicketMailer.with(ticket: @ticket).confirm.deliver_later if @ticket.update filter_ticket
     render 'happenings/show'
   end
 
   # POST /fact/:fact_id/happenings/:happening_id/tickets/:id
   def destroy
-    @status = if @ticket.destroy
-                { success: 'Prenotazione annullata' }
-              else
-                { error: 'Prenotazione non annullabile' }
-              end
+    TicketMailer.with(ticket: @ticket).deleted.deliver_later if @ticket.destroy
     render 'happenings/show'
   end
 

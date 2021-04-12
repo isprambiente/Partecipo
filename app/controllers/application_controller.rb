@@ -3,7 +3,7 @@
 # This controller contain the methods shared for all controller
 class ApplicationController < ActionController::Base
   include Pagy::Backend
-  layout 'application'
+
   before_action :authenticate_user!
 
   rescue_from ActiveRecord::RecordNotFound do
