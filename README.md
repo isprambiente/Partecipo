@@ -20,9 +20,9 @@ Questo repository contiene il codice sorgente del programma.
 Il sito è sviluppato in linguaggio Ruby 2.7, framework Rails 6.0 e webpacker StimulusJS.
 
 ### Specifiche tecniche progetto
-* [Ruby 2.7.x](https://www.ruby-lang.org)
+* [Ruby 3.0.x](https://www.ruby-lang.org)
 * [RVM](https://rvm.io/)
-* [Ruby on Rais 6.0](https://rubyonrails.org/)
+* [Ruby on Rais 6.1](https://rubyonrails.org/)
 * [NodeJS](https://nodejs.org/)
 * [Yarn](https://yarnpkg.com/)
 * [Webpacker StimulusJS](https://stimulusjs.org/)
@@ -37,7 +37,7 @@ Il sito è sviluppato in linguaggio Ruby 2.7, framework Rails 6.0 e webpacker St
 ### Requisiti tecnici per ambiente server
 * Sistema operativo: Linux
 * Gestore pacchetto ruby: RVM
-* Linguaggio di programmazione: Ruby 2.7
+* Linguaggio di programmazione: Ruby 3.0
 * Framework: Rais 6.1
 * Webpacker: StimulusJS
 * Database: PostgreSQL >= 12.2
