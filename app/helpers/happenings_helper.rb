@@ -5,6 +5,7 @@ module HappeningsHelper
   # make the html needed for {Happening} title
   #
   # @param happening [Onject] an {Happening} istance
+
   # @return [String] safe html for {happening} title
   def happening_title(happening)
     <<-HTML.html_safe
