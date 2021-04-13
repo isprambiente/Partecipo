@@ -1,0 +1,16 @@
+%turbo-frame#yield
+  %h3.title.has-text-centered
+    %i.fas.fa-tools
+    = @user.username
+  .columns
+    %aside.column.is-3
+      %nav.panel
+        %p.panel-heading= t 'site.editor.ticket.search'
+        = form_with scope: 'filter', url: tickets_editor_user_path(@user), method: :get, data: {turbo_frame: 'tickets', controller: 'form', form_target: 'sender'} do |f|
+          .panel-block
+            %p.control.has-icons-left
+              = f.text_field :text, placeholder: 'Testo', class: 'input', data: {action: 'keyup->form#delayedSendForm'}
+              %span.icon.is-left
+                %i.fas.fa-search
+    .column
+      %turbo-frame#tickets{src: tickets_editor_user_path(@user) }     

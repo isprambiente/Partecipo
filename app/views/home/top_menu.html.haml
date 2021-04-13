@@ -19,8 +19,9 @@
             .navbar-dropdown
               - if current_user.editor?
                 %a.navbar-item{ href: editor_root_path, data: {turbo_frame: 'yield'}}= fas_icon('tools', text: 'Gestione eventi')
+                %a.navbar-item{ href: editor_users_path, data: {turbo_frame: 'yield'}}= fas_icon('tools', text: 'Gestione utenti')
               -if current_user.admin?
-                %a.navbar-item{ href: admin_root_path, data: {turbo_frame: 'yield'}}= fas_icon('users', text: 'Gestione Utenti')
+                %a.navbar-item{ href: admin_root_path, data: {turbo_frame: 'yield'}}= fas_icon('users', text: 'Gestione Diritti')
                 %a.navbar-item{ href: admin_groups_path, data: {turbo_frame: 'yield'}}= fas_icon('users', text: 'Gestione Gruppi')
 
               %a.navbar-item{href: destroy_user_session_path, data: {method: :delete}}= fas_icon 'sign-out-alt', text: 'Disconnetti'

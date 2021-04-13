@@ -1,0 +1,7 @@
+%turbo-frame#yield
+  %turbo-frame#tickets
+    = render partial: 'user_ticket', collection: @tickets, as: :ticket
+    %hr
+    = pagy_bulma_nav(@pagy).html_safe
+    %p.has-text-centered
+      %a.button.is-success{href: editor_users_path, data: {turbo_frame: 'yield'}}= fas_icon 'chevron-left', text: 'Indietro'

@@ -25,6 +25,10 @@ Rails.application.routes.draw do
         end
       end
     end
+    resources :users, only: %i[index show] do
+      get :list, on: :collection
+      get :tickets, on: :member
+    end
   end
 
   namespace 'admin' do

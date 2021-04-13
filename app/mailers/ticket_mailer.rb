@@ -1,3 +1,6 @@
+# frozen_string_literal: true
+
+# Mailer for tickets
 class TicketMailer < ApplicationMailer
   default from: Settings.email
   before_action :set_variables

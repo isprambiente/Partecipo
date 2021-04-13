@@ -6,7 +6,7 @@
 
     %hr
     - if @tickets.present?
-      = render @tickets, fact: @fact, happening: @happening
+      = render @tickets
       %turbo_frame#new_ticket
     - else
       %turbo_frame#new_ticket
