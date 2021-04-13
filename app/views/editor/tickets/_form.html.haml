@@ -5,9 +5,9 @@
         .column
           .field
             = f.label :user_id
-            .control.has-icons-left
-              %span.select.is-fullwidth= f.select :user_id, users, {}
-              %span.icon.is-left= fas_icon 'user'
+            .control
+              %span.select.is-fullwidth= f.select :user_id, [], {}, {data: {controller: 'slim', target: 'slim.user'}}
+
               %p.help.is-danger= ticket.errors.messages[:user].join(' - ') 
 
         .column

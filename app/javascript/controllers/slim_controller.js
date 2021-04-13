@@ -23,8 +23,15 @@ export default class extends Controller {
     new SlimSelect({ select: element })
   }
 
+  user(element) {
+    this.ajax(element, '/editor/users/list.json?')
+  }
+
   editor(element) {
     this.ajax(element, '/admin/users/list?filter[editor]=1&')
+  }
+
+  set_data(element) {
   }
 
   ajax(element, url) {
@@ -35,6 +42,7 @@ export default class extends Controller {
       searchPlaceholder:  'Digita per ricercare',
       searchText: 'Nessun risultato',
       allowDeselect: true,
+      data: this.set_data(),
       ajax: function (search, callback) {
         // Check search value. If you dont like it callback(false) or callback('Message String')
         if (search.length < 3) {
