@@ -32,3 +32,5 @@ it:
         search: Ricerca prenotazioni
         export_csv: Esporta CSV
         export_pdf: Esporta PDF
+      user:
+        search: Ricerca utenti
