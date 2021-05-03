@@ -19,15 +19,16 @@ Rails.application.routes.draw do
     resources :facts do
       get :list, on: :collection
       resources :happenings do
-        resources :tickets, except: %i[show] do
-          get :list, on: :collection
-          get :export, on: :collection
-        end
+        get :tickets, on: :member, to: 'tickets#list_by_happening'
       end
+    end
+    resources :tickets do
+      get :list, on: :collection
+      get :export, on: :collection
     end
     resources :users, only: %i[index show] do
       get :list, on: :collection
-      get :tickets, on: :member
+      get :tickets, on: :member, to: 'tickets#list_by_user'
     end
   end
 

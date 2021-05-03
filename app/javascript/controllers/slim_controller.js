@@ -31,18 +31,18 @@ export default class extends Controller {
     this.ajax(element, '/admin/users/list?filter[editor]=1&')
   }
 
-  set_data(element) {
+  get_data(element) {
+    [{text: element.getAttribute("data-text"), value: element.getAttribute("data-value")}]
   }
 
   ajax(element, url) {
-    new SlimSelect({
+    const slim = new SlimSelect({
       select: element,
       placeholder: 'Seleziona un utente',
       searchingText: 'Sto cercando...',
       searchPlaceholder:  'Digita per ricercare',
       searchText: 'Nessun risultato',
       allowDeselect: true,
-      data: this.set_data(),
       ajax: function (search, callback) {
         // Check search value. If you dont like it callback(false) or callback('Message String')
         if (search.length < 3) {

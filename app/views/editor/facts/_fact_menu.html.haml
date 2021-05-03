@@ -13,6 +13,6 @@
       = f.radio_button :type, 'history', selected: true, data: {action: "form#sendForm"}
       %span= t('history', scope: 'site.happening.scope')
     %a.panel-block{href: new_editor_fact_happening_path(@fact), data: {turbo_frame: 'happenings'}}= fas_icon 'plus', text: 'Aggiungi date'
-    %a.panel-block{href: editor_facts_path}= fas_icon 'chevron-left', text: 'Indietro'
+    %a.panel-block{href: editor_facts_path, data: {turbo_frame: 'yield'}}= fas_icon 'chevron-left', text: 'Indietro'
 
 %figure.image= image_tag(fact.image.variant(resize_to_limit: [318,318]).processed) 

@@ -71,7 +71,10 @@
 
   .has-text-centered
     - if happening.persisted?
-      %a.button.is-link{href: editor_fact_happening_tickets_path(fact, happening), data: {turbo_frame: 'tickets'}}= fas_icon 'chevron-left', text: 'Indietro'
+      %a.button.is-link{href: tickets_editor_fact_happening_path(fact, happening), data: {turbo_frame: 'tickets'}}= fas_icon 'chevron-left', text: 'Indietro'
     -else
       %a.button.is-link{href: editor_fact_happenings_path(fact), data: {turbo_frame: 'happenings'}}= fas_icon 'chevron-left', text: 'Indietro'
     = form.button fas_icon('save', text: 'Salva'), class: 'button is-success'
+- if happening.persisted?
+  %br
+  .has-text-centered= link_to fas_icon('trash', text: 'Elimina data'), editor_fact_happening_path(happening.fact, happening), class: 'button is-warning', data: {confirm: 'Attenzione la data e tutte le prenotazioni saranno eliminate, confermi?', method: :delete}

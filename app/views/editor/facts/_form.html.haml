@@ -78,3 +78,6 @@
     - else
       %a.button.is-link{href: list_editor_facts_path, data: {turbo_frame: 'facts'}}= fas_icon 'chevron-left', text: 'Indietro'
     = form.button fas_icon('save', text: 'Salva'), class: 'button is-success'
+- if fact.persisted?
+  %br
+  .has-text-centered= link_to fas_icon('trash', text: 'Elimina evento'), editor_fact_path(fact), class: 'button is-warning', data: {confirm: 'Attenzione l`evento, le date e tutte le prenotazioni saranno eliminate, confermi?', method: :delete, turbo_frame: 'yield'}

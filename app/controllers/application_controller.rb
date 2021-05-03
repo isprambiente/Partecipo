@@ -6,21 +6,21 @@ class ApplicationController < ActionController::Base
 
   before_action :authenticate_user!
 
-  rescue_from ActiveRecord::RecordNotFound do
-    record_not_found!
-  end
+  #rescue_from ActiveRecord::RecordNotFound do
+  #  record_not_found!
+  #end
 
   private
 
   # Render 404 page and stop the work
   # @return [nil]
   def record_not_found!
-    render partial: 'errors/404', status: 404 && return
+    render partial: 'errors/404', status: 404 and return
   end
 
   # Render 401 page and stop the work
   # @return [nil]
   def access_denied!
-    render 'errors/401', status: :unauthorized
+    render 'errors/401', status: :unauthorized and return
   end
 end
