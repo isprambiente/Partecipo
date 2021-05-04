@@ -23,12 +23,20 @@ export default class extends Controller {
     new SlimSelect({ select: element })
   }
 
+  user(element) {
+    this.ajax(element, '/editor/users/list.json?')
+  }
+
   editor(element) {
     this.ajax(element, '/admin/users/list?filter[editor]=1&')
   }
 
+  get_data(element) {
+    [{text: element.getAttribute("data-text"), value: element.getAttribute("data-value")}]
+  }
+
   ajax(element, url) {
-    new SlimSelect({
+    const slim = new SlimSelect({
       select: element,
       placeholder: 'Seleziona un utente',
       searchingText: 'Sto cercando...',

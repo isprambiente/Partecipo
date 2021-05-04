@@ -37,7 +37,7 @@ class Fact < ApplicationRecord
   has_rich_text :body
   has_one_attached :image
   belongs_to :group
-  has_many :happenings
+  has_many :happenings, dependent: :destroy
   has_many :tickets, through: :happenings
   validates :title, presence: true
   validates :start_on, presence: true

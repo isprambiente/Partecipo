@@ -3,17 +3,34 @@
 # This controller manage {Ticket} model for editors
 class Editor::TicketsController < Editor::ApplicationController
   require 'csv'
-  before_action :set_fact
-  before_action :set_happening
+  before_action :check_happening, only: %i[create update]
+  #before_action :set_fact_ids
+  #before_action :set_happening
   before_action :set_ticket, only: %i[show edit update destroy]
 
-  # GET /editor/facts/:fact_id/happenings/:happening_id/tickets
+  # GET /editor/tickets
   def index
-    @text = ["users.username ilike '%:string%'", { string: params[:text] }] if params[:text].present?
+  end
+
+  # GET /editor/tickets/list
+  def list_by_happening
+    @happening = Happening.find_by(id: params[:id], fact_id: fact_ids) 
+    @text = ["users.username ilike :string", { string: "%#{filter_params[:text]}%" }] if filter_params[:text].present?
     @pagy, @tickets = pagy(
-      @happening.tickets.joins(:user).where(@text),
+      @happening.tickets.includes(:user).where(@text),
       items: 6
     )
+    render action: :list
+  end
+  
+  def list_by_user
+    @user = User.find(params[:id])
+    @text = ["facts.title ilike :string", { string: "%#{filter_params[:text]}%" }] if filter_params[:text].present?
+    @pagy, @tickets = pagy(
+      @user.tickets.includes(happening: [:fact]).where(@text).where(happening: {fact_id: fact_ids}),
+      items: 6
+    )
+    render action: :list
   end
 
   # GET /editor/facts/:fact_id/happenings/:happening_id/tickets/export
@@ -28,7 +45,7 @@ class Editor::TicketsController < Editor::ApplicationController
 
   # GET /editor/facts/:fact_id/happenings/:happening_id/tickets/new
   def new
-    @ticket = @happening.tickets.new
+    @ticket = Ticket.new(happening_id: happening_id(filter_params[:happening_id]))
     @users = User.pluck :username, :id
   end
 
@@ -39,11 +56,11 @@ class Editor::TicketsController < Editor::ApplicationController
 
   # POST /editor/facts/:fact_id/happenings/:happening_id/tickets/
   def create
-    @ticket = @happening.tickets.new(ticket_params)
+    @ticket = Ticket.new(ticket_params)
     @ticket.by_editor = true
     if @ticket.save
       flash[:success] = 'Prenotazione salvata'
-      redirect_to editor_fact_happening_tickets_path(@fact, @happening)
+      redirect_to tickets_editor_fact_happening_path(@ticket.happening.fact, @ticket.happening)
     else
       @users = User.pluck :username, :id
       @status = { error: 'Creatione prenotazione fallita' }
@@ -53,8 +70,7 @@ class Editor::TicketsController < Editor::ApplicationController
 
   # PATCH/PUT /editor/facts/:fact_id/happenings/:happening_id/tickets/:id
   def update
-    @ticket.by_editor = true
-    if @ticket.update(ticket_params)
+    if @ticket.update(ticket_params.merge(by_editor: true))
       flash[:success] = 'Prenotazione salvata'
       render partial: 'ticket', locals: { ticket: @ticket, happening: @happening, fact: @fact }
     else
@@ -72,24 +88,34 @@ class Editor::TicketsController < Editor::ApplicationController
   end
 
   private
+  
+  def check_happening
+    access_denied! unless fact_ids.include?(Happening.find(ticket_params[:happening_id]).fact_id)
+  end
 
   # set @fact before any action
-  def set_fact
-    @fact = current_user.facts.find(params[:fact_id])
+  def fact_ids
+    current_user.facts.pluck(:id)
   end
 
   # Set @happening before any action
-  def set_happening
-    @happening = @fact.happenings.find(params[:happening_id])
+  def happening_id(value)
+    Happening.find_by(id: value, fact_id: fact_ids).id
   end
 
   # Set ticket when needed
   def set_ticket
-    @ticket = @happening.tickets.find(params[:id])
+    @ticket = Ticket.includes(:happening).find(params[:id])
+    access_denied! unless fact_ids.include?(@ticket.happening.fact_id)
   end
 
   # Filter params for set a ticket
   def ticket_params
-    params.require(:ticket).permit(:happenings_id, :user_id, :seats)
+    params.require(:ticket).permit(:happening_id, :user_id, :seats)
+  end
+
+  # Filter params for search an {Happening}
+  def filter_params
+    params.fetch(:filter, {}).permit(:text, :user_id, :happening_id)
   end
 end

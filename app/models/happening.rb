@@ -37,7 +37,7 @@
 #   @return [Array] list of [Fact] with stop_on minor than Time.zone.today, ordered by start_on desc
 class Happening < ApplicationRecord
   belongs_to :fact, counter_cache: true
-  has_many   :tickets
+  has_many   :tickets, dependent: :destroy
   validates  :fact, presence: true
   validates  :start_at, presence: true
   validates  :start_sale_at, presence: true
@@ -74,7 +74,7 @@ class Happening < ApplicationRecord
   # save multiple copies of the elements
   def add_repetitions
     (1..repeat_for.to_i).each do |n|
-      next unless repeat_for.include?(start_at.+(n.days).wday.to_s)
+      next unless repeat_in.include?(start_at.+(n.days).wday.to_s)
 
       fact.happenings.create(
         detail: detail,

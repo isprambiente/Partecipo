@@ -31,7 +31,7 @@ class Editor::FactsController < Editor::ApplicationController
     @fact = Fact.new(fact_params)
     if @fact.save
       @status = { success: 'Evento creato' }
-      render action: :show
+      redirect_to editor_fact_path(@fact)
     else
       @status = { error: 'ERRORE - Evento non creato. Verifica gli errori.' }
       render action: :new
@@ -51,9 +51,9 @@ class Editor::FactsController < Editor::ApplicationController
 
   # DELETE /editor/facts/:id
   def destroy
-    if @editor_fact.destroy
+    if @fact.destroy
       @status = { success: 'Evento eliminato' }
-      render action: :index
+      redirect_to editor_facts_path
     else
       @status = { error: 'ERRORE - Evento non eliminato. Verifica gli errori.' }
       render action: :edit
