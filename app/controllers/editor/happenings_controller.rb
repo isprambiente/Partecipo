@@ -3,7 +3,7 @@
 # This controller manafe {Happening} model for editors
 class Editor::HappeningsController < Editor::ApplicationController
   before_action :set_fact
-  before_action :set_happening, only: %i[show edit update destroy]
+  before_action :set_happening, only: %i[show edit update destroy export]
 
   # GET /editor/facts/:fact_id/happenings
   def index
@@ -51,6 +51,12 @@ class Editor::HappeningsController < Editor::ApplicationController
   def destroy
     @happening.destroy
     redirect_to editor_root_path
+  end
+
+  # GET /editor/facts/:fact_id/happenings/:happening_id/tickets/export
+  def export
+    @tickets = [%w[Username Posti]] +  @happening.tickets.includes(:user).all.map { |t| [t.user.username, t.seats] } + [['Totale', @happening.seats_count]]
+    send_data @tickets.map(&:to_csv).join, filename: 'tickets.csv'
   end
 
   private

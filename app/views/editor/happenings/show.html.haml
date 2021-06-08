@@ -13,7 +13,7 @@
               = f.text_field :text, placeholder: 'Nome', class: 'input', data: {action: 'keyup->form#delayedSendForm'}
               %span.icon.is-left
                 %i.fas.fa-search
-        %a.panel-block{href: export_editor_tickets_path(@fact, @happening, format: :csv)}= fas_icon 'file-csv', text: t('site.editor.ticket.export_csv')
+        %a.panel-block{href: export_editor_fact_happening_path(@fact, @happening, format: :csv)}= fas_icon 'file-csv', text: t('site.editor.ticket.export_csv')
         %a.panel-block{href: edit_editor_fact_happening_path(@fact, @happening), data: {turbo_frame: 'tickets'}}= fas_icon 'edit', text: 'Modifica ingresso'
         %a.panel-block{href: new_editor_ticket_path(filter: {happening_id: @happening.id}), data: {turbo_frame: 'tickets'}}= fas_icon 'plus', text: 'Aggiungi prenotazione'
         %a.panel-block{href: editor_fact_path(@fact)}= fas_icon 'chevron-left', text: 'Indietro'

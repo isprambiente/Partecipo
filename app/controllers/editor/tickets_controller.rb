@@ -33,16 +33,6 @@ class Editor::TicketsController < Editor::ApplicationController
     render action: :list
   end
 
-  # GET /editor/facts/:fact_id/happenings/:happening_id/tickets/export
-  def export
-    @tickets = [
-      %w[Username Posti],
-      @happening.tickets.includes(:user).all.map { |t| [t.user.username, t.seats] },
-      ['Totale', @happening.seats_count]
-    ]
-    send_data @tickets.map(&:to_csv).join, filename: 'tickets.csv'
-  end
-
   # GET /editor/facts/:fact_id/happenings/:happening_id/tickets/new
   def new
     @ticket = Ticket.new(happening_id: happening_id(filter_params[:happening_id]))

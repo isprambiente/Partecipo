@@ -20,11 +20,11 @@ Rails.application.routes.draw do
       get :list, on: :collection
       resources :happenings do
         get :tickets, on: :member, to: 'tickets#list_by_happening'
+        get :export, on: :member
       end
     end
     resources :tickets do
       get :list, on: :collection
-      get :export, on: :collection
     end
     resources :users, only: %i[index show] do
       get :list, on: :collection
