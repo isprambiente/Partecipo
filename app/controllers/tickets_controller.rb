@@ -2,6 +2,7 @@
 
 # this controller manage {Ticket} model
 class TicketsController < ApplicationController
+  before_action :authenticate_user!
   before_action :set_ticket, only: %i[create destroy]
 
   # GET /tickets
