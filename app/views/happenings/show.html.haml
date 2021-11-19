@@ -3,9 +3,12 @@
     .box.block
       = happening_title(@happening)
       = @happening.detail
-      - if @ticket.persisted?
-        = render 'tickets/remove', fact: @fact, happening: @happening, ticket: @ticket
-      - elsif @ticket.saleable?
-        = render 'tickets/add', fact: @fact, happening: @happening, ticket: @ticket
+      - if user_signed_in?
+        - if @ticket.persisted?
+          = render 'tickets/remove', fact: @fact, happening: @happening, ticket: @ticket
+        - elsif @ticket.saleable?
+          = render 'tickets/add', fact: @fact, happening: @happening, ticket: @ticket
+        - else
+          = render 'tickets/inactive', fact: @fact, happening: @happening, ticket: @ticket
       - else
-        = render 'tickets/inactive', fact: @fact, happening: @happening, ticket: @ticket
+        = render 'tickets/unauthenticated'
