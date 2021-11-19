@@ -2,6 +2,7 @@
 
 # This controller manage the {Fact} model
 class FactsController < ApplicationController
+  before_action :authenticate_user! if Settings.restricted_access
   before_action :set_fact, only: %i[show]
 
   # GET /facts
