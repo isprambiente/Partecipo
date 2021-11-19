@@ -6,6 +6,7 @@ subtitle: Gestione prenotazioni
 email: partecipo@partecipo.com
 domain: isprambiente.it
 cas: https://auth.partecipo.com/cas/
+restricted_access: false
 app:
   url: https://partecipo.com
 database:

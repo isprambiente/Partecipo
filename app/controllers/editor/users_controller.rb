@@ -22,7 +22,7 @@ class Editor::UsersController < Editor::ApplicationController
   def tickets
     @text = ['facts.title ilike :string', { string: "%#{filter_params[:text]}%" }] if filter_params[:text].present?
     if current_user.admin?
-      @pagy, @tickets = pagy( @user.tickets.joins(happening: [:fact]).where(@text), items: 6)
+      @pagy, @tickets = pagy(@user.tickets.joins(happening: [:fact]).where(@text), items: 6)
     else
       @pagy, @tickets = pagy(
         @user.tickets.joins(happening: [:fact]).where(happening: { fact: @current_user.facts }).where(@text),

@@ -4,11 +4,9 @@
 class ApplicationController < ActionController::Base
   include Pagy::Backend
 
-  before_action :authenticate_user!
-
-  #rescue_from ActiveRecord::RecordNotFound do
-  #  record_not_found!
-  #end
+  # rescue_from ActiveRecord::RecordNotFound do
+  #   record_not_found!
+  # end
 
   private
 

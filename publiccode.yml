@@ -25,8 +25,14 @@ description:
       verificare le proprie prenotazioni.
 
       Il programma è stato appositamente sviluppato su piattaforma web per 
-      consentire l'accesso alle risorse interne tramite l'utilizzo di un  comune
+      consentire l'accesso tramite l'utilizzo di un  comune
       browser web.
+
+      Dalla versione 2.2.0 il programma può essere configurato per permettere
+      la visualizzazione senza autenticazione degli eventi e richiederela
+      soltanto al momento della prenotazione dei ticket (visualizzazione pubblica).
+      In questo modo è possibile utilizzare l'applicazione anche come frontend pubblico
+      oltre che come applicazione interna.
     shortDescription: 'Programma di gestione prenotazioni eventi '
     screenshots:
       - doc/screen-1.png
@@ -82,7 +88,7 @@ platforms:
 roadmap: 'https://github.com/isprambiente/Partecipo/projects'
 releaseDate: '2021-03-23'
 softwareType: standalone/web
-softwareVersion: 2.1.12
+softwareVersion: 2.2.0
 url: 'https://github.com/isprambiente/Partecipo.git'
 usedBy:
   - ISPRA

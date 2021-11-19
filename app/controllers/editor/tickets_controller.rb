@@ -4,17 +4,16 @@
 class Editor::TicketsController < Editor::ApplicationController
   require 'csv'
   before_action :check_happening, only: %i[create update]
-  #before_action :set_fact_ids
-  #before_action :set_happening
+  # before_action :set_fact_ids
+  # before_action :set_happening
   before_action :set_ticket, only: %i[show edit update destroy]
 
   # GET /editor/tickets
-  def index
-  end
+  def index; end
 
   # GET /editor/tickets/list
   def list_by_happening
-    @happening = Happening.find_by(id: params[:id], fact_id: fact_ids) 
+    @happening = Happening.find_by(id: params[:id], fact_id: fact_ids)
     @text = ["users.username ilike :string", { string: "%#{filter_params[:text]}%" }] if filter_params[:text].present?
     @pagy, @tickets = pagy(
       @happening.tickets.includes(:user).where(@text),
@@ -27,7 +26,7 @@ class Editor::TicketsController < Editor::ApplicationController
     @user = User.find(params[:id])
     @text = ["facts.title ilike :string", { string: "%#{filter_params[:text]}%" }] if filter_params[:text].present?
     @pagy, @tickets = pagy(
-      @user.tickets.includes(happening: [:fact]).where(@text).where(happening: {fact_id: fact_ids}),
+      @user.tickets.includes(happening: [:fact]).where(@text).where(happening: { fact_id: fact_ids }),
       items: 6
     )
     render action: :list
@@ -78,7 +77,7 @@ class Editor::TicketsController < Editor::ApplicationController
   end
 
   private
-  
+
   def check_happening
     access_denied! unless fact_ids.include?(Happening.find(ticket_params[:happening_id]).fact_id)
   end

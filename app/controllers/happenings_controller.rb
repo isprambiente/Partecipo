@@ -3,6 +3,7 @@
 # this controller manage the {Happening} model.
 # this model is under {FactsController}
 class HappeningsController < ApplicationController
+  before_action :authenticate_user! if Settings.restricted_access
   before_action :set_fact
   before_action :set_happening, only: %i[show]
   before_action :set_ticket, only: %i[show]

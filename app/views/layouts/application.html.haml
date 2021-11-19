@@ -13,8 +13,7 @@
   %body{ data: { controller: "page" } }
     %header
       %turbo-frame#nav1{ src: Settings.header }
-      .has-background-primary-dark
-        %turbo-frame#nav3{ src: home_top_menu_path }
+      = render 'top_menu'
     %section.section
       .container= yield
     %footer 

@@ -55,7 +55,7 @@ class Editor::HappeningsController < Editor::ApplicationController
 
   # GET /editor/facts/:fact_id/happenings/:happening_id/tickets/export
   def export
-    @tickets = [%w[Username Posti]] +  @happening.tickets.includes(:user).all.map { |t| [t.user.username, t.seats] } + [['Totale', @happening.seats_count]]
+    @tickets = [%w[Username Posti]] + @happening.tickets.includes(:user).all.map { |t| [t.user.username, t.seats] } + [['Totale', @happening.seats_count]]
     send_data @tickets.map(&:to_csv).join, filename: 'tickets.csv'
   end
 
