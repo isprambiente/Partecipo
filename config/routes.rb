@@ -1,7 +1,6 @@
 # frozen_string_literal: true
 
 Rails.application.routes.draw do
-  get 'home/top_menu'
   # For details on the DSL available within this file, see https://guides.rubyonrails.org/routing.html
   resources :facts, only: %i[index show] do
     get :list, on: :collection
