@@ -21,26 +21,6 @@
       %figure.image= image_tag(@fact.image.variant(resize_to_limit: [318,318]).processed) 
     .column
       .box
-        %nav.level
-          .level-item.has-text-centered
-            %div
-              %p.heading Dal
-              %p.title.is-size-5= l @fact.start_on
-          .level-item.has-text-centered
-            %div
-              %p.heading Al
-              %p.title.is-size-5= l @fact.stop_on
-          .level-item.has-text-centered
-            %div
-              %p.heading Date
-              %p.title.is-size-5= @fact.happenings_count
-          .level-item.has-text-centered
-            %div
-              %p.heading Posti
-              %p.title.is-size-5= @fact.happenings.sum(:max_seats) - @fact.happenings.sum(:seats_count)
-          .level-item.has-text-centered
-            %div
-              %p.heading Prenotazioni
-              %p.title.is-size-5= @fact.happenings.sum(:seats_count)
+        = render 'nav', fact: @fact
         = @fact.body
       %turbo-frame#happenings{src: fact_happenings_path(@fact)}
