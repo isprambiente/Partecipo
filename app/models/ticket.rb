@@ -40,7 +40,7 @@ class Ticket < ApplicationRecord
   validate  :validate_total_seats, unless: :by_editor?
   validate  :validate_frequency, unless: :by_editor?
 
-  after_save :update_seats_count!
+  after_commit :update_seats_count!
 
   # @return [Boolean] true if by_editor is true
   def by_editor?

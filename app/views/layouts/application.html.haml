@@ -18,4 +18,5 @@
       .container= yield
     %footer 
       %turbo-frame#footer{src: Settings.footer}
+      = turbo_stream_from 'facts'
 

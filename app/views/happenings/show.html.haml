@@ -1,7 +1,7 @@
 %turbo-frame#yield
   = turbo_frame_tag @happening do
     .box.block
-      = happening_title(@happening)
+      = render 'happenings/title', happening: @happening
       = @happening.detail
       - if user_signed_in?
         - if @ticket.persisted?
