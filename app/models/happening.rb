@@ -57,6 +57,8 @@ class Happening < ApplicationRecord
   def update_seats_count!
     self.seats_count = tickets.sum :seats
     save touch: false
+    broadcast_replace_to 'facts', target: "counter_happening_#{id}", partial: 'happenings/counter',  locals: { happening: self }
+    broadcast_replace_to 'facts', target: "nav_fact_#{fact_id}", partial: 'facts/nav',  locals: { fact: fact }
   end
 
   # @return [Boolean] check seaelability time
