@@ -28,7 +28,7 @@ export default class extends Controller {
   }
 
   editor(element) {
-    this.ajax(element, '/admin/users/list?filter[editor]=1&')
+    this.ajax(element, '/admin/users/list.json?filter[editor]=1&')
   }
 
   get_data(element) {
