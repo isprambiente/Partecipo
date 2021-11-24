@@ -31,7 +31,6 @@ class Editor::HappeningsController < Editor::ApplicationController
     @happening = @fact.happenings.new(happening_params)
 
     if @happening.save
-      set_tickets
       render 'editor/facts/show'
     else
       render :new
