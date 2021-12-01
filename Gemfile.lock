@@ -305,7 +305,7 @@ GEM
     temple (0.8.2)
     thor (1.1.0)
     tilt (2.0.10)
-    turbo-rails (7.1.1)
+    turbo-rails (0.9.0)
       rails (>= 6.0.0)
     tzinfo (2.0.4)
       concurrent-ruby (~> 1.0)
@@ -370,7 +370,7 @@ DEPENDENCIES
   selenium-webdriver
   spring
   spring-watcher-listen (~> 2.0.0)
-  turbo-rails
+  turbo-rails (~> 0.8)
   web-console (>= 3.3.0)
   webdrivers
   webpacker (~> 5.0)

@@ -20,3 +20,7 @@ happenings = [
 ]
 Fact.create(facts)
 Fact.all.each {|f| f.happenings.create happenings}
+User.create([
+  {username: 'partecipoadmin', admin: true, created_at: Time.zone.now, updated_at: Time.zone.now},
+  {username: 'partecipoeditor', editor: true, created_at: Time.zone.now, updated_at: Time.zone.now}
+])
