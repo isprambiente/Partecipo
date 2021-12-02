@@ -1,0 +1,8 @@
+{
+    "@class" :            "org.apereo.cas.services.RegexRegisteredService",
+    "serviceId" :         "^(https|http)://.+",
+    "name" :              "Partecipo CAS",
+    "id" :                20170905111650,
+    "evaluationOrder" :   99999
+  }
+  
