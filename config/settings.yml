@@ -5,7 +5,7 @@ footer: /footer.html
 subtitle: Gestione prenotazioni
 email: partecipo@partecipo.com
 domain: isprambiente.it
-cas: <%= ENV.fetch("CAS_URL") { "https://auth.partecipo.com/cas/" } %>
+cas: https://auth.partecipo.com/cas/
 restricted_access: false
 app:
   url: https://partecipo.com
