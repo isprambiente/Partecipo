@@ -12,8 +12,9 @@ app:
 database:
   development:
     database: partecipo_development
-    username: postgres
-    host: localhost
+    username: partecipo
+    password: MyPassword
+    host: postgres
     sslmode:
   test:
     database: partecipo_test

@@ -14,17 +14,17 @@ class Editor::TicketsController < Editor::ApplicationController
   # GET /editor/tickets/list
   def list_by_happening
     @happening = Happening.find_by(id: params[:id], fact_id: fact_ids)
-    @text = ["users.username ilike :string", { string: "%#{filter_params[:text]}%" }] if filter_params[:text].present?
+    @text = ['users.username ilike :string', { string: "%#{filter_params[:text]}%" }] if filter_params[:text].present?
     @pagy, @tickets = pagy(
       @happening.tickets.includes(:user).where(@text),
       items: 6
     )
     render action: :list
   end
-  
+
   def list_by_user
     @user = User.find(params[:id])
-    @text = ["facts.title ilike :string", { string: "%#{filter_params[:text]}%" }] if filter_params[:text].present?
+    @text = ['facts.title ilike :string', { string: "%#{filter_params[:text]}%" }] if filter_params[:text].present?
     @pagy, @tickets = pagy(
       @user.tickets.includes(happening: [:fact]).where(@text).where(happening: { fact_id: fact_ids }),
       items: 6
