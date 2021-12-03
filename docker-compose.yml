@@ -19,15 +19,18 @@ services:
       - 8010:8080
 
   partecipo:
+    depends_on:
+      - 'postgres'
+      - 'redis'
+      - 'cas-mock-server'
     build:
       context: .
       args:
         USER_ID: "${USER_ID:-1000}"
         GROUP_ID: "${GROUP_ID:-1000}"
     command: >
-        sh -c "bin/rails credentials:edit &&
-            bin/rails db:migrate db:seed RAILS_ENV=development && 
-            ruby bin/rails s -p 8080 -b 0.0.0.0" 
+        sh -c "bin/rails db:migrate db:seed RAILS_ENV=development && 
+               ruby bin/rails s -p 8080 -b 0.0.0.0" 
     ports:
       - 8020:8080
     environment:
