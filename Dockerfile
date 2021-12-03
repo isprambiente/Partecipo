@@ -17,7 +17,7 @@ RUN apt-get update
 # Install container dependencies
 RUN apt-get install -y vim libc-ares2 postgresql-client nodejs --no-install-recommends && rm -rf /var/lib/apt/lists/*
 # Install VIM to edit credentials.yml.enc file
-ENV EDITOR="vim --wait"
+ENV EDITOR="vim"
 
 ENV INSTALL_PATH /opt/app
 RUN mkdir -p $INSTALL_PATH
