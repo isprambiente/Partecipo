@@ -14,7 +14,7 @@ default: &default
 # postgres://partecito:password@localhost/partecipo_development
 development:
   <<: *default
-  url: <%= ENV['RAILS_DATABASE_URL'] || Settings.database_url" %>
+  url: <%= ENV['RAILS_DATABASE_URL'] || Settings.database_url %>
 test:
   <<: *default
   url: <%= ENV['RAILS_DATABASE_URL'] || Settings.database_url %>
