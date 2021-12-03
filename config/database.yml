@@ -14,15 +14,15 @@ default: &default
 # postgres://partecito:password@localhost/partecipo_development
 development:
   <<: *default
-  url: <%= ENV['RAILS_DATABASE_URL'] || "postgres://myuser:mypass@localhost/somedatabase" %>
+  url: <%= ENV['RAILS_DATABASE_URL'] || Settings.database_url" %>
 test:
   <<: *default
-  url: <%= ENV['RAILS_DATABASE_URL'] || "postgres://myuser:mypass@localhost/somedatabase" %>
+  url: <%= ENV['RAILS_DATABASE_URL'] || Settings.database_url %>
 
 staging:
   <<: *default
-  url: <%= ENV['RAILS_DATABASE_URL'] || "postgres://myuser:mypass@localhost/somedatabase" %>
+  url: <%= ENV['RAILS_DATABASE_URL'] || Settings.database_url %>
 
 production:
   <<: *default
-  url: <%= ENV['RAILS_DATABASE_URL'] || "postgres://myuser:mypass@localhost/somedatabase" %>
+  url: <%= ENV['RAILS_DATABASE_URL'] || Settings.database_url %>

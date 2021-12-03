@@ -33,6 +33,7 @@ services:
     environment:
       RAILS_REDIS_URL: redis://redis:6379/1
       RAILS_CAS_URL: http://ilmioip:8010/cas
+      RAILS_DATABASE_URL: postgres://partecipo:MyPassword@postgres/partecipo_development
     links:
       - postgres
       - redis
