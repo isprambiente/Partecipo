@@ -3,7 +3,7 @@
 source 'https://rubygems.org'
 git_source(:github) { |repo| "https://github.com/#{repo}.git" }
 
-ruby '3.0.2'
+ruby '3.0.3'
 
 # Bundle edge Rails instead: gem 'rails', github: 'rails/rails'
 gem 'rails', '>= 6.1.4'
@@ -50,12 +50,6 @@ group :development do
   gem 'yard'
 
   gem 'letter_opener'
-
-  gem 'capistrano',         require: false
-  gem 'capistrano3-puma',   require: false
-  gem 'capistrano-bundler', require: false
-  gem 'capistrano-rails',   require: false
-  gem 'capistrano-rvm',     require: false
 end
 
 group :test do
