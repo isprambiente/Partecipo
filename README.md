@@ -82,12 +82,7 @@ Installare ruby 3.0.2, consigliato [RVM](https://rvm.io/).
       yarn install
     ```
 
-3. Generare la propria master.key
-    ```
-      rails secret 
-    ```
-
-8. Creare il file `config/settings.local.yml` partendo da `config/settings.yml` per sovrascrivere i parametri di default. Il file è incluso nel `.gitignore` pertanto sarà necessario ricopiarlo manualmente sul server nel path `shared/config/settings.local.yml`
+3. Creare il file `config/settings.local.yml` partendo da `config/settings.yml` per sovrascrivere i parametri di default. Il file è incluso nel `.gitignore` pertanto sarà necessario ricopiarlo manualmente sul server nel path `shared/config/settings.local.yml`
 
 ### Demo con docker / docker compose
 1. Clonare il progetto in sviluppo 
@@ -117,6 +112,6 @@ Installare ruby 3.0.2, consigliato [RVM](https://rvm.io/).
   * partecipoadmin  - password   # per utente admin
 
 ### Partecipa!
-Puoi collaborare allo sviluppo dell'applicazione e della documentazione tramite github.
+Puoi collaborare allo sviluppo dell'applicazione e della documentazione tramite (github)[https://github.com/isprambiente/Partecipo].
 
-Grazie per la collaborazione.
+Tramite (Github discussion)[https://github.com/isprambiente/Partecipo/discussions] è possibile richiedere e dare aiuto a chi ne avesse bisogno.
