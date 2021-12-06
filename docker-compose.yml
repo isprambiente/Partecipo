@@ -2,14 +2,14 @@ version: "3.7"
 services:
 
   postgres:
-    image: postgres:12.1
+    image: postgres:14.1-alpine
     environment:
       POSTGRES_DB: partecipo_development
       POSTGRES_USER: partecipo
       POSTGRES_PASSWORD: MyPassword
   
   redis:
-    image: redis:5.0.7
+    image: redis:6.2.6-alpine
 
   cas-mock-server:
     image: apereo/cas
@@ -18,7 +18,7 @@ services:
     ports:
       - 8080:8080
 
-  partecipo:
+  web:
     depends_on:
       - 'postgres'
       - 'redis'
