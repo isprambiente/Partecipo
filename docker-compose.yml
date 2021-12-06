@@ -2,37 +2,41 @@ version: "3.7"
 services:
 
   postgres:
-    image: postgres:12.1
+    image: postgres:14.1-alpine
     environment:
       POSTGRES_DB: partecipo_development
       POSTGRES_USER: partecipo
       POSTGRES_PASSWORD: MyPassword
   
   redis:
-    image: redis:5.0.7
+    image: redis:6.2.6-alpine
 
   cas-mock-server:
     image: apereo/cas
     volumes:
       - ./docker/cas:/etc/cas/
     ports:
-      - 8010:8080
+      - 8080:8080
 
-  partecipo:
+  web:
+    depends_on:
+      - 'postgres'
+      - 'redis'
+      - 'cas-mock-server'
     build:
       context: .
       args:
         USER_ID: "${USER_ID:-1000}"
         GROUP_ID: "${GROUP_ID:-1000}"
     command: >
-        sh -c "bin/rails credentials:edit &&
-            bin/rails db:migrate db:seed RAILS_ENV=development && 
-            ruby bin/rails s -p 8080 -b 0.0.0.0" 
+        sh -c "bin/rails db:migrate db:seed RAILS_ENV=development && 
+               ruby bin/rails s -p 8020 -b 0.0.0.0" 
     ports:
-      - 8020:8080
+      - 8020:8020
     environment:
       RAILS_REDIS_URL: redis://redis:6379/1
-      RAILS_CAS_URL: http://ilmioip:8010/cas
+      RAILS_CAS_URL: http://cas-mock-server:8080/cas
+      RAILS_DATABASE_URL: postgres://partecipo:MyPassword@postgres/partecipo_development
     links:
       - postgres
       - redis

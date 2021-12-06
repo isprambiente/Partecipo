@@ -9,31 +9,6 @@ cas: https://auth.partecipo.com/cas/
 restricted_access: false
 app:
   url: https://partecipo.com
-database:
-  development:
-    database: partecipo_development
-    username: partecipo
-    password: MyPassword
-    host: postgres
-    sslmode:
-  test:
-    database: partecipo_test
-    username: postgres
-    password: MyPassword
-    host: localhost
-    sslmode:
-  staging:
-    database: partecipo_staging
-    username: partecipo
-    password: MyPassword
-    host: localhost
-    sslmode:
-  production:
-    database: partecipo_production
-    username: partecipo
-    password: MyPassword
-    host: localhost
-    sslmode:
 action_mailer:
   default_url_option: 
     host: 'partecipo.com'
@@ -45,17 +20,5 @@ action_mailer:
    ssl: true
    username: 'partecipo@partecipo.com'
    sender: 'partecipo@partecipo.com'
+database_url: 'postgres://myuser:mypass@localhost/somedatabase'
 devise: :cas_authenticatable
-deploy:
-  repo_url: git@github.com:isprambiente/Partecipo.git
-  server: partecipo.com
-  user: partecipo
-  tmp_dir: /home/partecipo/production/shared/tmp
-  deploy_to: /home/partecipo/production
-colors:
-  primary: 'rgba(135, 38, 67,1)'
-  primary_dark: '#661224'
-  secondary: 'rgba(82,134,38,1)'
-  secondary-dark: 'rgb(2,30,44)'
-  tertiary: 'rgb(151,101,43)'
-  grey-lighter: '#e3e0d7'
