@@ -16,7 +16,7 @@ services:
     volumes:
       - ./docker/cas:/etc/cas/
     ports:
-      - 8010:8080
+      - 8080:8080
 
   partecipo:
     depends_on:
@@ -30,12 +30,12 @@ services:
         GROUP_ID: "${GROUP_ID:-1000}"
     command: >
         sh -c "bin/rails db:migrate db:seed RAILS_ENV=development && 
-               ruby bin/rails s -p 8080 -b 0.0.0.0" 
+               ruby bin/rails s -p 8020 -b 0.0.0.0" 
     ports:
-      - 8020:8080
+      - 8020:8020
     environment:
       RAILS_REDIS_URL: redis://redis:6379/1
-      RAILS_CAS_URL: http://ilmioip:8010/cas
+      RAILS_CAS_URL: http://cas-mock-server:8080/cas
       RAILS_DATABASE_URL: postgres://partecipo:MyPassword@postgres/partecipo_development
     links:
       - postgres

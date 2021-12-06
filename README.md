@@ -62,7 +62,7 @@ Il sito è sviluppato in linguaggio Ruby 2.7, framework Rails 6.0 e webpacker St
 * Supporto ai certificati SSL;
 
 ## Installazione ambiente
-Installare l'ambiente di sviluppo e di produzione come indicato [qui](https://gorails.com/setup).
+Installare ruby 3.0.2, consigliato [RVM](https://rvm.io/).
 
 ## Installazione applicazione
 
@@ -89,6 +89,34 @@ Installare l'ambiente di sviluppo e di produzione come indicato [qui](https://go
 
 8. Creare il file `config/settings.local.yml` partendo da `config/settings.yml` per sovrascrivere i parametri di default. Il file è incluso nel `.gitignore` pertanto sarà necessario ricopiarlo manualmente sul server nel path `shared/config/settings.local.yml`
 
-Cortesemente integrare la guida qualora fosse necessario.
+### Demo con docker / docker compose
+1. Clonare il progetto in sviluppo 
+
+    ```
+      git clone https://github.com/isprambiente/medplan.git
+    ```
+
+2. Configurare il DNS o modificare il proprio file hosts per risolvere il nome cas-mock-server sull'indirizzo del server docker.
+
+   Nel seguente esempio il docker viene eseguito localmente e viene modificato il file `/etc/hosts` del computer locale.
+   
+   ```
+    127.0.0.1       localhost cas-mock-server
+   ```
+   la modifica è necessaria per raggiungere con un nome condiviso il server CAS
+
+3. Eseguire la build del docker tramite compose
+    
+   ```
+   sudo docker-compose up --build -d
+   ```
+
+4. Per accedere utilizzare le seguenti credenziali:
+  * partecipouser   - password   # per utente standard
+  * partecipoeditor - password   # per utente editor
+  * partecipoadmin  - password   # per utente admin
+
+### Partecipa!
+Puoi collaborare allo sviluppo dell'applicazione e della documentazione tramite github.
 
 Grazie per la collaborazione.

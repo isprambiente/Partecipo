@@ -23,7 +23,7 @@ RUN mkdir -p $INSTALL_PATH
 WORKDIR $INSTALL_PATH
 COPY . .
 RUN rm -rf node_modules vendor
-RUN gem install bundle
+# RUN gem install bundler
 RUN bundle install
 RUN yarn install
 RUN chown -R user:user /opt/app
