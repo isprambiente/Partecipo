@@ -15,5 +15,6 @@ export default class extends Controller {
 
   closeModal(event) {
     [].forEach.call(document.getElementsByClassName('modal'), (item) => {item.classList.remove('is-active')})
+    if ( document.getElementById("yield") == null) { window.location.replace("/") }
   }
 }
