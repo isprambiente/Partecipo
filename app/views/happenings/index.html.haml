@@ -2,7 +2,7 @@
   %turbo-frame#happenings
     %h3.title.is-size-4.has-text-centered
       %i.fas.fa-calendar-alt
-      Date
+      = t 'activerecord.models.happening.other'
     = render @happenings
     %hr
     = pagy_bulma_nav(@pagy).html_safe

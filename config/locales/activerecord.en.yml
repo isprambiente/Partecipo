@@ -1,0 +1,46 @@
+en:
+  activerecord:
+    errors:
+      models:
+        fact:
+          attributes:
+            title:
+              required: Title is required
+    attributes:
+      fact:
+        title: Title
+        image: Image
+        groups: Administration group 
+        start_on: Start on
+        stop_on: Stop on
+        body: Description
+        tickets_frequency: Booking frequency
+        where: Where
+      happening:
+        detail: Details
+        start_at: Event start at
+        start_sale_at: Booking start date
+        stop_sale_at: Booking stop date 
+        repeat_in: days to repeat date 
+        repeat_for: N. of days to repeat date
+      ticket:
+        seats: Seats
+      user:
+        username: User name
+    models:
+      fact:
+        one: Event
+        other: Events
+      group:
+        one: Group
+        other: Grups
+      happening:
+        one: Date
+        other: Dates
+      ticket:
+        one: Ticket
+        other: Tickets
+      user:
+        one: User
+        other: Users
+

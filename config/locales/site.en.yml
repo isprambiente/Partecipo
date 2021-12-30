@@ -1,0 +1,70 @@
+en:
+  site:
+    generic:
+      back: Back
+      from: from
+      login: Sign in 
+      login_button: Sign in to continue 
+      logout: Sign out
+      manage: Gestione
+      reservable: Reservable
+      reserve: Book now!
+      reserved_abort: Cancel reservation
+      reserved_abort_confirm: Attention! You really want to cancel your booking?
+      reserved_ended: Resaerved ended
+      reserved_seat: Reserved seats
+      save: Salva
+      search: Search
+      text: Text
+      to: to
+    fact:
+      index:
+        title: Events
+      scope:
+        future: Upcoming events
+        history: Events history
+      search: Events search
+      tickets_frequency:
+        any: Any limit
+        single: Single
+        daily: Daily
+        weekly: weekly
+        monthly: Monthly
+    happening:
+      new: New date
+      scope:
+        future: Upcoming dates 
+        history: Dates history
+      search: Dates search
+    ticket:
+      index:
+        title: Tickets
+      scope:
+        future: Tickets active
+        history: Tickets history
+      search: Tickets search
+      errors:
+        single: Attention! It is not possible to book this event several times, a reservation is already active. 
+        weekly: Attention! It is not possible to book this event less than seven days. There are already bookings in the period. 
+        monthly: Attention! It is not possible to book this event with a frequency of less than thirty days. There are already bookings in the period. 
+    admin:
+      group:
+        index:
+          title: Manage groups
+      user:
+        index:
+          title: Manage rights
+    editor:
+      fact:
+        new: New Event
+        index:
+          title: Manage Events
+      ticket:
+        new: Add ticket
+        search: Tickets search
+        export_csv: Export CSV
+        export_pdf: Export PDF
+      user:
+        index:
+          title: Manage users
+        search: User search

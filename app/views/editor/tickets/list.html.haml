@@ -2,8 +2,7 @@
   %turbo-frame#tickets
     %h4.title.is-size-5.has-text-centered
       %i.fas.fa-ticket-alt
-      Prenotazioni
-
+      = t 'activerecord.models.ticket.other'
     %hr
     - if @tickets.present?
       = render @tickets

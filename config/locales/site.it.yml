@@ -1,8 +1,25 @@
 it:
   site:
     generic:
-      search: 'Ricerca'
+      back: Indietro
+      from: da
+      login: Accedi
+      login_button: Accedi per continuare
+      logout: Disconnettiti
+      manage: Manage
+      reservable: Prenotabile
+      reserve: Prenota
+      reserved_abort: Annulla prenotazione
+      reserved_abort_confirm: Attenzione! Vuoi veramente annullare la prenotazione 
+      reserved_ended: Prenotazioni terminate
+      reserved_seat: Posti prenotati
+      save: Save
+      search: Ricerca
+      text: Testo
+      to: a
     fact:
+      index: 
+        title: Eventi
       scope:
         future: Prossimi eventi
         history: Storico eventi
@@ -14,11 +31,14 @@ it:
         weekly: Settimanale
         monthly: Mensile
     happening:
+      new: Aggiungi date
       scope:
         future: Prossime date
         history: Storico date
       search: Ricerca date
     ticket:
+      index:
+        title: Prenotazioni
       scope:
         future: Prenotazioni
         history: Storico prenotazioni
@@ -27,10 +47,24 @@ it:
         single: Attenzione! Non è possibile prenotare più volte questo evento, risulta già attiva una prenotazione.
         weekly: Attenzione! Non è possibile prenotare questo evento con frequenza inferiore a sette giorni. Sono già presenti prenotazioni nel periodo. 
         monthly: Attenzione! Non è possibile prenotare questo evento con frequenza inferiore a trenta giorni. Sono già presenti prenotazioni nel periodo.
+    admin:
+      group:
+        index:
+          title: Gestione gruppi
+      user:
+        index:
+          title: Gestione diritti
     editor:
+      fact:
+        new: Nuovo evento
+        index:
+          title: Gestione eventi
       ticket:
+        new: Nuova prenotazione
         search: Ricerca prenotazioni
         export_csv: Esporta CSV
         export_pdf: Esporta PDF
       user:
+        index:
+          title: Gestione utenti
         search: Ricerca utenti

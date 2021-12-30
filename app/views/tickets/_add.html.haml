@@ -3,10 +3,10 @@
     .field.has-addons.has-icons-left
       .control
         = f.label :seats, class: 'button', disabled: ticket.persisted? do
-          = fas_icon 'chair', text: 'Posti' 
+          = fas_icon 'chair', text: t('activerecord.attributes.ticket.seats')
       .control.is-expanded
         .select.is-fullwidth= f.select :seats, (1..happening.max_seats_for_ticket), {}
         %p.help.is-danger= @ticket.errors.messages[:seats].join(' - ')
       .control
-        = f.button fas_icon('ticket-alt', text: 'Prenota'), class: 'button is-success'
+        = f.button fas_icon('ticket-alt', text: t('site.generic.reserve')), class: 'button is-success'
 

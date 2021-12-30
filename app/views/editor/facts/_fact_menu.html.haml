@@ -3,7 +3,7 @@
   = form_with scope: 'filter', url: editor_fact_happenings_path(fact), method: :get, data: {turbo_frame: 'happenings', controller: 'form', form_target: 'sender'} do |f|
     .panel-block
       %p.control.has-icons-left
-        = f.text_field :text, placeholder: 'Testo', class: 'input', data: {action: 'keyup->form#delayedSendForm'}
+        = f.text_field :text, placeholder: t('site.generic.text'), class: 'input', data: {action: 'keyup->form#delayedSendForm'}
         %span.icon.is-left
           %i.fas.fa-search
     %label.panel-block
@@ -12,7 +12,7 @@
     %label.panel-block
       = f.radio_button :type, 'history', selected: true, data: {action: "form#sendForm"}
       %span= t('history', scope: 'site.happening.scope')
-    %a.panel-block{href: new_editor_fact_happening_path(@fact), data: {turbo_frame: 'happenings'}}= fas_icon 'plus', text: 'Aggiungi date'
-    %a.panel-block{href: editor_facts_path, data: {turbo_frame: 'yield'}}= fas_icon 'chevron-left', text: 'Indietro'
+    %a.panel-block{href: new_editor_fact_happening_path(@fact), data: {turbo_frame: 'happenings'}}= fas_icon 'plus', text: t('site.happening.new')
+    %a.panel-block{href: editor_facts_path, data: {turbo_frame: 'yield'}}= fas_icon 'chevron-left', text: t('site.generic.back')
 
 %figure.image= image_tag(fact.image.variant(resize_to_limit: [318,318]).processed) 

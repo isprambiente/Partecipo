@@ -1,8 +1,7 @@
 %turbo-frame#yield
   %h3.title.has-text-centered
     %i.fas.fa-tools
-    Gestione
-    = t 'activerecord.models.fact.other'
+    = t 'site.editor.fact.index.title'
   .columns
     %aside.column.is-3
       %nav.panel
@@ -19,6 +18,6 @@
           %label.panel-block
             = f.radio_button :type, 'history', selected: true, data: {action: "form#sendForm"}
             %span= t('history', scope: 'site.fact.scope')
-          .panel-block= link_to fas_icon('calendar', text: 'Nuovo evento'), new_editor_fact_path, class: 'button is-success is-fullwidth', data: {turbo_frame: 'facts'}
+          .panel-block= link_to fas_icon('calendar', text: t('site.editor.fact.new')), new_editor_fact_path, class: 'button is-success is-fullwidth', data: {turbo_frame: 'facts'}
     .column
       %turbo-frame#facts{src: list_editor_facts_path }
