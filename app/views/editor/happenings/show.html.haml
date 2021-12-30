@@ -14,15 +14,14 @@
               %span.icon.is-left
                 %i.fas.fa-search
         %a.panel-block{href: export_editor_fact_happening_path(@fact, @happening, format: :csv)}= fas_icon 'file-csv', text: t('site.editor.ticket.export_csv')
-        %a.panel-block{href: edit_editor_fact_happening_path(@fact, @happening), data: {turbo_frame: 'tickets'}}= fas_icon 'edit', text: 'Modifica ingresso'
-        %a.panel-block{href: new_editor_ticket_path(filter: {happening_id: @happening.id}), data: {turbo_frame: 'tickets'}}= fas_icon 'plus', text: 'Aggiungi prenotazione'
-        %a.panel-block{href: editor_fact_path(@fact)}= fas_icon 'chevron-left', text: 'Indietro'
+        %a.panel-block{href: new_editor_ticket_path(filter: {happening_id: @happening.id}), data: {turbo_frame: 'tickets'}}= fas_icon 'plus', text: t('site.editor.ticket.new')
+        %a.panel-block{href: editor_fact_path(@fact)}= fas_icon 'chevron-left', text: t('site.generic.back')
       %figure.image= image_tag(@fact.image.variant(resize_to_limit: [318,318]).processed)
     .column
       = render 'editor/facts/box'
       %h4.title.is-size-5.has-text-centered
         %i.fas.fa-calendar-day
-        Ingresso
+        = t 'activerecord.models.happening.one'
         = @happening.code
       = render 'box'
       %turbo-frame#tickets{src: tickets_editor_fact_happening_path(@fact, @happening)}

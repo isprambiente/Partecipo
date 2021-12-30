@@ -1,4 +1,4 @@
-.notification.is-success.is-light.has-text-centered N. <b>#{ticket.seats}</b> posti prenotati #{l ticket.updated_at, format: :detailed} da <b>#{ticket.user.username}</b>
+.notification.is-success.is-light.has-text-centered N. <b>#{ticket.seats}</b> #{t 'site.general.reserved_seat'} #{l ticket.updated_at, format: :detailed} #{t 'site.general.from'} <b>#{ticket.user.username}</b>
 = form_with model: [fact, happening, ticket], method: :delete do |f|
   %fieldset
     .field.has-addons.has-icons-left
@@ -9,6 +9,6 @@
         .select.is-fullwidth= f.select :seats, [ticket.seats], {}, disabled: true
         %p.help.is-danger= @ticket.errors.messages[:seats].join(' - ')
       .control
-        = f.button fas_icon('trash', text: 'Annulla prenotazione'), class: 'button is-warning', data: {confirm: 'Attenzione: vuoi veramente annullare la prenotazione?'}, disabled: !ticket.saleable?
+        = f.button fas_icon('trash', text: t('site.generic.reserved_abort')), class: 'button is-warning', data: {confirm: t('site.generic.reserved_abort_confirm')}, disabled: !ticket.saleable?
 - if @ticket.start_at < Time.zone.now
-  .notification.is-success.is-warning.has-text-centered Prenotazioni terminate #{l @happening.stop_sale_at, format: :detailed}
+  .notification.is-success.is-warning.has-text-centered #{t 'site.generic.reserved_ended'} #{l @happening.stop_sale_at, format: :detailed}

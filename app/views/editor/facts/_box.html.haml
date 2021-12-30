@@ -4,23 +4,23 @@
   %nav.level
     .level-item.has-text-centered
       %div
-        %p.heading Dal
+        %p.heading= t 'site.generic.from'
         %p.title.is-size-5= l @fact.start_on
     .level-item.has-text-centered
       %div
-        %p.heading Al
+        %p.heading= t 'site.generic.to'
         %p.title.is-size-5= l @fact.stop_on
     .level-item.has-text-centered
       %div
-        %p.heading Date
+        %p.heading= t 'activerecord.models.happening.other'
         %p.title.is-size-5= @fact.happenings_count
     .level-item.has-text-centered
       %div
-        %p.heading Posti
+        %p.heading= t 'activerecord.attributes.ticket.seats'
         %p.title.is-size-5= @fact.happenings.sum(:max_seats)
     .level-item.has-text-centered
       %div
-        %p.heading Prenotazioni
+        %p.heading= t 'activerecord.models.ticket.other'
         %p.title.is-size-5= @fact.happenings.sum(:seats_count)
   = @fact.body
 

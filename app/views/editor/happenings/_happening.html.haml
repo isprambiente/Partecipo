@@ -11,5 +11,9 @@
         \\
         = happening.max_seats
         = fas_icon 'chair'
-  Prenotazioni dal #{l happening.start_sale_at, format: :short} al #{l happening.stop_sale_at, format: :short}
+  = t 'site.generic.booking'
+  = t 'site.generic.from'
+  = l happening.start_sale_at, format: :short
+  = t 'site.generic.to'
+  = l happening.stop_sale_at, format: :short
 

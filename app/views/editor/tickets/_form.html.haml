@@ -24,7 +24,7 @@
             .column.is-narrow
               .field
                 %br
-                = f.button fas_icon('save', text: 'Salva'), class: 'button is-success'
+                = f.button fas_icon('save', text: t('site.generic.save')), class: 'button is-success'
     - if ticket.persisted?
       .column.is-narrow
         = form_with model: [:editor, ticket], method: :delete do |f|

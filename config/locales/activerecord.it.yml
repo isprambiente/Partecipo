@@ -9,6 +9,7 @@ it:
     attributes:
       fact:
         title: Titolo
+        image: Immagine
         groups: Gruppo di amministrazione
         start_on: Inizio
         stop_on: Fine
@@ -22,6 +23,8 @@ it:
         stop_sale_at: Data di fine prenotazioni
         repeat_in: Giorni in cui ripetere la data
         repeat_fo: N. di giorni per cui ripetere l'evento
+      ticket:
+        seats: Posti
       user:
         username: Nome utente
     models:
