@@ -1,4 +1,4 @@
 = turbo_frame_tag happening do
-  %a.box.is-hoverable.block{href: fact_happening_path(@fact,happening)}
+  %a.box.is-hoverable.block{href: fact_happening_path(@fact,happening), data: {turbo_frame: 'modal'}}
     = render 'title', happening: happening
     = happening.detail

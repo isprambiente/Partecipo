@@ -1,14 +1,21 @@
-%turbo-frame#yield
-  = turbo_frame_tag @happening do
-    .box.block
-      = render 'happenings/title', happening: @happening
-      = @happening.detail
-      - if user_signed_in?
-        - if @ticket.persisted?
-          = render 'tickets/remove', fact: @fact, happening: @happening, ticket: @ticket
-        - elsif @ticket.saleable?
-          = render 'tickets/add', fact: @fact, happening: @happening, ticket: @ticket
-        - else
-          = render 'tickets/inactive', fact: @fact, happening: @happening, ticket: @ticket
-      - else
-        = render 'tickets/unauthenticated'
+%turbo-frame#modal
+  %section
+    .modal.is-active
+      .modal-background{data: {action: "click->page#closeModal"}}
+      .modal-card
+        %header.modal-card-head
+          %p.modal-card-title= @happening.fact.title
+        .modal-card-body
+          = turbo_frame_tag @happening do
+            = render 'happenings/title', happening: @happening
+            = @happening.detail
+            - if user_signed_in?
+              - if @ticket.persisted?
+                = render 'tickets/remove', fact: @fact, happening: @happening, ticket: @ticket
+              - elsif @ticket.saleable?
+                = render 'tickets/add', fact: @fact, happening: @happening, ticket: @ticket
+              - else
+                = render 'tickets/inactive', fact: @fact, happening: @happening, ticket: @ticket
+            - else
+              = render 'tickets/unauthenticated'
+      %button.modal-close.is-large{aria: {label: "close"}, data: {action: "click->page#closeModal"}}
