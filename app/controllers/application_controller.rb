@@ -3,12 +3,23 @@
 # This controller contain the methods shared for all controller
 class ApplicationController < ActionController::Base
   include Pagy::Backend
+  around_action :switch_locale
+
+  def default_url_options
+    { locale: I18n.locale }
+  end
 
   # rescue_from ActiveRecord::RecordNotFound do
   #   record_not_found!
   # end
 
   private
+
+  
+  def switch_locale(&action)
+    locale = params[:locale] || I18n.default_locale
+    I18n.with_locale(locale, &action)
+  end
 
   # Render 404 page and stop the work
   # @return [nil]
