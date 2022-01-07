@@ -18,7 +18,7 @@
           %label.panel-block
             = f.radio_button :type, 'history', selected: true, data: {action: "form#sendForm"}
             %span= t('history', scope: 'site.happening.scope')
-      %figure.image= image_tag(@fact.image.variant(resize_to_limit: [318,318]).processed) 
+      %figure.image= image_tag(@fact.image.variant(:aside)) 
     .column
       .box
         = render 'nav', fact: @fact

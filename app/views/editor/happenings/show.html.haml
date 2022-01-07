@@ -16,7 +16,7 @@
         %a.panel-block{href: export_editor_fact_happening_path(@fact, @happening, format: :csv)}= fas_icon 'file-csv', text: t('site.editor.ticket.export_csv')
         %a.panel-block{href: new_editor_ticket_path(filter: {happening_id: @happening.id}), data: {turbo_frame: 'tickets'}}= fas_icon 'plus', text: t('site.editor.ticket.new')
         %a.panel-block{href: editor_fact_path(@fact)}= fas_icon 'chevron-left', text: t('site.generic.back')
-      %figure.image= image_tag(@fact.image.variant(resize_to_limit: [318,318]).processed)
+      %figure.image= image_tag(@fact.image.variant(:aside).processed)
     .column
       = render 'editor/facts/box'
       %h4.title.is-size-5.has-text-centered
