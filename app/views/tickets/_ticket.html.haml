@@ -1,7 +1,7 @@
 %a.box.is-hoverable{href: fact_happening_path(ticket.happening.fact, ticket.happening), data: {turbo_frame: 'modal'}}
   .columns.is-mobile.is-gapless
     .column.is-narrow.is
-      .figure.image.is-boxed-left-image= image_tag ticket.happening.fact.image.variant(resize_to_limit: [150, 68]).processed
+      .figure.image.is-boxed-left-image= image_tag ticket.happening.fact.image.variant(:ticket).processed
     .column
       %span.title.is-size-5
         %i.fas.fa-calendar-day

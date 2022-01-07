@@ -15,4 +15,4 @@
     %a.panel-block{href: new_editor_fact_happening_path(@fact), data: {turbo_frame: 'happenings'}}= fas_icon 'plus', text: t('site.happening.new')
     %a.panel-block{href: editor_facts_path, data: {turbo_frame: 'yield'}}= fas_icon 'chevron-left', text: t('site.generic.back')
 
-%figure.image= image_tag(fact.image.variant(resize_to_limit: [318,318]).processed) 
+%figure.image= image_tag(fact.image.variant(:aside).processed) 
