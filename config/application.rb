@@ -21,7 +21,5 @@ module Partecipo
 
     config.rack_cas.server_url = ENV['RAILS_CAS_URL'] || Settings.cas
     config.rack_cas.service = "/users/service" # If your user model isn't called User, change this
-
-
   end
 end
