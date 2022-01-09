@@ -18,5 +18,10 @@ module Partecipo
     #
     # config.time_zone = "Central Time (US & Canada)"
     # config.eager_load_paths << Rails.root.join("extras")
+
+    config.rack_cas.server_url = ENV['RAILS_CAS_URL'] || Settings.cas
+    config.rack_cas.service = "/users/service" # If your user model isn't called User, change this
+
+
   end
 end
