@@ -114,6 +114,6 @@ Installare ruby 3.0.2, consigliato [RVM](https://rvm.io/).
 ### Partecipa!
 Puoi collaborare allo sviluppo dell'applicazione e della documentazione tramite [github](https://github.com/isprambiente/Partecipo).
 
-Tramite [Github discussion](https://github.com/isprambiente/Partecipo/discussion) è possibile richiedere e offrire aiuto.
+Tramite [Github discussions](https://github.com/isprambiente/Partecipo/discussions) è possibile richiedere e offrire aiuto.
 
 Se riscontrate errori e bug potete segnalarli nella paggina delle [Issues](https://github.com/isprambiente/Partecipo/issues)
