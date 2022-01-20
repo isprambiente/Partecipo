@@ -71,7 +71,7 @@ Installare ruby 3.0.2, consigliato [RVM](https://rvm.io/).
 1. Clonare il progetto in sviluppo 
 
     ```
-      git clone https://github.com/isprambiente/medplan.git
+      git clone https://github.com/isprambiente/partecipo.git
     ```
 
 2. Da una shell posizionarsi sulla root del progetto ed eseguire
@@ -88,7 +88,7 @@ Installare ruby 3.0.2, consigliato [RVM](https://rvm.io/).
 1. Clonare il progetto in sviluppo 
 
     ```
-      git clone https://github.com/isprambiente/medplan.git
+      git clone https://github.com/isprambiente/partecipo.git
     ```
 
 2. Configurare il DNS o modificare il proprio file hosts per risolvere il nome cas-mock-server sull'indirizzo del server docker.
