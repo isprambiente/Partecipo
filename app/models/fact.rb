@@ -57,6 +57,6 @@ class Fact < ApplicationRecord
 
   # add a default image
   def add_default_image
-    image.attach(io: File.open(Rails.root.join('app', 'javascript', 'images', 'default.png')), filename: 'default.png', content_type: 'image/png')
+    image.attach(io: File.open(Rails.root.join('app', 'assets', 'images', 'default.png')), filename: 'default.png', content_type: 'image/png')
   end
 end

@@ -8,8 +8,8 @@
     %title= Settings.title
     = csrf_meta_tags
     = csp_meta_tag
-    = stylesheet_pack_tag 'application', media: 'all', 'data-turbo-track': 'reload'
-    = javascript_pack_tag 'application', 'data-turbo-track': 'reload'
+    = stylesheet_link_tag "application", "data-turbo-track": "reload"
+    = javascript_include_tag "application", "data-turbo-track": "reload", defer: true
   %body{ data: { controller: "page" } }
     %header
       %turbo-frame#nav1{ src: Settings.header }

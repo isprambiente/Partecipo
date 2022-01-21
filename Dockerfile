@@ -25,7 +25,8 @@ RUN set -eux; \
       postgresql-client \
       libpq-dev \
       nodejs \
-      yarn ;\
+      yarn \
+      libvips-dev ;\
     rm -rf /var/lib/apt/lists/*
 
 RUN mkdir -p $INSTALL_PATH
@@ -35,6 +36,7 @@ COPY . .
 
 # Install app
 RUN rm -rf node_modules vendor ;\
+    gem install bundler ;\
     bundle install ;\
     yarn install ;\
     chown -R user:user /opt/app
