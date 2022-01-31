@@ -6,7 +6,9 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [2.6.0]
 - Migrate to rails 3.1
-## fixed
+### Added
+- user tickets list updated dinamically with turbo stream
+### fixed
 - fixed fact's pagination and visualization
 - fixed rails-ujs load
 - clean unused broadcast
