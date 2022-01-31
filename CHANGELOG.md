@@ -9,6 +9,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 ## fixed
 - fixed fact's pagination and visualization
 - fixed rails-ujs load
+- clean unused broadcast
 
 ## [2.5.2]
 - Migrate from webpack to importmap
