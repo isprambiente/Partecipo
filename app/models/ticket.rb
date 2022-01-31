@@ -41,6 +41,21 @@ class Ticket < ApplicationRecord
   validate  :validate_frequency, unless: :by_editor?
 
   after_commit :update_seats_count!
+  after_create_commit  :brd_add_user_ticket!
+  after_update_commit  :brd_update_user_ticket!
+  after_destroy_commit :brd_remove_user_ticket!
+  
+  def brd_add_user_ticket!
+    broadcast_action_later_to "tickets:user_#{user.id}", action: :prepend, target: 'tickets', locals: { ticket: self}
+  end
+
+  def brd_update_user_ticket!
+    broadcast_replace_later_to "tickets:user_#{user.id}", target: "ticket_#{id}", locals: { ticket: self }
+  end
+
+  def brd_remove_user_ticket!
+    broadcast_remove_to "tickets:user_#{user.id}", target: "ticket_#{id}"
+  end
 
   # @return [Boolean] true if by_editor is true
   def by_editor?
