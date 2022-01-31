@@ -6,7 +6,9 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [2.6.0]
 - Migrate to rails 3.1
-
+## fixed
+- fixed fact's pagination and visualization
+- fixed rails-ujs load
 
 ## [2.5.2]
 - Migrate from webpack to importmap
