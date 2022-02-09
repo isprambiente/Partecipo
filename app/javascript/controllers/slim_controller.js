@@ -35,7 +35,7 @@ export default class extends Controller {
   }
 
   ajax(element, url) {
-    const slim = new SlimSelect({
+    new SlimSelect({
       select: element,
       placeholder: 'Seleziona un utente',
       searchingText: 'Sto cercando...',
@@ -57,10 +57,6 @@ export default class extends Controller {
           for (let i = 0; i < json.users.length; i++) {
             data.push({text: json.users[i].username, value: json.users[i].id})
           }
-
-          // Upon successful fetch send data to callback function.
-          // Be sure to send data back in the proper format.
-          // Refer to the method setData for examples of proper format.
           callback(data)
         })
         .catch(function(error) { callback(false) })

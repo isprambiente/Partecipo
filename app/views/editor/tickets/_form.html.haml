@@ -1,33 +1,25 @@
 .box.mb-2
-  .columns
-    .column
-      = form_with model: [:editor, ticket] do |f|
-        %fieldset
-          .columns
-            = f.hidden_field :happening_id
-            .column
-              .field
-                = f.label :user_id
-                .control
-                  - if ticket.persisted?
-                    %span.select.is-fullwidth= f.select :user_id, [[ticket.user.username, ticket.user.id]],{},disabled: true 
-                  - else
-                    %span.select.is-fullwidth= f.select :user_id, [], {}, {data: {controller: 'slim', target: 'slim.user'}}
-                  %p.help.is-danger= ticket.errors.messages[:user].join(' - ') 
-            .column
-              .field
-                = f.label :seats
-                .control.has-icons-left
-                  = f.number_field :seats, min: 1, class: 'input'
-                  %span.icon.is-left= fas_icon 'chair'
-                  %p.help.is-danger= ticket.errors.messages[:seats].join(' - ')
-            .column.is-narrow
-              .field
-                %br
-                = f.button fas_icon('save', text: t('site.generic.save')), class: 'button is-success'
-    - if ticket.persisted?
-      .column.is-narrow
-        = form_with model: [:editor, ticket], method: :delete do |f|
-          %fieldset
-            %label -
-            .control= f.button fas_icon('trash'), class: 'button is-warning', data: {confirm: 'Attenzione: vuoi veramente annullare la prenotazione?'}
+  = form_with model: [:editor, ticket] do |f|
+    %fieldset
+      = f.hidden_field :happening_id
+      .field
+        = f.label :user_id
+        .control
+          - if ticket.persisted?
+            %span.select.is-fullwidth= f.select :user_id, [[ticket.user.username, ticket.user.id]],{},disabled: true 
+          - else
+            %span.select.is-fullwidth= f.select :user_id, [], {}, {data: {controller: 'slim', slim_target: 'user'}}
+          %p.help.is-danger= ticket.errors.messages[:user].join(' - ') 
+      .field
+        = f.label :seats
+        .control.has-icons-left
+          = f.number_field :seats, min: 1, class: 'input'
+          %span.icon.is-left= fas_icon 'chair'
+          %p.help.is-danger= ticket.errors.messages[:seats].join(' - ')
+      .field
+        %br
+        = f.button fas_icon('save', text: t('site.generic.save')), class: 'button is-success'
+  - if ticket.persisted?
+    = form_with model: [:editor, ticket], method: :delete do |f|
+      %fieldset
+        .control= f.button fas_icon('trash', text: t('site.generic.destroy')), class: 'button is-warning', data: {confirm: 'Attenzione: vuoi veramente annullare la prenotazione?'}

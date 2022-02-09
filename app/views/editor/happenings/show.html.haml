@@ -14,7 +14,7 @@
               %span.icon.is-left
                 %i.fas.fa-search
         %a.panel-block{href: export_editor_fact_happening_path(@fact, @happening, format: :csv)}= fas_icon 'file-csv', text: t('site.editor.ticket.export_csv')
-        %a.panel-block{href: new_editor_ticket_path(filter: {happening_id: @happening.id}), data: {turbo_frame: 'tickets'}}= fas_icon 'plus', text: t('site.editor.ticket.new')
+        %a.panel-block{href: new_editor_ticket_path(filter: {happening_id: @happening.id}), data: {turbo_frame: 'modal'}}= fas_icon 'plus', text: t('site.editor.ticket.new')
         %a.panel-block{href: editor_fact_path(@fact)}= fas_icon 'chevron-left', text: t('site.generic.back')
       %figure.image= image_tag(@fact.image.variant(:aside).processed)
     .column
@@ -24,4 +24,10 @@
         = t 'activerecord.models.happening.one'
         = @happening.code
       = render 'box'
-      %turbo-frame#tickets{src: tickets_editor_fact_happening_path(@fact, @happening)}
+      %h4.title.is-size-5.has-text-centered
+        %i.fas.fa-ticket-alt
+        = t 'activerecord.models.ticket.other'
+      %hr
+      %turbo-frame#editor_tickets{src: tickets_editor_fact_happening_path(@fact, @happening)}
+      = turbo_stream_from "editor:happening_#{@happening.id}"
+

@@ -1,3 +1,6 @@
 %turbo-frame#yield
-  = turbo_frame_tag @ticket do
-    = render 'form', ticket: @ticket
+  %turbo-frame#modal
+    %section
+      .modal.is-active
+        .modal-background{data: {action: "click->page#closeModal"}}
+        .modal-card= render 'form', ticket: @ticket
