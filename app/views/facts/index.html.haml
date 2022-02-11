@@ -4,9 +4,9 @@
     = t 'activerecord.models.fact.other'
   .columns
     %aside.column.is-3
-      %nav.panel
-        %p.panel-heading= t 'site.fact.search'
-        = form_with scope: 'filter', url: list_facts_path, method: :get, data: {turbo_frame: 'facts', controller: 'form', form_target: 'sender'} do |f|
+      = form_with scope: 'filter', url: list_facts_path, method: :get, data: {turbo_frame: 'facts', controller: 'form', form_target: 'sender'} do |f|
+        %nav.panel
+          %p.panel-heading= t 'site.fact.search'
           .panel-block
             %p.control.has-icons-left
               = f.text_field :text, placeholder: 'Testo', class: 'input', data: {action: 'keyup->form#delayedSendForm'}
@@ -18,5 +18,16 @@
           %label.panel-block
             = f.radio_button :type, 'history', data: {action: "form#sendForm"}
             %span= t('history', scope: 'site.fact.scope')
+        - if @groups.present?
+          %nav.panel
+            %p.panel-heading= t 'site.generic.groups'
+            - @groups.each do |group|
+              %label.panel-block
+                = f.radio_button :group, group.id, data: {action: "form#sendForm"}
+                %span= group.title
+            %label.panel-block
+              = f.radio_button :group, '', selected: true, data: {action: "form#sendForm"}
+              %span= t('site.generic.all')
+
     .column
       %turbo-frame#facts{src: list_facts_path}
