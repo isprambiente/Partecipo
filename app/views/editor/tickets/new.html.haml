@@ -1,4 +1,8 @@
 %turbo-frame#yield
-  %turbo-frame#tickets
-    %h5.title.is-size-5.has-text-centered Nuova prenotazione
-    = render 'form', ticket: @ticket
+  %turbo-frame#modal
+    %section
+      .modal.is-active
+        .modal-background{data: {action: "click->page#closeModal"}}
+        .modal-card
+          %h5.title.is-size-5.has-text-centered Nuova prenotazione
+          = render 'form', ticket: @ticket

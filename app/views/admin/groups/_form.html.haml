@@ -9,7 +9,7 @@
   .field
     = form.label :user_ids
     .control.has-icons-left
-      = form.select :user_ids, @users, {}, {multiple: true, data: {controller: 'slim', target: 'slim.editor'}}
+      = form.select :user_ids, @users, {}, {multiple: true, data: {controller: 'slim', slim_target: 'editor'}}
       %p.help.is-danger= group.errors.messages[:user].join(' - ')
 
   .has-text-centered

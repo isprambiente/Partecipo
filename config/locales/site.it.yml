@@ -1,8 +1,10 @@
 it:
   site:
     generic:
+      all: Tutti
       back: Indietro
       from: da
+      groups: Gruppi
       login: Accedi
       login_button: Accedi per continuare
       logout: Disconnettiti

@@ -41,7 +41,10 @@ class Ticket < ApplicationRecord
   validate  :validate_frequency, unless: :by_editor?
 
   after_commit :update_seats_count!
-
+  after_create_commit  :brd_add_user_ticket!
+  after_update_commit  :brd_update_user_ticket!
+  after_destroy_commit :brd_remove_user_ticket!
+  
   # @return [Boolean] true if by_editor is true
   def by_editor?
     by_editor == true
@@ -80,5 +83,22 @@ class Ticket < ApplicationRecord
   def fact_ticket_exist?(period = nil)
     @when = { happenings: { start_at: period } } if period.present?
     fact.tickets.where(@when).where(user: user).exists?
+  end
+
+  # broadcast ticket creation to user
+  def brd_add_user_ticket!
+    broadcast_action_later_to "tickets:user_#{user.id}", action: :prepend, target: 'tickets', locals: { ticket: self}
+  end
+
+  # broadcast ticket update to user and editor
+  def brd_update_user_ticket!
+    broadcast_replace_to "tickets:user_#{user.id}", target: "ticket_#{id}", locals: { ticket: self }
+    broadcast_replace_to "editor:happening_#{happening_id}", target: "editor_ticket_#{id}", partial: 'editor/tickets/ticket', locals: {ticket: self}
+  end
+
+  # broadcast ticket delete to user and editor
+  def brd_remove_user_ticket!
+    broadcast_remove_to "tickets:user_#{user.id}", target: "ticket_#{id}"
+    broadcast_remove_to "editor:happening_#{happening_id}", target: "editor_ticket_#{id}"
   end
 end

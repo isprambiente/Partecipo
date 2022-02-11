@@ -1,9 +1,5 @@
 %turbo-frame#yield
-  %turbo-frame#tickets
-    %h4.title.is-size-5.has-text-centered
-      %i.fas.fa-ticket-alt
-      = t 'activerecord.models.ticket.other'
-    %hr
+  %turbo-frame#editor_tickets
     - if @tickets.present?
       = render @tickets
       %turbo_frame#new_ticket

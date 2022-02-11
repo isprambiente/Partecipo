@@ -33,10 +33,12 @@ services:
     ports:
       - 8020:8020
     environment:
-      RAILS_ENV: production
-      RAILS_REDIS_URL: redis://redis:6379/1
       RAILS_CAS_URL: http://cas-mock-server:8080/cas
       RAILS_DATABASE_URL: postgres://partecipo:MyPassword@postgres/partecipo_development
+      RAILS_ENV: production
+      RAILS_GROUP_MENU: true
+      RAILS_REDIS_URL: redis://redis:6379/1
+      
     links:
       - postgres
       - redis

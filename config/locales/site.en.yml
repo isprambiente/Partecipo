@@ -1,8 +1,10 @@
 en:
   site:
     generic:
+      all: All
       back: Back
       from: from
+      groups: Groups
       login: Sign in 
       login_button: Sign in to continue 
       logout: Sign out

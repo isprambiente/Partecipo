@@ -6,7 +6,9 @@ class FactsController < ApplicationController
   before_action :set_fact, only: %i[show]
 
   # GET /facts
-  def index; end
+  def index
+    @groups = Group.all if ENV['RAILS_GROUP_MENU'] || Settings.group_menu
+  end
 
   # GET /facts/:id
   def show; end
@@ -15,7 +17,8 @@ class FactsController < ApplicationController
   def list
     type = filter_params[:type] == 'history' ? 'history' : 'future'
     @text = ['title ilike :text', { text: "%#{filter_params[:text]}%" }] if filter_params[:text].present?
-    @pagy, @facts = pagy(Fact.send(type).where(@text))
+    @group = {group: filter_params[:group]} if filter_params[:group].present?
+    @pagy, @facts = pagy(Fact.send(type).where(@text).where(@group), items: 6)
   end
 
   private
@@ -27,6 +30,6 @@ class FactsController < ApplicationController
 
   # Filter params for facts search
   def filter_params
-    params.fetch(:filter, {}).permit(:text, :type)
+    params.fetch(:filter, {}).permit(:text, :type, :group)
   end
 end

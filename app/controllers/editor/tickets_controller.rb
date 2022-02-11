@@ -48,10 +48,14 @@ class Editor::TicketsController < Editor::ApplicationController
     @ticket = Ticket.new(ticket_params)
     @ticket.by_editor = true
     if @ticket.save
-      flash[:success] = 'Prenotazione salvata'
-      redirect_to tickets_editor_fact_happening_path(@ticket.happening.fact, @ticket.happening)
+      broadcast_action_to "editor:happening_#{@ticket.happening_id}", action: :prepend, target: 'editor_tickets', locals: { ticket: self}, partial: 'editor/tickets/ticket'
+      render turbo_stream: [
+        turbo_stream.replace("editor_ticket_#{@ticket.id}", partial: 'ticket', locals: {ticlet: @ticket}),
+        turbo_stream.replace('modal', partial: 'modal_empty')
+      ]
+
+      render 'empty_modal'
     else
-      @users = User.pluck :username, :id
       @status = { error: 'Creatione prenotazione fallita' }
       render action: 'new'
     end
@@ -60,11 +64,8 @@ class Editor::TicketsController < Editor::ApplicationController
   # PATCH/PUT /editor/facts/:fact_id/happenings/:happening_id/tickets/:id
   def update
     if @ticket.update(ticket_params.merge(by_editor: true))
-      flash[:success] = 'Prenotazione salvata'
-      render partial: 'ticket', locals: { ticket: @ticket, happening: @happening, fact: @fact }
+      render partial: 'modal_empty'
     else
-      @users = User.pluck :username, :id
-      @status = { error: 'Aggionramento prenotazione fallito' }
       render partial: 'form', locals: { ticket: @ticket, happening: @happening, fact: @fact }
     end
   end
@@ -72,8 +73,7 @@ class Editor::TicketsController < Editor::ApplicationController
   # DELETE /editor/facts/:fact_id/happenings/:happening_id/tickets/:id
   def destroy
     @ticket.destroy
-    flash[:success] = 'Prenotazione eliminata'
-    redirect_to editor_fact_happening_path(@fact, @happening)
+    render partial: 'modal_empty'
   end
 
   private

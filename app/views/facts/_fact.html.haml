@@ -1,5 +1,5 @@
-%a.tile.is-child{href: fact_path(fact), data: {turbo_frame: 'yield'}}
-  %article.card
+%a.tile.is-6.is-parent{href: fact_path(fact), data: {turbo_frame: 'yield'}}
+  %article.card.tile.is-child
     .card-image
       %figure.image= image_tag fact.image.variant(:card)
     .card-content

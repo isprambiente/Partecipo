@@ -19,4 +19,5 @@
     %footer 
       %turbo-frame#footer{src: Settings.footer}
       = turbo_stream_from 'facts'
+      = turbo_stream_from "tickets:user_#{current_user.id}" if user_signed_in?
     %turbo-frame#modal
