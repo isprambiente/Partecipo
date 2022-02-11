@@ -5,9 +5,20 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
 ## [2.6.0]
-- Migrate to rails 3.1
+- Migrate to ruby 3.1
+- Migrate to dart-sass
 ### Added
-- user tickets list updated dinamically with turbo stream
+- User tickets list updated dinamically with turbo stream
+- admin list ticket updated dinamically with turbo stream
+- Added fact filter by group
+- Added foreman support for dev
+### Fixed
+- Fixed RAILS-UJS load
+- fixed fact's pagination and visualization
+### removed
+- removed builded asset from git
+- removed unused bin
+
 ### fixed
 - fixed fact's pagination and visualization
 - fixed rails-ujs load
