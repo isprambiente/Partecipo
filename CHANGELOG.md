@@ -4,6 +4,13 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [2.6.1]
+- Migrate to rails 7.0.2.2
+### Fixed
+- removed builded assets
+- fix code style
+- update puma to 5.6.3 fix bug GHSA-wh98-p28r-vrc9
+
 ## [2.6.0]
 - Migrate to ruby 3.1
 - Migrate to dart-sass
