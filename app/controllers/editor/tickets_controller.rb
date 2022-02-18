@@ -48,9 +48,9 @@ class Editor::TicketsController < Editor::ApplicationController
     @ticket = Ticket.new(ticket_params)
     @ticket.by_editor = true
     if @ticket.save
-      broadcast_action_to "editor:happening_#{@ticket.happening_id}", action: :prepend, target: 'editor_tickets', locals: { ticket: self}, partial: 'editor/tickets/ticket'
+      broadcast_action_to "editor:happening_#{@ticket.happening_id}", action: :prepend, target: 'editor_tickets', locals: { ticket: self }, partial: 'editor/tickets/ticket'
       render turbo_stream: [
-        turbo_stream.replace("editor_ticket_#{@ticket.id}", partial: 'ticket', locals: {ticlet: @ticket}),
+        turbo_stream.replace("editor_ticket_#{@ticket.id}", partial: 'ticket', locals: { ticlet: @ticket }),
         turbo_stream.replace('modal', partial: 'modal_empty')
       ]
 

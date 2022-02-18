@@ -1,6 +1,6 @@
-require_relative "boot"
+require_relative 'boot'
 
-require "rails/all"
+require 'rails/all'
 
 # Require the gems listed in Gemfile, including any gems
 # you've limited to :test, :development, or :production.
@@ -20,6 +20,6 @@ module Partecipo
     # config.eager_load_paths << Rails.root.join("extras")
 
     config.rack_cas.server_url = ENV['RAILS_CAS_URL'] || Settings.cas
-    config.rack_cas.service = "/users/service" # If your user model isn't called User, change this
+    config.rack_cas.service = '/users/service' # If your user model isn't called User, change this
   end
 end

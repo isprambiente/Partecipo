@@ -17,7 +17,7 @@ class FactsController < ApplicationController
   def list
     type = filter_params[:type] == 'history' ? 'history' : 'future'
     @text = ['title ilike :text', { text: "%#{filter_params[:text]}%" }] if filter_params[:text].present?
-    @group = {group: filter_params[:group]} if filter_params[:group].present?
+    @group = { group: filter_params[:group] } if filter_params[:group].present?
     @pagy, @facts = pagy(Fact.send(type).where(@text).where(@group), items: 6)
   end
 
