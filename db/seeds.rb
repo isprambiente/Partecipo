@@ -9,18 +9,18 @@
 #   Character.create(name: 'Luke', movie: movies.first)
 Fact.destroy_all
 Group.destroy_all
-g1 = Group.create title: 'test group'
-g2 = Group.create title: 'Other group'
+g1 = Group.create title: 'First group'
+g2 = Group.create title: 'Second group'
 facts = [
   {title: 'evento uno', start_on: Time.zone.now, stop_on: Time.zone.now + 1.year, group: g1},
   {title: 'evento due', start_on: Time.zone.now, stop_on: Time.zone.now + 1.year, group: g1},
-  {title: 'evento due', start_on: Time.zone.now, stop_on: Time.zone.now + 1.year, group: g1},
-  {title: 'evento uno', start_on: Time.zone.now, stop_on: Time.zone.now + 1.year, group: g1},
-  {title: 'evento due', start_on: Time.zone.now, stop_on: Time.zone.now + 1.year, group: g1},
-  {title: 'evento due', start_on: Time.zone.now, stop_on: Time.zone.now + 1.year, group: g2},
-  {title: 'evento uno', start_on: Time.zone.now, stop_on: Time.zone.now + 1.year, group: g2},
-  {title: 'evento due', start_on: Time.zone.now, stop_on: Time.zone.now + 1.year, group: g2},
-  {title: 'evento due', start_on: Time.zone.now, stop_on: Time.zone.now + 1.year, group: g2}
+  {title: 'evento tre', start_on: Time.zone.now, stop_on: Time.zone.now + 1.year, group: g1},
+  {title: 'evento quattro', start_on: Time.zone.now, stop_on: Time.zone.now + 1.year, group: g1},
+  {title: 'evento cinque', start_on: Time.zone.now, stop_on: Time.zone.now + 1.year, group: g1},
+  {title: 'evento sei', start_on: Time.zone.now, stop_on: Time.zone.now + 1.year, group: g2},
+  {title: 'evento sette', start_on: Time.zone.now, stop_on: Time.zone.now + 1.year, group: g2},
+  {title: 'evento otto', start_on: Time.zone.now, stop_on: Time.zone.now + 1.year, group: g2},
+  {title: 'evento nove', start_on: Time.zone.now, stop_on: Time.zone.now + 1.year, group: g2}
 ]
 
 happenings = [
