@@ -29,5 +29,3 @@
         = t 'activerecord.models.ticket.other'
       %hr
       %turbo-frame#editor_tickets{src: tickets_editor_fact_happening_path(@fact, @happening)}
-      = turbo_stream_from "editor:happening_#{@happening.id}"
-

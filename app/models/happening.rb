@@ -47,6 +47,9 @@ class Happening < ApplicationRecord
   validates :repeat_for, numericality: { greather_to: 0, only_integer: true }, on: :create
 
   after_create :add_repetitions
+  after_create_commit  :brd_add_happening!
+  after_update_commit  :brd_update_happening!
+  after_destroy_commit :brd_remove_happening!
 
   attr_accessor :repeat_for, :repeat_in
 
@@ -89,5 +92,22 @@ class Happening < ApplicationRecord
         repeat_for: 0
       )
     end
+  end
+
+  # broadcast happening creation to editor
+  def brd_add_happening!
+    #broadcast_action_later_to "tickets:user_#{user.id}", action: :prepend, target: 'tickets', locals: { ticket: self }
+  end
+
+  # broadcast ticket update to user and editor
+  def brd_update_happening!
+    #broadcast_replace_to "tickets:user_#{user.id}", target: "ticket_#{id}", locals: { ticket: self }
+    #broadcast_replace_to "editor:happening_#{happening_id}", target: "editor_ticket_#{id}", partial: 'editor/tickets/ticket', locals: { ticket: self }
+  end
+
+  # broadcast ticket delete to user and editor
+  def brd_remove_happening!
+    #broadcast_remove_to "tickets:user_#{user.id}", target: "ticket_#{id}"
+    #broadcast_remove_to "editor:happening_#{happening_id}", target: "editor_ticket_#{id}"
   end
 end

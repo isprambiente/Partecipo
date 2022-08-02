@@ -93,12 +93,12 @@ class Ticket < ApplicationRecord
   # broadcast ticket update to user and editor
   def brd_update_user_ticket!
     broadcast_replace_to "tickets:user_#{user.id}", target: "ticket_#{id}", locals: { ticket: self }
-    broadcast_replace_to "editor:happening_#{happening_id}", target: "editor_ticket_#{id}", partial: 'editor/tickets/ticket', locals: { ticket: self }
+    broadcast_replace_to "editor", target: "editor_ticket_#{id}", partial: 'editor/tickets/ticket', locals: { ticket: self }
   end
 
   # broadcast ticket delete to user and editor
   def brd_remove_user_ticket!
     broadcast_remove_to "tickets:user_#{user.id}", target: "ticket_#{id}"
-    broadcast_remove_to "editor:happening_#{happening_id}", target: "editor_ticket_#{id}"
+    broadcast_remove_to "editor", target: "editor_ticket_#{id}"
   end
 end

@@ -1,4 +1,4 @@
-= form_with(model: [:editor, fact, happening], data: {turbo_frame: 'yield'}) do |form|
+= form_with(model: [:editor, fact, happening], data: {turbo_frame: 'modal'}) do |form|
   .field
     = form.label :detail
     .control.has-icons-left
@@ -77,4 +77,4 @@
     = form.button fas_icon('save', text: t('site.generic.save')), class: 'button is-success'
 - if happening.persisted?
   %br
-  .has-text-centered= link_to fas_icon('trash', text: 'Elimina data'), editor_fact_happening_path(happening.fact, happening), class: 'button is-warning', data: {confirm: 'Attenzione la data e tutte le prenotazioni saranno eliminate, confermi?', method: :delete}
+  .has-text-centered= link_to fas_icon('trash', text: 'Elimina data'), editor_fact_happening_path(happening.fact, happening), class: 'button is-warning', data: {confirm: 'Attenzione la data e tutte le prenotazioni saranno eliminate, confermi?', method: :delete, turbo_frame: 'yield'}

@@ -90,3 +90,4 @@ gem 'devise_cas_authenticatable'
 gem 'hamlit'
 gem 'pagy'
 gem 'whenever', require: false
+#gem 'answerable', git: 'https://github.com/isprambiente/answerable'

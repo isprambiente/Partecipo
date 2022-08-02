@@ -40,7 +40,7 @@ class Editor::HappeningsController < Editor::ApplicationController
   # PATCH/PUT /editor/facts/:fact_id/happenings/:id
   def update
     if @happening.update(happening_params)
-      render action: :show
+      render partial: 'modal_empty'
     else
       render :edit
     end
@@ -49,7 +49,7 @@ class Editor::HappeningsController < Editor::ApplicationController
   # DELETE /editor/facts/:fact_id/happenings/:id
   def destroy
     @happening.destroy
-    redirect_to editor_root_path
+    redirect_to editor_fact_path(@fact)
   end
 
   # GET /editor/facts/:fact_id/happenings/:happening_id/tickets/export

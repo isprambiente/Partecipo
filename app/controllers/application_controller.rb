@@ -6,7 +6,7 @@ class ApplicationController < ActionController::Base
   around_action :switch_locale
 
   def default_url_options
-    { locale: I18n.locale }
+    { locale: I18n.locale, host: 'localhost', port: 3000 }
   end
 
   # rescue_from ActiveRecord::RecordNotFound do

@@ -1,7 +1,12 @@
 %turbo-frame#yield
-  %turbo-frame#tickets
-    %h5.title.is-size-5.has-text-centered
-      %i.fas.fa-calendar-alt
-      Modifica evento
+  %turbo-frame#modal
+    %section
+      .modal.is-active
+        .modal-background{data: {action: "click->page#closeModal"}}
+        .modal-card
+          .box.mb-2
+            %h5.title.is-size-5.has-text-centered
+              %i.fas.fa-calendar-alt
+              Modifica evento
 
-    .box= render 'form', fact: @fact, happening: @happening 
+            = render 'form', fact: @fact, happening: @happening 
