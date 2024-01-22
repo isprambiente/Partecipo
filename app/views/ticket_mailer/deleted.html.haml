@@ -1,3 +1,3 @@
 %p Buongiorno #{@ticket.user.username}
 
-%p Le confermiamo l'eliminazione della prenotazione di n. <b>#{@ticket.seats}</b> per l'evento "<b>#{@ticket.happening.fact.title}</b >" del #{l @ticket.happening.start_at, format: :detailed}
+%p Le confermiamo l'eliminazione della prenotazione di n. <b>#{@ticket.seats}</b> per l'evento "<b>#{@ticket.happening.event.title}</b >" del #{l @ticket.happening.start_at, format: :detailed}

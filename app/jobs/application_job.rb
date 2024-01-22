@@ -1,6 +1,5 @@
 # frozen_string_literal: true
 
-# this class run the common background operations
 class ApplicationJob < ActiveJob::Base
   # Automatically retry jobs that encountered a deadlock
   # retry_on ActiveRecord::Deadlocked

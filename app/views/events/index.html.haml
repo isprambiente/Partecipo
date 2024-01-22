@@ -1,0 +1,8 @@
+%turbo-frame#yield
+  %h3.title.has-text-centered
+    %i.fas.fa-calendar
+    = t 'activerecord.models.event.other'
+  .columns
+    %aside.column.is-3= render Layout::SearchComponent.new(url: events_path, turbo_frame: 'events', categories: @categories)
+    .column= render Layout::ListBoxedComponent.new(component: Events::EventComponent, elements: @events, id: 'events', pages: @pagy)
+

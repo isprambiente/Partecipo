@@ -1,21 +1,18 @@
-%turbo-frame#modal
-  %section
-    .modal.is-active
-      .modal-background{data: {action: "click->page#closeModal"}}
-      .modal-card
-        %header.modal-card-head
-          %p.modal-card-title= @happening.fact.title
-        .modal-card-body
-          = turbo_frame_tag @happening do
-            = render 'happenings/title', happening: @happening
-            = @happening.detail
-            - if user_signed_in?
-              - if @ticket.persisted?
-                = render 'tickets/remove', fact: @fact, happening: @happening, ticket: @ticket
-              - elsif @ticket.saleable?
-                = render 'tickets/add', fact: @fact, happening: @happening, ticket: @ticket
-              - else
-                = render 'tickets/inactive', fact: @fact, happening: @happening, ticket: @ticket
-            - else
-              = render 'tickets/unauthenticated'
-      %button.modal-close.is-large{aria: {label: "close"}, data: {action: "click->page#closeModal"}}
+%turbo-frame#yield
+  %h3.title.has-text-centered
+    %i.fas.fa-calendar
+    = @event.title
+  .columns
+    %aside.column.is-3
+      .block
+        %figure.image= image_tag @event.image_url(:aside)
+    .column
+      = render Events::InfoboxComponent.new(event: @event)
+      .divider= icon_text 'fas fa-calendar-day', t('activerecord.models.happening.other')
+      %turbo-frame#happening
+        = render Happenings::DetailComponent.new(happening: @happening, user: current_user)
+      .divider= icon_text 'fas fa-ticket-simple', 'Prenotazioni'
+      - if current_user.present?
+        %turbo-frame#tickets= render Bulmacomp::TurboFrameComponent.new(id: 'tickets', src: tickets_path(filter: {scope: @happening.id}))
+      - else
+        .has-text-centered= link_to icon_text('fas fa-right-to-bracket', t('login_to_continue')), new_user_session_path, class: 'button is-link is-large', data: {turbo: 'false'}

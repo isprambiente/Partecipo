@@ -1,0 +1,8 @@
+%turbo-frame{id: @id}
+  .list{id: "#{@id}_list"}
+    - if @elements.present?
+      = render @component.with_collection(@elements, **@opts)
+    - else
+      #empty.has-text-centered.box= icon_text("fas fa-folder-open", t(".empty"))
+  %hr.hr
+  = pagy(@pages) if @pages.present?

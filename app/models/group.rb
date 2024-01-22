@@ -2,7 +2,7 @@
 
 # This model manage the group
 # === Relations
-# has many {Fact}
+# has many {Event}
 # has and belongs to many {User}
 # === Validates
 # * presence of {title}
@@ -10,7 +10,7 @@
 #   @return [String] group title
 class Group < ApplicationRecord
   has_and_belongs_to_many :users
-  has_many :facts
+  has_many :events, dependent: :restrict_with_error
 
   validates :title, presence: true
 end

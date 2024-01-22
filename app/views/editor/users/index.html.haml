@@ -4,14 +4,5 @@
     Gestione
     = t 'activerecord.models.user.other'
   .columns
-    %aside.column.is-3
-      %nav.panel
-        %p.panel-heading= t 'site.editor.user.search'
-        = form_with scope: 'filter', url: list_editor_users_path, method: :get, data: {turbo_frame: 'users', controller: 'form', form_target: 'sender'} do |f|
-          .panel-block
-            %p.control.has-icons-left
-              = f.text_field :text, placeholder: 'Testo', class: 'input', data: {action: 'keyup->form#delayedSendForm'}
-              %span.icon.is-left
-                %i.fas.fa-search
-    .column
-      %turbo-frame#users{src: list_editor_users_path }
+    %aside.column.is-3= render Layout::SearchComponent.new(url: editor_users_path, turbo_frame: 'users', date_range: false)
+    .column= render Layout::ListComponent.new(component: Users::UserComponent, elements: @users, id: 'users', pages: @pagy, url: :editor_user_path, turbo_frame: 'yield')

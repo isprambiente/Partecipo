@@ -1,22 +1,20 @@
 {
   "name": "app",
   "private": "true",
-  "dependencies": {
-    "@fortawesome/fontawesome-svg-core": "^1.2.36",
-    "@fortawesome/free-solid-svg-icons": "^5.15.4",
-    "@hotwired/stimulus": "^3.0.1",
-    "@hotwired/turbo-rails": "^7.1.1",
-    "@rails/actiontext": "^7.0.1",
-    "@rails/ujs": "^7.0.1",
-    "bulma": "^0.9.3",
-    "esbuild": "^0.14.12",
-    "sass": "^1.49.0",
-    "slim-select": "^1.27.1",
-    "smart-timeout": "^2.6.1",
-    "trix": "^2.0.0-alpha.0"
-  },
   "scripts": {
-    "build": "esbuild app/javascript/*.* --bundle --sourcemap --outdir=app/assets/builds",
-    "build:css": "sass ./app/assets/stylesheets/application.scss ./app/assets/builds/application.css --no-source-map --load-path=node_modules"
+    "build": "bun bun.config.js",
+    "build:css": "sass ./app/assets/stylesheets/application.bulma.scss:./app/assets/builds/application.css --no-source-map --load-path=node_modules"
+  },
+  "dependencies": {
+    "@fortawesome/fontawesome-svg-core": "^6.5.1",
+    "@fortawesome/free-solid-svg-icons": "^6.5.1",
+    "@hotwired/stimulus": "^3.2.2",
+    "@hotwired/turbo-rails": "^8.0.0-beta.2",
+    "@rails/actiontext": "^7.1.2",
+    "bulma": "^0.9.4",
+    "sass": "^1.69.5",
+    "slim-select": "^2.8.0",
+    "smart-timeout": "^2.7.1",
+    "trix": "^2.0.8"
   }
 }

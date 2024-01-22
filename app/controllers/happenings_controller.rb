@@ -1,52 +1,32 @@
 # frozen_string_literal: true
 
-# this controller manage the {Happening} model.
-# this model is under {FactsController}
+# this controller manage the {User} views for {Happening} model.
 class HappeningsController < ApplicationController
-  before_action :authenticate_user! if Settings.restricted_access
-  before_action :set_fact
-  before_action :set_happening, only: %i[show]
-  before_action :set_ticket, only: %i[show]
-
-  # GET /fact/:fact_id/happenings
+  # GET /event/:event_id/happenings
   # show a paginate list of {Happening}
   def index
-    type = filter_paramss[:type] == 'history' ? 'history' : 'future'
-    @text = ['detail ilike :text', { text: "%#{filter_paramss[:text]}%" }] if filter_paramss[:text].present?
+    @categories = Group.pluck :title, :id
+    @scope = filter_params[:scope]
+
     @pagy, @happenings = pagy(
-      @fact.happenings.send(type).where(@text),
-      items: 6
-    )
+      Happening
+        .between(filter_params[:from], filter_params[:to])
+        .by_text(filter_params[:text])
+        .by_event(@scope)
+        .by_group(filter_params[:category]), items: 6)
   end
 
-  # GET /fact/:fact_id/happenings/:id
+  # GET /event/:event_id/happenings/:id
   # Show detail of happening and a form to prenotate a ticket
-  def show; end
+  def show
+    @happening = Happening.includes(:event).find(params[:id])
+    @event = @happening.event
+  end
 
   private
 
-  # set @fact for any action
-  def set_fact
-    @fact = Fact.find(params[:fact_id])
-  end
-
-  # set @happening when needed
-  def set_happening
-    @happening = @fact.happenings.find(params[:id])
-  end
-
-  # seet @ticket when needed
-  def set_ticket
-    @ticket = @happening.tickets.find_or_initialize_by(user: current_user)
-  end
-
   # filter params for search {Happening}
-  def filter_paramss
-    params.fetch(:filter, {}).permit(:text, :type)
-  end
-
-  # filter params for {Happening}'s {Ticket}
-  def filter_ticket
-    params.fetch(:ticket, {}).permit(:seats)
+  def filter_params
+    params.fetch(:filter, {}).permit(:category, :from, :scope, :text, :to)
   end
 end

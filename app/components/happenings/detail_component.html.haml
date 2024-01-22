@@ -1,0 +1,22 @@
+%turbo-frame#happening
+  .box.has-ribbon
+    %h5.title.is-5= icon_text 'fas fa-calendar-day', @happening.title
+    %hr
+    = info
+    %hr
+    .trix-content.content= @happening.body if @happening.body?
+    - if @editor
+      %a.ribbon.is-link{href: edit_editor_happening_path(@happening)}= icon 'fas fa-edit'
+    - else
+      - if @happening.active?
+        - if @happening.tickets_available?
+          .has-text-centered= button_to icon_text('fas fa-ticket-simple', t('.reserve')), new_link, class: 'button is-success is-large', data: {turbo_method: :create, turbo: @user.present?}
+        - else
+          %p= t '.unavable'
+      - else
+        %p.notification.is-warning.has-text-centered
+          = t '.active.from'
+          = l @happening.start_sale_at, format: :detailed
+          = t '.active.to'
+          = l @happening.stop_sale_at, format: :detailed
+

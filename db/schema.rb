@@ -10,8 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2021_12_31_090217) do
-
+ActiveRecord::Schema[7.1].define(version: 2023_12_28_210129) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
 
@@ -20,8 +19,8 @@ ActiveRecord::Schema.define(version: 2021_12_31_090217) do
     t.text "body"
     t.string "record_type", null: false
     t.bigint "record_id", null: false
-    t.datetime "created_at", precision: 6, null: false
-    t.datetime "updated_at", precision: 6, null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
     t.index ["record_type", "record_id", "name"], name: "index_action_text_rich_texts_uniqueness", unique: true
   end
 
@@ -40,10 +39,10 @@ ActiveRecord::Schema.define(version: 2021_12_31_090217) do
     t.string "filename", null: false
     t.string "content_type"
     t.text "metadata"
+    t.string "service_name", null: false
     t.bigint "byte_size", null: false
     t.string "checksum"
     t.datetime "created_at", null: false
-    t.string "service_name", null: false
     t.index ["key"], name: "index_active_storage_blobs_on_key", unique: true
   end
 
@@ -53,79 +52,90 @@ ActiveRecord::Schema.define(version: 2021_12_31_090217) do
     t.index ["blob_id", "variation_digest"], name: "index_active_storage_variant_records_uniqueness", unique: true
   end
 
-  create_table "facts", force: :cascade do |t|
+  create_table "events", force: :cascade do |t|
     t.bigint "group_id", null: false
     t.string "title", default: "", null: false
     t.string "where", default: "", null: false
     t.boolean "pinned", default: false, null: false
-    t.date "start_on", null: false
-    t.date "stop_on", null: false
-    t.integer "happenings_count", default: 0, null: false
-    t.datetime "created_at", precision: 6, null: false
-    t.datetime "updated_at", precision: 6, null: false
+    t.date "start_on"
+    t.date "stop_on"
+    t.boolean "single", default: false, null: false
     t.integer "tickets_frequency", default: 0, null: false
-    t.index ["group_id"], name: "index_facts_on_group_id"
+    t.integer "happenings_count", default: 0, null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["group_id"], name: "index_events_on_group_id"
   end
 
   create_table "groups", force: :cascade do |t|
     t.string "title"
-    t.datetime "created_at", precision: 6, null: false
-    t.datetime "updated_at", precision: 6, null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["title"], name: "index_groups_on_title"
   end
 
   create_table "groups_users", id: false, force: :cascade do |t|
-    t.bigint "user_id", null: false
     t.bigint "group_id", null: false
-    t.index ["group_id"], name: "index_groups_users_on_group_id"
-    t.index ["user_id"], name: "index_groups_users_on_user_id"
+    t.bigint "user_id", null: false
+    t.index ["group_id", "user_id"], name: "index_groups_users_on_group_id_and_user_id"
+    t.index ["user_id", "group_id"], name: "index_groups_users_on_user_id_and_group_id"
   end
 
   create_table "happenings", force: :cascade do |t|
-    t.bigint "fact_id", null: false
-    t.string "detail", default: "", null: false
+    t.bigint "event_id", null: false
+    t.string "title", default: "", null: false
     t.datetime "start_at", null: false
     t.datetime "start_sale_at", null: false
     t.datetime "stop_sale_at", null: false
-    t.integer "max_seats"
-    t.integer "max_seats_for_ticket", default: 1, null: false
+    t.integer "max_tickets", null: false
+    t.integer "max_tickets_for_user", default: 1, null: false
     t.integer "tickets_count", default: 0, null: false
-    t.integer "seats_count", default: 0, null: false
-    t.datetime "created_at", precision: 6, null: false
-    t.datetime "updated_at", precision: 6, null: false
-    t.index ["fact_id"], name: "index_happenings_on_fact_id"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["event_id"], name: "index_happenings_on_event_id"
   end
 
   create_table "tickets", force: :cascade do |t|
     t.bigint "happening_id", null: false
     t.bigint "user_id", null: false
-    t.integer "seats"
-    t.datetime "created_at", precision: 6, null: false
-    t.datetime "updated_at", precision: 6, null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
     t.index ["happening_id"], name: "index_tickets_on_happening_id"
     t.index ["user_id"], name: "index_tickets_on_user_id"
   end
 
   create_table "users", force: :cascade do |t|
-    t.string "username", default: "", null: false
+    t.string "email", default: "", null: false
+    t.string "encrypted_password", default: "", null: false
+    t.string "reset_password_token"
+    t.datetime "reset_password_sent_at"
+    t.datetime "remember_created_at"
+    t.string "confirmation_token"
+    t.datetime "confirmed_at"
+    t.datetime "confirmation_sent_at"
+    t.string "unconfirmed_email"
+    t.integer "failed_attempts", default: 0, null: false
+    t.string "unlock_token"
+    t.datetime "locked_at"
     t.integer "sign_in_count", default: 0, null: false
     t.datetime "current_sign_in_at"
     t.datetime "last_sign_in_at"
-    t.inet "current_sign_in_ip"
-    t.inet "last_sign_in_ip"
+    t.string "current_sign_in_ip"
+    t.string "last_sign_in_ip"
     t.boolean "admin", default: false, null: false
     t.boolean "editor", default: false, null: false
-    t.datetime "created_at", precision: 6, null: false
-    t.datetime "updated_at", precision: 6, null: false
-    t.string "email", default: "", null: false
-    t.index ["username"], name: "index_users_on_username", unique: true
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["confirmation_token"], name: "index_users_on_confirmation_token", unique: true
+    t.index ["email"], name: "index_users_on_email", unique: true
+    t.index ["reset_password_token"], name: "index_users_on_reset_password_token", unique: true
+    t.index ["unlock_token"], name: "index_users_on_unlock_token", unique: true
   end
 
   add_foreign_key "active_storage_attachments", "active_storage_blobs", column: "blob_id"
   add_foreign_key "active_storage_variant_records", "active_storage_blobs", column: "blob_id"
-  add_foreign_key "facts", "groups"
-  add_foreign_key "groups_users", "groups"
-  add_foreign_key "groups_users", "users"
-  add_foreign_key "happenings", "facts"
+  add_foreign_key "events", "groups"
+  add_foreign_key "happenings", "events"
   add_foreign_key "tickets", "happenings"
   add_foreign_key "tickets", "users"
 end

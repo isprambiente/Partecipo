@@ -1,12 +1,12 @@
 = turbo_frame_tag ticket do
-  %a.box.is-hoverable.mb-2{href: edit_editor_fact_happening_ticket_path(ticket.happening.fact,ticket.happening,ticket)}
+  %a.box.is-hoverable.mb-2{href: edit_editor_event_happening_ticket_path(ticket.happening.event,ticket.happening,ticket)}
     .columns.is-mobile.is-gapless
       .column.is-narrow.is
-        .figure.image.is-boxed-left-image= image_tag ticket.happening.fact.image.variant(:ticket).processed
+        .figure.image.is-boxed-left-image= image_tag ticket.happening.event.image.variant(:ticket).processed
       .column
         %span.title.is-size-5
           %i.fas.fa-calendar-day
-          = ticket.happening.fact.title
+          = ticket.happening.event.title
         %span.subtitle.is-size-6= l ticket.updated_at, format: :detailed
       .column.is-narrow.has-text-right
         %span.subtitle.is-size-6

@@ -80,7 +80,7 @@ $grey-lighter: #e3e0d7;
 // @import "bulma/sass/layout/section.sass";
 
 @import 'bulma/bulma';
-@import 'actiontext.css';
+@import 'actiontext';
 
 @import "ribbon";
 @import "header";
@@ -93,4 +93,8 @@ $grey-lighter: #e3e0d7;
 @import "loader";
 @import "form";
 @import "box";
-@import "slimselect";
+@import "slim-select/dist/slimselect";
+@import "bulma-list";
+@import "bulma-divider";
+@import "aside";
+@import "trix/dist/trix"

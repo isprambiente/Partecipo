@@ -7,11 +7,6 @@
 # === Validates
 # * presence of {Happening}
 # * presence of {User}
-# * presence of {seats}
-# * numericality of {seats}
-# * total seats are minor to {Happening.max_seats}
-# === after save
-# * update {Happening.seats_count} with {Happening.update_seats_count!}
 #
 # @!attribute [rw] id
 #   @return [Integer] unique identifier for {Ticket}
@@ -19,8 +14,8 @@
 #   @return [Integer] identifier of related {Happening}
 # @!attribute [rw] user_id
 #   @return [Integer] identifier of related {User}
-# @!attribute [rw] seats
-#   @return [Integer] number of seats for this {Ticket}
+# @!attribute [rw] by_editor
+#   @return [Any] attr_accessor, valorized if action is executed by an editor
 # @!attribute [rw] created_at
 #   @return [DateTime] when the record was created
 # @!attribute [rw] updated_at
@@ -28,77 +23,65 @@
 class Ticket < ApplicationRecord
   belongs_to :happening, counter_cache: true
   belongs_to :user
-  delegate :fact, :fact_id, :max_seats, :max_seats_for_ticket, :saleable?, :seats_count, :start_at, :update_seats_count!, to: :happening, allow_nil: true
+  delegate :event, :event_id, :max_tickets, :max_tickets_for_user, :saleable?, :start_at, to: :happening,
+                                                                                          allow_nil: true
 
   attr_accessor :by_editor
 
   validates :happening, presence: true
-  validates :user, presence: true, uniqueness: { scope: :happening_id }
-  validates :seats, presence: true
-  validates :seats, numericality: { less_than_or_equal_to: :max_seats_for_ticket }, unless: :by_editor?
-  validate  :validate_saleability, unless: :by_editor?
-  validate  :validate_total_seats, unless: :by_editor?
-  validate  :validate_frequency, unless: :by_editor?
+  validates :user, presence: true
+  with_options unless: :by_editor do
+    validates :saleable?, inclusion: [ true ]
+    validates :tickets_count, numericality: { only_integer: true, less_than_or_equal_to: :max_tickets }
+    validates :tickets_for_user_count,
+              numericality: { only_integer: true, less_than_or_equal_to: :max_tickets_for_user }
+    validate  :validate_frequency
+  end
 
-  after_commit :update_seats_count!
-  after_create_commit  :brd_add_user_ticket!
-  after_update_commit  :brd_update_user_ticket!
-  after_destroy_commit :brd_remove_user_ticket!
+  scope :with_user, ->(user) { where user: }
 
-  # @return [Boolean] true if by_editor is true
-  def by_editor?
-    by_editor == true
+  # check if exists {Event}'s {Ticket} for {User} in a time period
+  # @return [Boolean] true if exist a ticket in the time range
+  def event_ticket_exist?(period = nil)
+    @when = { happenings: { start_at: period } } if period.present?
+    event.tickets.where(@when).where(user:).exists?
+  end
+
+  # count total of each other happening ticket self included
+  # @return [Integer] number of tickets
+  def tickets_count
+    total = happening.tickets_count
+    total += 1 unless persisted?
+    total
+  end
+
+  # count total of each other happening ticket from {user} self included
+  # @return [Integer] number of tickets
+  def tickets_for_user_count
+    total = happening.tickets.where(user:).count
+    total += 1 unless persisted?
+    total
   end
 
   private
 
-  # Add an error unless {Happening.saleable?} is true
-  def validate_saleability
-    errors.add(:seats, 'Posti non assegnabili') unless saleable?
-  end
-
-  # Add error unless requested seats are minor than available seatc
-  def validate_total_seats
-    errors.add(:seats, 'Posti non disponibili') if seats_count + seats.to_i > max_seats
-  end
-
-  # check {User}'s ticket presence based of {Fact#tickets_frequency}
+  # check {User}'s ticket presence based of {Event#tickets_frequency}
   def validate_frequency
-    exist, message = case fact.tickets_frequency
-                     when 'single'
-                       [fact_ticket_exist?, I18n.t('site.ticket.errors.single')]
-                     when 'daily'
-                       [fact_ticket_exist?(start_at.beginning_of_day..start_at.end_of_day), I18n.t('site.ticket.errors.daily')]
-                     when 'weekly'
-                       [fact_ticket_exist?(start_at.-(7.days)..start_at.+(7.days)), I18n.t('site.ticket.errors.weekly')]
-                     when 'monthly'
-                       [fact_ticket_exist?(start_at.-(30.days)..start_at.+(30.days)), I18n.t('site.ticket.errors.montly')]
-                     else
+    exist, message = case event.tickets_frequency
+    when "single"
+                       [ event_ticket_exist?, I18n.t("site.ticket.errors.single") ]
+    when "daily"
+                       [ event_ticket_exist?(start_at.beginning_of_day..start_at.end_of_day),
+                        I18n.t("site.ticket.errors.daily") ]
+    when "weekly"
+                       [ event_ticket_exist?(start_at.-(7.days)..start_at.+(7.days)),
+                        I18n.t("site.ticket.errors.weekly") ]
+    when "monthly"
+                       [ event_ticket_exist?(start_at.-(30.days)..start_at.+(30.days)),
+                        I18n.t("site.ticket.errors.montly") ]
+    else
                        return true
-                     end
+    end
     errors.add(:seats, message) if exist
-  end
-
-  # check if exists {Fact}'s {Ticket} for {User} in a time period
-  def fact_ticket_exist?(period = nil)
-    @when = { happenings: { start_at: period } } if period.present?
-    fact.tickets.where(@when).where(user: user).exists?
-  end
-
-  # broadcast ticket creation to user
-  def brd_add_user_ticket!
-    broadcast_action_later_to "tickets:user_#{user.id}", action: :prepend, target: 'tickets', locals: { ticket: self }
-  end
-
-  # broadcast ticket update to user and editor
-  def brd_update_user_ticket!
-    broadcast_replace_to "tickets:user_#{user.id}", target: "ticket_#{id}", locals: { ticket: self }
-    broadcast_replace_to "editor:happening_#{happening_id}", target: "editor_ticket_#{id}", partial: 'editor/tickets/ticket', locals: { ticket: self }
-  end
-
-  # broadcast ticket delete to user and editor
-  def brd_remove_user_ticket!
-    broadcast_remove_to "tickets:user_#{user.id}", target: "ticket_#{id}"
-    broadcast_remove_to "editor:happening_#{happening_id}", target: "editor_ticket_#{id}"
   end
 end

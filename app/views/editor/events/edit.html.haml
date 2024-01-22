@@ -1,0 +1,12 @@
+%turbo-frame#yield
+  %h3.title.has-text-centered
+    %i.fas.fa-tools
+    = @event.title
+  .columns
+    %aside.column.is-3
+      .block
+        %figure.image= image_tag @event.image_url(:aside)
+      = render Layout::SearchComponent.new(url: editor_happenings_path, turbo_frame: 'happenings', scope: @scope)
+    .column
+      %turbo-frame#event= render 'form', event: @event
+      %turbo-frame#happenings{src: editor_happenings_path(filter: {scope: @event.id})}

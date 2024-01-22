@@ -2,6 +2,8 @@
 
 FactoryBot.define do
   factory :user do
-    username
+    email
+    password { "asdf1234!" }
+    confirmed_at { Time.zone.now }
   end
 end

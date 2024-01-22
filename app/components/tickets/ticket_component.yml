@@ -1,0 +1,5 @@
+---
+en:
+  confirm: confirm destroy? This operation is not reversible!
+it:
+  confirm: Confermi l'eliminazione? Questa operazione non è reversibile!

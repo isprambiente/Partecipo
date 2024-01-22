@@ -1,5 +1,5 @@
 !!! 5
-%html.no-js{lang: 'it'}
+%html.no-js{lang: I18n.locale}
   %head
     %meta{ charset: "utf-8" }
     %meta{ "http-equiv": 'X-UA-Compatible', content: 'IE=edge' }
@@ -12,12 +12,13 @@
     = javascript_include_tag "application", "data-turbo-track": "reload", defer: true
   %body{ data: { controller: "page" } }
     %header
-      %turbo-frame#nav1{ src: Settings.header }
-      = render 'top_menu'
+      = render Bulmacomp::TurboFrameComponent.new(id: 'nav1', src: Settings.header), cache: true
+      =# render 'top_menu'
+      = render Layout::NavbarComponent.new(user: current_user)
     %section.section
       .container= yield
     %footer 
-      %turbo-frame#footer{src: Settings.footer}
-      = turbo_stream_from 'facts'
+      = render Bulmacomp::TurboFrameComponent.new(id: 'footer', src: Settings.footer), cache: true
+      = turbo_stream_from 'events'
       = turbo_stream_from "tickets:user_#{current_user.id}" if user_signed_in?
     %turbo-frame#modal

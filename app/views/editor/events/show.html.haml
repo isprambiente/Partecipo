@@ -1,0 +1,14 @@
+%turbo-frame#yield
+  %h3.title.has-text-centered
+    %i.fas.fa-tools
+    = @event.title
+  .columns
+    %aside.column.is-3
+      .block
+        %figure.image= image_tag @event.image_url(:aside)
+      = render Layout::SearchComponent.new(url: editor_happenings_path, turbo_frame: 'happenings', scope: @scope)
+      = link_to icon_text('fas fa-plus','Nuova data'), new_editor_happening_path(event_id: @event.id), class: 'button is-success is-fullwidth', data: {turbo_frame: 'happenings'}
+    .column
+      %turbo-frame#event.block= render Events::InfoboxComponent.new(event: @event, editor: true)
+      .divider= icon_text 'fas fa-calendar-day', t('activerecord.models.happening.other')
+      %turbo-frame#happenings{src: editor_happenings_path(filter: {scope: @event.id})}

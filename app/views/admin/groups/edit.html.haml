@@ -1,3 +1,30 @@
 %turbo-frame#yield
-  = turbo_frame_tag @group do
-    .box.mb-2= render 'form', group: @group
+  %h3.title.has-text-centered
+    %i.fas.fa-users
+    Gestione
+    = t 'activerecord.models.group.other'
+  .columns
+    %aside.column.is-3
+      = render Layout::SearchComponent.new(url: admin_groups_path, turbo_frame: 'groups', date_range: false)
+      = link_to icon_text('fas fa-fw', 'Nuovo gruppo'), new_admin_group_path, class: 'is-success button is-fullwidth', data: {turbo_frame: 'groups'}
+    .column
+      %turbo-frame#groups
+        .box.mb-2
+          = form_with(model: [:admin, @group]) do |form|
+            .field
+              = form.label :title
+              .control.has-icons-left
+                = form.text_field :title, class: 'input'
+                .icon.is-small.is-left
+                  %i.fas.fa-heading
+              %p.help.is-danger= @group.errors[:title].join(' - ')
+            .field
+              = form.label :user_ids
+              .control.has-icons-left
+                = form.select :user_ids, @users, {}, {multiple: true, data: {controller: 'slim', slim_target: 'editor'}}
+                %p.help.is-danger= @group.errors.messages[:user].join(' - ')
+
+            .has-text-centered
+              = form.button fas_icon('save', text: 'Salva'), class: 'button is-success'
+              = link_to icon_text('fas fa-chevron-left', 'Indietro'), admin_groups_path, class: 'button is-link'
+              = link_to icon_text('fas fa-trash', 'Elimina'), admin_group_path(@group), data: {turbo_method: :delete, turbo_confirm: 'Attenzione, se presenti degli eventi collegati il gruppo non verrà eliminato. proseguire?'}, class: 'button is-warning' if @group.persisted?

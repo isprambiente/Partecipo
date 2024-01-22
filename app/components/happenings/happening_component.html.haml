@@ -1,0 +1,9 @@
+= link_to send(@url, @happening), data: {turbo_frame: @turbo_frame}, class: 'list-item box is-hoverable' do
+  .list-item-image  
+    %figure.image.is-128x128= image_tag @happening.image_url
+  .list-item-content
+    .list-item-title= icon_text 'fas fa-calendar', @happening.event.title
+    .list-item-description= icon_text 'fas fa-calendar-day', @happening.title if @happening.title.present?
+    .list-item-description
+      %span.tag= icon_text 'fas fa-user-clock', l(@happening.start_at, format: :detailed)
+      %span.tag= icon_text('fas fa-chair', "#{@happening.tickets_count}/#{@happening.max_tickets}")
