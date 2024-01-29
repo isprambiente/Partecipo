@@ -83,8 +83,15 @@ Installare ruby 3.3.0, consigliato [RVM](https://rvm.io/).
   `docker build -t partecipo .`
 
 3. Eseguire eventualmente il docker compose
-  `docker compose up`
-  verrà avviato un webserver nginx su porta 443 raggiungibile all'indirizzo https://localhost che darà accesso al portale *Partecipo*
+  * Modificare le variabili di configurazione nel file docker-compose.yml
+  * Creare chiave e certificato per il webserver ed inserirli nei file `docker-compose/nginx/cert/partecipo.key` e `docker-compose/nginx/cert/partecipo.crt`.
+    Per testare il servizio è possibile creare un certificato selfsigned per localhost con il comanto:
+    ```
+    openssl req -x509 -out localhost.crt -keyout localhost.key   -newkey rsa:2048 -nodes -sha256   -subj '/CN=localhost' -extensions EXT -config <( \
+    printf "[dn]\nCN=localhost\n[req]\ndistinguished_name = dn\n[EXT]\nsubjectAltName=DNS:localhost\nkeyUsage=digitalSignature\nextendedKeyUsage=serverAuth")
+    ``` 
+  * avviare il compose con il comando `docker compose up`
+  verrà avviato un webserver nginx con https su porta 443  che darà accesso al portale *Partecipo*, il database postgres, redis e il server rails rimarranno chiusi nella rete virtuale `partecipo` di docker. Se non diversamente configurato il portale sarà raggiungibile su https://localhost
 
 4. Per accedere utilizzare le seguenti credenziali:
   * admin@partecipo.it  - partecipo # per utente amministratore
