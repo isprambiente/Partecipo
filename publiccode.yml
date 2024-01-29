@@ -2,17 +2,16 @@
 # metadata file that makes public software easily discoverable.
 # More info at https://github.com/italia/publiccode.yml
 
-publiccodeYmlVersion: '0.2'
+publiccodeYmlVersion: '0.3'
 categories:
   - event-management
   - online-booking
 description:
   it:
-    documentation: 'https://rubydoc.info/github/isprambiente/Partecipo/master'
+    documentation: 'https://github.com/isprambiente/Partecipo'
     features:
       - gestione eventi
       - gestione prenotazioni
-    genericName: Gestione prenotazioni ed eventi
     longDescription: >
       Il programma nasce dall'esigenza
       [I.S.P.R.A.](http://www.isprambiente.gov.it) di contingentare gli ingressi
@@ -42,8 +41,6 @@ description:
       - doc/screen-3.png
       - doc/screen-4.png
 developmentStatus: stable
-inputTypes:
-  - text/plain
 intendedAudience:
   countries:
     - it
