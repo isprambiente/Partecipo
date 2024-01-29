@@ -58,49 +58,49 @@ class HappeningTest < ActiveSupport::TestCase
     assert_equal e1, Happening.last
   end
 
-  test "between scope search from and to" do
+  test "searchable scope search from and to" do
     create :happening, start_at: Time.zone.now - 1.day
     create :happening, start_at: Time.zone.now
     create :happening, start_at: Time.zone.now + 1.days
-    assert_equal 2, Happening.between(Date.today, Date.tomorrow).count
-    assert_equal 1, Happening.between(Date.today, Date.today).count
-  assert_equal 3, Happening.between(Date.yesterday, Date.tomorrow).count
+    assert_equal 2, Happening.searchable(from: Date.today, to: Date.tomorrow).count
+    assert_equal 1, Happening.searchable(from: Date.today, to: Date.today).count
+    assert_equal 3, Happening.searchable(from: Date.yesterday, to: Date.tomorrow).count
   end
 
-  test "between scope accept nil value and use date today as start" do
+  test "searchable scope when from is nil use date today" do
     create :happening, start_at: Time.zone.now - 1.day
     create :happening, start_at: Time.zone.now
     create :happening, start_at: Time.zone.now + 1.days
-    assert_equal 2, Happening.between.count
-    assert_equal 2, Happening.between(nil, nil).count
+    assert_equal 2, Happening.searchable.count
+    assert_equal 2, Happening.searchable(from: nil, to: nil).count
   end
 
-  test "by_event scope find by event id if a value is present" do
-    e1 = create :happening, start_at: Time.zone.now + 1.day
-    e2 = create :happening, start_at: Time.zone.now - 1.day
-    e3 = create :happening, start_at: Time.zone.now, event: e2.event
-    assert_equal 3, Happening.by_event.count
-    assert_equal 1, Happening.by_event(e1.event_id).count
-    assert_equal 2, Happening.by_event(e2.event_id).count
+  test "searchable scope find by event id if event_id value is present" do
+    e1 = create :happening
+    e2 = create :happening
+    e3 = create :happening, event: e2.event
+    assert_equal 3, Happening.searchable.count
+    assert_equal 1, Happening.searchable(event_id: e1.event_id).count
+    assert_equal 2, Happening.searchable(event_id: e2.event_id).count
   end
 
-  test "by_group scope filter by event group_id if a value is present" do
-    e1 = create :happening, start_at: Time.zone.now + 1.day
-    e2 = create :happening, start_at: Time.zone.now - 1.day
-    assert_equal 2, Happening.by_group.count
-    assert_equal 1, Happening.by_group(e1.event.group_id).count   
+  test "searchable scope filter by event group_id if group_id is present" do
+    e1 = create :happening
+    e2 = create :happening
+    assert_equal 2, Happening.searchable.count
+    assert_equal 2, Happening.searchable(group_id: nil).count
+    assert_equal 1, Happening.searchable(group_id: e1.event.group_id).count
   end
 
-  test "by_text scope filter ilike happening title or event title if a value is present" do
-    e1 = create :event, title: 'uno'
-    puts e1.title
-    e2 = create :event, title: 'due'
-    h1 = create :happening, title: 'tre'
-    h2 = create :happening, title: 'quattro'
-    assert_equal 2, Happening.by_text.count
-    assert_equal 1, Happening.by_text('uno').count
-    assert_equal 1, Happening.by_text('Quattro').count
-    assert_equal 2, Happening.by_text('tr').count
+  test "searchable scope filter ilike happening title or event title if text value is present" do
+    e1 = create :event, title: "uno"
+    e2 = create :event, title: "due"
+    h1 = create :happening, title: "tre", event: e1
+    h2 = create :happening, title: "quattro", event: e2
+    assert_equal 2, Happening.searchable.count
+    assert_equal 1, Happening.searchable(text: "uno").count
+    assert_equal 1, Happening.searchable(text: "Quattro").count
+    assert_equal 2, Happening.searchable(text: "o").count
   end
 
   ### Class Method
@@ -109,6 +109,7 @@ class HappeningTest < ActiveSupport::TestCase
     event.happenings.massive_create(
       from: Time.zone.now.yesterday.to_date,
       to: Time.zone.now.tomorrow.to_date,
+      repeat_in: [ "0", "1", "2", "3", "4", "5", "6", "7" ],
       minutes: %w[540 720],
       start_sale_before: 2,
       stop_sale_before: 0,

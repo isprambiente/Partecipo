@@ -6,14 +6,13 @@ class HappeningsController < ApplicationController
   # show a paginate list of {Happening}
   def index
     @categories = Group.pluck :title, :id
-    @scope = filter_params[:scope]
-
-    @pagy, @happenings = pagy(
-      Happening
-        .between(filter_params[:from], filter_params[:to])
-        .by_text(filter_params[:text])
-        .by_event(@scope)
-        .by_group(filter_params[:category]), items: 6)
+    @scope   = filter_params[:scope]
+    from     = filter_params[:from]
+    to       = filter_params[:to]
+    event_id = filter_params[:scope]
+    group_id = filter_params[:category]
+    text     = filter_params[:text]
+    @pagy, @happenings = pagy(Happening.searchable(from:, to:, event_id:, group_id:, text:), items: 6)
   end
 
   # GET /event/:event_id/happenings/:id

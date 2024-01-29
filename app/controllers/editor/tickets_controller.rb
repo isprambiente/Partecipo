@@ -15,7 +15,7 @@ module Editor
       search[:happening_id] = @scope if @scope.present?
       search[:user_id] = filter_params[:category] if filter_params[:category].present?
       @text = [ "events.title ilike :text or users.email ilike :text", { text: "%#{filter_params[:text]}%" } ] if filter_params[:text].present?
-      @pagy, @tickets = pagy Ticket.includes(happening: [ :event]).where(search).where(@text), items: 10
+      @pagy, @tickets = pagy Ticket.includes(happening: [ :event ]).where(search).where(@text), items: 10
     end
 
     # GET /editor/events/:event_id/happenings/:happening_id/tickets/new

@@ -33,7 +33,7 @@ module Events
           "#{ t '.from' } #{ l @event.start_on } #{ t '.to'} #{l @event.stop_on }"
         end
       else
-        '-'
+        "-"
       end
     end
   end

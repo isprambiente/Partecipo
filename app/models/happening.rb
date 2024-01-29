@@ -53,11 +53,20 @@ class Happening < ApplicationRecord
   validates  :max_tickets_for_user, presence: true
   after_save :update_event_date
 
+  delegate :group_id, to: :event
+
   default_scope { left_joins(:event).order("start_at asc") }
-  scope :between,  -> (from = nil, to = nil) { where start_at: (from.try(:to_date) || Date.today)..to.try(:to_date).try(:end_of_day) }
-  scope :by_event, -> (value = nil) { where( event_id: value ) if value.present? }
-  scope :by_group, -> (value = nil) { where( events: {group_id: value}) if value.present? }
-  scope :by_text,  -> (value = nil) { where ["happenings.title ilike :text or events.title ilike :text", { text: "%#{value}%" }] if value.present? }
+  # scope :between,  ->(from = nil, to = nil) { where start_at: (from.try(:to_date) || Date.today)..to.try(:to_date).try(:end_of_day) }
+  # scope :by_event, ->(value = nil) { where(event_id: value) if value.present? }
+  # scope :by_group, ->(value = nil) { where(events: { group_id: value }) if value.present? }
+  # scope :by_text,  ->(value = nil) { where [ "happenings.title ilike :text or events.title ilike :text", { text: "%#{value}%" } ] if value.present? }
+  scope :searchable, ->(from: nil, to: nil, event_id: nil, group_id: nil, text: nil) do
+    by_keys = { start_at: (from.try(:to_date) || Date.today)..to.try(:to_date).try(:end_of_day) }
+    by_keys[:event_id] = event_id if event_id.present?
+    by_keys[:events] = { group_id: group_id } if group_id.present?
+    by_text = text.present? ? [ "happenings.title ilike :text or events.title ilike :text", { text: "%#{text}%" } ] : nil
+    where(by_keys).where(by_text)
+  end
 
 
   # @return [Boolean] check seaelability time
@@ -84,9 +93,10 @@ class Happening < ApplicationRecord
     [ event_id, id ].join(" - ")
   end
 
-  def self.massive_create(from:, to:, start_sale_before:, stop_sale_before:, minutes: [], **opts)
+  def self.massive_create(from:, to:, start_sale_before:, stop_sale_before:, repeat_in: [], minutes: [], **opts)
     ary = []
-    (from..to).map do |day|
+    (from.to_date..to.to_date).map do |day|
+      next unless repeat_in.include?(day.wday.to_s)
       minutes.map do |minute|
         start_at      = day + minute.to_i.minutes
         start_sale_at = day - start_sale_before.to_i.days

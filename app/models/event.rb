@@ -44,9 +44,13 @@ class Event < ApplicationRecord
   validates :title, presence: true
   enum tickets_frequency: { any: 0, single: 1, daily: 2, weekly: 3, monthly: 4 }
 
-  scope :future,  -> { where("stop_on >= :from", from: Time.zone.today).order("pinned desc, stop_on asc") }
-  scope :history, -> { where("stop_on < :from", from: Time.zone.today).order("start_on desc") }
-  scope :with_date, -> { where.not(stop_on: nil) }
+  scope :searchable, ->(from: nil, to: nil, group_id: nil, text: nil) do
+    by_keys = { stop_on: (from.try(:to_date) || Date.today).. }
+    by_keys[:start_on] = ..to.try(:to_date) if to.present?
+    by_keys[:group_id] = group_id  if group_id.present?
+    by_text = text.present? ? [ "title ilike :text", { text: "%#{text}%" } ] : nil
+    where(by_text).where(by_keys)
+  end
 
   # @return {String} image path with variand or default image
   def image_url(_variant = :card)

@@ -24,7 +24,7 @@ module Editor
 
     # GET /editor/users/:id
     def show
-      @categories = [[@user.email,@user.id]]
+      @categories = [ [ @user.email, @user.id ] ]
     end
 
     # GET /editor/users/:id/tickets

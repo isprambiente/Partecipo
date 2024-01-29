@@ -27,12 +27,12 @@ class EventTest < ActiveSupport::TestCase
   end
 
   ### scope
-  test "with_date" do
-    create :event
-    create :event, start_on: Date.today, stop_on: Date.today
-    assert_equal 2, Event.count
-    assert_equal 1, Event.with_date.count
-  end
+  # test "with_date" do
+  #   create :event
+  #  create :event, start_on: Date.today, stop_on: Date.today
+  #  assert_equal 2, Event.count
+  #  assert_equal 1, Event.with_date.count
+  # end
   # test 'future scope' do
   #  create :event, start_on: Time.zone.today - 2.days, stop_on: Time.zone.today - 1.day
   #  f2 = create :event, start_on: Time.zone.today - 1.day, stop_on: Time.zone.today + 1.day

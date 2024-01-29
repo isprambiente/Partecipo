@@ -5,6 +5,7 @@ en:
   tickets: Tickets
   sign_in: Sign In
   sign_out: Sign Out
+  user_edit: Aggiorna registrazione utente
   editor:
     events: Events manage
     happenings: Happenings manage
@@ -18,6 +19,7 @@ it:
   tickets: Prenotazioni
   sign_in: Accedi
   sign_out: Disconnessione
+  user_edit: Aggiorna registrazione utente
   editor:
     events: Gestione eventi
     happenings: Gestione appuntamenti

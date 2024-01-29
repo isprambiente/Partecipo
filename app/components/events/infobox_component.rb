@@ -19,7 +19,7 @@ module Events
     end
 
     def ribbon_tag
-        link_to icon('fas fa-edit'), edit_editor_event_path(@event), class: 'ribbon is-link' if @editor
+        link_to icon("fas fa-edit"), edit_editor_event_path(@event), class: "ribbon is-link" if @editor
     end
 
     def infobox

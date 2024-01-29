@@ -3,18 +3,17 @@
 module Editor
   # This controller manage {Event} model for editors
   class EventsController < Editor::ApplicationController
+    before_action :set_groups
     before_action :set_event, only: %i[show edit update destroy]
-    before_action :set_groups, only: %i[new create edit update]
 
     # GET /editor/events
     def index
-      @categories = current_user.groups.pluck :title, :id
-      @text = [ "title ilike :text", { text: "%#{filter_params[:text]}%" } ] if filter_params[:text].present?
-      search = { stop_on: ((filter_params[:from].try(:to_date) || Date.today)..) }
-      search[:start_on] = (..filter_params[:to].try(:to_date)) if filter_params[:to].present?
-      search[:group] = filter_params[:category] if filter_params[:category].present?
-      search[:group_id] = current_user.groups.pluck :id
-      @pagy, @events = pagy(Event.where(@text).where(search).or(Event.where stop_on: nil), items: 6)
+      @categories = @groups.pluck :title, :id
+      from     = filter_params[:from]
+      to       = filter_params[:to]
+      group_id = @groups.exists?(filter_params[:category]) ? filter_params[:category] : @groups.pluck(:id)
+      text     = filter_params[:text]
+      @pagy, @events = pagy(Event.searchable(from:, to:, group_id:, text:), items: 6)
     end
 
     # GET /editor/events/:id
@@ -66,7 +65,7 @@ module Editor
 
     # set @event for current user when needed
     def set_event
-      @event = current_user.events.find(params[:id])
+      @event = Event.find_by(id: params[:id], group: @groups)
       @scope = @event.id
     end
 

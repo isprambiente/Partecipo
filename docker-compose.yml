@@ -1,0 +1,53 @@
+version: "3"
+services:
+
+  postgres:
+    image: postgres:latest
+    environment:
+      POSTGRES_DB: partecipo
+      POSTGRES_USER: partecipo
+      POSTGRES_PASSWORD: ChangeMe
+    networks:
+      - partecipo
+  
+  redis:
+    image: redis:latest
+    networks:
+      - partecipo
+
+  rails:
+    image: partecipo
+    build: ./
+    depends_on:
+      - postgres
+      - redis
+    environment:
+      PARTECIPO_DATABASE_HOST: postgres
+      PARTECIPO_DATABASE_PASSWORD: ChangeMe
+      RAILS_MASTER_KEY: 5cdcc57160c136623510fa73c7a7587f
+      RAILS_ENV: production
+      RAILS_SERVE_STATIC_FILES: true
+    volumes:
+      - ./docker-compose/nginx/public:/home/rails/public:rw
+    networks:
+      - partecipo
+  
+  nginx:
+    image: nginx:alpine
+    depends_on:
+      - rails
+    ports:
+      - "80:80"
+      - "443:443"
+    volumes:
+      - ./docker-compose/nginx/conf.d/partecipo.conf:/etc/nginx/conf.d/partecipo.conf
+      - ./docker-compose/nginx/cert:/etc/nginx/cert
+      - ./docker-compose/nginx/public:/var/www/html/public:ro
+    environment:
+      PARTECIPO_SERVER_NAME:  localhost
+    networks:
+      - partecipo
+
+networks:
+  partecipo:
+    name: partecipo

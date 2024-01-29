@@ -1,6 +1,7 @@
 %turbo-frame#happening
   .box
     = form_with(model: [:editor, happening], data: {turbo_frame: 'yield'}) do |form|
+      form.hidden_input :event_id, @event.id
       .field
         = form.label :title
         .control.has-icons-left
@@ -75,4 +76,4 @@
           %a.button.is-link{href: editor_happening_path(@happening)}= fas_icon 'chevron-left', text: 'Indietro'
           = link_to fas_icon('trash', text: 'Elimina'), editor_event_happening_path(happening.event, happening), class: 'button is-warning', data: {confirm: 'Attenzione la data e tutte le prenotazioni saranno eliminate, confermi?', method: :delete}
         -else
-          %a.button.is-link{href: editor_happenings_path, data: {turbo_frame: 'yield'}}= fas_icon 'chevron-left', text: 'Indietro'
+          %a.button.is-link{href: editor_event_path(@event), data: {turbo_frame: 'yield'}}= fas_icon 'chevron-left', text: 'Indietro'

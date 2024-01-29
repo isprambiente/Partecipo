@@ -21,7 +21,7 @@ default: &default
 
 development:
   <<: *default
-  database: partecipo_development
+  # database: partecipo_development
 
   # The specified database role being used to connect to PostgreSQL.
   # To create additional roles in PostgreSQL see `$ createuser --help`.
@@ -79,6 +79,7 @@ test:
 #
 production:
   <<: *default
-  database: partecipo_production
+  database: partecipo
   username: partecipo
+  host: <%= ENV["PARTECIPO_DATABASE_HOST"] %> 
   password: <%= ENV["PARTECIPO_DATABASE_PASSWORD"] %>

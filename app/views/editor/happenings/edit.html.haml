@@ -4,4 +4,61 @@
       %i.fas.fa-calendar-alt
       Modifica evento
 
-    .box= render 'form', event: @event, happening: @happening 
+    %turbo-frame#happening
+      .box
+        = form_with(model: [:editor, @happening], data: {turbo_frame: 'happening'}) do |form|
+          = form.hidden_field :event_id, value: @event.id
+          .field.is-horizontal
+            .field-body
+              .field
+                = form.label :title
+                .control.has-icons-left
+                  = form.text_field :title, class: 'input'
+                  .icon.is-small.is-left
+                    %i.fas.fa-heading
+            %p.help.is-danger= @happening.errors[:title].join(' - ')
+          .field.is-horizontal
+            .field-body
+              .field
+                = form.label :start_at
+                .control.has-icons-left
+                  = form.datetime_field :start_at, class: 'input'
+                  %span.icon.is-small.is-left
+                    %i.fas.fa-calendar-day
+                %p.help.is-danger= @happening.errors[:start_at].join(' - ')
+              .field
+                = form.label :start_sale_at
+                .control.has-icons-left
+                  = form.datetime_field :start_sale_at, class: 'input'
+                  %span.icon.is-small.is-left
+                    %i.fas.fa-calendar-day
+                %p.help.is-danger= @happening.errors[:start_sale_at].join(' - ')
+              .field
+                = form.label :stop_sale_at
+                .control.has-icons-left
+                  = form.datetime_field :stop_sale_at, class: 'input'
+                  %span.icon.is-small.is-left
+                    %i.fas.fa-calendar-day
+                %p.help.is-danger= @happening.errors[:stop_sale_at].join(' - ')
+
+          .field.is-horizontal
+            .field-body
+              .field
+                = form.label :max_tickets
+                .control.has-icons-left
+                  = form.number_field :max_tickets, class: 'input'
+                  %span.icon.is-small.is-left
+                    %i.fas.fa-chair
+                %p.help.is-danger= @happening.errors[:max_tickets].join(' - ')
+              .field
+                = form.label :max_tickets_for_user
+                .control.has-icons-left
+                  = form.number_field :max_tickets_for_user, class: 'input'
+                  %span.icon.is-small.is-left
+                    %i.fas.fa-chair
+                %p.help.is-danger= @happening.errors[:max_tickets_for_user].join(' - ')
+          .buttons.has-text-centered
+            = form.button fas_icon('save', text: t('site.generic.save')), class: 'button is-success'
+            %a.button.is-link{href: editor_happening_path(@happening)}= fas_icon 'chevron-left', text: 'Indietro'
+            = link_to fas_icon('trash', text: 'Elimina'), editor_happening_path(@happening), class: 'button is-warning', data: {confirm: 'Attenzione la data e tutte le prenotazioni saranno eliminate, confermi?', method: :delete}
+

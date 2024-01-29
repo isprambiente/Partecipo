@@ -7,7 +7,7 @@ module Tickets
       @ticket = ticket
       @editor = editor
     end
-    
+
     def destroy_url
       if @editor
         editor_ticket_path(@ticket)

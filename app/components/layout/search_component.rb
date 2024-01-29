@@ -29,7 +29,7 @@ module Layout
 
     def include_blank
       if @blank
-        {include_blank: t('.all_category') }
+        { include_blank: t(".all_category") }
       else
         {}
       end
