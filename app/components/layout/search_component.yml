@@ -1,0 +1,15 @@
+---
+en:
+  search: Search
+  placeholder: Text search
+  all_categories: All category
+  future: Future
+  history: Old
+it:
+  search: Ricerca
+  placeholder: Ricerca testo
+  all_categories: Tutte le categorie
+  future: Attivi
+  history: Passati
+
+  

@@ -1,0 +1,10 @@
+%turbo-frame#yield
+  %h3.title.is-size-3.has-text-centered
+    %i.fas.fa-ticket-alt
+    = t 'editor'
+    = t('activerecord.models.events.other')
+  .columns
+    %aside.column.is-3
+      = render Layout::SearchComponent.new(url: editor_events_url, turbo_frame: 'events', categories: @categories)
+      = link_to icon_text('fas fa-plus', 'Nuovo evento'), new_editor_event_path, class: 'button is-success is-fullwidth'
+    .column= render Layout::ListBoxedComponent.new(component: Events::EventComponent, elements: @events, id: 'events', pages: @pagy, url: :editor_event_path)

@@ -4,11 +4,11 @@
 
 import { application } from "./application"
 
-import FormController from "./form_controller.js"
+import FormController from "./form_controller"
 application.register("form", FormController)
 
-import PageController from "./page_controller.js"
+import PageController from "./page_controller"
 application.register("page", PageController)
 
-import SlimController from "./slim_controller.js"
+import SlimController from "./slim_controller"
 application.register("slim", SlimController)

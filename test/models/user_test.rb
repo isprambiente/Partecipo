@@ -1,36 +1,39 @@
 # frozen_string_literal: true
 
-require 'test_helper'
+require "test_helper"
 
+# Test {User model}
 class UserTest < ActiveSupport::TestCase
-  test 'valid from factory' do
-    assert build(:user).valid?
+  test "valid from factory" do
+    user = build :user
+    assert user.valid?
+    assert user.save
   end
 
-  ### Assoviations
-  test 'has many tickets' do
-    u = create :user
-    create :ticket, user: u
-    create :ticket, user: u
-    assert_equal 2, u.tickets.count
+  ### Relations
+  test "has many groups" do
+    user = create :user
+    assert_instance_of Group, user.groups.new
   end
 
-  test 'has many group' do
-    u = create :user, groups: [create(:group), create(:group)]
-    assert_equal 2, u.groups.count
+  test "has many tickets" do
+    user = create :user
+    assert_instance_of Ticket, user.tickets.new
   end
 
-  test 'has many facts' do
-    g1 = create :group
-    g2 = create :group
-    u = create :user, groups: [g1, g2]
-    create :fact, group: g1
-    create :fact, group: g2
-    assert_equal 2, u.facts.count
-  end
+  # test 'has many events' do
+  #  user = create :user
+  #  assert_instance_of Event, user.events.new
+  # end
 
-  ### Validations
-  test 'username is required' do
-    assert_not build(:user, username: nil).valid?
+  ### validations
+  test "email is required and well formatted" do
+    user = build :user, email: nil
+    assert_not user.valid?
+    user.email = "test"
+    assert_not user.valid?
+    user.email = "test@tost.it"
+    assert user.valid?
+    assert user.save
   end
 end

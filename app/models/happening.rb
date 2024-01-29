@@ -1,17 +1,18 @@
+
 # frozen_string_literal: true
 
-# This model manage the happenings for each {Fact}
+# This model manage the happenings for each {Event}
 # === Relations
-# belongs to {Fact}
+# belongs to {Event}
 # has many {Ticket}
 # === Validates
-# * presence of {Fact}
+# * presence of {Event}
 # * presence of {start_at}
 #
 # @!attribute [rw] id
 #   @return [Integer] unique identifier for {Happening}
-# @!attribute [rw] fact_id
-#   @return [Integer] identifier of related {Fact}
+# @!attribute [rw] event_id
+#   @return [Integer] identifier of related {Event}
 # @!attribute [rw] title
 #   @return [String] Is an optional description for {Happening}
 # @!attribute [rw] start_at
@@ -32,62 +33,87 @@
 #   @return [DateTime] when the record was updated
 #
 # @!method self.future()
-#   @return [Array] list of [Fact] with stop_on egual or greather than Time.zone.today, ordered by pinnes asc, stop_on asc
+#   @return [Array] list of [Event] with stop_on egual or greather than Time.zone.today, ordered by pinnes, stop_on
 # @!method self.history()
-#   @return [Array] list of [Fact] with stop_on minor than Time.zone.today, ordered by start_on desc
+#   @return [Array] list of [Event] with stop_on minor than Time.zone.today, ordered by start_on desc
 class Happening < ApplicationRecord
-  belongs_to :fact, counter_cache: true
+  has_rich_text :body
+  belongs_to :event, counter_cache: true
   has_many   :tickets, dependent: :destroy
-  validates  :fact, presence: true
+  has_one_attached :image do |attachable|
+    attachable.variant :card, resize_to_limit: [ 417, 278 ]
+    attachable.variant :aside, resize_to_limit: [ 318, 318 ]
+    attachable.variant :ticket, resize_to_limit: [ 150, 68 ]
+  end
+  validates  :event, presence: true
   validates  :start_at, presence: true
   validates  :start_sale_at, presence: true
   validates  :stop_sale_at, presence: true
-  validates  :max_seats, presence: true
-  validates  :max_seats_for_ticket, presence: true
-  validates :repeat_for, numericality: { greather_to: 0, only_integer: true }, on: :create
+  validates  :max_tickets, presence: true
+  validates  :max_tickets_for_user, presence: true
+  after_save :update_event_date
 
-  after_create :add_repetitions
+  delegate :group_id, to: :event
 
-  attr_accessor :repeat_for, :repeat_in
-
-  scope :future,  -> { where('start_at >= :from', from: Time.zone.now).order('start_at asc') }
-  scope :history, -> { where('start_at < :from', from: Time.zone.now).order('start_at desc') }
-
-  # update {seats_count} with sum of her {Ticket.seats}
-  def update_seats_count!
-    if persisted?
-      self.seats_count = tickets.sum :seats
-      save touch: false
-      broadcast_replace_to 'facts', target: "counter_happening_#{id}", partial: 'happenings/counter', locals: { happening: self }
-    end
+  default_scope { left_joins(:event).order("start_at asc") }
+  # scope :between,  ->(from = nil, to = nil) { where start_at: (from.try(:to_date) || Date.today)..to.try(:to_date).try(:end_of_day) }
+  # scope :by_event, ->(value = nil) { where(event_id: value) if value.present? }
+  # scope :by_group, ->(value = nil) { where(events: { group_id: value }) if value.present? }
+  # scope :by_text,  ->(value = nil) { where [ "happenings.title ilike :text or events.title ilike :text", { text: "%#{value}%" } ] if value.present? }
+  scope :searchable, ->(from: nil, to: nil, event_id: nil, group_id: nil, text: nil) do
+    by_keys = { start_at: (from.try(:to_date) || Date.today)..to.try(:to_date).try(:end_of_day) }
+    by_keys[:event_id] = event_id if event_id.present?
+    by_keys[:events] = { group_id: group_id } if group_id.present?
+    by_text = text.present? ? [ "happenings.title ilike :text or events.title ilike :text", { text: "%#{text}%" } ] : nil
+    where(by_keys).where(by_text)
   end
+
 
   # @return [Boolean] check seaelability time
   def saleable?
+    active? && tickets_available?
+  end
+
+  # @return [Boolean] check if the happening is bookable
+  def active?
     Time.zone.now >= start_sale_at && Time.zone.now <= stop_sale_at
+  end
+
+  # @return [Boolean] Check if there are tickets available
+  def tickets_available?
+    max_tickets >= tickets_count
+  end
+
+  def tickets_available
+  max_tickets - tickets_count
   end
 
   # @return [String] unique code to identify the {Happening}
   def code
-    [fact_id, id].join(' - ')
+    [ event_id, id ].join(" - ")
   end
 
-  private
-
-  # save multiple copies of the elements
-  def add_repetitions
-    (1..repeat_for.to_i).each do |n|
-      next unless repeat_in.include?(start_at.+(n.days).wday.to_s)
-
-      fact.happenings.create(
-        detail: detail,
-        start_at: start_at + n.days,
-        start_sale_at: start_at + n.days,
-        stop_sale_at: stop_sale_at + n.days,
-        max_seats: max_seats,
-        max_seats_for_ticket: max_seats_for_ticket,
-        repeat_for: 0
-      )
+  def self.massive_create(from:, to:, start_sale_before:, stop_sale_before:, repeat_in: [], minutes: [], **opts)
+    ary = []
+    (from.to_date..to.to_date).map do |day|
+      next unless repeat_in.include?(day.wday.to_s)
+      minutes.map do |minute|
+        start_at      = day + minute.to_i.minutes
+        start_sale_at = day - start_sale_before.to_i.days
+        stop_sale_at  = day - stop_sale_before.to_i.days
+        ary << opts.merge(start_at:, start_sale_at:, stop_sale_at:)
+      end
     end
+    create ary
+  end
+
+  def update_event_date
+    event.stop_on  = start_at if event.stop_on.blank? || start_at.to_date > event.stop_on
+    event.start_on = start_at if event.start_on.blank? || start_at.to_date < event.start_on
+    event.save if event.changed?
+  end
+
+  def image_url(_variant = :card)
+    image.present? ? image.variant(:card) : event.image_url
   end
 end

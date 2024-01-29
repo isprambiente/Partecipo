@@ -1,0 +1,7 @@
+.list-item{id: dom_id(@group)}
+  .list-item-content
+    .list-item-title= icon_text('fas fa-users', @group.title) 
+    .list-item-description
+      = member_tag
+  .list-item-controls
+    .buttons.is-right= link_to icon("fas fa-edit"), edit_admin_group_path(@group), class: "button"

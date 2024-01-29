@@ -55,7 +55,7 @@ export default class extends Controller {
         .then(function (json) {
           let data = []
           for (let i = 0; i < json.users.length; i++) {
-            data.push({text: json.users[i].username, value: json.users[i].id})
+            data.push({text: json.users[i].email, value: json.users[i].id})
           }
           callback(data)
         })

@@ -2,46 +2,34 @@
 
 Rails.application.routes.draw do
   # For details on the DSL available within this file, see https://guides.rubyonrails.org/routing.html
-  resources :facts, only: %i[index show] do
-    get :list, on: :collection
-    resources :happenings, only: %i[index show] do
-      resources :tickets, only: %i[create destroy]
-    end
-  end
 
-  resources :tickets, only: [:index] do
-    get :list, on: :collection
-  end
+  scope "(:locale)", locale: /en|it/ do
+    resources :events, only: %i[index show]
+    resources :happenings, only: %i[index show]
+    resources :tickets, except: %i[show edit update]
 
-  namespace 'editor' do
-    root 'facts#index'
-    resources :facts do
-      get :list, on: :collection
+    namespace "editor" do
+      root "events#index"
+      resources :events
       resources :happenings do
-        get :tickets, on: :member, to: 'tickets#list_by_happening'
         get :export, on: :member
       end
+      resources :tickets, except: %i[show]
+      resources :users, only: %i[index show]
     end
-    resources :tickets do
-      get :list, on: :collection
+
+    namespace "admin" do
+      root "users#index"
+      resources :users, only: %i[index edit update]
+      resources :groups, except: %i[show]
     end
-    resources :users, only: %i[index show] do
-      get :list, on: :collection
-      get :tickets, on: :member, to: 'tickets#list_by_user'
-    end
+    devise_for :users, prefix: "auth"
   end
 
-  namespace 'admin' do
-    root 'users#index'
-    resources :users, only: %i[index show edit update] do
-      get :list, on: :collection
-      resources :tickets, only: %i[index]
-    end
-    resources :groups do
-      get :list, on: :collection
-    end
-  end
+  # Reveal health status on /up that returns 200 if the app boots with no exceptions, otherwise 500.
+  # Can be used by load balancers and uptime monitors to verify that the app is live.
+  get "up" => "rails/health#show", as: :rails_health_check
 
-  root 'facts#index'
-  devise_for :users, prefix: 'auth'
+  get "/:locale" => "events#index"
+  root to: redirect("/it/events") # 'events#index'
 end

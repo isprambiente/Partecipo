@@ -1,0 +1,9 @@
+= link_to send(@url, @event), data: {turbo_frame: 'yield'}, class: 'list-item box is-hoverable' do
+  .list-item-image  
+    %figure.image.is-128x128= image_tag @event.image_url
+  .list-item-content
+    .list-item-title= icon_text "fas fa-calendar", @event.title
+    .list-item-description= icon_text "fas fa-calendar-day", date
+    .list-item-description
+      .tag= icon_text 'fas fa-list', @event.group.title
+      .tag= icon_text 'fas fa-calendar-day', @event.happenings_count

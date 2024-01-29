@@ -1,0 +1,12 @@
+.list-item{id: dom_id(@ticket)}
+  .list-item-image
+    %figure.image.is-64x64= image_tag @ticket.happening.image_url
+  .list-item-content
+    .list-item-title= icon_text 'fas fa-calendar', @ticket.happening.event.title
+    .list-item-description= icon_text 'fas fa-calendar-day', @ticket.happening.title if @ticket.happening.title.present?
+    .list-item-description
+      .tag= icon_text 'fas fa-user-clock', l(@ticket.happening.start_at, format: :detailed)
+      .tag= icon_text 'fas fa-user', @ticket.user.email
+  .list-item-controls
+    .buttons.is-right
+      =  link_to icon("fas fa-trash"), destroy_url, class: "button", data: { turbo_method: "delete", turbo_confirm: t(".confirm") }

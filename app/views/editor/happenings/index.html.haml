@@ -1,8 +1,9 @@
 %turbo-frame#yield
-  %turbo-frame#happenings
-    %h3.title.is-size-4.has-text-centered
-      %i.fas.fa-calendar-alt
-      = t 'activerecord.models.happening.other'
-    = render @happenings
-    %hr
-    = pagy_bulma_nav(@pagy).html_safe
+  %h3.title.has-text-centered
+    %i.fas.fa-calendar-day
+    Gestione
+    = t 'activerecord.models.happening.other'
+  .columns
+    %aside.column.is-3= render Layout::SearchComponent.new(url: happenings_path, turbo_frame: 'happenings', scope: @scopei, categories: @categories)
+    .column= render Layout::ListBoxedComponent.new(component: Happenings::HappeningComponent, elements: @happenings, id: 'happenings', pages: @pagy, turbo_frame: 'yield', url: :editor_happening_path)
+

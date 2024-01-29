@@ -1,0 +1,18 @@
+---
+en:
+  start_on: From
+  stop_on: To
+  tickets_frequency: Reservation
+  any: Free
+  single: Single
+  daily: Daily
+  montly: Montly
+  
+it:
+  start_on: Dal
+  stop_on: Al
+  tickets_frequency: Prenotazione
+  any: libera
+  single: singola
+  daily: giornaliera
+  montly: mensile

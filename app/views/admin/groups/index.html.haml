@@ -5,14 +5,6 @@
     = t 'activerecord.models.group.other'
   .columns
     %aside.column.is-3
-      %nav.panel
-        %p.panel-heading= t 'site.users.search'
-        = form_with scope: 'filter', url: list_admin_groups_path, method: :get, data: {turbo_frame: 'groups', controller: 'form', form_target: 'sender'} do |f|
-          .panel-block
-            %p.control.has-icons-left
-              = f.text_field :text, placeholder: 'Testo', class: 'input', data: {action: 'keyup->form#delayedSendForm'}
-              %span.icon.is-left
-                %i.fas.fa-search
-          .panel-block= link_to fas_icon('plus fa-fw', text: 'Nuovo gruppo'), new_admin_group_path, class: 'is-success button is-fullwidth', data: {turbo_frame: 'groups'}
-    .column
-      %turbo-frame#groups{src: list_admin_groups_path}
+      = render Layout::SearchComponent.new(url: admin_groups_path, turbo_frame: 'groups', date_range: false)
+      = link_to icon_text('fas fa-fw', 'Nuovo gruppo'), new_admin_group_path, class: 'is-success button is-fullwidth', data: {turbo_frame: 'groups'}
+    .column= render Layout::ListComponent.new(component: Groups::GroupComponent, elements: @groups, id: 'groups', pages: @pagy)

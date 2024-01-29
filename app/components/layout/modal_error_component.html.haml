@@ -1,0 +1,13 @@
+%turbo_frame{id: 'modal'}
+  .modal.is-active
+    .modal-background{data: {action: 'click->page#closeModal'}}
+      .modal-content
+        .message.is-warning
+          .message-header= t '.title'
+          .message-body
+            - if @obj.present?
+              %ul
+                - @obj.errors.messages.each do |k,v|
+                  %li #{@obj.class.human_attribute_name(k)}: #{v.join(', ')}
+            = @body
+          %button{class: 'modal-close is-large', aria_label: "close", data: {action: 'page#closeModal'}}

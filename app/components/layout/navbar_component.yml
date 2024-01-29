@@ -1,0 +1,29 @@
+---
+en:
+  events: Events
+  happenings: Happenings
+  tickets: Tickets
+  sign_in: Sign In
+  sign_out: Sign Out
+  user_edit: Aggiorna registrazione utente
+  editor:
+    events: Events manage
+    happenings: Happenings manage
+    users: User manage
+  admin:
+    user: User Admin
+    group: Group admin
+it:
+  events: Eventi
+  happenings: Date
+  tickets: Prenotazioni
+  sign_in: Accedi
+  sign_out: Disconnessione
+  user_edit: Aggiorna registrazione utente
+  editor:
+    events: Gestione eventi
+    happenings: Gestione appuntamenti
+    users: Gestione utenti
+  admin:
+    users: Amministra utenti
+    groups: Amministra gruppi

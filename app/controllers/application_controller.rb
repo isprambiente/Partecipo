@@ -23,12 +23,16 @@ class ApplicationController < ActionController::Base
   # Render 404 page and stop the work
   # @return [nil]
   def record_not_found!
-    render partial: 'errors/404', status: 404 and return
+    render partial: "errors/404", status: :not_found and return
   end
 
   # Render 401 page and stop the work
   # @return [nil]
   def access_denied!
-    render 'errors/401', status: :unauthorized and return
+    render "errors/401", status: :unauthorized and return
+  end
+
+  def set_turbo
+    @turbo = request.headers["turbo-frame"].present?
   end
 end

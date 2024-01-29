@@ -17,35 +17,24 @@ Il codice sorgente del sito progetto è rilasciato sotto licenza MIT License (co
 ## Repository
 Questo repository contiene il codice sorgente del programma.
 
-Il sito è sviluppato in linguaggio Ruby 2.7, framework Rails 6.0 e webpacker StimulusJS.
+Il sito è sviluppato in linguaggio Ruby 3.3, framework Rails 7.1.
 
 ### Specifiche tecniche progetto
-* [Ruby 3.0.x](https://www.ruby-lang.org)
-* [RVM](https://rvm.io/)
-* [Ruby on Rais 6.1](https://rubyonrails.org/)
-* [NodeJS](https://nodejs.org/)
-* [Yarn](https://yarnpkg.com/)
-* [Webpacker StimulusJS](https://stimulusjs.org/)
+* [Ruby 3.3](https://www.ruby-lang.org)
+* [Ruby on Rais 7.1](https://rubyonrails.org/)
+* [Bun](https://bun.sh/)
 * [Postgresql](https://www.postgresql.org/)
 * HTML5 + CSS3
 * no jQuery
-* [Server CAS](https://rubycas.github.io/) - autenticazione SingleSignOn
-* [Openssl](https://www.openssl.org/) - 
-
-\* In alternativa al server CAS e` necessario sviluppare altri sistemi di autenticazione come ldap
 
 ### Requisiti tecnici per ambiente server
-* Sistema operativo: Linux
-* Gestore pacchetto ruby: RVM
-* Linguaggio di programmazione: Ruby 3.0
-* Framework: Rais 6.1
-* Webpacker: StimulusJS
+* Linguaggio di programmazione: Ruby 3.3
+* Framework: Rais 7.1
+* Bun
 * Database: PostgreSQL >= 12.2
-* NodeJS: JavaScript runtime >= v13.10
-* Package Manager: Yarn >= 1.22
-* Deploy applicazione: Accesso ssh per deploy applicazione via Capistrano
-* Webserver: Nginx + Puma
-* Autenticazione utenti: CAS Server
+
+o in alternativa
+* Docker
 
 ### Requisiti minimi per i client
 * Mozilla Firefox 53, Chrome 58, Microsoft Edge, Internet Explorer 11, Safari 9.0 o altro browser compatibile con HTML 5, CSS 3;
@@ -62,7 +51,7 @@ Il sito è sviluppato in linguaggio Ruby 2.7, framework Rails 6.0 e webpacker St
 * Supporto ai certificati SSL;
 
 ## Installazione ambiente
-Installare ruby 3.0.2, consigliato [RVM](https://rvm.io/).
+Installare ruby 3.3.0, consigliato [RVM](https://rvm.io/).
 
 ## Installazione applicazione
 
@@ -79,7 +68,7 @@ Installare ruby 3.0.2, consigliato [RVM](https://rvm.io/).
     ```
       gem install bundle
       bundle install
-      yarn install
+      bun install
     ```
 
 3. Creare il file `config/settings.local.yml` partendo da `config/settings.yml` per sovrascrivere i parametri di default. Il file è incluso nel `.gitignore` pertanto sarà necessario ricopiarlo manualmente sul server nel path `shared/config/settings.local.yml`
@@ -90,26 +79,17 @@ Installare ruby 3.0.2, consigliato [RVM](https://rvm.io/).
     ```
       git clone https://github.com/isprambiente/partecipo.git
     ```
+2. effettuare la build del progetto:
+  `docker build -t partecipo .`
 
-2. Configurare il DNS o modificare il proprio file hosts per risolvere il nome cas-mock-server sull'indirizzo del server docker.
-
-   Nel seguente esempio il docker viene eseguito localmente e viene modificato il file `/etc/hosts` del computer locale.
-   
-   ```
-    127.0.0.1       localhost cas-mock-server
-   ```
-   la modifica è necessaria per raggiungere con un nome condiviso il server CAS
-
-3. Eseguire la build del docker tramite compose
-    
-   ```
-   sudo docker-compose up --build -d
-   ```
+3. Eseguire eventualmente il docker compose
+  `docker compose up`
+  verrà avviato un webserver nginx su porta 443 raggiungibile all'indirizzo https://localhost che darà accesso al portale *Partecipo*
 
 4. Per accedere utilizzare le seguenti credenziali:
-  * partecipouser   - password   # per utente standard
-  * partecipoeditor - password   # per utente editor
-  * partecipoadmin  - password   # per utente admin
+  * admin@partecipo.it  - partecipo # per utente amministratore
+  * editor@partecipo.it - partecipo # per utente editor
+  * user@partecipo.it   - partecipo # per utente standard
 
 ### Partecipa!
 Puoi collaborare allo sviluppo dell'applicazione e della documentazione tramite [github](https://github.com/isprambiente/Partecipo).

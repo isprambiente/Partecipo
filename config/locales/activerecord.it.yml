@@ -24,11 +24,12 @@ it:
         repeat_in: Giorni in cui ripetere la data
         repeat_fo: N. di giorni per cui ripetere l'evento
       ticket:
-        seats: Posti
+        seats: Prenotazioni
+        tickets_for_user_count: Prenotazioni per utente
       user:
         username: Nome utente
     models:
-      fact:
+      event:
         one: Evento
         other: Eventi
       group:

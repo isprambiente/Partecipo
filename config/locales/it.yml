@@ -5,10 +5,8 @@ it:
       messages:
         record_invalid: 'Validazione fallita: %{errors}'
         restrict_dependent_destroy:
-          has_one: Il record non può essere cancellato perchè esiste un %{record}
-            dipendente
-          has_many: Il record non può essere cancellato perchè esistono %{record}
-            dipendenti
+          has_one: Il record non può essere cancellato perchè esiste un %{record} dipendente
+          has_many: Il record non può essere cancellato perchè esistono %{record} dipendenti
   date:
     abbr_day_names:
     - dom
@@ -74,8 +72,8 @@ it:
         one: circa un anno
         other: circa %{count} anni
       almost_x_years:
-        one: circa 1 anno
-        other: circa %{count} anni
+        one: quasi un anno
+        other: quasi %{count} anni
       half_a_minute: mezzo minuto
       less_than_x_seconds:
         one: meno di un secondo
@@ -87,22 +85,22 @@ it:
         one: oltre un anno
         other: oltre %{count} anni
       x_seconds:
-        one: 1 secondo
+        one: "%{count} secondo"
         other: "%{count} secondi"
       x_minutes:
-        one: 1 minuto
+        one: "%{count} minuto"
         other: "%{count} minuti"
       x_days:
-        one: 1 giorno
+        one: "%{count} giorno"
         other: "%{count} giorni"
       x_months:
-        one: 1 mese
+        one: "%{count} mese"
         other: "%{count} mesi"
       x_years:
-        one: 1 anno
+        one: "%{count} anno"
         other: "%{count} anni"
     prompts:
-      second: Secondi
+      second: Secondo
       minute: Minuto
       hour: Ora
       day: Giorno
@@ -124,6 +122,7 @@ it:
       invalid: non è valido
       less_than: deve essere minore di %{count}
       less_than_or_equal_to: deve essere minore o uguale a %{count}
+      model_invalid: 'Validazione fallita: %{errors}'
       not_a_number: non è un numero
       not_an_integer: non è un numero intero
       odd: deve essere dispari
@@ -132,18 +131,18 @@ it:
       required: deve esistere
       taken: è già presente
       too_long:
-        one: è troppo lungo (il massimo è 1 carattere)
+        one: è troppo lungo (il massimo è %{count} carattere)
         other: è troppo lungo (il massimo è %{count} caratteri)
       too_short:
-        one: è troppo corto (il minimo è 1 carattere)
+        one: è troppo corto (il minimo è %{count} carattere)
         other: è troppo corto (il minimo è %{count} caratteri)
       wrong_length:
-        one: è della lunghezza sbagliata (deve essere di 1 carattere)
+        one: è della lunghezza sbagliata (deve essere di %{count} carattere)
         other: è della lunghezza sbagliata (deve essere di %{count} caratteri)
     template:
       body: 'Ricontrolla i seguenti campi:'
       header:
-        one: 'Non posso salvare questo %{model}: 1 errore'
+        one: 'Non posso salvare questo %{model}: %{count} errore'
         other: 'Non posso salvare questo %{model}: %{count} errori.'
   helpers:
     select:
@@ -189,9 +188,11 @@ it:
           byte:
             one: Byte
             other: Byte
+          eb: EB
           gb: GB
           kb: KB
           mb: MB
+          pb: PB
           tb: TB
     percentage:
       format:
@@ -210,6 +211,6 @@ it:
     formats:
       default: "%a %d %b %Y, %H:%M:%S %z"
       long: "%d %B %Y %H:%M"
-      short: "%d-%m-%Y %H:%M"
-      detailed: "%d-%m-%Y alle %H:%M"
+      short: "%d %b %H:%M"
+      detailed: "%d-%m-%Y ore %H:%M"
     pm: pm

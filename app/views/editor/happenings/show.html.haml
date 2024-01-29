@@ -1,33 +1,19 @@
 %turbo-frame#yield
   %h3.title.has-text-centered
     %i.fas.fa-tools
-    = @fact.title
+    = @event.title
   .columns
     %aside.column.is-3
-      %nav.panel
-        %p.panel-heading= t 'site.editor.ticket.search'
-        = form_with scope: 'filter', url: list_editor_tickets_path, method: :get, data: {turbo_frame: 'tickets', controller: 'form', form_target: 'sender'} do |f|
-          = f.hidden_field :happening_id, value: @happening.id
-          .panel-block
-            %p.control.has-icons-left
-              = f.text_field :text, placeholder: 'Nome', class: 'input', data: {action: 'keyup->form#delayedSendForm'}
-              %span.icon.is-left
-                %i.fas.fa-search
-        %a.panel-block{href: export_editor_fact_happening_path(@fact, @happening, format: :csv)}= fas_icon 'file-csv', text: t('site.editor.ticket.export_csv')
-        %a.panel-block{href: new_editor_ticket_path(filter: {happening_id: @happening.id}), data: {turbo_frame: 'modal'}}= fas_icon 'plus', text: t('site.editor.ticket.new')
-        %a.panel-block{href: editor_fact_path(@fact)}= fas_icon 'chevron-left', text: t('site.generic.back')
-      %figure.image= image_tag(@fact.image.variant(:aside).processed)
+      .block
+        %figure.image= image_tag @happening.image_url(:aside)
+      = render Layout::SearchComponent.new(url: editor_tickets_path, turbo_frame: 'tickets', categories: @categories, scope: @event.id)
+      = link_to icon_text('fas fa-file-csv','Esporta dati'), export_editor_happening_path(@event), class: 'button is-success is-fullwidth', data: {turbo: 'false'}
     .column
-      = render 'editor/facts/box'
-      %h4.title.is-size-5.has-text-centered
-        %i.fas.fa-calendar-day
-        = t 'activerecord.models.happening.one'
-        = @happening.code
-      = render 'box'
-      %h4.title.is-size-5.has-text-centered
-        %i.fas.fa-ticket-alt
-        = t 'activerecord.models.ticket.other'
-      %hr
-      %turbo-frame#editor_tickets{src: tickets_editor_fact_happening_path(@fact, @happening)}
+      %turbo-frame#event= render Events::InfoboxComponent.new(event: @event, editor: true)
+      .divider= icon_text 'fas fa-calendar-day', t('activerecord.models.happening.other')
+      %turbo-frame#happenings
+        = render Happenings::DetailComponent.new(happening: @happening, user: current_user, editor: true)
+      .divider= icon_text 'fas fa-ticket-simple', 'Prenotazioni'
+      %turbo-frame#tickets{src: editor_tickets_path(filter: {scope: @happening.id})}
       = turbo_stream_from "editor:happening_#{@happening.id}"
 

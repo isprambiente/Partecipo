@@ -1,0 +1,10 @@
+%turbo-frame#yield
+  %h3.title.has-text-centered
+    %i.fas.fa-tools
+    Nuovo evento
+  .columns
+    %aside.column.is-3
+      .block
+        %figure.image= image_tag @event.image_url(:aside)
+    .column
+      %turbo-frame#event= render 'form', event: @event

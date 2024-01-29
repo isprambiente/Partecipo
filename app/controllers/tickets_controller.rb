@@ -3,46 +3,59 @@
 # this controller manage {Ticket} model
 class TicketsController < ApplicationController
   before_action :authenticate_user!
-  before_action :set_ticket, only: %i[create destroy]
+  before_action :set_ticket, only: %i[destroy]
 
   # GET /tickets
-  def index; end
-
-  # GET /tickets/list
-  def list
-    type = filter_tickets[:type] == 'history' ? 'start_at < :from' : 'start_at > :from'
-    @text = ['facts.title ilike :text', { text: "%#{filter_tickets[:text]}%" }] if filter_tickets[:text].present?
-    @pagy, @tickets = pagy current_user.tickets.joins(happening: [:fact]).where(type, from: Time.zone.now).where(@text), items: 10
+  def index
+    @scope = filter_params[:scope]
+    search = { user: current_user }
+    search[:happening] = { start_at: ((filter_params[:from].try(:to_date) || Date.today)..filter_params[:to].try(:to_date).try(:end_of_day)) }
+    search[:happening_id] = @scope if @scope.present?
+    @text = [ "events.title ilike :text", { text: "%#{filter_params[:text]}%" } ] if filter_params[:text].present?
+    @pagy, @tickets = pagy Ticket.joins(happening: [ :event ]).where(search).where(@text), items: 10
   end
 
-  # POST /fact/:fact_id/happenings/:happening_id/tickets
+  # def show; end
+
+  # def edit; end
+
+  # def update; end
+
+  # POST /event/:event_id/happenings/:happening_id/tickets
   def create
-    TicketMailer.with(ticket: @ticket).confirm.deliver_later if @ticket.update filter_ticket
-    render 'happenings/show'
+    @ticket = current_user.tickets.create(filter_ticket)
+    @happening = @ticket.happening
+    @event = @happening.event
   end
 
-  # POST /fact/:fact_id/happenings/:happening_id/tickets/:id
+  # POST /event/:event_id/happenings/:happening_id/tickets/:id
   def destroy
-    TicketMailer.with(ticket: @ticket).deleted.deliver_later if @ticket.destroy
-    render 'happenings/show'
+    @ticket.destroy
+    respond_to do |format|
+      format.html { redirect_to tickets_path, notice: "Ticket was successfully destroyed." }
+      format.turbo_stream
+    end
   end
 
   private
 
   # seet @ticket when needed
+  def set_prerequisite
+    @event = Event.find(params[:event_id])
+    @happening = @event.happenings.find(params[:happening_id])
+  end
+
   def set_ticket
-    @fact = Fact.find(params[:fact_id])
-    @happening = @fact.happenings.find(params[:happening_id])
-    @ticket = @happening.tickets.find_or_initialize_by(user: current_user)
+    @ticket = Ticket.includes(happening: :event).find_by(user: current_user, id: params[:id])
   end
 
   # filter params for search {Happening}
-  def filter_tickets
-    params.fetch(:filter, {}).permit(:text, :type)
+  def filter_params
+    params.fetch(:filter, {}).permit(:from, :scope, :text, :to)
   end
 
   # filter params for {Happening}'s {Ticket}
   def filter_ticket
-    params.fetch(:ticket, {}).permit(:seats)
+    params.fetch(:ticket, {}).permit(:happening_id)
   end
 end

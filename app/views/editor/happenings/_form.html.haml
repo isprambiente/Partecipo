@@ -1,80 +1,79 @@
-= form_with(model: [:editor, fact, happening], data: {turbo_frame: 'yield'}) do |form|
-  .field
-    = form.label :detail
-    .control.has-icons-left
-      = form.text_field :detail, class: 'input'
-      .icon.is-small.is-left
-        %i.fas.fa-heading
-    %p.help.is-danger= happening.errors[:detail].join(' - ')
-    .field
-      = form.label :start_at
-      .control.has-icons-left
-        = form.datetime_field :start_at, class: 'input'
-        %span.icon.is-small.is-left
-          %i.fas.fa-calendar-day
-      %p.help.is-danger= happening.errors[:start_at].join(' - ')
-  .columns
-    .column
+%turbo-frame#happening
+  .box
+    = form_with(model: [:editor, happening], data: {turbo_frame: 'yield'}) do |form|
+      form.hidden_input :event_id, @event.id
       .field
-        = form.label :start_sale_at
+        = form.label :title
         .control.has-icons-left
-          = form.datetime_field :start_sale_at, class: 'input'
-          %span.icon.is-small.is-left
-            %i.fas.fa-calendar-day
-        %p.help.is-danger= happening.errors[:start_sale_at].join(' - ')
-    .column
-      .field
-        = form.label :stop_sale_at
-        .control.has-icons-left
-          = form.datetime_field :stop_sale_at, class: 'input'
-          %span.icon.is-small.is-left
-            %i.fas.fa-calendar-day
-        %p.help.is-danger= happening.errors[:stop_sale_at].join(' - ')
+          = form.text_field :title, class: 'input'
+          .icon.is-small.is-left
+            %i.fas.fa-heading
+        %p.help.is-danger= happening.errors[:title].join(' - ')
+      .field.is-horizontal
+        .field-body
+          .field
+            = form.label :start_at
+            .control.has-icons-left
+              = form.datetime_field :start_at, class: 'input'
+              %span.icon.is-small.is-left
+                %i.fas.fa-calendar-day
+            %p.help.is-danger= happening.errors[:start_at].join(' - ')
+          .field
+            = form.label :start_sale_at
+            .control.has-icons-left
+              = form.datetime_field :start_sale_at, class: 'input'
+              %span.icon.is-small.is-left
+                %i.fas.fa-calendar-day
+            %p.help.is-danger= happening.errors[:start_sale_at].join(' - ')
+          .field
+            = form.label :stop_sale_at
+            .control.has-icons-left
+              = form.datetime_field :stop_sale_at, class: 'input'
+              %span.icon.is-small.is-left
+                %i.fas.fa-calendar-day
+            %p.help.is-danger= happening.errors[:stop_sale_at].join(' - ')
 
-  .columns
-    .column
-      .field
-        = form.label :max_seats
-        .control.has-icons-left
-          = form.number_field :max_seats, class: 'input'
-          %span.icon.is-small.is-left
-            %i.fas.fa-chair
-        %p.help.is-danger= happening.errors[:max_seats].join(' - ')
-    .column
-      .field
-        = form.label :max_seats_for_ticket
-        .control.has-icons-left
-          = form.number_field :max_seats_for_ticket, class: 'input'
-          %span.icon.is-small.is-left
-            %i.fas.fa-chair
-        %p.help.is-danger= happening.errors[:max_seats_for_ticket].join(' - ')
-  - unless happening.persisted?
-    .columns
-      .column
-        .field
-          = form.label :repeat_in
-          %p.control.has-icons-left
-            %span.select.is-fullwidth.is-multiple
-              = form.select :repeat_in, [['lun',1],['mar',2],['mer',3],['gio',4],['ven',5],['sab',6],['dom',0]], {}, multiple: true
-            %span.icon.is-small.is-left
-              %i.fas.fa-calendar
-          %p.help.is-danger= fact.errors[:repeat_in].join(' - ')
-      .column
-        .field
-          = form.label :repeat_for
-          .control.has-icons-left
-            = form.number_field :repeat_for, class: 'input'
-            %span.icon.is-small.is-left
-              %i.fas.fa-chair
-          %p.help.is-danger= happening.errors[:repeat_for].join(' - ')
+      .field.is-horizontal
+        .field-body
+          .field
+            = form.label :max_tickets
+            .control.has-icons-left
+              = form.number_field :max_tickets, class: 'input'
+              %span.icon.is-small.is-left
+                %i.fas.fa-chair
+            %p.help.is-danger= happening.errors[:max_tickets].join(' - ')
+          .field
+            = form.label :max_tickets_for_user
+            .control.has-icons-left
+              = form.number_field :max_tickets_for_user, class: 'input'
+              %span.icon.is-small.is-left
+                %i.fas.fa-chair
+            %p.help.is-danger= happening.errors[:max_tickets_for_user].join(' - ')
+      - unless happening.persisted?
+        .columns
+          .column
+            .field
+              = form.label :repeat_in
+              %p.control.has-icons-left
+                %span.select.is-fullwidth.is-multiple
+                  = form.select :repeat_in, [['lun',1],['mar',2],['mer',3],['gio',4],['ven',5],['sab',6],['dom',0]], {}, multiple: true
+                %span.icon.is-small.is-left
+                  %i.fas.fa-calendar
+              %p.help.is-danger= @happening.errors[:repeat_in].join(' - ')
+          .column
+            .field
+              = form.label :repeat_for
+              .control.has-icons-left
+                = form.number_field :repeat_for, class: 'input'
+                %span.icon.is-small.is-left
+                  %i.fas.fa-chair
+              %p.help.is-danger= happening.errors[:repeat_for].join(' - ')
 
 
-  .has-text-centered
-    - if happening.persisted?
-      %a.button.is-link{href: tickets_editor_fact_happening_path(fact, happening), data: {turbo_frame: 'tickets'}}= fas_icon 'chevron-left', text: 'Indietro'
-    -else
-      %a.button.is-link{href: editor_fact_happenings_path(fact), data: {turbo_frame: 'happenings'}}= fas_icon 'chevron-left', text: 'Indietro'
-    = form.button fas_icon('save', text: t('site.generic.save')), class: 'button is-success'
-- if happening.persisted?
-  %br
-  .has-text-centered= link_to fas_icon('trash', text: 'Elimina data'), editor_fact_happening_path(happening.fact, happening), class: 'button is-warning', data: {confirm: 'Attenzione la data e tutte le prenotazioni saranno eliminate, confermi?', method: :delete}
+      .buttons.has-text-centered
+        = form.button fas_icon('save', text: t('site.generic.save')), class: 'button is-success'
+        - if happening.persisted?
+          %a.button.is-link{href: editor_happening_path(@happening)}= fas_icon 'chevron-left', text: 'Indietro'
+          = link_to fas_icon('trash', text: 'Elimina'), editor_event_happening_path(happening.event, happening), class: 'button is-warning', data: {confirm: 'Attenzione la data e tutte le prenotazioni saranno eliminate, confermi?', method: :delete}
+        -else
+          %a.button.is-link{href: editor_event_path(@event), data: {turbo_frame: 'yield'}}= fas_icon 'chevron-left', text: 'Indietro'

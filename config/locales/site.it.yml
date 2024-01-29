@@ -46,9 +46,10 @@ it:
         history: Storico prenotazioni
       search: Ricerca prenotazioni
       errors:
-        single: Attenzione! Non è possibile prenotare più volte questo evento, risulta già attiva una prenotazione.
-        weekly: Attenzione! Non è possibile prenotare questo evento con frequenza inferiore a sette giorni. Sono già presenti prenotazioni nel periodo. 
-        monthly: Attenzione! Non è possibile prenotare questo evento con frequenza inferiore a trenta giorni. Sono già presenti prenotazioni nel periodo.
+        single: Non è possibile prenotare più volte questo evento, risulta già attiva una prenotazione.
+        daily: Non è possibile prenotare più volte nello stesso giorno.
+        weekly: Non è possibile prenotare questo evento con frequenza inferiore a sette giorni.
+        monthly: Non è possibile prenotare questo evento con frequenza inferiore a trenta giorni.
     admin:
       group:
         index:

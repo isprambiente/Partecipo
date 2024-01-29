@@ -1,0 +1,7 @@
+%turbo-frame#yield
+  %h3.title.is-size-3.has-text-centered
+    %i.fas.fa-ticket-alt
+    = t('activerecord.models.ticket.other')
+  .columns
+    %aside.column.is-3= render Layout::SearchComponent.new(url: tickets_url, turbo_frame: 'tickets', scope: @scope, categories: @categories)
+    .column= render Layout::ListComponent.new(component: Tickets::TicketComponent, elements: @tickets, id: 'tickets', pages: @pagy, editor: true)

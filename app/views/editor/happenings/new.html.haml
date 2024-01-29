@@ -1,5 +1,88 @@
 %turbo-frame#yield
-  %turbo-frame#happenings
-    %h5.title.is-size-5.has-text-centered= fas_icon 'calendar-alt', text: 'Nuove date'
-    .box
-      = render 'form', fact: @fact, happening: @happening 
+  %h3.title.has-text-centered
+    %i.fas.fa-tools
+    = @event.title
+  .columns
+    %aside.column.is-3
+      .block
+        %figure.image= image_tag @event.image_url(:aside)
+    .column
+      %turbo-frame#event= render Events::InfoboxComponent.new(event: @event, editor: true)
+      .divider= icon_text 'fas fa-calendar-day', "nuova #{t('activerecord.models.happening.one')}"
+      %turbo-frame#happening
+        .box
+          = form_with(model: [:editor, @happening], data: {turbo_frame: 'yield'}) do |form|
+            = form.hidden_field :event_id, value: @event.id
+            .field
+              = form.label :title
+              .control.has-icons-left
+                = form.text_field :title, class: 'input'
+                .icon.is-small.is-left
+                  %i.fas.fa-heading
+              %p.help.is-danger= @happening.errors[:title].join(' - ')
+            .field.is-horizontal
+              .field-body
+                .field
+                  = form.label :from
+                  .control.has-icons-left
+                    = form.date_field :from, class: 'input'
+                    %span.icon.is-small.is-left
+                      %i.fas.fa-calendar-day
+                .field
+                  = form.label :to
+                  .control.has-icons-left
+                    = form.date_field :to, class: 'input'
+                    %span.icon.is-small.is-left
+                      %i.fas.fa-calendar-day
+                .field
+                  = form.label :start_sale_before
+                  .control.has-icons-left
+                    = form.number_field :start_sale_before, class: 'input'
+                    %span.icon.is-small.is-left
+                      %i.fas.fa-calendar-day
+                .field
+                  = form.label :stop_sale_before
+                  .control.has-icons-left
+                    = form.number_field :stop_sale_before, class: 'input'
+                    %span.icon.is-small.is-left
+                      %i.fas.fa-calendar-day
+            .field.is-horizontal
+              .field-body
+                .field
+                  = form.label :max_tickets
+                  .control.has-icons-left
+                    = form.number_field :max_tickets, class: 'input'
+                    %span.icon.is-small.is-left
+                      %i.fas.fa-chair
+                  %p.help.is-danger= @happening.errors[:max_tickets].join(' - ')
+                .field
+                  = form.label :max_tickets_for_user
+                  .control.has-icons-left
+                    = form.number_field :max_tickets_for_user, class: 'input'
+                    %span.icon.is-small.is-left
+                      %i.fas.fa-chair
+                  %p.help.is-danger= @happening.errors[:max_tickets_for_user].join(' - ')
+            .columns
+              .column
+                .field
+                  = form.label :repeat_in
+                  %p.control.has-icons-left
+                    %span.select.is-fullwidth.is-multiple
+                      = form.select :repeat_in, [['lun',1],['mar',2],['mer',3],['gio',4],['ven',5],['sab',6],['dom',0]], {}, multiple: true
+                    %span.icon.is-small.is-left
+                      %i.fas.fa-calendar
+                  %p.help.is-danger= @happening.errors[:repeat_in].join(' - ')
+                .field
+                  = form.label :minutes
+                  %p.control.has-icons-left
+                    %span.select.is-fullwidth.is-multiple
+                      = form.select :minutes, (0..1439).step(30).map {|n| [(Date.today + n.minutes).strftime("%H:%M"), n.to_s] }, {}, multiple: true
+                    %span.icon.is-small.is-left
+                      %i.fas.fa-calendar
+                  %p.help.is-danger= @happening.errors[:repeat_in].join(' - ')
+
+            .buttons.has-text-centered
+              = form.button fas_icon('save', text: t('site.generic.save')), class: 'button is-success'
+              %a.button.is-link{href: editor_event_path(@event), data: {turbo_frame: 'yield'}}= fas_icon 'chevron-left', text: 'Indietro'
+
+
