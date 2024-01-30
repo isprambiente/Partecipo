@@ -38,3 +38,5 @@
 !/app/assets/builds/.keep
 
 /node_modules
+/docker-compose/nginx/public/*
+!/docker-compose/nginx/public/.gitkeep
