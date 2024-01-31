@@ -5,4 +5,4 @@
     = t 'activerecord.models.user.other'
   .columns
     %aside.column.is-3= render Layout::SearchComponent.new(url: editor_users_path, turbo_frame: 'users', date_range: false)
-    .column= render Layout::ListComponent.new(component: Users::UserComponent, elements: @users, id: 'users', pages: @pagy, url: :editor_user_path, turbo_frame: 'yield')
+    .column= render Layout::ListComponent.new(component: Editor::Users::UserComponent, elements: @users, id: 'users', pages: @pagy)

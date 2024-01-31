@@ -4,7 +4,7 @@
   .list-item-content
     .list-item-title= icon_text("fas fa-user", @user.email) 
     .list-item-description
-      = admin_tag
-      = editor_tag
+      = confirmed_tag
+      = active_tag
   .list-item-controls
-    .buttons.is-right= link_to icon("fas fa-edit"), send(@url, @user), class: "button", data: {turbo_frame: @turbo_frame}
+    .buttons.is-right= link_to icon("fas fa-edit"), editor_user_path(@user), class: "button", data: {turbo_frame: 'yield'}

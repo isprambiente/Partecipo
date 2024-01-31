@@ -1,0 +1,11 @@
+---
+en:
+  confirmed: Confirmed
+  unconfirmed: Unconfirmed
+  unlocked: Active
+  locked: Locked
+it:
+  confirmed: Confermato
+  unconfirmed: Non confermato
+  unlock: Attivo
+  lock: Bloccato
