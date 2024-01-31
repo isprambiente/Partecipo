@@ -23,7 +23,10 @@ module Admin
     # PATCH/PUT /admin/users/:id
     def update
       if @user.update(user_params)
-        redirect_to admin_users_path, notice: "User was successfully updated."
+        respond_to do |format|
+          format.html { redirect_to admin_users_path }
+          format.turbo_stream
+        end
       else
         @groups = Group.all.order(:title).pluck :title, :id
         render :edit
