@@ -38,7 +38,15 @@
               %span.icon.is-small.is-left
                 %i.fas.fa-calendar
             %p.help.is-danger= event.errors[:groups].join(' - ')
-
+        .column
+          .field
+            = form.label :single
+            %p.control.has-icons-left
+              %span.select.is-fullwidth
+                = form.select :single, [[t('yes'), true],[t('no'), false]]
+              %span.icon.is-small.is-left
+                %i.fas.fa-calendar
+            %p.help.is-danger= event.errors[:groups].join(' - ')
       .field
         = form.label :body
         = form.rich_text_area :body
