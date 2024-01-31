@@ -1,7 +1,7 @@
 %turbo-frame#yield
   %h3.title.has-text-centered
     %i.fas.fa-users
-    Gestione
+    Amministrazione
     = t 'activerecord.models.user.other'
   .columns
     %aside.column.is-3= render Layout::SearchComponent.new(url: admin_users_path, turbo_frame: 'users', categories: @categories, date_range: false)

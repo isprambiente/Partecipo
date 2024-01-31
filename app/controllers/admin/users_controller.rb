@@ -22,12 +22,7 @@ module Admin
 
     # PATCH/PUT /admin/users/:id
     def update
-      if @user.update(user_params)
-        respond_to do |format|
-          format.html { redirect_to admin_users_path }
-          format.turbo_stream
-        end
-      else
+      unless @user.update(user_params)
         @groups = Group.all.order(:title).pluck :title, :id
         render :edit
       end
