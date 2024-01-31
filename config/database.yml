@@ -21,7 +21,7 @@ default: &default
 
 development:
   <<: *default
-  # database: partecipo_development
+  database: partecipo_development
 
   # The specified database role being used to connect to PostgreSQL.
   # To create additional roles in PostgreSQL see `$ createuser --help`.

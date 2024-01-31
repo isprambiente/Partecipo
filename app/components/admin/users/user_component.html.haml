@@ -1,0 +1,10 @@
+.list-item{id: dom_id(@user)}
+  .list-item-image
+    %figure.image.is-64x64=image_tag(@user.avatar_url)
+  .list-item-content
+    .list-item-title= icon_text("fas fa-user", @user.email) 
+    .list-item-description
+      = admin_tag
+      = editor_tag
+  .list-item-controls
+    .buttons.is-right= link_to icon("fas fa-edit"), edit_admin_user_path(@user), class: "button", data: {turbo_stream: 'true'}

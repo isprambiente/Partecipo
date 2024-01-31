@@ -7,31 +7,4 @@
     %aside.column.is-3= render Layout::SearchComponent.new(url: admin_users_path, turbo_frame: 'users', categories: @categories, date_range: false)
     .column
       %turbo-frame#users
-        .box.mb-2
-          %h5.title.is-size-5= @user.email
-          = form_with model: [:admin, @user] do |f|
-            %fieldset
-              .columns
-                .column
-                  .field
-                    = f.label :editor
-                    .control.has-icons-left
-                      %span.select.is-fullwidth= f.select :editor, [['Si',true],['No',false]], {}
-                      %span.icon.is-left= fas_icon 'user-cog'
-                      %p.help.is-danger= @user.errors.messages[:editor].join(' - ') 
-                .column
-                  .field
-                    = f.label :admin
-                    .control.has-icons-left
-                      %span.select.is-fullwidth= f.select :admin, [['Si',true],['No',false]], {}
-                      %span.icon.is-left= fas_icon 'user-shield'
-                      %p.help.is-danger= @user.errors.messages[:admin].join(' - ')
-              .field
-                .control
-                  = f.label :group_ids
-                  = f.select :group_ids, @groups, {}, {multiple: true, data: {controller: 'slim', target: 'slim.simple'}}
-                  %p.help.is-danger= @user.errors.messages[:groups].join(' - ')
-
-            .has-text-centered
-              = link_to fas_icon('chevron-left', text: 'Indietro'), admin_users_path, class: 'button is-link'
-              = f.button fas_icon('save', text: t('site.generic.save')), class: 'button is-success'
+        .box.mb-2= render Admin::Users::FormComponent.new(user: @user, groups: @groups)

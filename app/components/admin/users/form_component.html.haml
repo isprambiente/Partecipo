@@ -1,0 +1,24 @@
+.list-item{id: dom_id(@user)}
+  .list-item-image
+    %figure.image.is-64x64=image_tag(@user.avatar_url)
+  .list-item-content
+    .list-item-title= icon_text("fas fa-user", @user.email) 
+    .list-item-description
+      = form_with model: [:admin, @user] do |f|
+        %fieldset.field.is-grouped.is-grouped-multiline
+          .control
+            .control.has-icons-left
+              %span.select.is-fullwidth= f.select :editor, [['Si',true],['No',false]], {}
+              %span.icon.is-left= fas_icon 'user-cog'
+              %p.help.is-danger= @user.errors.messages[:editor].join(' - ') 
+          .control
+            .field
+              .control.has-icons-left
+                %span.select.is-fullwidth= f.select :admin, [['Si',true],['No',false]], {}
+                %span.icon.is-left= fas_icon 'user-shield'
+                %p.help.is-danger= @user.errors.messages[:admin].join(' - ')
+          .control.is-expanded
+            = f.select :group_ids, @groups, {}, {multiple: true, data: {controller: 'slim', target: 'slim.simple'}}
+            %p.help.is-danger= @user.errors.messages[:groups].join(' - ')
+          .control
+            = f.button fas_icon('save', text: t('site.generic.save')), class: 'button is-success'
