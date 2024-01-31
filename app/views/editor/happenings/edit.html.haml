@@ -17,6 +17,13 @@
                   .icon.is-small.is-left
                     %i.fas.fa-heading
             %p.help.is-danger= @happening.errors[:title].join(' - ')
+          .field
+            = form.label :image
+            .control.has-icons-left
+              = form.file_field :image, class: 'input'
+              .icon.is-small.is-left
+                %i.fas.fa-image
+            %p.help.is-danger= @happening.errors[:image].join(' - ')
           .field.is-horizontal
             .field-body
               .field
