@@ -34,7 +34,8 @@ e1 = Event.create title: "Seminari ISPRA #{Date.today.year}", where: 'Via Vitali
     max_tickets_for_user: 100
   )
 end
-e2 = Event.create title: "Linee guida su container e virtualizzazione applicativa", where: 'Via Vitaliano Brancati 60, 00156, Roma', pinned: false, tickets_frequency: 'any', group: g1, body: body, single: true
+e2 = Event.create title: "Linee guida su container e virtualizzazione applicativa", where: 'Via Vitaliano Brancati 60, 00156, Roma', pinned: false, tickets_frequency: 'any', group: g1, body: 
+body, single: true
 e2.happenings.massive_create(
   from: (Time.zone.now + 1.month).to_date,
   to: (Time.zone.now + 1.month).to_date,
@@ -42,7 +43,8 @@ e2.happenings.massive_create(
   start_sale_before: 31,
   stop_sale_before: 0,
   max_tickets: 100,
-  max_tickets_for_user: 100
+  max_tickets_for_user: 100,
+  repeat_in: [ "0", "1", "2", "3", "4", "5", "6", "7" ]
 )
 e3 = Event.create title: "Accesso biblioteca ISPRA", where: 'Via Vitaliano Brancati 60, 00156, Roma', pinned: false, tickets_frequency: :daily, group: g2, body: body
 e3.happenings.massive_create(
@@ -52,8 +54,6 @@ e3.happenings.massive_create(
   start_sale_before: 30,
   stop_sale_before: 0,
   max_tickets: 50,
-  max_tickets_for_user: 1
+  max_tickets_for_user: 1,
+  repeat_in: [ "0", "1", "2", "3", "4", "5", "6", "7" ]
 )
-
-# u1.update groups: [ g1, g2 ]
-# u2.update groups: [ g1, g2 ]
