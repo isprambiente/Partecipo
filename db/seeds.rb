@@ -23,7 +23,7 @@ User.create email: 'andrea.ranaldi@gmail.com', password: 'partecipo', confirmed_
 body = '<p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.</p> <p>Donec ultrices tincidunt arcu non sodales neque sodales ut. Elementum nisi quis eleifend quam adipiscing vitae. Semper quis lectus nulla at volutpat. Pellentesque elit eget gravida cum.</p>'
 
 # Generate some data Example
-e1 = Event.create title: "Seminari ISPRA #{Date.today.year}", where: 'Via Vitaliano Brancati 60, 00156, Roma', pinned: false, tickets_frequency: :any, group: g1, body: body
+e1 = Event.create title: "Seminari ISPRA #{Date.today.year}", where: 'Via Vitaliano Brancati 60, 00156, Roma', pinned: false, tickets_frequency: :'any', group: g1, body: body
 [ 'Uso del suolo in Italia', 'Specie aliene invasive e come contenerle', 'Polveri sottili ed inquinanti', 'Progetto Strong Sea Life', 'Progettazione e sistemi di monitoraggio per la mitigazione del rischio idrogeologico' ].each_with_index do |title, delay|
   e1.happenings.create(
     title: title,
@@ -34,7 +34,7 @@ e1 = Event.create title: "Seminari ISPRA #{Date.today.year}", where: 'Via Vitali
     max_tickets_for_user: 100
   )
 end
-e2 = Event.create title: "Linee guida su container e virtualizzazione applicativa", where: 'Via Vitaliano Brancati 60, 00156, Roma', pinned: false, tickets_frequency: :any, group: g1, body: body, single: true
+e2 = Event.create title: "Linee guida su container e virtualizzazione applicativa", where: 'Via Vitaliano Brancati 60, 00156, Roma', pinned: false, tickets_frequency: 'any', group: g1, body: body, single: true
 e2.happenings.massive_create(
   from: (Time.zone.now + 1.month).to_date,
   to: (Time.zone.now + 1.month).to_date,

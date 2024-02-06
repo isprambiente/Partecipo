@@ -40,6 +40,7 @@ class Happening < ApplicationRecord
   has_rich_text :body
   belongs_to :event, counter_cache: true
   has_many   :tickets, dependent: :destroy
+  has_many   :questions, dependent: :destroy
   has_one_attached :image do |attachable|
     attachable.variant :card, resize_to_limit: [ 417, 278 ]
     attachable.variant :aside, resize_to_limit: [ 318, 318 ]

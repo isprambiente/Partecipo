@@ -23,8 +23,10 @@
 class Ticket < ApplicationRecord
   belongs_to :happening, counter_cache: true
   belongs_to :user
+  has_many :answers, dependent: :destroy
   delegate :event, :event_id, :max_tickets, :max_tickets_for_user, :saleable?, :start_at, to: :happening,
                                                                                           allow_nil: true
+  accepts_nested_attributes_for :answers, reject_if: :all_blank
 
   attr_accessor :by_editor
 
@@ -35,6 +37,7 @@ class Ticket < ApplicationRecord
     validates :tickets_count, numericality: { only_integer: true, less_than_or_equal_to: :max_tickets }
     validates :tickets_for_user_count,
               numericality: { only_integer: true, less_than_or_equal_to: :max_tickets_for_user }
+    validates :missing_answers, absence: true
     validate  :validate_frequency
   end
 
@@ -83,5 +86,10 @@ class Ticket < ApplicationRecord
                        return true
     end
     errors.add(:seats, message) if exist
+  end
+
+  # check if all mandatory {Question} are present
+  def missing_answers
+    happening.questions  .mandatory.pluck(:id) - answers.map { |a| a.question_id }
   end
 end

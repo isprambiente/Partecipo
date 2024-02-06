@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.1].define(version: 2023_12_28_210129) do
+ActiveRecord::Schema[7.1].define(version: 2024_01_31_103312) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
 
@@ -52,6 +52,17 @@ ActiveRecord::Schema[7.1].define(version: 2023_12_28_210129) do
     t.index ["blob_id", "variation_digest"], name: "index_active_storage_variant_records_uniqueness", unique: true
   end
 
+  create_table "answers", force: :cascade do |t|
+    t.bigint "ticket_id", null: false
+    t.bigint "question_id", null: false
+    t.string "value"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["question_id"], name: "index_answers_on_question_id"
+    t.index ["ticket_id", "question_id"], name: "index_answers_on_ticket_id_and_question_id", unique: true
+    t.index ["ticket_id"], name: "index_answers_on_ticket_id"
+  end
+
   create_table "events", force: :cascade do |t|
     t.bigint "group_id", null: false
     t.string "title", default: "", null: false
@@ -65,6 +76,8 @@ ActiveRecord::Schema[7.1].define(version: 2023_12_28_210129) do
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.index ["group_id"], name: "index_events_on_group_id"
+    t.index ["start_on"], name: "index_events_on_start_on"
+    t.index ["stop_on"], name: "index_events_on_stop_on"
   end
 
   create_table "groups", force: :cascade do |t|
@@ -93,6 +106,33 @@ ActiveRecord::Schema[7.1].define(version: 2023_12_28_210129) do
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.index ["event_id"], name: "index_happenings_on_event_id"
+    t.index ["start_at"], name: "index_happenings_on_start_at"
+  end
+
+  create_table "options", force: :cascade do |t|
+    t.bigint "question_id", null: false
+    t.integer "weight", default: 0, null: false
+    t.string "title", default: "", null: false
+    t.boolean "acceptable", default: true, null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["acceptable"], name: "index_options_on_acceptable"
+    t.index ["question_id"], name: "index_options_on_question_id"
+    t.index ["weight"], name: "index_options_on_weight"
+  end
+
+  create_table "questions", force: :cascade do |t|
+    t.bigint "happening_id", null: false
+    t.string "title", default: "", null: false
+    t.integer "weight", default: 0, null: false
+    t.integer "category", default: 0, null: false
+    t.boolean "mandatory", default: false, null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["category"], name: "index_questions_on_category"
+    t.index ["happening_id"], name: "index_questions_on_happening_id"
+    t.index ["mandatory"], name: "index_questions_on_mandatory"
+    t.index ["weight"], name: "index_questions_on_weight"
   end
 
   create_table "tickets", force: :cascade do |t|
@@ -134,8 +174,12 @@ ActiveRecord::Schema[7.1].define(version: 2023_12_28_210129) do
 
   add_foreign_key "active_storage_attachments", "active_storage_blobs", column: "blob_id"
   add_foreign_key "active_storage_variant_records", "active_storage_blobs", column: "blob_id"
+  add_foreign_key "answers", "questions"
+  add_foreign_key "answers", "tickets"
   add_foreign_key "events", "groups"
   add_foreign_key "happenings", "events"
+  add_foreign_key "options", "questions"
+  add_foreign_key "questions", "happenings"
   add_foreign_key "tickets", "happenings"
   add_foreign_key "tickets", "users"
 end
