@@ -1,22 +1,19 @@
 %turbo-frame#happening
-  .box.has-ribbon
+  .box.has-ribbon.is-inactive
     %h5.title.is-5= icon_text 'fas fa-calendar-day', @happening.title
     %hr
     = info
     %hr
     .trix-content.content= @happening.body if @happening.body?
+    %p.notification.has-text-centered
+      = t '.active.from'
+      = l @happening.start_sale_at, format: :detailed
+      = t '.active.to'
+      = l @happening.stop_sale_at, format: :detailed
+    - if @happening.saleable?
+      - if @user.present?
+        %turbo-frame#ticket-new{src: new_ticket_path(ticket: {happening_id: @happening.id})}
+      - else
+        .has-text-centered= link_to icon_text('fas fa-right-to-bracket', t('login_to_continue')), new_user_session_path, class: 'button is-link is-large', data: {turbo: 'false'}
     - if @editor
       %a.ribbon.is-link{href: edit_editor_happening_path(@happening)}= icon 'fas fa-edit'
-    - else
-      - if @happening.active?
-        - if @happening.tickets_available?
-          .has-text-centered= button_to icon_text('fas fa-ticket-simple', t('.reserve')), new_link, class: 'button is-success is-large', data: {turbo_method: :create, turbo: @user.present?}
-        - else
-          %p= t '.unavable'
-      - else
-        %p.notification.is-warning.has-text-centered
-          = t '.active.from'
-          = l @happening.start_sale_at, format: :detailed
-          = t '.active.to'
-          = l @happening.stop_sale_at, format: :detailed
-

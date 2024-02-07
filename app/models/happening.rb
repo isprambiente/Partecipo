@@ -82,7 +82,7 @@ class Happening < ApplicationRecord
 
   # @return [Boolean] Check if there are tickets available
   def tickets_available?
-    max_tickets >= tickets_count
+    max_tickets > tickets_count
   end
 
   def tickets_available

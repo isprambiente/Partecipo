@@ -9,10 +9,4 @@
     .column
       = render Events::InfoboxComponent.new(event: @event)
       .divider= icon_text 'fas fa-calendar-day', t('activerecord.models.happening.other')
-      %turbo-frame#happening
-        = render Happenings::DetailComponent.new(happening: @happening, user: current_user)
-      .divider= icon_text 'fas fa-ticket-simple', 'Prenotazioni'
-      - if current_user.present?
-        %turbo-frame#tickets= render Bulmacomp::TurboFrameComponent.new(id: 'tickets', src: tickets_path(filter: {scope: @happening.id}))
-      - else
-        .has-text-centered= link_to icon_text('fas fa-right-to-bracket', t('login_to_continue')), new_user_session_path, class: 'button is-link is-large', data: {turbo: 'false'}
+      %turbo-frame#happening= render Happenings::DetailComponent.new(happening: @happening, user: current_user)

@@ -1,0 +1,10 @@
+%h3.title= @happening.event.title
+%h4.subtitle= @happening.title
+%turbo-frame#ticket-new
+  .divider= icon_text 'fas fa-ticket-simple', 'Nuova prenotazione'
+  = form_with model: @ticket do |f|
+    = f.hidden_field :happening_id
+    = f.fields_for :answers do |sub_form|
+      = render Answers::SubFormComponent.new form: sub_form
+    .has-text-centered= f.button icon_text('fas fa-ticket-simple', t('.reserve')), class: 'button is-success is-large'
+
