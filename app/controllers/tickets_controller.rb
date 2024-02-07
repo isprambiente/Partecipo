@@ -2,7 +2,7 @@
 
 # this controller manage {Ticket} model
 class TicketsController < ApplicationController
-  before_action :authenticate_user!
+  before_action :authenticate_user!, except: %i[new]
   before_action :set_ticket, only: %i[destroy]
 
   # GET /tickets
@@ -18,7 +18,7 @@ class TicketsController < ApplicationController
   def new
     @happening = Happening.find ticket_params[:happening_id]
     @answers = @happening.questions.map {|e| { question_id: e.id }}
-    @ticket = current_user.tickets.new happening: @happening, answers_attributes: @answers 
+    @ticket = Ticket.new happening: @happening, user: current_user, answers_attributes: @answers 
   end
   # def show; end
 
