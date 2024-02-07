@@ -1,2 +1,4 @@
 = turbo_stream.remove(dom_id(@ticket))
 = turbo_stream.update("available_#{@ticket.happening_id}", @ticket.happening.tickets_available)
+- if @ticket.happening.saleable?
+  = turbo_stream.replace('ticket-new', tag.turbo_frame(id: 'ticket-new', src: new_ticket_path(ticket: {happening_id: @ticket.happening.id})))

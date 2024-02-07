@@ -1,6 +1,11 @@
 - if @ticket.persisted?
-  = turbo_stream.prepend('tickets_list', render(Tickets::TicketComponent.new(ticket: @ticket)))
-  = turbo_stream.update("available_#{@ticket.happening_id}", @ticket.happening.tickets_available)
-  = turbo_stream.remove("empty")
+  = turbo_stream.prepend 'tickets_list', render(Tickets::TicketComponent.new(ticket: @ticket))
+  = turbo_stream.update "available_#{@ticket.happening_id}", @ticket.happening.tickets_available
+  =# turbo_stream.remove "empty"
+  - if @ticket.happening.saleable?
+    = turbo_stream.replace('ticket-new', tag.turbo_frame(id: 'ticket-new', src: new_ticket_path(ticket: {happening_id: @happening.id})))
+  - else
+    = turbo_stream.update("ticket-new",'')
 - else
   = turbo_stream.replace('modal', render(Layout::ModalErrorComponent.new(obj: @ticket)))
+

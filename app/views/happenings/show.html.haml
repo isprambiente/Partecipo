@@ -10,3 +10,6 @@
       = render Events::InfoboxComponent.new(event: @event)
       .divider= icon_text 'fas fa-calendar-day', t('activerecord.models.happening.other')
       %turbo-frame#happening= render Happenings::DetailComponent.new(happening: @happening, user: current_user)
+      - if user_signed_in?
+        .divider= icon_text 'fas fa-ticket', 'Prenotazioni'
+        %turbo-frame#tickets= render Bulmacomp::TurboFrameComponent.new(id: 'tickets', src: tickets_path(filter: {scope: @happening.id}))

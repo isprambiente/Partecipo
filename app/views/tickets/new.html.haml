@@ -2,9 +2,9 @@
 %h4.subtitle= @happening.title
 %turbo-frame#ticket-new
   .divider= icon_text 'fas fa-ticket-simple', 'Nuova prenotazione'
-  = form_with model: @ticket do |f|
+  = form_with model: @ticket, id: 'ticket-new-form' do |f|
     = f.hidden_field :happening_id
     = f.fields_for :answers do |sub_form|
       = render Answers::SubFormComponent.new form: sub_form
-    .has-text-centered= f.button icon_text('fas fa-ticket-simple', t('.reserve')), class: 'button is-success is-large'
+    .has-text-centered= f.button icon_text('fas fa-ticket', t('site.generic.reserve')), class: 'button is-success is-large'
 
