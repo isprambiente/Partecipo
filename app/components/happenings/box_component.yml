@@ -2,11 +2,10 @@
 en:
   hello: Hello
 it:
-  max_tickets: Posti totali
   available_tickets: Posti disponibili
-  reserve: Prenota ora!
-  unavable: Posti non disponibili
-  login: Accedi per continuare!
+  max_tickets: Posti totali
+  max_tickets_for_user: Prenotazioni per utente
+  start_at: Inizio
   active:
     from: Prenotabile dal
     to: al
