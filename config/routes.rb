@@ -1,8 +1,6 @@
 # frozen_string_literal: true
 
 Rails.application.routes.draw do
-  # For details on the DSL available within this file, see https://guides.rubyonrails.org/routing.html
-
   scope "(:locale)", locale: /en|it/ do
     resources :events, only: %i[index show]
     resources :happenings, only: %i[index show]
@@ -22,6 +20,7 @@ Rails.application.routes.draw do
       root "users#index"
       resources :users, only: %i[index edit update]
       resources :groups, except: %i[show]
+      resources :templates
     end
     devise_for :users, prefix: "auth"
   end

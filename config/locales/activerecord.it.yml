@@ -23,6 +23,9 @@ it:
         stop_sale_at: Data di fine prenotazioni
         repeat_in: Giorni in cui ripetere la data
         repeat_fo: N. di giorni per cui ripetere l'evento
+      template:
+        title: Titolo
+        data: Struttura domande
       ticket:
         seats: Prenotazioni
         tickets_for_user_count: Prenotazioni per utente
@@ -38,6 +41,9 @@ it:
       happening:
         one: Data
         other: Date
+      template:
+        one: Template domande
+        other: Template domande
       ticket:
         one: Prenotazione
         other: Prenotazioni

@@ -13,6 +13,7 @@ en:
   admin:
     user: User Admin
     group: Group admin
+    templates: Questions templates
 it:
   events: Eventi
   happenings: Date
@@ -27,3 +28,4 @@ it:
   admin:
     users: Amministra utenti
     groups: Amministra gruppi
+    templates: Template domande

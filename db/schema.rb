@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.1].define(version: 2024_01_31_103312) do
+ActiveRecord::Schema[7.1].define(version: 2024_02_12_211447) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
 
@@ -133,6 +133,13 @@ ActiveRecord::Schema[7.1].define(version: 2024_01_31_103312) do
     t.index ["happening_id"], name: "index_questions_on_happening_id"
     t.index ["mandatory"], name: "index_questions_on_mandatory"
     t.index ["weight"], name: "index_questions_on_weight"
+  end
+
+  create_table "templates", force: :cascade do |t|
+    t.string "title", default: "", null: false
+    t.jsonb "data", default: [], null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
   end
 
   create_table "tickets", force: :cascade do |t|

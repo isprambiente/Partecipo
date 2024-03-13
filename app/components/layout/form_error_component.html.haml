@@ -1,0 +1,7 @@
+- if @form.object.errors.any?
+  .notification.is-danger
+    %h5.title.is-5= t '.errors'
+    %ul
+      - @form.object.errors.each do |error|
+        %li= error.full_message
+

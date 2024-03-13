@@ -23,6 +23,9 @@ en:
         stop_sale_at: Booking stop date 
         repeat_in: days to repeat date 
         repeat_for: N. of days to repeat date
+      template:
+        title: Title
+        data: Questions structure
       ticket:
         seats: Seats
       user:
@@ -37,6 +40,9 @@ en:
       happening:
         one: Date
         other: Dates
+      template:
+        one: Questions template
+        other: Questions templates
       ticket:
         one: Ticket
         other: Tickets

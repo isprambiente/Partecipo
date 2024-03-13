@@ -35,4 +35,9 @@ class ApplicationController < ActionController::Base
   def set_turbo
     @turbo = request.headers["turbo-frame"].present?
   end
+
+  def turbo_render(action, *options)
+    render turbo_stream: turbo_stream.send(action, options)
+  end
+
 end
