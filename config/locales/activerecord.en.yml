@@ -28,10 +28,11 @@ en:
         data: Questions structure
       ticket:
         seats: Seats
+        tickets_for_user_count: Tickets for user
       user:
         username: User name
     models:
-      fact:
+      event:
         one: Event
         other: Events
       group:
