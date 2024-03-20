@@ -8,6 +8,6 @@ FactoryBot.define do
     pinned { false }
     # start_on { Time.zone.now - 1.day }
     # stop_on { Time.zone.now + 1.day }
-    tickets_frequency { :any }
+    tickets_frequency { 'any' }
   end
 end

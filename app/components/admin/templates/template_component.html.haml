@@ -1,0 +1,4 @@
+= link_to admin_template_path(@template), id: dom_id(@template), class: 'list-item box is-hoverable', data: {turbo_stream: true} do
+  .list-item-image
+  .list-item-content
+    .list-item-title= icon_text("fas fa-list", @template.title) 

@@ -1,0 +1,15 @@
+= @form.hidden_field :question_id
+=# @form.hidden_field :id, @form.object.id
+.field
+  .field.is-horizontal
+    .field-label.is-normal= @form.label :value, @form.object.question_title, class: 'label'
+    .field-body
+      .field
+        - case @form.object.question_category
+        - when 'string'
+          = @form.text_field :value, class: 'input', required: @form.object.question_mandatory?
+        - when 'text'
+          = @form.text_area :value, class: 'textarea', required: @form.object.question_mandatory?
+        - when 'select'
+          .select.is-fullwidth= @form.select :value, @form.object.question.options.map(&:title), {}, required: @form.object.question_mandatory?
+

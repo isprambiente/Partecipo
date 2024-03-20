@@ -5,7 +5,6 @@ footer: /footer.html
 subtitle: Gestione prenotazioni
 email: partecipo@partecipo.com
 domain: isprambiente.it
-cas: https://auth.partecipo.com/cas/
 restricted_access: false
 app:
   url: https://partecipo.com
@@ -21,4 +20,3 @@ action_mailer:
    username: 'partecipo@partecipo.com'
    sender: 'partecipo@partecipo.com'
 database_url: 'postgres://myuser:mypass@localhost/somedatabase'
-devise: :cas_authenticatable

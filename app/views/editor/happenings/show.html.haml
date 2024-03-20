@@ -7,12 +7,12 @@
       .block
         %figure.image= image_tag @happening.image_url(:aside)
       = render Layout::SearchComponent.new(url: editor_tickets_path, turbo_frame: 'tickets', categories: @categories, scope: @event.id)
-      = link_to icon_text('fas fa-file-csv','Esporta dati'), export_editor_happening_path(@event), class: 'button is-success is-fullwidth', data: {turbo: 'false'}
+      = link_to icon_text('fas fa-file-csv','Esporta dati'), export_editor_happening_path(@happening), class: 'button is-success is-fullwidth', data: {turbo: 'false'}
     .column
       %turbo-frame#event= render Events::InfoboxComponent.new(event: @event, editor: true)
       .divider= icon_text 'fas fa-calendar-day', t('activerecord.models.happening.other')
       %turbo-frame#happenings
-        = render Happenings::DetailComponent.new(happening: @happening, user: current_user, editor: true)
+        = render Editor::Happenings::DetailComponent.new(happening: @happening)
       .divider= icon_text 'fas fa-ticket-simple', 'Prenotazioni'
       %turbo-frame#tickets{src: editor_tickets_path(filter: {scope: @happening.id})}
       = turbo_stream_from "editor:happening_#{@happening.id}"

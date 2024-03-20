@@ -1,0 +1,11 @@
+---
+en:
+  hello: Hello
+it:
+  available_tickets: Posti disponibili
+  max_tickets: Posti totali
+  max_tickets_for_user: Prenotazioni per utente
+  start_at: Inizio
+  active:
+    from: Prenotabile dal
+    to: al

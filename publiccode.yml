@@ -33,7 +33,9 @@ description:
       In questo modo è possibile utilizzare l'applicazione anche come frontend pubblico
       oltre che come applicazione interna.
 
-      Dalla versione 2.4.0 il programma è completamente localizzato in italiano ed inglese. 
+      Dalla versione 2.4.0 il programma è completamente localizzato in italiano ed inglese.
+
+      Dalla versione 3.1.0 il programma prevede anche di porre domande obbligatorie od opzionale per ogni prenotazione eseguita
     shortDescription: 'Programma di gestione prenotazioni eventi '
     screenshots:
       - doc/screen-1.png
@@ -85,9 +87,9 @@ platforms:
   - linux
   - windows
 roadmap: 'https://github.com/isprambiente/Partecipo/projects'
-releaseDate: '2021-12-30'
+releaseDate: '2024-03-20'
 softwareType: standalone/web
-softwareVersion: 3.0.0
+softwareVersion: 3.1.0
 url: 'https://github.com/isprambiente/Partecipo.git'
 usedBy:
   - ISPRA

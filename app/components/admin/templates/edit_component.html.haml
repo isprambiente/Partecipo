@@ -1,0 +1,6 @@
+.list-item.box.has-ribbon{ id: dom_id(@template) }
+  = link_to icon('fas fa-maximize'), admin_template_path(@template), class: 'ribbon is-link', data: {turbo_stream: true} if @template.persisted?
+  .list-item-image
+  .list-item-content
+    .list-item-title
+    .list-item-body= render Admin::Templates::FormComponent.new(template: @template)

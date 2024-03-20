@@ -1,0 +1,19 @@
+.field
+  = @form.label :title
+  .control
+    = @form.text_field :title, class: 'input ', required: true
+
+.field.is-horizontal
+  .field-body
+    .field
+      = @form.label :category
+      .control
+        = @form.select :category, [['String',:string],['Text box',:text], ['Selezione', :select], ['File', :file]], {}, mandatory: true, data: {controller: 'slim', target: 'slim.simple'}
+    .field
+      = @form.label :madatory
+      .control
+        = @form.select :mandatory, [['Si',true],['No',false]], {}, mandatory: true, data: {controller: 'slim', target: 'slim.simple'}
+    .field
+      = @form.label :weight
+      .control
+        = @form.number_field :weight, class: 'input', required: true

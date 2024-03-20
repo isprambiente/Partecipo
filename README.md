@@ -87,7 +87,7 @@ Installare ruby 3.3.0, consigliato [RVM](https://rvm.io/).
   * Creare chiave e certificato per il webserver ed inserirli nei file `docker-compose/nginx/cert/partecipo.key` e `docker-compose/nginx/cert/partecipo.crt`.
     Per testare il servizio è possibile creare un certificato selfsigned per localhost con il comanto:
     ```
-    openssl req -x509 -out localhost.crt -keyout localhost.key   -newkey rsa:2048 -nodes -sha256   -subj '/CN=localhost' -extensions EXT -config <( \
+    openssl req -x509 -out partecipo.crt -keyout partecipo.key   -newkey rsa:2048 -nodes -sha256   -subj '/CN=localhost' -extensions EXT -config <( \
     printf "[dn]\nCN=localhost\n[req]\ndistinguished_name = dn\n[EXT]\nsubjectAltName=DNS:localhost\nkeyUsage=digitalSignature\nextendedKeyUsage=serverAuth")
     ``` 
   * avviare il compose con il comando `docker compose up`

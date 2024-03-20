@@ -64,6 +64,9 @@
                   %span.icon.is-small.is-left
                     %i.fas.fa-chair
                 %p.help.is-danger= @happening.errors[:max_tickets_for_user].join(' - ')
+          .divider Domande
+          = form.fields_for :questions do |sub_form|
+            = render Editor::Questions::SubFormComponent.new form: sub_form
           .buttons.has-text-centered
             = form.button fas_icon('save', text: t('site.generic.save')), class: 'button is-success'
             %a.button.is-link{href: editor_happening_path(@happening)}= fas_icon 'chevron-left', text: 'Indietro'

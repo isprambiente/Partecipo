@@ -1,0 +1,20 @@
+.list-item.box.has-ribbon{ id: dom_id(@template) }
+  = link_to icon('fas fa-edit'), edit_admin_template_path(@template), class: 'ribbon is-link', data: {turbo_stream: true}
+  .list-item-image
+  .list-item-content
+    .list-item-title= icon_text("fas fa-list", @template.title)
+    .list-item-body
+      %table.table.is-striped.is-fullwidth
+        %tr
+          %th= t '.title'
+          %th= t '.type'
+          %th= t '.request'
+        - @template.data.each do |question|
+          %tr
+            %td= question['title']
+            %td= question['category'] || 'String'
+            %td= question['mandatory']
+        - if @template.data.blank?
+          %tr
+            %td.has-text-centered{colspan: 3} Empty
+

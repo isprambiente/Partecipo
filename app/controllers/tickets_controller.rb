@@ -2,7 +2,7 @@
 
 # this controller manage {Ticket} model
 class TicketsController < ApplicationController
-  before_action :authenticate_user!
+  before_action :authenticate_user!, except: %i[new]
   before_action :set_ticket, only: %i[destroy]
 
   # GET /tickets
@@ -15,6 +15,11 @@ class TicketsController < ApplicationController
     @pagy, @tickets = pagy Ticket.joins(happening: [ :event ]).where(search).where(@text), items: 10
   end
 
+  def new
+    @happening = Happening.find ticket_params[:happening_id]
+    @answers = @happening.questions.map {|e| { question_id: e.id }}
+    @ticket = Ticket.new happening: @happening, user: current_user, answers_attributes: @answers 
+  end
   # def show; end
 
   # def edit; end
@@ -23,7 +28,7 @@ class TicketsController < ApplicationController
 
   # POST /event/:event_id/happenings/:happening_id/tickets
   def create
-    @ticket = current_user.tickets.create(filter_ticket)
+    @ticket = current_user.tickets.create(ticket_params)
     @happening = @ticket.happening
     @event = @happening.event
   end
@@ -55,7 +60,7 @@ class TicketsController < ApplicationController
   end
 
   # filter params for {Happening}'s {Ticket}
-  def filter_ticket
-    params.fetch(:ticket, {}).permit(:happening_id)
+  def ticket_params
+    params.fetch(:ticket, {}).permit(:happening_id, answers_attributes: [:question_id, :value])
   end
 end

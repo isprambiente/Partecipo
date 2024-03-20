@@ -19,6 +19,7 @@ it:
       search: Ricerca
       text: Testo
       to: a
+      reserve: Prenota!
     fact:
       index: 
         title: Eventi

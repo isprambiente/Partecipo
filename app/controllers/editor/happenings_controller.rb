@@ -25,6 +25,7 @@ module Editor
     def new
       @event = Event.find_by(id: params[:event_id], group: @groups)
       @happening = @event.happenings.new
+      @templates = Template.pluck :title, :id
     end
 
     # GET /editor/events/:event_id/happenings/:id/edit
@@ -32,7 +33,7 @@ module Editor
 
     # POST /editor/happenings
     def create
-      @event = Event.find_by(id: happening_params[:event_id], group: @groups)
+      @event = Event.find_by(id: massive_create_params[:event_id], group: @groups)
       @happenings = @event.happenings.massive_create(**massive_create_params.to_h.to_options)
       @happening = @happenings.first
 
@@ -60,10 +61,13 @@ module Editor
 
     # GET /editor/events/:event_id/happenings/:happening_id/tickets/export
     def export
-      @tickets = [ %w[Email] ] + @happening.tickets.includes(:user).all.map { |t|
-                                          [ t.user.email ]
-                                        } + [ [ @happening.tickets_count ] ]
-      send_data @tickets.map(&:to_csv).join, filename: "tickets.csv"
+      ret = CSV.generate(headers: true) do |csv|
+        csv << ['Email'] + @happening.questions.pluck(:title)
+        @happening.tickets.includes(:user, answers: [:question]).all.each do |ticket|
+          csv << [ticket.user.email] + ticket.answers.includes(:question).order('questions.weight desc').map(&:value)
+        end
+      end
+      send_data ret, filename: "tickets.csv"
     end
 
     private
@@ -80,11 +84,11 @@ module Editor
 
     # Filter params for set an {Happening}
     def happening_params
-      params.require(:happening).permit(:title, :image, :event_id, :max_tickets, :max_tickets_for_user, :start_at, :start_sale_at, :stop_sale_at)
+      params.require(:happening).permit(:title, :image, :event_id, :max_tickets, :max_tickets_for_user, :start_at, :start_sale_at, :stop_sale_at, questions_attributes: [:id, :title, :category, :mandatory, :weight])
     end
 
     def massive_create_params
-      params.require(:happening).permit(:title, :image, :event_id, :max_tickets, :max_tickets_for_user, :from, :to, :start_sale_before, :stop_sale_before, repeat_in: [], minutes: [])
+      params.require(:happening).permit(:title, :image, :event_id, :max_tickets, :max_tickets_for_user, :from, :to, :start_sale_before, :stop_sale_before, :template_id, repeat_in: [], minutes: [])
     end
 
 

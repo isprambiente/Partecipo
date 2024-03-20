@@ -16,7 +16,7 @@
 # @!attribute [rw] title
 #   @return [String] Is an optional description for {Happening}
 # @!attribute [rw] start_at
-#   @return [DateTime] when the {Happening} start
+# @return [DateTime] when the {Happening} start
 # @!attribute [rw] stop_sale_at
 #   @return [DateTime] since {Ticket} can no longer be sold
 # @!attribute [rw] max_seats_for_ticket
@@ -40,11 +40,15 @@ class Happening < ApplicationRecord
   has_rich_text :body
   belongs_to :event, counter_cache: true
   has_many   :tickets, dependent: :destroy
+  has_many   :questions, dependent: :destroy
   has_one_attached :image do |attachable|
     attachable.variant :card, resize_to_limit: [ 417, 278 ]
     attachable.variant :aside, resize_to_limit: [ 318, 318 ]
     attachable.variant :ticket, resize_to_limit: [ 150, 68 ]
   end
+
+  accepts_nested_attributes_for :questions, reject_if: :all_blank
+
   validates  :event, presence: true
   validates  :start_at, presence: true
   validates  :start_sale_at, presence: true
@@ -81,7 +85,7 @@ class Happening < ApplicationRecord
 
   # @return [Boolean] Check if there are tickets available
   def tickets_available?
-    max_tickets >= tickets_count
+    max_tickets > tickets_count
   end
 
   def tickets_available
@@ -93,15 +97,16 @@ class Happening < ApplicationRecord
     [ event_id, id ].join(" - ")
   end
 
-  def self.massive_create(from:, to:, start_sale_before:, stop_sale_before:, repeat_in: [], minutes: [], **opts)
+  def self.massive_create(from:, to:, start_sale_before:, stop_sale_before:, template_id: nil, repeat_in: [], minutes: [], **opts)
     ary = []
     (from.to_date..to.to_date).map do |day|
       next unless repeat_in.include?(day.wday.to_s)
-      minutes.map do |minute|
-        start_at      = day + minute.to_i.minutes
-        start_sale_at = day - start_sale_before.to_i.days
-        stop_sale_at  = day - stop_sale_before.to_i.days
-        ary << opts.merge(start_at:, start_sale_at:, stop_sale_at:)
+      minutes.reject(&:blank?).map do |minute|
+        start_at          = day + minute.to_i.minutes
+        start_sale_at     = day - start_sale_before.to_i.days
+        stop_sale_at      = day.end_of_day - stop_sale_before.to_i.days
+        questions_attributes = Template.find_by(id: template_id).try(:data) || []
+        ary << opts.merge(start_at:, start_sale_at:, stop_sale_at:, questions_attributes:)
       end
     end
     create ary

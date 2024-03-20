@@ -1,0 +1,14 @@
+%turbo-frame#yield
+  %h3.title.has-text-centered
+    %i.fas.fa-users
+    Amministrazione
+    = t 'activerecord.models.template.other'
+  .columns
+    %aside.column.is-3
+      = render Layout::SearchComponent.new(url: admin_templates_path, turbo_frame: 'templates', date_range: false)
+      = link_to "New template", new_admin_template_path, class: 'is-success button is-fullwidth'
+    .column
+      %turbo-frame#templates
+        #templates_list.list
+          = render Admin::Templates::DetailComponent.new(template: @template)
+          .has-text-centered= link_to "Back to templates", admin_templates_path, class: 'is-link button'

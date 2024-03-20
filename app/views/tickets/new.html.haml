@@ -1,0 +1,12 @@
+%h3.title= @happening.event.title
+%h4.subtitle= @happening.title
+%turbo-frame#ticket-new
+  - if user_signed_in?
+    .divider= icon_text 'fas fa-ticket-simple', 'Nuova prenotazione'
+    = form_with model: @ticket do |f|
+      = f.hidden_field :happening_id
+      = f.fields_for :answers do |sub_form|
+        = render Answers::SubFormComponent.new form: sub_form
+      .has-text-centered= f.button icon_text('fas fa-ticket', t('site.generic.reserve')), class: 'button is-success is-large'
+  - else
+    .has-text-centered= link_to icon_text('fas fa-right-to-bracket', t('login_to_continue')), new_user_session_path, class: 'button is-warning is-large', data: {turbo: 'false'}

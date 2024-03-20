@@ -1,0 +1,14 @@
+= form_with(model: [:admin, @template]) do |form|
+  = render Layout::FormErrorComponent.new(form:)
+  .field
+    = form.label :title, class: 'label'
+    .control.has-icons-left
+      = form.text_field :title, class: 'input', require: true
+      .icon.is-small.is-left 
+        %i.fas.fa-heading  
+  .field
+    = form.label :data_string, style: 'label'
+    .control
+      = form.text_area :data_string, class: 'textarea', required: true
+  .field.is-grouped.is-justify-content-center
+    = form.submit class: 'button is-success'

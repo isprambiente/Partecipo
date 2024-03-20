@@ -86,7 +86,8 @@ module Layout
 
       [
         link_to(t(".admin.groups"), admin_groups_path, data: { turbo: { frame: "yield" } }, class: "navbar-item"),
-        link_to(t(".admin.users"), admin_users_path, data: { turbo: { frame: "yield" } }, class: "navbar-item")
+        link_to(t(".admin.users"), admin_users_path, data: { turbo: { frame: "yield" } }, class: "navbar-item"),
+        link_to(t(".admin.templates"), admin_templates_path, data: { turbo: { frame: "yield" } }, class: "navbar-item")
       ]
     end
 

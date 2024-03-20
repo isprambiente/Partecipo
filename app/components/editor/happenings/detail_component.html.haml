@@ -1,0 +1,14 @@
+= render Happenings::BoxComponent.new(happening: @happening) do
+  .divider Domande
+  %table.table.is-striped.is-fullwidth
+    %tr
+      %th= t '.title'
+      %th= t '.type'
+      %th= t '.request'
+    - @happening.questions.each do |question|
+      %tr
+        %td= question.title
+        %td= question.category
+        %td= question.mandatory?
+      
+  %a.ribbon.is-link{href: edit_editor_happening_path(@happening)}= icon 'fas fa-edit'
