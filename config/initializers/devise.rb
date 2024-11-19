@@ -288,7 +288,7 @@ Devise.setup do |config|
       token_endpoint: "/OIDC/token",
       userinfo_endpoint: "/OIDC/userinfo",
       jwks_uri: "OIDC/jwks.json",
-      identifier: ENV.fetch("RAILS_OIDC_IDENTIFIER") {'example'},
+      identifier: ENV.fetch("RAILS_OIDC_IDENTIFIER") {'partecipo'},
       secret: ENV.fetch("RAILS_OIDC_SECRET") { 'secret' },
       redirect_uri: "https://#{ENV.fetch("RAILS_HOST") {"localhost"}}/users/auth/openid_connect/callback"
     }
