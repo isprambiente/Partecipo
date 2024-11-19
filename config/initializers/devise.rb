@@ -274,7 +274,7 @@ Devise.setup do |config|
   # config.omniauth :github, 'APP_ID', 'APP_SECRET', scope: 'user,public_repo'
   config.omniauth :openid_connect, {
     name: :openid_connect,
-    issuer: "https://sso.isprambiente.it",
+    issuer: ENV.fetch('RAILS_OIDC_ISSUER') {'https://my_issuer.com'},
     scope: [ :openid, :email, :profile ],
     extra_authorize_params: { claim: [ :spidcode, :name, :familyname, :fiscalnumber ] },
     uid_field: "preferred_username",
@@ -283,14 +283,14 @@ Devise.setup do |config|
     client_options: {
       port: 443,
       scheme: "https",
-      host: "sso.isprambiente.it",
+      host: ENV.fetch("RAILS_HOST") {"localhost"},
       authorization_endpoint: "/OIDC/authorization",
       token_endpoint: "/OIDC/token",
       userinfo_endpoint: "/OIDC/userinfo",
       jwks_uri: "OIDC/jwks.json",
-      identifier: "cckedu3dhj892alp",
-      secret: "19cc69b70d0108f630e52f72f7a3bd37ba4e11678ad1a7434e9818e2",
-      redirect_uri: "https://127.0.0.1:3000/users/auth/openid_connect/callback"
+      identifier: ENV.fetch("RAILS_OIDC_IDENTIFIER") {'example'},
+      secret: ENV.fetch("RAILS_OIDC_SECRET") { 'secret' },
+      redirect_uri: "https://#{ENV.fetch("RAILS_HOST") {"localhost"}}/users/auth/openid_connect/callback"
     }
   }
 

@@ -2,7 +2,7 @@
 
 # This controller manage the {Fact} model
 class EventsController < ApplicationController
-  before_action :authenticate_user! if Settings.restricted_access
+  before_action :authenticate_user! if ENV.fetch("RAILS_RESTRICTED") {false}
 
   # GET /events
   def index
