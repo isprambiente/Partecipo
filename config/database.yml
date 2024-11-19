@@ -79,4 +79,4 @@ test:
 #
 production:
   <<: *default
-  url: ENV.fetch('RAILS_DB_URL'){"postgres://partecipo:partecipo@partecipo_pg/partecipo_production"}
+  url: <%= ENV.fetch('RAILS_DB_URL'){"postgres://partecipo:partecipo@partecipo-db/partecipo_production"} %>
