@@ -79,7 +79,4 @@ test:
 #
 production:
   <<: *default
-  database: partecipo
-  username: partecipo
-  host: <%= ENV["PARTECIPO_DATABASE_HOST"] %> 
-  password: <%= ENV["PARTECIPO_DATABASE_PASSWORD"] %>
+  url: ENV.fetch('RAILS_DB_URL'){"postgres://partecipo:partecipo@partecipo_pg/partecipo_production"}
