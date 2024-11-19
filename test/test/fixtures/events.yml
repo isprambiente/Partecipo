@@ -1,0 +1,23 @@
+# Read about fixtures at https://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  group: one
+  title: MyString
+  where: MyString
+  pinned: false
+  start_on: 2024-11-11
+  stop_on: 2024-11-11
+  single: false
+  tickets_frequency: 1
+  happenings_count: 1
+
+two:
+  group: two
+  title: MyString
+  where: MyString
+  pinned: false
+  start_on: 2024-11-11
+  stop_on: 2024-11-11
+  single: false
+  tickets_frequency: 1
+  happenings_count: 1

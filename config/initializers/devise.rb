@@ -272,6 +272,27 @@ Devise.setup do |config|
   # Add a new OmniAuth provider. Check the wiki for more information on setting
   # up on your models and hooks.
   # config.omniauth :github, 'APP_ID', 'APP_SECRET', scope: 'user,public_repo'
+  config.omniauth :openid_connect, {
+    name: :openid_connect,
+    issuer: "https://sso.isprambiente.it",
+    scope: [ :openid, :email, :profile ],
+    extra_authorize_params: { claim: [ :spidcode, :name, :familyname, :fiscalnumber ] },
+    uid_field: "preferred_username",
+    discovery: true,
+    client_auth_method: :jwks,
+    client_options: {
+      port: 443,
+      scheme: "https",
+      host: "sso.isprambiente.it",
+      authorization_endpoint: "/OIDC/authorization",
+      token_endpoint: "/OIDC/token",
+      userinfo_endpoint: "/OIDC/userinfo",
+      jwks_uri: "OIDC/jwks.json",
+      identifier: "cckedu3dhj892alp",
+      secret: "19cc69b70d0108f630e52f72f7a3bd37ba4e11678ad1a7434e9818e2",
+      redirect_uri: "https://127.0.0.1:3000/users/auth/openid_connect/callback"
+    }
+  }
 
   # ==> Warden configuration
   # If you want to use other strategies, that are not supported by Devise, or

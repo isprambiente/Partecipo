@@ -5,5 +5,4 @@ class Editor::Questions::SubFormComponent < ViewComponent::Base
     super
     @form = form
   end
-
 end

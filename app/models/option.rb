@@ -32,7 +32,7 @@ class Option < ApplicationRecord
 
   validates :title, presence: true
   validates :weight, presence: true
-  validates :acceptable, inclusion: [true, false]
+  validates :acceptable, inclusion: [ true, false ]
 
   scope :acceptable, -> { where acceptable: true }
 end

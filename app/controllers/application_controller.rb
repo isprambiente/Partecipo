@@ -39,5 +39,4 @@ class ApplicationController < ActionController::Base
   def turbo_render(action, *options)
     render turbo_stream: turbo_stream.send(action, options)
   end
-
 end

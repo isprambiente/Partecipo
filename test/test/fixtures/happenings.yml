@@ -1,0 +1,21 @@
+# Read about fixtures at https://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  event: one
+  title: MyString
+  start_at: 2024-11-11 22:14:53
+  start_sale_at: 2024-11-11 22:14:53
+  stop_sale_at: 2024-11-11 22:14:53
+  max_tickets: 1
+  max_tickets_for_user: 1
+  tickets_count: 1
+
+two:
+  event: two
+  title: MyString
+  start_at: 2024-11-11 22:14:53
+  start_sale_at: 2024-11-11 22:14:53
+  stop_sale_at: 2024-11-11 22:14:53
+  max_tickets: 1
+  max_tickets_for_user: 1
+  tickets_count: 1

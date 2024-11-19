@@ -17,7 +17,7 @@ class Admin::TemplatesController < Admin::ApplicationController
     @template = Template.new
     respond_to do |format|
       format.html { redirect_to admin_templates_path }
-      format.turbo_stream { render turbo_stream: turbo_stream.prepend('templates_list', Admin::Templates::EditComponent.new(template: @template)) }
+      format.turbo_stream { render turbo_stream: turbo_stream.prepend("templates_list", Admin::Templates::EditComponent.new(template: @template)) }
     end
   end
 

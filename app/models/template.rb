@@ -3,7 +3,7 @@
 # This model manage the questions template
 # === Validations
 # * presente of {template}
-# 
+#
 # @!attribute [rw] id
 #   @return [Integer] unique identifier for {Template}
 # @!attribute [rw] title
@@ -16,7 +16,7 @@
 #   @return [DateTime] when the record was updated
 class Template < ApplicationRecord
   validates :title, presence: true
-  
+
   # set data attribute from a JSON string
   def data_string=(value)
     self.data = JSON.try :parse, value

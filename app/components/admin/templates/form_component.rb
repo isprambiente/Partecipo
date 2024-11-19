@@ -5,5 +5,4 @@ class Admin::Templates::FormComponent < CommonComponent
     super
     @template = template
   end
-
 end

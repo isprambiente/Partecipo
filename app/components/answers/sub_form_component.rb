@@ -5,5 +5,4 @@ class Answers::SubFormComponent < ViewComponent::Base
     super
     @form = form
   end
-
 end

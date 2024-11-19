@@ -1,0 +1,15 @@
+# Read about fixtures at https://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  happening: one
+  title: MyString
+  weight: 1
+  category: 1
+  mandatory: 1
+
+two:
+  happening: two
+  title: MyString
+  weight: 1
+  category: 1
+  mandatory: 1

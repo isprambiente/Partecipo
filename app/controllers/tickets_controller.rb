@@ -17,8 +17,8 @@ class TicketsController < ApplicationController
 
   def new
     @happening = Happening.find ticket_params[:happening_id]
-    @answers = @happening.questions.map {|e| { question_id: e.id }}
-    @ticket = Ticket.new happening: @happening, user: current_user, answers_attributes: @answers 
+    @answers = @happening.questions.map { |e| { question_id: e.id } }
+    @ticket = Ticket.new happening: @happening, user: current_user, answers_attributes: @answers
   end
   # def show; end
 
@@ -61,6 +61,6 @@ class TicketsController < ApplicationController
 
   # filter params for {Happening}'s {Ticket}
   def ticket_params
-    params.fetch(:ticket, {}).permit(:happening_id, answers_attributes: [:question_id, :value])
+    params.fetch(:ticket, {}).permit(:happening_id, answers_attributes: [ :question_id, :value ])
   end
 end

@@ -27,7 +27,7 @@ class TicketTest < ActiveSupport::TestCase
 
   test "accept nested attributes for answers" do
   happening = create :happening
-    ticket = create :ticket, happening: , answers_attributes: [{value: 'MyText', question: create(:question, category: :string, happening:)}]
+    ticket = create :ticket, happening:, answers_attributes: [ { value: "MyText", question: create(:question, category: :string, happening:) } ]
     assert_equal 1, Ticket.count
     assert_equal 1, ticket.answers.count
   end
@@ -132,27 +132,27 @@ class TicketTest < ActiveSupport::TestCase
     question = create :question, mandatory: true, category: :string, happening: happening
     ticket1 = build :ticket, happening: happening
     assert_not ticket1.valid?
-    ticket2 = build :ticket, happening: happening, answers_attributes: [{value: 'ok', question: question}]
+    ticket2 = build :ticket, happening: happening, answers_attributes: [ { value: "ok", question: question } ]
     ticket2.valid?
     assert_equal ticket2.errors.messages, {}
     assert ticket2.save
   end
 
-  test 'optional quetion do not qrequire answer' do
+  test "optional quetion do not qrequire answer" do
     question = create :question, mandatory: false
     ticket = build(:ticket, user: create(:user), happening: question.happening)
     assert ticket.valid?
     assert ticket.save
-    ticket.answers_attributes = [{value: 'ok', question: }]
+    ticket.answers_attributes = [ { value: "ok", question: } ]
     assert ticket.valid?
     assert ticket.save
   end
 
-  test 'check if all answers are valid' do
+  test "check if all answers are valid" do
     question = create :question, mandatory: true
-    ticket = build(:ticket, user: create(:user), happening: question.happening, answers_attributes: [{ value: '', question: }])
+    ticket = build(:ticket, user: create(:user), happening: question.happening, answers_attributes: [ { value: "", question: } ])
     assert_not ticket.valid?
-    ticket.answers.first.value = 'ok'
+    ticket.answers.first.value = "ok"
     assert ticket.valid?
     assert ticket.save
   end
@@ -191,7 +191,7 @@ class TicketTest < ActiveSupport::TestCase
     happening = create(:happening)
     question = create(:question, mandatory: true, happening:)
     ticket = build(:ticket, happening:, user: create(:user))
-    assert_equal [question.id], ticket.send(:missing_answers)
-    ticket.answers_attributes = [{value: 'ok', question:}]
+    assert_equal [ question.id ], ticket.send(:missing_answers)
+    ticket.answers_attributes = [ { value: "ok", question: } ]
   end
 end

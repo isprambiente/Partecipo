@@ -62,9 +62,9 @@ module Editor
     # GET /editor/events/:event_id/happenings/:happening_id/tickets/export
     def export
       ret = CSV.generate(headers: true) do |csv|
-        csv << ['Email'] + @happening.questions.pluck(:title)
-        @happening.tickets.includes(:user, answers: [:question]).all.each do |ticket|
-          csv << [ticket.user.email] + ticket.answers.includes(:question).order('questions.weight desc').map(&:value)
+        csv << [ "Email" ] + @happening.questions.pluck(:title)
+        @happening.tickets.includes(:user, answers: [ :question ]).all.each do |ticket|
+          csv << [ ticket.user.email ] + ticket.answers.includes(:question).order("questions.weight desc").map(&:value)
         end
       end
       send_data ret, filename: "tickets.csv"
@@ -84,7 +84,7 @@ module Editor
 
     # Filter params for set an {Happening}
     def happening_params
-      params.require(:happening).permit(:title, :image, :event_id, :max_tickets, :max_tickets_for_user, :start_at, :start_sale_at, :stop_sale_at, questions_attributes: [:id, :title, :category, :mandatory, :weight])
+      params.require(:happening).permit(:title, :image, :event_id, :max_tickets, :max_tickets_for_user, :start_at, :start_sale_at, :stop_sale_at, questions_attributes: [ :id, :title, :category, :mandatory, :weight ])
     end
 
     def massive_create_params

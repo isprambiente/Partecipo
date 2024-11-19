@@ -3,10 +3,10 @@
 
 source "https://rubygems.org"
 
-ruby "3.3.0"
+ruby "3.3.5"
 
 # Bundle edge Rails instead: gem "rails", github: "rails/rails", branch: "main"
-gem "rails", "~> 7.1"
+gem "rails", "~> 7.2"
 
 # The modern asset pipeline for Rails [https://github.com/rails/propshaft]
 gem "propshaft"
@@ -89,9 +89,12 @@ end
 
 gem "config"
 gem "devise"
+gem "omniauth_openid_connect", "~> 0.7.1"
+gem "omniauth-rails_csrf_protection", "~> 1.0"
 # gem 'devise_cas_authenticatable'
 # gem 'devise_ldap_authenticatable'
 gem "hamlit"
 gem "pagy"
 # gem 'whenever', require: false
 gem "bulmacomp"
+gem "thruster"

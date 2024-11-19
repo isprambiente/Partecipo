@@ -4,7 +4,7 @@ class Happenings::BoxComponent < CommonComponent
   def initialize(happening:)
     @happening = happening
   end
-  
+
   def info
     ary = [
     [ t(".start_at"), l(@happening.start_at, format: :short) ],
@@ -14,5 +14,4 @@ class Happenings::BoxComponent < CommonComponent
     ]
     level ary
   end
-
 end

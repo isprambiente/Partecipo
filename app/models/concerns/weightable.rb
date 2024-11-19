@@ -5,7 +5,7 @@ module Weightable
   extend ActiveSupport::Concern
 
   included do
-    scope :by_weight, -> { order('weight desc') }
+    scope :by_weight, -> { order("weight desc") }
     default_scope { by_weight }
   end
 

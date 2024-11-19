@@ -48,7 +48,7 @@ class User < ApplicationRecord
   devise :database_authenticatable, :registerable,
          :recoverable, :rememberable, :validatable,
          :confirmable, :timeoutable, :trackable,
-         :lockable
+         :lockable, :omniauthable
   has_many :tickets, dependent: :destroy
   has_and_belongs_to_many :groups
   has_many :events, through: :groups

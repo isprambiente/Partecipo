@@ -42,7 +42,7 @@ class Event < ApplicationRecord
   has_many :happenings, dependent: :destroy
   has_many :tickets, through: :happenings
   validates :title, presence: true
-  enum tickets_frequency: %i(any single daily weekly monthly)
+  enum :tickets_frequency, %i[any single daily weekly monthly]
 
   scope :searchable, ->(from: nil, to: nil, group_id: nil, text: nil) do
     by_keys = { stop_on: (from.try(:to_date) || Date.today).. }

@@ -1,29 +1,30 @@
 # frozen_string_literal: true
+
 require "test_helper"
 
 class OptionTest < ActiveSupport::TestCase
- test ' valid from factory' do
+ test " valid from factory" do
     option = build :option
     assert option.valid?
     assert option.save
   end
 
   # relations
-  test 'belongs to question' do
+  test "belongs to question" do
     option = create :option
-    assert_equal 'Question', option.question.class.name
+    assert_equal "Question", option.question.class.name
   end
 
   # validations
-  test 'presence of title' do
-    option = build :option, title: ''
+  test "presence of title" do
+    option = build :option, title: ""
     assert_not option.valid?
-    option.title = 'ok'
+    option.title = "ok"
     assert option.valid?
     assert option.save
   end
 
-  test 'presence of weight' do
+  test "presence of weight" do
     option = build :option, weight: nil
     assert_not option.valid?
     option.weight = 1
@@ -31,7 +32,7 @@ class OptionTest < ActiveSupport::TestCase
     assert option.save
   end
 
-  test 'presence of acceptable' do
+  test "presence of acceptable" do
     option = build :option, acceptable: nil
     assert_not option.valid?
     option.acceptable = false
@@ -42,7 +43,7 @@ class OptionTest < ActiveSupport::TestCase
   end
 
   # Scope
-  test 'default scope is weight desc' do
+  test "default scope is weight desc" do
     o0 = create :option, weight: 0
     o1 = create :option, weight: 1
     o2 = create :option, weight: 2
@@ -51,7 +52,7 @@ class OptionTest < ActiveSupport::TestCase
     assert_equal Option.all.last, o0
   end
 
-  test 'scope acceptable filter where acceptable is true' do
+  test "scope acceptable filter where acceptable is true" do
     question = create :question
     create :option, question: question, acceptable: true
     create :option, question: question, acceptable: false

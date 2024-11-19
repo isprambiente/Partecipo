@@ -9,14 +9,14 @@ class TemplateTest < ActiveSupport::TestCase
 
   ### validations
   test "title is required" do
-    template = build :template, title: ''
+    template = build :template, title: ""
     assert_not template.valid?
-    template.title = 'asdf'
+    template.title = "asdf"
     assert template.save
   end
 
   ### methods
   test "data= convert string in json and set data" do
-    template = build :template, data: [1]
+    template = build :template, data: [ 1 ]
   end
 end

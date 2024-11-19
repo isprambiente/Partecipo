@@ -36,12 +36,12 @@ class Question < ApplicationRecord
 
   accepts_nested_attributes_for :options, allow_destroy: true, reject_if: :all_blank
 
-  enum category: %i(string text select file), _prefix: true
+  enum category: %i[string text select file], _prefix: true
 
   validates :title, presence: true
   validates :weight, presence: true
   validates :category, presence: true
-  validates :mandatory, inclusion: { in: [true, false], allow_nil: false }
+  validates :mandatory, inclusion: { in: [ true, false ], allow_nil: false }
 
   scope :mandatory, -> { where mandatory: true }
 end
