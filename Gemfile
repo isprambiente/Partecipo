@@ -87,7 +87,6 @@ group :test do
   gem "selenium-webdriver"
 end
 
-gem "config"
 gem "devise"
 gem "omniauth_openid_connect", "~> 0.7.1"
 gem "omniauth-rails_csrf_protection", "~> 1.0"
