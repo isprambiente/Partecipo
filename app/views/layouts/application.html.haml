@@ -4,21 +4,21 @@
     %meta{ charset: "utf-8" }
     %meta{ "http-equiv": 'X-UA-Compatible', content: 'IE=edge' }
     %meta{ name: "viewport", content: "width=device-width, initial-scale=1.0" }
-    %meta{ name: 'description', content: "#{Settings.subtitle}" }
-    %title= Settings.title
+    %meta{ name: 'description', content: ENV.fetch("RAILS_DESCRIPTION"){"Description"} }
+    %title= ENV.fetch("RAILS_TITLE"){"Partecipo"}
     = csrf_meta_tags
     = csp_meta_tag
     = stylesheet_link_tag "application", "data-turbo-track": "reload"
     = javascript_include_tag "application", "data-turbo-track": "reload", defer: true
   %body{ data: { controller: "page" } }
     %header
-      = render Bulmacomp::TurboFrameComponent.new(id: 'nav1', src: Settings.header), cache: true
+      = render Bulmacomp::TurboFrameComponent.new(id: 'nav1', src: ENV.fetch("RAILS_HEAD_URL"){"/head.html"}), cache: true
       =# render 'top_menu'
       = render Layout::NavbarComponent.new(user: current_user)
     %section.section
       .container= yield
     %footer 
-      = render Bulmacomp::TurboFrameComponent.new(id: 'footer', src: Settings.footer), cache: true
+      = render Bulmacomp::TurboFrameComponent.new(id: 'footer', src: ENV.fetch("RAILS_FOOTER_URL"){"/footer.html"}), cache: true
       = turbo_stream_from 'events'
       = turbo_stream_from "tickets:user_#{current_user.id}" if user_signed_in?
     %turbo-frame#modal
