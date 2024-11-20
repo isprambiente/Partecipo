@@ -97,3 +97,4 @@ gem "pagy"
 # gem 'whenever', require: false
 gem "bulmacomp"
 gem "thruster"
+gem "csv"
