@@ -1,41 +1,42 @@
 services:
-  partecipo-pg:
+  pg:
     image: postgres:latest
     environment:
       POSTGRES_DB: partecipo
       POSTGRES_USER: partecipo
       POSTGRES_PASSWORD: ChangeMe
   
-  partecipo-redis:
+  redis:
     image: redis:latest
 
-  partecipo-rails:
+  rails:
     image: partecipo
     build: ./
     depends_on:
-      - partecipo-pg
-      - partecipo-redis
+      - pg
+      - redis
     volumes:
       - partecipo-storage:/rails/storage
     environment:
       RAILS_ENV: production
-      RAILS_RESTRICTED: true
+      # RAILS_RESTRICTED: true
       RAILS_MASTER_KEY: 5cdcc57160c136623510fa73c7a7587f
       RAILS_TITLE: Partecipo
       RAILS_DESCRIPTION: Partecipo description
       RAILS_HEAD_URL: /head.html
       RAILS_FOOTER_URL: /footer.html
-      RAILS_HOST: localhost
+      RAILS_HOST: partecipo.it
       RAILS_OIDC_ISSUER: https://my_issuer.com
       RAILS_OIDC_IDENTIFIER: partecipo
       RAILS_OIDC_SECRET: MySuperSecureSecret
       RAILS_MAX_THREADS: 5
-      RAILS_DB_URL: postgres://partecipo:ChangeMe@partecipo-pg/partecipo
-      THRUSTER_TLS_DOMAIN: partecipo.it
-
+      RAILS_DB_URL: postgres://partecipo:ChangeMe@pg/partecipo
+      TLS_DOMAIN: partecipo.it
+      BAD_GATEWAY_PAGE: ./public/500.html
     ports:
       - "80:80"
       - "443:443"
 
 volumes:
   partecipo-storage:
+  partecipo-pg:
