@@ -1,53 +1,41 @@
-version: "3"
 services:
-
-  postgres:
+  partecipo-pg:
     image: postgres:latest
     environment:
       POSTGRES_DB: partecipo
       POSTGRES_USER: partecipo
       POSTGRES_PASSWORD: ChangeMe
-    networks:
-      - partecipo
   
-  redis:
+  partecipo-redis:
     image: redis:latest
-    networks:
-      - partecipo
 
-  rails:
+  partecipo-rails:
     image: partecipo
     build: ./
     depends_on:
-      - postgres
-      - redis
-    environment:
-      PARTECIPO_DATABASE_HOST: postgres
-      PARTECIPO_DATABASE_PASSWORD: ChangeMe
-      RAILS_MASTER_KEY: 5cdcc57160c136623510fa73c7a7587f
-      RAILS_ENV: production
-      RAILS_SERVE_STATIC_FILES: true
+      - partecipo-pg
+      - partecipo-redis
     volumes:
-      - ./docker-compose/nginx/public:/home/rails/public:rw
-    networks:
-      - partecipo
-  
-  nginx:
-    image: nginx:alpine
-    depends_on:
-      - rails
+      - partecipo-storage:/rails/storage
+    environment:
+      RAILS_ENV: production
+      RAILS_RESTRICTED: true
+      RAILS_MASTER_KEY: 5cdcc57160c136623510fa73c7a7587f
+      RAILS_TITLE: Partecipo
+      RAILS_DESCRIPTION: Partecipo description
+      RAILS_HEAD_URL: /head.html
+      RAILS_FOOTER_URL: /footer.html
+      RAILS_HOST: localhost
+      RAILS_OIDC_ISSUER: https://my_issuer.com
+      RAILS_OIDC_IDENTIFIER: partecipo
+      RAILS_OIDC_SECRET: MySuperSecureSecret
+      RAILS_MAX_THREADS: 5
+      RAILS_DB_URL: postgres://partecipo:ChangeMe@partecipo-pg/partecipo
+      THRUSTER_TLS_DOMAIN: partecipo.it
+
     ports:
       - "80:80"
       - "443:443"
-    volumes:
-      - ./docker-compose/nginx/conf.d/partecipo.conf:/etc/nginx/conf.d/partecipo.conf
-      - ./docker-compose/nginx/cert:/etc/nginx/cert
-      - ./docker-compose/nginx/public:/var/www/html/public:ro
-    environment:
-      PARTECIPO_SERVER_NAME:  localhost
-    networks:
-      - partecipo
 
-networks:
-  partecipo:
-    name: partecipo
+volumes:
+  partecipo-storage:
