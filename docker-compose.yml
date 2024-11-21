@@ -5,7 +5,8 @@ services:
       POSTGRES_DB: partecipo
       POSTGRES_USER: partecipo
       POSTGRES_PASSWORD: ChangeMe
-  
+    volumes:
+      - partecipo-pg-data:/var/lib/postgresql/data
   redis:
     image: redis:latest
 
@@ -16,7 +17,7 @@ services:
       - pg
       - redis
     volumes:
-      - partecipo-storage:/rails/storage
+      - partecipo-rails-storage:/rails/storage
     environment:
       RAILS_ENV: production
       # RAILS_RESTRICTED: true
@@ -31,12 +32,12 @@ services:
       RAILS_OIDC_SECRET: MySuperSecureSecret
       RAILS_MAX_THREADS: 5
       RAILS_DB_URL: postgres://partecipo:ChangeMe@pg/partecipo
-      TLS_DOMAIN: partecipo.it
+      # TLS_DOMAIN: partecipo.it 
       BAD_GATEWAY_PAGE: ./public/500.html
     ports:
       - "80:80"
       - "443:443"
 
 volumes:
-  partecipo-storage:
-  partecipo-pg:
+  partecipo-rails-storage:
+  partecipo-pg-data:
