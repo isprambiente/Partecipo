@@ -1,5 +1,3 @@
-# frozen_string_literal: true
-
 require_relative "boot"
 
 require "rails/all"
@@ -8,12 +6,10 @@ require "rails/all"
 # you've limited to :test, :development, or :production.
 Bundler.require(*Rails.groups)
 
-# Partecipo Applicaion module
 module Partecipo
-  # Partecipo Application class
   class Application < Rails::Application
     # Initialize configuration defaults for originally generated Rails version.
-    config.load_defaults 7.2
+    config.load_defaults 8.0
 
     # Please, add to the `ignore` list any other `lib` subdirectories that do
     # not contain `.rb` files, or that should not be reloaded or eager loaded.
