@@ -6,7 +6,7 @@ class Users::OmniauthCallbacksController < Devise::OmniauthCallbacksController
     # You need to implement the method below in your model (e.g. app/models/user.rb)
     # @user = User.from_omniauth(request.env["omniauth.auth"])
     Rails.logger.info "Ecco le informazioni"
-    Rails.logger.info request.env["omniauth.auth"].to_s
+    Rails.logger.info request.env["omniauth.auth"]["info"].to_s
     @user = User.first
 
     if @user.persisted?
