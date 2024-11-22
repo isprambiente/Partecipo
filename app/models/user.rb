@@ -55,13 +55,14 @@ class User < ApplicationRecord
   scope :editors, -> { where editor: true }
   scope :admins, -> { where admin: true }
 
+  # @return user finded or created from omiauth session 
   def self.from_omniauth(auth)
     user = find_or_initialize_by(username: auth.uid)
     user.email = auth.info.email
     user.password = Devise.friendly_token[0, 20]
     #user.name = auth.info.name   # assuming the user model has a name
     #user.image = auth.info.image # assuming the user model has an image
-
+    user.skip_confirmation!
     user.save
     user
   end

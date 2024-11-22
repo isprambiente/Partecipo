@@ -277,7 +277,7 @@ Devise.setup do |config|
     issuer: ENV.fetch('RAILS_OIDC_ISSUER') {'https://my_issuer.com'},
     scope: [ :openid, :email, :profile ],
     extra_authorize_params: { claim: [ :sub, :email, :given_name, :family_name] },
-    uid_field: "preferred_username",
+    uid_field: ENV.fetch("RAILS_OIDC_USERNAME") {"email"},
     discovery: true,
     client_auth_method: :jwks,
     client_options: {
