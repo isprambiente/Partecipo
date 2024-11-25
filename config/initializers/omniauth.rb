@@ -17,7 +17,7 @@ Rails.application.config.middleware.use OmniAuth::Builder do
       jwks_uri: "OIDC/jwks.json",
       identifier: ENV.fetch("RAILS_OIDC_IDENTIFIER") {'partecipo'},
       secret: ENV.fetch("RAILS_OIDC_SECRET") { 'secret' },
-      redirect_uri: "https://#{ENV.fetch("RAILS_HOST") {"localhost"}}/auth/openid_connect/callback"
+      redirect_uri: "https://#{ENV.fetch("RAILS_HOST") {"localhost"}}/sessions/openid_connect/callback"
     }
   }
 end
