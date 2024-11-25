@@ -2,6 +2,8 @@
 
 # this controller manage the {User} views for {Happening} model.
 class HappeningsController < ApplicationController
+  allow_unauthenticated_access unless ENV.fetch('RAILS_RESTRICTED') { nil }
+
   # GET /event/:event_id/happenings
   # show a paginate list of {Happening}
   def index

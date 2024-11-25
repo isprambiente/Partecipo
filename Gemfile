@@ -85,11 +85,8 @@ group :test do
   gem "selenium-webdriver"
 end
 
-gem "devise"
 gem "omniauth_openid_connect", "~> 0.7.1"
 gem "omniauth-rails_csrf_protection", "~> 1.0"
-# gem 'devise_cas_authenticatable'
-# gem 'devise_ldap_authenticatable'
 gem "hamlit"
 gem "pagy"
 gem "bulmacomp"

@@ -47,7 +47,7 @@ module Layout
       if @user.present?
         ret << user_submenu
       else
-        ret << link_to(icon_text("fas fa-right-to-bracket", t(".sign_in")), new_user_session_path, data: { turbo: false },
+        ret << link_to(icon_text("fas fa-right-to-bracket", t(".sign_in")), new_session_path, data: { turbo: false },
                                                                                                    class: "navbar-item")
       end
       safe_join(ret)
@@ -69,12 +69,12 @@ module Layout
 
     # Generate the user submenu html block
     def user_submenu
-      title = icon_text("fas fa-user", @user.email)
+      title = icon_text("fas fa-user", @user.email_address)
       sub = safe_join([
                         editor_submenu,
                         admin_submenu,
-                        link_to(t(".user_edit"), edit_user_registration_path, class: "navbar-item"),
-                        link_to(t(".sign_out"), destroy_user_session_path, data: { turbo_method: :delete },
+                        link_to(t(".user_edit"), edit_session_path, class: "navbar-item"),
+                        link_to(t(".sign_out"), session_path, data: { turbo_method: :delete },
                                                                            class: "navbar-item")
                       ])
       submenu title:, sub:

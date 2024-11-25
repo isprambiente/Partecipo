@@ -2,6 +2,7 @@
 
 # This controller contain the methods shared for all controller
 class ApplicationController < ActionController::Base
+  include Authentication
   include Pagy::Backend
   around_action :switch_locale
 

@@ -118,12 +118,6 @@ GEM
     debug (1.9.2)
       irb (~> 1.10)
       reline (>= 0.3.8)
-    devise (4.9.4)
-      bcrypt (~> 3.0)
-      orm_adapter (~> 0.1)
-      railties (>= 4.1.0)
-      responders
-      warden (~> 1.2.3)
     drb (2.2.1)
     email_validator (2.2.4)
       activemodel
@@ -230,7 +224,6 @@ GEM
       tzinfo
       validate_url
       webfinger (~> 2.0)
-    orm_adapter (0.5.0)
     pagy (9.3.1)
     parallel (1.26.3)
     parser (3.3.6.0)
@@ -306,9 +299,6 @@ GEM
     regexp_parser (2.9.2)
     reline (0.5.11)
       io-console (~> 0.5)
-    responders (3.1.1)
-      actionpack (>= 5.2)
-      railties (>= 5.2)
     rexml (3.3.9)
     rubocop (1.68.0)
       json (~> 2.3)
@@ -382,8 +372,6 @@ GEM
       activesupport (>= 5.2.0, < 8.1)
       concurrent-ruby (~> 1.0)
       method_source (~> 1.0)
-    warden (1.2.9)
-      rack (>= 2.0.9)
     web-console (4.2.1)
       actionview (>= 6.0.0)
       activemodel (>= 6.0.0)
@@ -415,7 +403,6 @@ DEPENDENCIES
   csv
   database_cleaner
   debug
-  devise
   factory_bot_rails
   hamlit
   image_processing (~> 1.2)

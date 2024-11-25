@@ -43,18 +43,15 @@
 # @!attribute [rw] updated_at
 #   @return [DateTime] when the record was updated
 class User < ApplicationRecord
-  # Include default devise modules. Others available are:
-  # :omniauthable
-  devise :database_authenticatable, :registerable,
-         :recoverable, :rememberable, :validatable,
-         :confirmable, :timeoutable, :trackable,
-         :lockable, :omniauthable
+  has_secure_password
+  has_many :sessions, dependent: :destroy
   has_many :tickets, dependent: :destroy
   has_and_belongs_to_many :groups
   has_many :events, through: :groups
   scope :editors, -> { where editor: true }
   scope :admins, -> { where admin: true }
-
+  normalizes :email_address, with: ->(e) { e.strip.downcase }
+  
   # @return user finded or created from omiauth session 
   def self.from_omniauth(auth)
     user = find_or_initialize_by(username: auth.uid)

@@ -32,10 +32,10 @@ t2 = Template.create title: 'Generalità con dettagli', data: [
 ]
 
 # generate example users
-u1 = User.create username: 'admin', email: 'admin@partecipo.it', password: 'partecipo', confirmed_at: Time.zone.now, name: 'Mr', surname: 'Admin', admin: true, editor: true, groups: [ g1, g2 ]
-u2 = User.create username: 'editor', email: 'editor@partecipo.it', password: 'partecipo', confirmed_at: Time.zone.now, name: 'Miss', surname: 'Editor', editor: true, groups: [ g1, g2 ]
-User.create username: 'user', email: 'user@partecipo.it', name: 'Mario', surname: 'Rossi', password: 'partecipo', confirmed_at: Time.zone.now
-User.create username: 'andrea.ranaldi', email: 'andrea.ranaldi@gmail.com', name: 'Andrea', surname: 'Ranaldi', password: 'partecipo', confirmed_at: Time.zone.now
+u1 = User.create username: 'admin', email_address: 'admin@partecipo.it', password: 'partecipo', confirmed_at: Time.zone.now, name: 'Mr', surname: 'Admin', admin: true, editor: true, groups: [ g1, g2 ]
+u2 = User.create username: 'editor', email_address: 'editor@partecipo.it', password: 'partecipo', confirmed_at: Time.zone.now, name: 'Miss', surname: 'Editor', editor: true, groups: [ g1, g2 ]
+User.create username: 'user', email_address: 'user@partecipo.it', name: 'Mario', surname: 'Rossi', password: 'partecipo', confirmed_at: Time.zone.now
+User.create username: 'andrea.ranaldi', email_address: 'andrea.ranaldi@gmail.com', name: 'Andrea', surname: 'Ranaldi', password: 'partecipo', confirmed_at: Time.zone.now
 
 body = '<p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.</p> <p>Donec ultrices tincidunt arcu non sodales neque sodales ut. Elementum nisi quis eleifend quam adipiscing vitae. Semper quis lectus nulla at volutpat. Pellentesque elit eget gravida cum.</p>'
 

@@ -2,7 +2,7 @@
 
 # this controller manage {Ticket} model
 class TicketsController < ApplicationController
-  before_action :authenticate_user!, except: %i[new]
+  allow_unauthenticated_access only: %i[ new ] unless ENV.fetch('RAILS_RESTRICTED') { nil }
   before_action :set_ticket, only: %i[destroy]
 
   # GET /tickets
