@@ -24,7 +24,7 @@ class SessionsController < ApplicationController
     @user = User.from_omniauth(request.env['omniauth.auth'])
 
     if @user.persisted? && @user.errors.empty?
-      start_new_session_for user
+      start_new_session_for @user
       redirect_to after_authentication_url
     else
       retirect_to '/502.html'
