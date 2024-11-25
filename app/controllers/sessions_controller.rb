@@ -21,7 +21,7 @@ class SessionsController < ApplicationController
   end
 
   def openid_connect_callback
-    @user = User.from_omniauth(request.env["omniauth.auth"])
+    @user = User.from_omniauth(request.env['omniauth.auth'])
 
     if @user.persisted? && @user.errors.empty?
       start_new_session_for user

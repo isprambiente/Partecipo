@@ -32,6 +32,7 @@ services:
       RAILS_OIDC_IDENTIFIER: partecipo
       RAILS_OIDC_SECRET: MySuperSecureSecret
       RAILS_OIDC_CLAIMS: sub email given_name family_name
+      RAILS_OIDC_UID_FIELD: email
       RAILS_MAX_THREADS: 5
       RAILS_DB_URL: postgres://partecipo:ChangeMe@pg/partecipo
       # TLS_DOMAIN: partecipo.it 
