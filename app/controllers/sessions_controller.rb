@@ -1,6 +1,6 @@
 class SessionsController < ApplicationController
-  allow_unauthenticated_access only: %i[ new create openid_connect ]
-  skip_before_action :verify_authenticity_token, only: :openid_connect
+  allow_unauthenticated_access only: %i[ new create openid_connect_callback ]
+  skip_before_action :verify_authenticity_token, only: :openid_connect_callback
   rate_limit to: 10, within: 3.minutes, only: :create, with: -> { redirect_to new_session_url, alert: "Try again later." }
 
   def new
