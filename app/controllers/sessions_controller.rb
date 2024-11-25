@@ -20,7 +20,7 @@ class SessionsController < ApplicationController
     redirect_to new_session_path
   end
 
-  def openid_connect
+  def openid_connect_callback
     @user = User.from_omniauth(request.env["omniauth.auth"])
 
     if @user.persisted? && @user.errors.empty?

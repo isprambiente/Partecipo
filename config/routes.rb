@@ -3,8 +3,7 @@
 Rails.application.routes.draw do
   resource :session
   resources :passwords, param: :token
-  #get 'auth/openid_connect/callback', to: 'sessions#openid_connect', as: :openid_connect_callback
-  get 'auth/:provider/callback', to: 'sessions#create'
+  get 'auth/openid_connect/callback', to: 'sessions#openid_connect_callback'
   scope "(:locale)", locale: /en|it/ do
     resources :events, only: %i[index show]
     resources :happenings, only: %i[index show]
