@@ -58,8 +58,8 @@ class User < ApplicationRecord
     user.email_address = auth.info.email
     user.password = SecureRandom.alphanumeric(20)
     user.confirmed_at = Time.zone.now
-    user.name = auth.info[ENV.fetch('RAILS_OIDC_NAME'){'given_name'}]
-    user.surname = auth.info[ENV.fetch('RAILS_OIDC_SURNAME'){'family_name'}]
+    user.name = auth.info.try(ENV.fetch('RAILS_OIDC_NAME'){'given_name'})
+    user.surname = auth.info(ENV.fetch('RAILS_OIDC_SURNAME'){'family_name'})
     user.confirmed_at = Time.zone.now
     user.save
     user
@@ -72,6 +72,6 @@ class User < ApplicationRecord
   end
 
   def title
-    [name,surname].join(' ') || username
+    [name,surname].compact.join(' ')
   end
 end
