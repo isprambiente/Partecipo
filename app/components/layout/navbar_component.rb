@@ -69,16 +69,15 @@ module Layout
 
     # Generate the user submenu html block
     def user_submenu
-      title = icon_text("fas fa-user", @user.email_address)
+      title = icon_text("fas fa-user", @user.title)
       sub = safe_join([
                         editor_submenu,
                         admin_submenu,
-                        link_to(t(".user_edit"), edit_session_path, class: "navbar-item"),
-                        link_to(t(".sign_out"), session_path, data: { turbo_method: :delete },
-                                                                           class: "navbar-item")
+                        link_to(t(".sign_out"), session_path, data: { turbo_method: :delete }, class: "navbar-item")
                       ])
       submenu title:, sub:
     end
+    # link_to(t(".user_edit"), new_password_path, class: "navbar-item"),
 
     # @retur [Array] admin menu entries
     def admin_submenu

@@ -20,7 +20,7 @@ module Admin
 
     # GET /admin/groups/1/edit
     def edit
-      @users = User.editors.pluck :email, :id
+      @users = User.editors.pluck :email_address, :id
     end
 
     # POST /admin/groups
@@ -39,7 +39,7 @@ module Admin
 
     # PATCH/PUT /admin/groups/1
     def update
-      @users = @group.users.pluck :email, :id
+      @users = @group.users.pluck :email_address, :id
       if @group.update(group_params)
         @status = { success: "Gruppo aggiornato" }
         redirect_to admin_groups_path
@@ -64,7 +64,7 @@ module Admin
 
     # preset users value
     def set_users
-    @users = User.editors.pluck :email, :id
+    @users = User.editors.pluck :email_address, :id
     end
 
     # filter params for search groups

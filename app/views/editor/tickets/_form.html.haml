@@ -6,7 +6,7 @@
         = f.label :user_id
         .control
           - if ticket.persisted?
-            %span.select.is-fullwidth= f.select :user_id, [[ticket.user.email, ticket.user.id]],{},disabled: true 
+            %span.select.is-fullwidth= f.select :user_id, [[ticket.user.email_address, ticket.user.id]],{},disabled: true 
           - else
             %span.select.is-fullwidth= f.select :user_id, [], {}, {data: {controller: 'slim', slim_target: 'user'}}
           %p.help.is-danger= ticket.errors.messages[:user].join(' - ') 

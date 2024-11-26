@@ -20,6 +20,10 @@ it:
       text: Testo
       to: a
       reserve: Prenota!
+    auth:
+      title:
+        db: 'Accedi con utente e password'
+        oidc: 'Accedi con OpenID Connect'
     fact:
       index: 
         title: Eventi

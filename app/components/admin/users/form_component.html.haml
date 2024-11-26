@@ -2,7 +2,7 @@
   .list-item-image
     %figure.image.is-64x64=image_tag(@user.avatar_url)
   .list-item-content
-    .list-item-title= icon_text("fas fa-user", @user.email) 
+    .list-item-title= icon_text("fas fa-user", @user.email_address) 
     .list-item-description
       = form_with model: [:admin, @user] do |f|
         %fieldset.field.is-grouped.is-grouped-multiline

@@ -1,7 +1,7 @@
 %turbo-frame#yield
   %h3.title.has-text-centered
     %i.fas.fa-tools
-    = @user.email
+    = @user.email_address
   .columns
     %aside.column.is-3= render Layout::SearchComponent.new(url: editor_tickets_path, turbo_frame: 'tickets', date_range: true, categories: @categories, blank: false)
     .column

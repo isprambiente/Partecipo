@@ -3,7 +3,7 @@
 module Admin
   # This controller contain the methods shared for all admin controller
   class ApplicationController < ApplicationController
-    before_action :authenticate_user!
+    before_action :authenticate_admin!
 
     private
 

@@ -58,16 +58,20 @@ class User < ApplicationRecord
     user.email_address = auth.info.email
     user.password = SecureRandom.alphanumeric(20)
     user.confirmed_at = Time.zone.now
-    #user.name = auth.info.name   # assuming the user model has a name
-    #user.image = auth.info.image # assuming the user model has an image
-    # user.skip_confirmation!
+    user.name = auth.info[ENV.fetch('RAILS_OIDC_NAME'){'given_name'}]
+    user.surname = auth.info[ENV.fetch('RAILS_OIDC_SURNAME'){'family_name'}]
+    user.confirmed_at = Time.zone.now
     user.save
     user
   end
 
   # @return [String] gravatar url for user
   def avatar_url
-    hash = Digest::MD5.hexdigest(email)
+    hash = Digest::MD5.hexdigest(email_address)
     "https://www.gravatar.com/avatar/#{hash}?s=64i&d=identicon"
+  end
+
+  def title
+    [name,surname].join(' ') || username
   end
 end

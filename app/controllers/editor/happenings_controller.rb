@@ -64,7 +64,7 @@ module Editor
       ret = CSV.generate(headers: true) do |csv|
         csv << [ "Email" ] + @happening.questions.pluck(:title)
         @happening.tickets.includes(:user, answers: [ :question ]).all.each do |ticket|
-          csv << [ ticket.user.email ] + ticket.answers.includes(:question).order("questions.weight desc").map(&:value)
+          csv << [ ticket.user.email_address ] + ticket.answers.includes(:question).order("questions.weight desc").map(&:value)
         end
       end
       send_data ret, filename: "tickets.csv"

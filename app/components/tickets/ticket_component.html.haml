@@ -6,7 +6,7 @@
     .list-item-description= icon_text 'fas fa-calendar-day', @ticket.happening.title if @ticket.happening.title.present?
     .list-item-description
       .tag= icon_text 'fas fa-user-clock', l(@ticket.happening.start_at, format: :detailed)
-      .tag= icon_text 'fas fa-user', @ticket.user.email
+      .tag= icon_text 'fas fa-user', @ticket.user.email_address
   .list-item-controls
     .buttons.is-right
       =  link_to icon("fas fa-trash"), destroy_url, class: "button", data: { turbo_method: "delete", turbo_confirm: t(".confirm") }

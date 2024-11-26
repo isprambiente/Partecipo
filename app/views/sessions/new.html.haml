@@ -1,0 +1,26 @@
+= tag.div(flash[:alert], style: "color:red") if flash[:alert] 
+= tag.div(flash[:notice], style: "color:green") if flash[:notice] 
+
+- unless ENV.fetch('RAILS_OIDC_EXCLUSIVE') { false }
+  .box
+    %h5.title.is-5= t 'site.auth.title.db'
+    = form_with url: session_path do |form| 
+      .field
+        = form.label :username, class: 'label'
+        = form.text_field :username, required: true, autofocus: true, autocomplete: "username", placeholder: "Enter your username", value: params[:username], class: 'input'
+      .field
+        = form.label :password, class: 'label'
+        = form.password_field :password, required: true, autocomplete: "current-password", placeholder: "Enter your password", maxlength: 72, class: 'input'
+      .field.is-grouped
+        .control= form.button "Accedi", class: 'button is-success'
+        .control= link_to "Recupera password", new_password_path, class: 'button is-link'
+
+- if ENV.fetch('RAILS_OIDC_ISSUER') { false }
+  .box
+    %h5.title.is-5= t 'site.auth.title.oidc'
+    = form_with url: '/auth/openid_connect', method: 'post', data: {turbo: false}, id: 'form-oidc' do |form|
+      .field
+        = form.button t('site.auth.oidc'), class: 'button is-success is-large'
+      - if ENV.fetch('RAILS_OIDC_EXCLUSIVE') { false } 
+        :javascript
+          document.getElementById('form-oidc').submit();

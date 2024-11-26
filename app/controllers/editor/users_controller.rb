@@ -7,7 +7,7 @@ module Editor
     # GET /editor/users
     def index
       if filter_params[:text].present?
-        @text = [ "email ilike :text or email ilike :text",
+        @text = [ "email_address ilike :text or email ilike :text",
                  { text: "%#{filter_params[:text]}%" } ]
       end
       @pagy, @users = pagy User.where(@text)
@@ -16,7 +16,7 @@ module Editor
     # GET /editor/users/list
     def list
       if filter_params[:text].present?
-        @text = [ "email ilike :text or email ilike :text",
+        @text = [ "email_address ilike :text or email ilike :text",
                  { text: "%#{filter_params[:text]}%" } ]
       end
       @pagy, @users = pagy(User.where(@text).where(options))
@@ -24,7 +24,7 @@ module Editor
 
     # GET /editor/users/:id
     def show
-      @categories = [ [ @user.email, @user.id ] ]
+      @categories = [ [ @user.email_address, @user.id ] ]
     end
 
     # GET /editor/users/:id/tickets

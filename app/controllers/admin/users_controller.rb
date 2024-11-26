@@ -11,7 +11,7 @@ module Admin
       @search = {}
       @search[:editor] = true if filter_params[:category] == "Editor"
       @search[:admin] = true if filter_params[:category] == "Admin"
-      @text = [ "email ilike :text", { text: "%#{filter_params[:text]}%" } ] if filter_params[:text].present?
+      @text = [ "email_address ilike :text", { text: "%#{filter_params[:text]}%" } ] if filter_params[:text].present?
       @pagy, @users = pagy(User.where(@search).where(@text))
     end
 
