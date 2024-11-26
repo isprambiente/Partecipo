@@ -7,8 +7,8 @@ class CreateUsers < ActiveRecord::Migration[8.0]
       t.string   :username,        null: false, default: ''
       t.string   :email_address,   null: false
       t.string   :password_digest, null: false
-      t.string   :name,            null: false, default: ''
-      t.string   :surname,         null: false, default: ''
+      t.string   :name
+      t.string   :surname
       t.boolean  :admin,           null: false, default: false
       t.boolean  :editor,          null: false, default: false
       t.datetime :confirmed_at
