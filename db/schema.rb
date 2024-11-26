@@ -164,8 +164,8 @@ ActiveRecord::Schema[8.0].define(version: 2024_11_02_200749) do
     t.string "username", default: "", null: false
     t.string "email_address", null: false
     t.string "password_digest", null: false
-    t.string "name", default: "", null: false
-    t.string "surname", default: "", null: false
+    t.string "name"
+    t.string "surname"
     t.boolean "admin", default: false, null: false
     t.boolean "editor", default: false, null: false
     t.datetime "confirmed_at"
