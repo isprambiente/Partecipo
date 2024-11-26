@@ -60,7 +60,6 @@ class User < ApplicationRecord
     user.confirmed_at = Time.zone.now
     user.name = auth.info.try(ENV.fetch('RAILS_OIDC_NAME'){'given_name'})
     user.surname = auth.info(ENV.fetch('RAILS_OIDC_SURNAME'){'family_name'})
-    user.confirmed_at = Time.zone.now
     user.save
     user
   end
