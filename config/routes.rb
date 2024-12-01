@@ -23,7 +23,17 @@ Rails.application.routes.draw do
       resources :templates
     end
   end
-  devise_for :users, prefix: "auth", controllers: { omniauth_callbacks: "users/omniauth_callbacks" }
+  if RAILS_DEVISE_MODULES.include? :omniauthable
+    devise_for :users, prefix: "auth", controllers: { omniauth_callbacks: "users/omniauth_callbacks" }
+  else
+    devise_for :users, prefix: "auth"
+  end
+  if RAILS_DEVISE_MODULES.exclude? :database_authenticatable
+    devise_scope :user do
+      get 'sign_in', to: 'devise/sessions#new', as:  :new_user_session
+      get 'sign_out', to: 'devise/sessions#destroy', as: :destroy_user_session
+    end
+  end
   # Reveal health status on /up that returns 200 if the app boots with no exceptions, otherwise 500.
   # Can be used by load balancers and uptime monitors to verify that the app is live.
   get "up" => "rails/health#show", as: :rails_health_check

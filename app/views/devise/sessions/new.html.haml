@@ -1,0 +1,21 @@
+.box
+  - if devise_mapping.database_authenticatable?
+    %h5.title.is-5= t 'site.auth.title.db'
+    = form_for(resource, as: resource_name, url: session_path(resource_name)) do |f|
+      .field
+        = f.label :email, class: 'label'
+        = f.email_field :email, autofocus: true, autocomplete: "email", class: 'input'
+
+      .field
+        = f.label :password, class: 'label'
+        = f.password_field :password, autocomplete: "current-password", class: 'input'
+      - if devise_mapping.rememberable?
+        .field
+          = f.label :remember_me, class: 'checkbox' do
+            = f.check_box :remember_me, class: 'checkbox'
+            Remember Me
+
+
+      .field
+        = f.button "Log in", class: 'button is-success'
+  = render "devise/shared/links"
