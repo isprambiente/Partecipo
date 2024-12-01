@@ -273,7 +273,7 @@ Devise.setup do |config|
   # Add a new OmniAuth provider. Check the wiki for more information on setting
   # up on your models and hooks.
   # config.omniauth :github, 'APP_ID', 'APP_SECRET', scope: 'user,public_repo'
-  - if ENV.fetch('RAILS_OIDC_ISSUER') { false }
+  if ENV.fetch('RAILS_OIDC_ISSUER') { false }
     config.omniauth :openid_connect, {
       name: :openid_connect,
       issuer: ENV.fetch('RAILS_OIDC_ISSUER') {'https://my_issuer.com'},
