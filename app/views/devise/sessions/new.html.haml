@@ -1,7 +1,7 @@
 .box
   - if devise_mapping.database_authenticatable?
     %h5.title.is-5= t 'site.auth.title.db'
-    = form_for resource, as: resource_name, url: session_path(resource_name), data: {turbo: false} do |f|
+    = form_for(resource, as: resource_name, url: session_path(resource_name)) do |f|
       .field
         = f.label :email, class: 'label'
         = f.email_field :email, autofocus: true, autocomplete: "email", class: 'input'

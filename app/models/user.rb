@@ -51,6 +51,7 @@ class User < ApplicationRecord
   has_many :events, through: :groups
   scope :editors, -> { where editor: true }
   scope :admins, -> { where admin: true }
+  before_validation :add_username, on: :create
   validates :username, presence: true, uniqueness: true
 
 
@@ -70,5 +71,10 @@ class User < ApplicationRecord
   def avatar_url
     hash = Digest::MD5.hexdigest(email)
     "https://www.gravatar.com/avatar/#{hash}?s=64i&d=identicon"
+  end
+
+  private
+  def add_username
+    self.username = email unless username?
   end
 end
