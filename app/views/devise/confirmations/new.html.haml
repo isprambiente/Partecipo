@@ -1,0 +1,14 @@
+%turbo-frame#yield
+  %h3.title.is-size-3.has-text-centered
+    %i.fas.fa-envelope
+    Resend confirmation instructions
+  .box
+    = form_for(resource, as: resource_name, url: confirmation_path(resource_name), html: { method: :post }) do |f|
+      = render "devise/shared/error_messages", resource: resource
+      .field
+        = f.label :email, class: 'label'
+        = f.email_field :email, autofocus: true, autocomplete: "email", value: (resource.pending_reconfirmation? ? resource.unconfirmed_email : resource.email), class: 'input'
+        %p.help.is-danger= resource.errors.messages[:email].join(' - ')
+      .field= f.button "Resend confirmation instructions", class: 'button is-success'
+
+  = render "devise/shared/links"

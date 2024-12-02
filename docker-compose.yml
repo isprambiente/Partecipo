@@ -26,7 +26,7 @@ services:
       pg:
         condition: service_healthy
       redis:
-
+        condition: service_healthy
     volumes:
       - partecipo-rails-storage:/rails/storage
     environment:

@@ -1,0 +1,25 @@
+%turbo-frame#yield
+  %h3.title.is-size-3.has-text-centered
+    %i.fas.fa-user
+    Sign up
+  .box
+    = form_for(resource, as: resource_name, url: registration_path(resource_name)) do |f|
+      = render "devise/shared/error_messages", resource: resource
+``      .field
+        = f.label :email, class: 'label'
+        = f.email_field :email, autofocus: true, autocomplete: "email", class: 'input'
+        %p.help.is-danger= resource.errors.messages[:email].join(' - ')
+      .field
+        = f.label :password, class: 'label'
+        = f.password_field :password, autocomplete: "new-password", class: 'input'
+        %p.help.is-danger= resource.errors.messages[:password].join(' - ')
+        - if @minimum_password_length
+          %p.help #{@minimum_password_length} characters minimum
+      .field
+        = f.label :password_confirmation, class: 'label'
+        = f.password_field :password_confirmation, autocomplete: "new-password", class: 'input'
+        %p.help.is-danger= resource.errors.messages[:password_confirmation].join(' - ')
+
+      .field= f.button "Sign up", class: 'button is-success'
+
+    = render "devise/shared/links"

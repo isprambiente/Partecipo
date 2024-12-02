@@ -1,5 +1,7 @@
 it:
   site:
+    auth:
+      sign_in: Accedi
     generic:
       all: Tutti
       back: Indietro

@@ -1,5 +1,7 @@
 en:
   site:
+    auth:
+      sign_in: Login
     generic:
       all: All
       back: Back

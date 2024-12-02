@@ -1,0 +1,22 @@
+%turbo-frame#yield
+  %h3.title.is-size-3.has-text-centered
+    %i.fas.fa-envelope
+    Change your password
+
+  .box
+    = form_for(resource, as: resource_name, url: password_path(resource_name), html: { method: :put }) do |f|
+      = render "devise/shared/error_messages", resource: resource
+      = f.hidden_field :reset_password_token
+
+      .field
+        = f.label :password, "New password", class: 'label'
+        = f.password_field :password, autofocus: true, autocomplete: "new-password", class: 'input'
+        %p.help.is-danger= resource.errors.messages[:password].join(' - ')
+        - if @minimum_password_length
+          %p.help #{@minimum_password_length} characters minimum
+      .field
+        = f.label :password_confirmation, class: 'label'
+        = f.password_field :password_confirmation, autocomplete: "new-password", class: 'input'
+        %p.help.is-danger= resource.errors.messages[:password_confirmation].join(' - ')
+      .field= f.button "Change my password", class: 'button is-success'
+    = render "devise/shared/links"
