@@ -31,7 +31,7 @@ Rails.application.routes.draw do
   unless RAILS_DEVISE_DATABASE_AUTHENTICATABLE
     devise_scope :user do
       get 'sign_in', to: 'devise/sessions#new', as:  :new_user_session
-      get 'sign_out', to: 'devise/sessions#destroy', as: :destroy_user_session
+      delete 'sign_out', to: 'devise/sessions#destroy', as: :destroy_user_session
     end
   end
   # Reveal health status on /up that returns 200 if the app boots with no exceptions, otherwise 500.
