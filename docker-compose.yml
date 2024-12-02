@@ -7,15 +7,26 @@ services:
       POSTGRES_PASSWORD: ChangeMe
     volumes:
       - partecipo-pg-data:/var/lib/postgresql/data
+    healthcheck:
+      test: [ "CMD-SHELL", "pg_isready -d $${POSTGRES_DB} -U $${POSTGRES_USER}" ]
+      interval: 1s
+      timeout: 5s
+      retries: 5
   redis:
     image: redis:latest
-
+    healthcheck:
+      test: ["CMD-SHELL", "redis-cli ping | grep PONG"]
+      interval: 1s
+      timeout: 3s
+      retries: 5
   rails:
     image: partecipo
     build: ./
     depends_on:
-      - pg
-      - redis
+      pg:
+        condition: service_healthy
+      redis:
+
     volumes:
       - partecipo-rails-storage:/rails/storage
     environment:
