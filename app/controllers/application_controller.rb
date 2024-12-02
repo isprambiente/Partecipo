@@ -13,7 +13,7 @@ class ApplicationController < ActionController::Base
   #   record_not_found!
   # end
 
-  if RAILS_DEVISE_MODULES.exclude? :database_authenticatable
+  unless RAILS_DEVISE_DATABASE_AUTHENTICATABLE
     def new_session_path(scope)
       new_user_session_path
     end

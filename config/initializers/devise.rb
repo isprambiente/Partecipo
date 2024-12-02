@@ -1,6 +1,9 @@
 # frozen_string_literal: true
 
 RAILS_DEVISE_MODULES = ENV.fetch('RAILS_DEVISE_MODULES') {"database_authenticatable registerable recoverable rememberable validatable confirmable timeoutable trackable lockable"}.split.map(&:to_sym)
+RAILS_DEVISE_DATABASE_AUTHENTICATABLE = RAILS_DEVISE_MODULES.include? :database_authenticatable
+RAILS_DEVISE_CONFIRMABLE = RAILS_DEVISE_MODULES.include? :confirmable
+RAILS_DEVISE_OMNIAUTHABLE = RAILS_DEVISE_MODULES.include? :omniauthable
 # Assuming you have not yet modified this file, each configuration option below
 # is set to its default value. Note that some are commented out while others
 # are not: uncommented lines are intended to protect your configuration from
@@ -273,7 +276,7 @@ Devise.setup do |config|
   # Add a new OmniAuth provider. Check the wiki for more information on setting
   # up on your models and hooks.
   # config.omniauth :github, 'APP_ID', 'APP_SECRET', scope: 'user,public_repo'
-  if ENV.fetch('RAILS_OIDC_ISSUER') { false }
+  if RAILS_DEVISE_OMNIAUTHABLE
     config.omniauth :openid_connect, {
       name: :openid_connect,
       issuer: ENV.fetch('RAILS_OIDC_ISSUER') {'https://my_issuer.com'},

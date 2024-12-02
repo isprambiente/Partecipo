@@ -23,12 +23,12 @@ Rails.application.routes.draw do
       resources :templates
     end
   end
-  if RAILS_DEVISE_MODULES.include? :omniauthable
+  if RAILS_DEVISE_OMNIAUTHABLE
     devise_for :users, prefix: "auth", controllers: { omniauth_callbacks: "users/omniauth_callbacks" }
   else
     devise_for :users, prefix: "auth"
   end
-  if RAILS_DEVISE_MODULES.exclude? :database_authenticatable
+  unless RAILS_DEVISE_DATABASE_AUTHENTICATABLE
     devise_scope :user do
       get 'sign_in', to: 'devise/sessions#new', as:  :new_user_session
       get 'sign_out', to: 'devise/sessions#destroy', as: :destroy_user_session
