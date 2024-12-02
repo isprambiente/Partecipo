@@ -73,9 +73,9 @@ module Layout
       sub = safe_join([
                         editor_submenu,
                         admin_submenu,
-                        link_to(t(".user_edit"), edit_user_registration_path, class: "navbar-item"),
+                        (link_to(t(".user_edit"), edit_user_registration_path, class: "navbar-item") if RAILS_DEVISE_DATABASE_AUTHENTICATABLE),
                         link_to(t(".sign_out"), destroy_user_session_path, data: { turbo_method: :delete },
-                                                                           class: "navbar-item")
+                                                                           class: "navbar-item") 
                       ])
       submenu title:, sub:
     end
@@ -99,7 +99,6 @@ module Layout
         link_to(t(".editor.events"), editor_events_path, data: { turbo: { frame: "yield" } }, class: "navbar-item"),
         link_to(t(".editor.happenings"), editor_happenings_path, data: { turbo: { frame: "yield" } }, class: "navbar-item"),
         link_to(t(".editor.users"), editor_users_path, data: { turbo: { frame: "yield" } }, class: "navbar-item")
-
       ]
     end
   end
