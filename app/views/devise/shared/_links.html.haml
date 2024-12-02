@@ -1,0 +1,20 @@
+.field.is-grouped
+  - if controller_name != 'sessions'
+    .control= link_to "Log in", new_session_path(resource_name), class: 'button is-link'
+  - if devise_mapping.registerable? && controller_name != 'registrations'
+    .control= link_to "Sign up", new_registration_path(resource_name), class: 'button is-link'
+  - if devise_mapping.recoverable? && controller_name != 'passwords' && controller_name != 'registrations'
+    .control= link_to "Forgot your password?", new_password_path(resource_name), class: 'button is-link'
+  - if devise_mapping.confirmable? && controller_name != 'confirmations'
+    .control= link_to "Didn't receive confirmation instructions?", new_confirmation_path(resource_name), class: 'button is-link'
+  - if devise_mapping.lockable? && resource_class.unlock_strategy_enabled?(:email) && controller_name != 'unlocks'
+    .control= link_to "Didn't receive unlock instructions?", new_unlock_path(resource_name), class: 'button is-link'
+
+- if devise_mapping.omniauthable? 
+  - resource_class.omniauth_providers.each do |provider| 
+    %h5.title.is-5= t 'site.auth.title.sso'
+    = form_with url: omniauth_authorize_path(resource_name, provider), data: { turbo: false }, id: provider do |form|
+      = form.button "Sign in with #{OmniAuth::Utils.camelize(provider)}", class: 'button is-large is-fullwidth is-success'
+      - if !devise_mapping.database_authenticatable? && resource_class.omniauth_providers.length == 1
+        :javascript
+          document.getElementById('#{provider}').submit();

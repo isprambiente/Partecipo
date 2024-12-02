@@ -5,15 +5,13 @@ class Users::OmniauthCallbacksController < Devise::OmniauthCallbacksController
   def openid_connect
     # You need to implement the method below in your model (e.g. app/models/user.rb)
     # @user = User.from_omniauth(request.env["omniauth.auth"])
-    Rails.logger.info "Ecco le informazioni"
-    Rails.logger.info request.env["omniauth.auth"].to_s
-    @user = User.first
+    @user = User.from_omniauth(request.env["omniauth.auth"])
 
-    if @user.persisted?
+    if @user.persisted? && @user.errors.empty?
       sign_in_and_redirect @user, event: :authentication # this will throw if @user is not activated
       set_flash_message(:notice, :success, kind: "OpenIDConnect") if is_navigational_format?
     else
-      session["devise.facebook_data"] = request.env["omniauth.auth"].except(:extra) # Removing extra as it can overflow some session stores
+      # session["devise.facebook_data"] = request.env["omniauth.auth"].except(:extra) # Removing extra as it can overflow some session stores
       redirect_to new_user_registration_url
     end
   end
