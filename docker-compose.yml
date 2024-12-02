@@ -39,12 +39,12 @@ services:
       RAILS_FOOTER_URL: /footer.html
       RAILS_HOST: partecipo.it
       ### RAILS_DEVISE_MODULES, Mudules for devise authentication
-      # - only database
-      #   database_authenticatable registerable recoverable rememberable validatable confirmable timeoutable trackable lockable
-      # - Mixed database and omniauth (OIDC)
-      #   database_authenticatable registerable recoverable rememberable validatable confirmable timeoutable trackable lockable omniauthable
-      # - Only omniauth (OIDC)
-      #   validatable timeoutable trackable omniauthable
+      ### - only database
+      ###   database_authenticatable registerable recoverable rememberable validatable confirmable timeoutable trackable lockable
+      ### - Mixed database and omniauth (OIDC)
+      ###   database_authenticatable registerable recoverable rememberable validatable confirmable timeoutable trackable lockable omniauthable
+      ### - Only omniauth (OIDC)
+      ###   validatable timeoutable trackable omniauthable
       RAILS_DEVISE_MODULES: database_authenticatable registerable recoverable rememberable validatable confirmable timeoutable trackable lockable omniauthable
       ### RAILS_OIDC_ISSIER, OIDC IDP base url 
       RAILS_OIDC_ISSUER: https://my_issuer.com
