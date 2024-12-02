@@ -47,26 +47,38 @@ services:
       #   validatable timeoutable trackable omniauthable
       RAILS_DEVISE_MODULES: database_authenticatable registerable recoverable rememberable validatable confirmable timeoutable trackable lockable omniauthable
       ### RAILS_OIDC_ISSIER, OIDC IDP base url 
-      # RAILS_OIDC_ISSUER: https://my_issuer.com
+      RAILS_OIDC_ISSUER: https://my_issuer.com
       ### RAILS_OIDC_USERNAME, Claim used to set user `username`
-      # RAILS_OIDC_USERNAME: email
+      RAILS_OIDC_USERNAME: email
       ### RAILS_OIDC_NAME, claim used to set user `name` param
-      # RAILS_OIDC_NAME: given_name
+      RAILS_OIDC_NAME: given_name
       ### RAILS_OIDC_SURNAME, claim used to set user `surname` param
-      # RAILS_OIDC_SURNAME: family_name
+      RAILS_OIDC_SURNAME: family_name
       ### RAILS_OIDC_IDENTIFIER, String required to identify this OIDC RP from the IDP
-      # RAILS_OIDC_IDENTIFIER: partecipo
+      RAILS_OIDC_IDENTIFIER: partecipo
       ### RAILS_OIDC_SECRET, Secret string to identify this OIDC RP from the IDP
-      # RAILS_OIDC_SECRET: MySuperSecureSecret
+      RAILS_OIDC_SECRET: MySuperSecureSecret
       ### RAILS_OIDC_CLAIMS, list of claims required
-      # RAILS_OIDC_CLAIMS: sub email given_name family_name
+      RAILS_OIDC_CLAIMS: sub email given_name family_name
       ### RAILS_MAX_THREADS, pool connection to PG database
-      # RAILS_MAX_THREADS: 5
+      RAILS_MAX_THREADS: 5
       ### RAILS_DB_URL, PG connection string
       RAILS_DB_URL: postgres://partecipo:ChangeMe@pg/partecipo
+      ### RAILS_SMTP_USERNAME, username for smtp server
+      RAILS_SMTP_USERNAME: partecipo
+      ### RAILS_SMTP_PASSWORD, password for smtp server
+      RAILS_SMTP_PASSWORD: MyPassword
+      ### RAILS_SMTP_ADDRESS, hostname to call smtp server
+      RAILS_SMTP_ADDRESS: smtp.partecipo.it
+      ### RAILS_SMPT_PORT, tcp port to smtp server 
+      RAILS_SMPT_PORT: 587
+      ### RAILS_SMTP_AUTHENTICATION, authentication method
+      RAILS_SMTP_AUTHENTICATION: plain
       ### TLS_DOMAIN, if present, Thruster server enable TLS with Let's encrypt
       # TLS_DOMAIN: partecipo.it 
+      ### BAD_GATEWAY_PAGE, address for proxy error page
       BAD_GATEWAY_PAGE: ./public/500.html
+      
     ports:
       - "80:80"
       - "443:443"
