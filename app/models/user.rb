@@ -59,7 +59,7 @@ class User < ApplicationRecord
   def self.from_omniauth(auth)
     user = find_or_initialize_by(username: auth.uid)
     user.email = auth.info.email
-    user.password = SecureRandom.alphanumeric(20) if devise_mapping.database_authenticatable? 
+    user.password = SecureRandom.alphanumeric(20) if RAILS_DEVISE_MODULES.include?(:database_authenticatable) 
     user.name = auth.info.try(ENV.fetch('RAILS_OIDC_NAME'){'given_name'})
     user.surname = auth.info(ENV.fetch('RAILS_OIDC_SURNAME'){'family_name'})
     user.skip_confirmation!
