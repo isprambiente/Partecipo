@@ -1,0 +1,13 @@
+%turbo-frame#yield
+  %h3.title.is-size-3.has-text-centered
+    %i.fas.fa-unlock
+    Resend unlock instructions
+  .box
+    = form_for(resource, as: resource_name, url: unlock_path(resource_name), html: { method: :post }) do |f|
+      = render "devise/shared/error_messages", resource: resource
+      .field
+        = f.label :email, class: 'label'
+        = f.email_field :email, autofocus: true, autocomplete: "email", class: 'input'
+        %p.help.is-danger= resource.errors.messages[:email].join(' - ')
+      .field= f.button "Resend unlock instructions", class: 'button is-success'
+    = render "devise/shared/links"

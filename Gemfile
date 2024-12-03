@@ -6,7 +6,7 @@ source "https://rubygems.org"
 ruby "3.3.5"
 
 # Bundle edge Rails instead: gem "rails", github: "rails/rails", branch: "main"
-gem "rails", "~> 7.2"
+gem "rails", "~> 8.0"
 
 # The modern asset pipeline for Rails [https://github.com/rails/propshaft]
 gem "propshaft"
@@ -52,8 +52,12 @@ gem "image_processing", "~> 1.2"
 
 group :development, :test do
   # See https://guides.rubyonrails.org/debugging_rails_applications.html#debugging-with-the-debug-gem
-  gem "debug", platforms: %i[mri windows]
-
+  gem "debug", platforms: %i[ mri windows ], require: "debug/prelude"
+  gem "brakeman", require: false
+  # Omakase Ruby styling [https://github.com/rails/rubocop-rails-omakase/]
+  gem "rubocop-rails-omakase", require: false
+  gem "rubocop-capybara", require: false
+  gem "rubocop-factory_bot", require: false
   # Factory bot
   gem "factory_bot_rails"
 end
@@ -70,12 +74,6 @@ group :development do
 
   gem "letter_opener"
 
-  # Security
-  gem "brakeman", require: false
-  gem "rubocop-rails-omakase", require: false
-  # gem 'rubocop', require: false
-  gem "rubocop-capybara",    require: false
-  gem "rubocop-factory_bot", require: false
   # gem 'rubocop-rails', require: false
   gem "yard"
 end
@@ -94,7 +92,6 @@ gem "omniauth-rails_csrf_protection", "~> 1.0"
 # gem 'devise_ldap_authenticatable'
 gem "hamlit"
 gem "pagy"
-# gem 'whenever', require: false
 gem "bulmacomp"
 gem "thruster"
 gem "csv"

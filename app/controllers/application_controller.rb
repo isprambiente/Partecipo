@@ -13,6 +13,12 @@ class ApplicationController < ActionController::Base
   #   record_not_found!
   # end
 
+  unless RAILS_DEVISE_DATABASE_AUTHENTICATABLE
+    def new_session_path(scope)
+      new_user_session_path
+    end
+  end
+
   private
 
   def switch_locale(&action)
