@@ -2,11 +2,13 @@ services:
   pg:
     image: postgres:latest
     environment:
-      POSTGRES_DB: partecipo
-      POSTGRES_USER: partecipo
+      POSTGRES_USER: postgres
       POSTGRES_PASSWORD: ChangeMe
+      PARTECIPO_USER: partecipo
+      PARTECIPO_PASSWORD: ChangeMe
     volumes:
-      - partecipo-pg-data:/var/lib/postgresql/data
+      #- pg-data:/var/lib/postgresql/data
+      - ./init_pg.sh:/docker-entrypoint-initdb.d/init_pg.sh
     healthcheck:
       test: [ "CMD-SHELL", "pg_isready -d $${POSTGRES_DB} -U $${POSTGRES_USER}" ]
       interval: 1s
@@ -28,7 +30,7 @@ services:
       redis:
         condition: service_healthy
     volumes:
-      - partecipo-rails-storage:/rails/storage
+      - rails-storage:/rails/storage
     environment:
       ### RAILS_RESTRICTED, If true entire site require authentication
       # RAILS_RESTRICTED: true
@@ -63,7 +65,7 @@ services:
       ### RAILS_MAX_THREADS, pool connection to PG database
       RAILS_MAX_THREADS: 5
       ### RAILS_DB_URL, PG connection string
-      RAILS_DB_URL: postgres://partecipo:ChangeMe@pg/partecipo
+      RAILS_DB_URL: postgres://partecipo:ChangeMe@pg/partecipo_production
       ### RAILS_SMTP_USERNAME, username for smtp server
       RAILS_SMTP_USERNAME: partecipo
       ### RAILS_SMTP_PASSWORD, password for smtp server
@@ -84,5 +86,5 @@ services:
       - "443:443"
 
 volumes:
-  partecipo-rails-storage:
-  partecipo-pg-data:
+  rails-storage:
+  pg-data:
