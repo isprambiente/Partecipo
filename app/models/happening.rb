@@ -55,7 +55,7 @@ class Happening < ApplicationRecord
   validates  :stop_sale_at, presence: true
   validates  :max_tickets, presence: true
   validates  :max_tickets_for_user, presence: true
-  after_save :update_event_date
+  after_save :update_event_data
 
   delegate :group_id, to: :event
 
@@ -89,7 +89,7 @@ class Happening < ApplicationRecord
   end
 
   def tickets_available
-  max_tickets - tickets_count
+    max_tickets - tickets_count
   end
 
   # @return [String] unique code to identify the {Happening}
@@ -112,9 +112,10 @@ class Happening < ApplicationRecord
     create ary
   end
 
-  def update_event_date
+  def update_event_data
     event.stop_on  = start_at if event.stop_on.blank? || start_at.to_date > event.stop_on
     event.start_on = start_at if event.start_on.blank? || start_at.to_date < event.start_on
+    event.happenings_count = event.happenings.count
     event.save if event.changed?
   end
 

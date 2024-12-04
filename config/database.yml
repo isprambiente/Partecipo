@@ -20,10 +20,9 @@ default: &default
   pool: <%= ENV.fetch("RAILS_MAX_THREADS") { 5 } %>
 
 development:
-  <<: *default
-  database: partecipo_development
-
+  <<: *default  
   # The specified database role being used to connect to PostgreSQL.
+  database: partecipo_development
   # To create additional roles in PostgreSQL see `$ createuser --help`.
   # When left blank, PostgreSQL will use the default role. This is
   # the same name as the operating system user running Rails.
@@ -78,5 +77,30 @@ test:
 # for a full overview on how database connection configuration can be specified.
 #
 production:
-  <<: *default
-  url: <%= ENV.fetch('RAILS_DB_URL'){"postgres://partecipo:ChangeMe@pg/partecipo_production"} %>
+  primary: &primary_production
+    <<: *default
+    host: <%= ENV.fetch("RAILS_DB_HOST") {'pg'} %>
+    database: partecipo_production
+    usename: <%= ENV.fetch("RAILS_DB_USER") {'partecipo'} %>
+    password: <%= ENV.fetch("RAILS_DB_PASS") {'ChangeMe'}
+  cache:
+    <<: *primary_production
+    host: <%= ENV.fetch("RAILS_DB_HOST") {'pg'} %>
+    database: partecipo_production_cache
+    usename: <%= ENV.fetch("RAILS_DB_USER") {'partecipo'} %>
+    password: <%= ENV.fetch("RAILS_DB_PASS") {'ChangeMe'}
+    migrations_paths: db/cache_migrate
+  queue:
+    <<: *primary_production
+    host: <%= ENV.fetch("RAILS_DB_HOST") {'pg'} %>
+    database: partecipo_production_queue
+    usename: <%= ENV.fetch("RAILS_DB_USER") {'partecipo'} %>
+    password: <%= ENV.fetch("RAILS_DB_PASS") {'ChangeMe'}
+    migrations_paths: db/queue_migrate
+  cable:
+    <<: *primary_production
+    host: <%= ENV.fetch("RAILS_DB_HOST") {'pg'} %>
+    database: partecipo_production_cable
+    usename: <%= ENV.fetch("RAILS_DB_USER") {'partecipo'} %>
+    password: <%= ENV.fetch("RAILS_DB_PASS") {'ChangeMe'}
+    migrations_paths: db/cable_migrate
