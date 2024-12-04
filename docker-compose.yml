@@ -1,5 +1,5 @@
 ### Configure rails istances with environments
-rails_comf: &rails_conf
+x-rails_conf: &rails_conf
   ### RAILS_RESTRICTED, If true entire site require authentication
   # RAILS_RESTRICTED: true
   RAILS_MASTER_KEY: 5cdcc57160c136623510fa73c7a7587f
@@ -54,8 +54,7 @@ rails_comf: &rails_conf
   BAD_GATEWAY_PAGE: ./public/500.html
 
 ### Configure Postgresql istance with environments
-rails_conf: &rails_conf
-  pg_conf: &pg_conf
+x-pg_conf: &pg_conf
   POSTGRES_USER: postgres
   POSTGRES_PASSWORD: ChangeMe
   PARTECIPO_USER: partecipo
