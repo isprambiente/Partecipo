@@ -81,26 +81,17 @@ production:
     <<: *default
     host: <%= ENV.fetch("RAILS_DB_HOST") {'pg'} %>
     database: partecipo_production
-    usename: <%= ENV.fetch("RAILS_DB_USER") {'partecipo'} %>
+    username: <%= ENV.fetch("RAILS_DB_USER") {'partecipo'} %>
     password: <%= ENV.fetch("RAILS_DB_PASS") {'ChangeMe'} %>
   cache:
     <<: *primary_production
-    host: <%= ENV.fetch("RAILS_DB_HOST") {'pg'} %>
     database: partecipo_production_cache
-    usename: <%= ENV.fetch("RAILS_DB_USER") {'partecipo'} %>
-    password: <%= ENV.fetch("RAILS_DB_PASS") {'ChangeMe'} %>
     migrations_paths: db/cache_migrate
   queue:
     <<: *primary_production
-    host: <%= ENV.fetch("RAILS_DB_HOST") {'pg'} %>
     database: partecipo_production_queue
-    usename: <%= ENV.fetch("RAILS_DB_USER") {'partecipo'} %>
-    password: <%= ENV.fetch("RAILS_DB_PASS") {'ChangeMe'} %>
     migrations_paths: db/queue_migrate
   cable:
     <<: *primary_production
-    host: <%= ENV.fetch("RAILS_DB_HOST") {'pg'} %>
     database: partecipo_production_cable
-    usename: <%= ENV.fetch("RAILS_DB_USER") {'partecipo'} %>
-    password: <%= ENV.fetch("RAILS_DB_PASS") {'ChangeMe'} %>
     migrations_paths: db/cable_migrate
