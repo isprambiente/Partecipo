@@ -7,7 +7,17 @@ x-rails_conf: &rails_conf
   RAILS_DESCRIPTION: Partecipo description
   RAILS_HEAD_URL: /head.html
   RAILS_FOOTER_URL: /footer.html
-  RAILS_HOST: partecipo.it
+  ### RAILS_PORT, port used for generate oidc url, use 80 for localhost demo, 443 on production
+  RAILS_PORT: 443
+  ### RAILS_SCHEME, Scheme user for generate oidc url, use "http" for localhost demo, "https" on production
+  RAILS_SCHEME: http
+  ### RAILS_HOST, hostname used to generate oidc url
+  RAILS_HOST: localhost
+  ### RAILS_ASSUME_SSL, Assume all access to the app is happening through a SSL-terminating reverse proxy
+  RAILS_ASSUME_SSL: false
+  ### RAILS_FORCE_SSL, Force all access to the app over SSL, use Strict-Transport-Security, and use secure cookies 
+  ### Use false for run a demo on localhost, set true on production
+  RAILS_FORCE_SSL: false
   ### RAILS_DEVISE_MODULES, Mudules for devise authentication
   ### - only database
   ###   database_authenticatable registerable recoverable rememberable validatable confirmable timeoutable trackable lockable

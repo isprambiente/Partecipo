@@ -286,12 +286,12 @@ Devise.setup do |config|
       discovery: true,
       client_auth_method: :jwks,
       client_options: {
-        port: 443,
-        scheme: "https",
+        port: ENV.fetch("RAILS_PORT") {"443"}.to_i,
+        scheme: ENV.fetch("RAILS_SCHEME") {"https"},
         host: ENV.fetch("RAILS_HOST") {"localhost"},
         identifier: ENV.fetch("RAILS_OIDC_IDENTIFIER") {'partecipo'},
         secret: ENV.fetch("RAILS_OIDC_SECRET") { 'secret' },
-        redirect_uri: "https://#{ENV.fetch("RAILS_HOST") {"localhost"}}/users/auth/openid_connect/callback"
+        redirect_uri: "#{ENV.fetch("RAILS_SCHEME") {"https"}}://#{ENV.fetch("RAILS_HOST") {"localhost"}}/users/auth/openid_connect/callback"
       }
     }
   end
