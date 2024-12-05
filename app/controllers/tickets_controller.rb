@@ -3,8 +3,7 @@
 # this controller manage {Ticket} model
 class TicketsController < ApplicationController
   before_action :authenticate_user!, except: %i[new]
-  before_action :set_ticket, only: %i[destroy]
-
+  before_action :set_ticket, only: %i[show destroy]
   # GET /tickets
   def index
     @scope = filter_params[:scope]

@@ -4,6 +4,7 @@
 class ApplicationController < ActionController::Base
   include Pagy::Backend
   around_action :switch_locale
+  before_action :authenticate_user! if ENV.fetch("RAILS_RESTRICTED") {false}
 
   def default_url_options
     { locale: I18n.locale }
