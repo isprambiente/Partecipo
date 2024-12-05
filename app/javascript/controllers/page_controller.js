@@ -13,6 +13,12 @@ export default class extends Controller {
     //document.getElementById(event.target.dataset.id).classList.toggle('is-active')
   }
 
+  toggleHidden(event) {
+    event.preventDefault()
+    console.log(this)
+    console.log(event)
+  }
+
   closeModal(event) {
     [].forEach.call(document.getElementsByClassName('modal'), (item) => {item.classList.remove('is-active')})
     if ( document.getElementById("yield") == null) { window.location.replace("/") }
