@@ -52,6 +52,9 @@ x-rails_conf: &rails_conf
   # TLS_DOMAIN: partecipo.it 
   ### BAD_GATEWAY_PAGE, address for proxy error page
   BAD_GATEWAY_PAGE: ./public/500.html
+  ### SOLID_QUEUE_IN_PUMA, if present solid_queue is executed with rails, if nil silid queue must be run with queue service
+  ### The queue service can be starter automatically with docker profile 'queue'
+  SOLID_QUEUE_IN_PUMA: true
 
 ### Configure Postgresql istance with environments
 x-pg_conf: &pg_conf
@@ -88,6 +91,8 @@ services:
       - "443:443"
   queue:
     image: partecipo
+    profiles:
+      - queue
     depends_on:
       pg:
         condition: service_healthy
