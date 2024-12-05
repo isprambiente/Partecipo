@@ -4,7 +4,7 @@ Rails.application.routes.draw do
   scope "(:locale)", locale: /en|it/ do
     resources :events, only: %i[index show]
     resources :happenings, only: %i[index show]
-    resources :tickets, except: %i[show edit update]
+    resources :tickets, except: %i[edit update]
 
     namespace "editor" do
       root "events#index"
