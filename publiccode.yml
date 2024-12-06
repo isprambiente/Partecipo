@@ -1,95 +1,81 @@
-# This repository adheres to the publiccode.yml standard by including this 
-# metadata file that makes public software easily discoverable.
-# More info at https://github.com/italia/publiccode.yml
-
-publiccodeYmlVersion: '0.3'
+publiccodeYmlVersion: "0.4"
+name: Partecipo
+url: https://github.com/isprambiente/Partecipo
+landingURL: https://github.com/isprambiente/Partecipo
+softwareVersion: 4.0.0
+releaseDate: 2024-12-06
+platforms:
+  - web
 categories:
   - event-management
   - online-booking
+developmentStatus: stable
+softwareType: standalone/web
 description:
   it:
-    documentation: 'https://github.com/isprambiente/Partecipo'
-    features:
-      - gestione eventi
-      - gestione prenotazioni
-    longDescription: >
+    shortDescription: "Gestione prenotazioni eventi "
+    longDescription: >-
       Il programma nasce dall'esigenza
       [I.S.P.R.A.](http://www.isprambiente.gov.it) di contingentare gli ingressi
-      durante l'emergenza COVID. Da un esigenza specifica e limitata nel tempo
-      si è scelto di creare un programma generico che potesse rimanere utile
-      anche dopo l'emergenza. Il programma prevede la gestione multipla di
-      eventi da vari gruppi di editor. Gli eventi gestiscono le date e per ogni
-      data si possono specificare luogo, numero di posti, biglietti prenotabili
-      a persona e molti altri parametri. Gli utenti infine possono gestire e
-      verificare le proprie prenotazioni.
+      durante l'emergenza COVID. Da un esigenza limitata nel tempo si è scelto
+      di creare un programma generico che potesse rimanere utile anche dopo
+      l'emergenza. 
 
-      Il programma è stato appositamente sviluppato su piattaforma web per 
-      consentire l'accesso tramite l'utilizzo di un  comune
-      browser web.
 
-      Dalla versione 2.2.0 il programma può essere configurato per permettere
+      Il programma prevede la gestione multipla di eventi da vari gruppi di
+      editor. Gli eventi gestiscono le date e per ogni data si possono
+      specificare luogo, numero di posti, biglietti prenotabili a persona,
+      informazioni richieste durante il processo di prenotazione e molti altri
+      parametri.
+
+
+      Gli utenti infine possono gestire e verificare le proprie prenotazioni. Il
+      programma è stato appositamente sviluppato su piattaforma web per
+      consentire un facile accesso dal proprio computer o smartphone.
+                                                                                                     
+      * Dalla versione 2.2.0 il programma può essere configurato per permettere
       la visualizzazione senza autenticazione degli eventi e richiederela
-      soltanto al momento della prenotazione dei ticket (visualizzazione pubblica).
-      In questo modo è possibile utilizzare l'applicazione anche come frontend pubblico
-      oltre che come applicazione interna.
+      soltanto al momento della prenotazione dei ticket (visualizzazione
+      pubblica). In questo modo è possibile utilizzare l'applicazione anche come
+      frontend pubblico oltre che come applicazione
+      interna.                                                     
+                                                                                                     
+      * Dalla versione 2.4.0 il programma è localizzato in italiano ed inglese.
 
-      Dalla versione 2.4.0 il programma è completamente localizzato in italiano ed inglese.
+      * Dalla versione 3.1.0 il programma prevede anche di porre domande
+      obbligatorie od opzionale per ogni prenotazione eseguita
 
-      Dalla versione 3.1.0 il programma prevede anche di porre domande obbligatorie od opzionale per ogni prenotazione eseguita
-    shortDescription: 'Programma di gestione prenotazioni eventi '
-    screenshots:
-      - doc/screen-1.png
-      - doc/screen-2.png
-      - doc/screen-3.png
-      - doc/screen-4.png
-developmentStatus: stable
-intendedAudience:
-  countries:
-    - it
-  scope:
-    - government
-it:
-  conforme:
-    gdpr: true
-    lineeGuidaDesign: true
-    misureMinimeSicurezza: true
-    modelloInteroperabilita: true
-  countryExtensionVersion: '0.2'
-  piattaforme:
-    anpr: false
-    cie: false
-    pagopa: false
-    spid: false
-  riuso:
-    codiceIPA: ispra_rm
+      * Dalla versione 4.0.0 è possibile configurare OIDC in cooperazione con
+      l'autenticazione locale o esclusiva. Tutte le configurazioni vengono
+      eseguite tramite environment. Docker compose diventa il sistema di
+      distribuzioni principale
+    features:
+      - Gestione eventi
+      - Gestione prenotazioni
 legal:
   license: MIT
-  mainCopyrightOwner: 2020 Istituto Superiore per la Protezione e la Ricerca Ambientale
-  repoOwner: Istituto Superiore per la Protezione e la Ricerca Ambientale
-localisation:
-  availableLanguages:
-    - it
-  localisationReady: true
 maintenance:
-  contacts:
-    - affiliation: Istituto Superiore per la Protezione e la Ricerca Ambientale
-      email: andrea.ranaldi@isprambiente.it
-      name: Andrea Ranaldi
-      phone: '+390650072358'
-    - affiliation: Istituto Superiore per la Protezione e la Ricerca Ambientale
-      email: francesco.loreti@isprambiente.it
-      name: Francesco Loreti
-      phone: '+390650072225'
   type: internal
-name: Partecipo
-platforms:
-  - web
-  - linux
-  - windows
-roadmap: 'https://github.com/isprambiente/Partecipo/projects'
-releaseDate: '2024-03-20'
-softwareType: standalone/web
-softwareVersion: 3.1.0
-url: 'https://github.com/isprambiente/Partecipo.git'
+  contacts:
+    - name: Andrea Ranaldi
+      email: andrea.ranaldi@isprambiente.it
+      phone: "+390650072358"
+      affiliation: ISPRA
+    - name: Francesco Loreti
+      email: francesco.loreti@isprambiente.it
+      phone: "+390650072225"
+      affiliation: ISPRA
+localisation:
+  localisationReady: true
+  availableLanguages:
+    - en
+    - it
 usedBy:
   - ISPRA
+  - CNR
+it:
+  countryExtensionVersion: "1.0"
+  conforme:
+    gdpr: true
+  riuso:
+    codiceIPA: ispra_rm
