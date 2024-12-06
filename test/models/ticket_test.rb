@@ -44,13 +44,10 @@ class TicketTest < ActiveSupport::TestCase
   end
 
   test "tickets count must be less or equal than max_tickets" do
-    happening = create :happening, max_tickets: 1
-    assert happening.tickets.create user: create(:user)
-    ticket = happening.tickets.new user: create(:user)
-    assert_not ticket.valid?
-    ticket.happening.update max_tickets: 2
-    assert ticket.valid?
-    assert ticket.save
+    happening = create :happening, max_tickets: 2
+    assert happening.tickets.create(user: create(:user)).persisted?
+    assert happening.tickets.create(user: create(:user)).persisted?
+    assert_not happening.tickets.create(user: create(:user)).persisted?
   end
 
   test "user tickets count must be less or equal than max_tickets_for_user" do
