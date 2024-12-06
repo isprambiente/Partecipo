@@ -11,7 +11,7 @@ class TicketsController < ApplicationController
     search[:happening] = { start_at: ((filter_params[:from].try(:to_date) || Date.today)..filter_params[:to].try(:to_date).try(:end_of_day)) }
     search[:happening_id] = @scope if @scope.present?
     @text = [ "events.title ilike :text", { text: "%#{filter_params[:text]}%" } ] if filter_params[:text].present?
-    @pagy, @tickets = pagy Ticket.joins(happening: [ :event ], answers: [:question]).where(search).where(@text), items: 10
+    @pagy, @tickets = pagy Ticket.joins(happening: [ :event ], answers: [ :question ]).where(search).where(@text), items: 10
   end
 
   def new
