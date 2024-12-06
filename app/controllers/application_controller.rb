@@ -4,6 +4,7 @@
 class ApplicationController < ActionController::Base
   include Pagy::Backend
   around_action :switch_locale
+  before_action :authenticate_user! if ENV.fetch("RAILS_RESTRICTED") { false }
 
   def default_url_options
     { locale: I18n.locale }
@@ -12,6 +13,12 @@ class ApplicationController < ActionController::Base
   # rescue_from ActiveRecord::RecordNotFound do
   #   record_not_found!
   # end
+
+  unless RAILS_DEVISE_DATABASE_AUTHENTICATABLE
+    def new_session_path(scope)
+      new_user_session_path
+    end
+  end
 
   private
 

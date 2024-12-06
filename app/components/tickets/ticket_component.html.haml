@@ -1,4 +1,4 @@
-.list-item{id: dom_id(@ticket)}
+.list-item{id: dom_id(@ticket), data: {controller: 'details'}}
   .list-item-image
     %figure.image.is-64x64= image_tag @ticket.happening.image_url
   .list-item-content
@@ -7,6 +7,15 @@
     .list-item-description
       .tag= icon_text 'fas fa-user-clock', l(@ticket.happening.start_at, format: :detailed)
       .tag= icon_text 'fas fa-user', @ticket.user.email
+    %table.table.is-fullwidth.is-narrow.is-bordered.list-item-description.is-hidden{id: dom_id(@ticket, 'detail'), data: {details_target: 'detail'}}
+      %tr
+        %th.is-size-7 email
+        %td.is-size-7= @ticket.user.email
+      - @ticket.answers.each do |answer|
+        %tr
+          %th.is-size-7.is-narrow= answer.question.title
+          %td.is-size-7= answer.value
   .list-item-controls
     .buttons.is-right
+      %button.button{data: {action: 'details#toggle', _to: dom_id(@ticket, 'detail')}}= icon "fas fa-maximize"
       =  link_to icon("fas fa-trash"), destroy_url, class: "button", data: { turbo_method: "delete", turbo_confirm: t(".confirm") }

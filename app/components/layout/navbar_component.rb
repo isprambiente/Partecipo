@@ -33,11 +33,9 @@ module Layout
     # Gerate the navbar-start html block
     def navbar_start
       safe_join [
-        link_to(icon_text("fas fa-calendar", t(".events")), events_path, data: { turbo_frame: "yield" },
-                                                                         class: "navbar-item"),
-        link_to(icon_text("fas fa-calendar-day", t(".happenings")), happenings_path, data: { turbo_frame: "yield" },
-                                                                                     class: "navbar-item"),
-        link_to(icon_text("fas fa-ticket-alt", t(".tickets")), tickets_path, class: "navbar-item")
+        link_to(icon_text("fas fa-calendar", t(".events")), events_path, data: { turbo_frame: "yield" }, class: "navbar-item"),
+        link_to(icon_text("fas fa-calendar-day", t(".happenings")), happenings_path, data: { turbo_frame: "yield" }, class: "navbar-item"),
+        link_to(icon_text("fas fa-ticket-alt", t(".tickets")), tickets_path, data: { turbo_frame: "yield" }, class: "navbar-item")
       ]
     end
 
@@ -47,8 +45,7 @@ module Layout
       if @user.present?
         ret << user_submenu
       else
-        ret << link_to(icon_text("fas fa-right-to-bracket", t(".sign_in")), new_user_session_path, data: { turbo: false },
-                                                                                                   class: "navbar-item")
+        ret << link_to(icon_text("fas fa-right-to-bracket", t(".sign_in")), new_user_session_path, data: { turbo_frame: "yield" }, class: "navbar-item")
       end
       safe_join(ret)
     end
@@ -73,9 +70,8 @@ module Layout
       sub = safe_join([
                         editor_submenu,
                         admin_submenu,
-                        link_to(t(".user_edit"), edit_user_registration_path, class: "navbar-item"),
-                        link_to(t(".sign_out"), destroy_user_session_path, data: { turbo_method: :delete },
-                                                                           class: "navbar-item")
+                        (link_to(t(".user_edit"), edit_user_registration_path, class: "navbar-item") if RAILS_DEVISE_DATABASE_AUTHENTICATABLE),
+                        link_to(t(".sign_out"), destroy_user_session_path, data: { turbo_method: :delete }, class: "navbar-item")
                       ])
       submenu title:, sub:
     end
@@ -99,7 +95,6 @@ module Layout
         link_to(t(".editor.events"), editor_events_path, data: { turbo: { frame: "yield" } }, class: "navbar-item"),
         link_to(t(".editor.happenings"), editor_happenings_path, data: { turbo: { frame: "yield" } }, class: "navbar-item"),
         link_to(t(".editor.users"), editor_users_path, data: { turbo: { frame: "yield" } }, class: "navbar-item")
-
       ]
     end
   end

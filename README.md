@@ -28,8 +28,8 @@ Il sito è sviluppato in linguaggio Ruby 3.3, framework Rails 7.1.
 * no jQuery
 
 ### Requisiti tecnici per ambiente server
-* Linguaggio di programmazione: Ruby 3.3
-* Framework: Rais 7.1
+* Linguaggio di programmazione: Ruby 3.5
+* Framework: Rais 8.0
 * Bun
 * Database: PostgreSQL >= 12.2
 
@@ -42,7 +42,6 @@ o in alternativa
 * Javascript abilitato;
 * Cookie abilitati;
 * Supporto ai certificati SSL;
-* Risoluzione schermo 1024x768.
 
 ### Configurazione consigliata per i client
 * Mozilla Firefox >= 53, Chrome >= 58, Microsoft Edge, Safari 9.0 o altro browser compatibile con HTML 5 e CSS 3;
@@ -74,26 +73,11 @@ Installare ruby 3.3.0, consigliato [RVM](https://rvm.io/).
 3. Creare il file `config/settings.local.yml` partendo da `config/settings.yml` per sovrascrivere i parametri di default. Il file è incluso nel `.gitignore` pertanto sarà necessario ricopiarlo manualmente sul server nel path `shared/config/settings.local.yml`
 
 ### Demo con docker / docker compose
-1. Clonare il progetto in sviluppo 
-
-    ```
-      git clone https://github.com/isprambiente/partecipo.git
-    ```
-2. effettuare la build del progetto:
-  `docker build -t partecipo .`
-
-3. Eseguire eventualmente il docker compose
-  * Modificare le variabili di configurazione nel file docker-compose.yml
-  * Creare chiave e certificato per il webserver ed inserirli nei file `docker-compose/nginx/cert/partecipo.key` e `docker-compose/nginx/cert/partecipo.crt`.
-    Per testare il servizio è possibile creare un certificato selfsigned per localhost con il comanto:
-    ```
-    openssl req -x509 -out partecipo.crt -keyout partecipo.key   -newkey rsa:2048 -nodes -sha256   -subj '/CN=localhost' -extensions EXT -config <( \
-    printf "[dn]\nCN=localhost\n[req]\ndistinguished_name = dn\n[EXT]\nsubjectAltName=DNS:localhost\nkeyUsage=digitalSignature\nextendedKeyUsage=serverAuth")
-    ``` 
-  * avviare il compose con il comando `docker compose up`
-  verrà avviato un webserver nginx con https su porta 443  che darà accesso al portale *Partecipo*, il database postgres, redis e il server rails rimarranno chiusi nella rete virtuale `partecipo` di docker. Se non diversamente configurato il portale sarà raggiungibile su https://localhost
-
-4. Per accedere utilizzare le seguenti credenziali:
+1. Clonare il progetto in sviluppo `git clone https://github.com/isprambiente/Partecipo/`
+2. Personalizzare il file docker-compose aggiornando gli env di configurazione. La configurazione di esempio è pensata per essere eseguita localmente in http
+3. Entrare nella directory `cd Partecipo`
+4. Complare l'immaggine e acviare il compose con il comando `docker compose up --build`, al termine dell'operazione il sistema sarà attivo su http://localhost
+5. Per accedere utilizzare le seguenti credenziali:
   * admin@partecipo.it  - partecipo # per utente amministratore
   * editor@partecipo.it - partecipo # per utente editor
   * user@partecipo.it   - partecipo # per utente standard
