@@ -1,5 +1,7 @@
 ### Configure rails istances with environments
 x-rails_conf: &rails_conf
+  # SECRET_KEY_BASE, This key used to sign and encrypt cookies. Change this before production 
+  SECRET_KEY_BASE: aa3747d1fe11c393a790f27a19c31d5192bfa14b9e3e0d8f795fbbc3f25e83a31bc3f62284cd66dc51db854e84fb84eea672cef7a370f3d19705343d6005690d
   ### RAILS_RESTRICTED, If true entire site require authentication
   # RAILS_RESTRICTED: true
   RAILS_MASTER_KEY: 5cdcc57160c136623510fa73c7a7587f
