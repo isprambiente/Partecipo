@@ -1,6 +1,6 @@
 # frozen_string_literal: true
 
-RAILS_DEVISE_MODULES = ENV.fetch('RAILS_DEVISE_MODULES') {"database_authenticatable registerable recoverable rememberable validatable confirmable timeoutable trackable lockable"}.split.map(&:to_sym)
+RAILS_DEVISE_MODULES = ENV.fetch("RAILS_DEVISE_MODULES") { "database_authenticatable registerable recoverable rememberable validatable confirmable timeoutable trackable lockable" }.split.map(&:to_sym)
 RAILS_DEVISE_DATABASE_AUTHENTICATABLE = RAILS_DEVISE_MODULES.include? :database_authenticatable
 RAILS_DEVISE_CONFIRMABLE = RAILS_DEVISE_MODULES.include? :confirmable
 RAILS_DEVISE_OMNIAUTHABLE = RAILS_DEVISE_MODULES.include? :omniauthable
@@ -50,7 +50,7 @@ Devise.setup do |config|
   # session. If you need permissions, you should implement that in a before filter.
   # You can also supply a hash where the value is a boolean determining whether
   # or not authentication should be aborted when the value is not present.
-  config.authentication_keys = [:email]
+  config.authentication_keys = [ :email ]
 
   # Configure parameters from the request object used for authentication. Each entry
   # given should be a request method and it will automatically be passed to the
@@ -62,12 +62,12 @@ Devise.setup do |config|
   # Configure which authentication keys should be case-insensitive.
   # These keys will be downcased upon creating or modifying a user and when used
   # to authenticate or find a user. Default is :email.
-  config.case_insensitive_keys = [:email ]
+  config.case_insensitive_keys = [ :email ]
 
   # Configure which authentication keys should have whitespace stripped.
   # These keys will have whitespace before and after removed upon creating or
   # modifying a user and when used to authenticate or find a user. Default is :email.
-  config.strip_whitespace_keys = [:email ]
+  config.strip_whitespace_keys = [ :email ]
 
   # Tell if authentication through request.params is enabled. True by default.
   # It can be set to an array that will enable params authentication only for the
@@ -279,19 +279,19 @@ Devise.setup do |config|
   if RAILS_DEVISE_OMNIAUTHABLE
     config.omniauth :openid_connect, {
       name: :openid_connect,
-      issuer: ENV.fetch('RAILS_OIDC_ISSUER') {'https://my_issuer.com'},
+      issuer: ENV.fetch("RAILS_OIDC_ISSUER") { "https://my_issuer.com" },
       scope: [ :openid, :email, :profile ],
-      extra_authorize_params: { claim: ENV.fetch('RAILS_OIDC_CLAIMS') {"sub email given_name family_name"}.split.map(&:to_sym) },
-      uid_field: ENV.fetch("RAILS_OIDC_USERNAME") {"email"},
+      extra_authorize_params: { claim: ENV.fetch("RAILS_OIDC_CLAIMS") { "sub email given_name family_name" }.split.map(&:to_sym) },
+      uid_field: ENV.fetch("RAILS_OIDC_USERNAME") { "email" },
       discovery: true,
       client_auth_method: :jwks,
       client_options: {
-        port: ENV.fetch("RAILS_PORT") {"443"}.to_i,
-        scheme: ENV.fetch("RAILS_SCHEME") {"https"},
-        host: ENV.fetch("RAILS_HOST") {"localhost"},
-        identifier: ENV.fetch("RAILS_OIDC_IDENTIFIER") {'partecipo'},
-        secret: ENV.fetch("RAILS_OIDC_SECRET") { 'secret' },
-        redirect_uri: "#{ENV.fetch("RAILS_SCHEME") {"https"}}://#{ENV.fetch("RAILS_HOST") {"localhost"}}/users/auth/openid_connect/callback"
+        port: ENV.fetch("RAILS_PORT") { "443" }.to_i,
+        scheme: ENV.fetch("RAILS_SCHEME") { "https" },
+        host: ENV.fetch("RAILS_HOST") { "localhost" },
+        identifier: ENV.fetch("RAILS_OIDC_IDENTIFIER") { "partecipo" },
+        secret: ENV.fetch("RAILS_OIDC_SECRET") { "secret" },
+        redirect_uri: "#{ENV.fetch("RAILS_SCHEME") { "https" }}://#{ENV.fetch("RAILS_HOST") { "localhost" }}/users/auth/openid_connect/callback"
       }
     }
   end

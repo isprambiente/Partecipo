@@ -57,13 +57,13 @@ class User < ApplicationRecord
     attr_accessor :password
   end
 
-  # @return user finded or created from omiauth session 
+  # @return user finded or created from omiauth session
   def self.from_omniauth(auth)
     user = find_or_initialize_by(username: auth.uid)
     user.email = auth.info.email
     user.password = SecureRandom.alphanumeric(20)
-    user.name = auth.info.try(ENV.fetch('RAILS_OIDC_NAME'){'given_name'})
-    user.surname = auth.info.try(ENV.fetch('RAILS_OIDC_SURNAME'){'family_name'})
+    user.name = auth.info.try(ENV.fetch("RAILS_OIDC_NAME") { "given_name" })
+    user.surname = auth.info.try(ENV.fetch("RAILS_OIDC_SURNAME") { "family_name" })
     user.skip_confirmation! if RAILS_DEVISE_CONFIRMABLE
     user.save
     user
