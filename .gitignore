@@ -40,3 +40,7 @@
 /node_modules
 /docker-compose/nginx/public/*
 !/docker-compose/nginx/public/.gitkeep
+
+# Ignore doc and yard tmp
+/.yardoc
+/doc
