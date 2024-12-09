@@ -7,7 +7,6 @@ import {
   faChair,
   faChevronLeft,
   faEdit,
-  faEnvelope,
   faExclamationTriangle,
   faFileCsv,
   faFilePdf,
@@ -41,6 +40,10 @@ import {
   faUserCog,
   faUsers,
   faUserShield,
+  faAngleDoubleLeft,
+  faAngleDoubleRight,
+  faBan
+
 } from '@fortawesome/free-solid-svg-icons'
 
 
@@ -57,7 +60,6 @@ library.add(
   faChevronLeft,
   faHeading,
   faEdit,
-  faEnvelope,
   faExclamationTriangle,
   faFileCsv,
   faFilePdf,
@@ -90,6 +92,9 @@ library.add(
   faUserCog,
   faUsers,
   faUserShield,
+  faAngleDoubleLeft,
+  faAngleDoubleRight,
+  faBan
 )
 
 // Replace any existing <i> tags with <svg> and set up a MutationObserver to
