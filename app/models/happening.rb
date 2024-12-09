@@ -55,7 +55,7 @@ class Happening < ApplicationRecord
   validates  :stop_sale_at, presence: true
   validates  :max_tickets, presence: true
   validates  :max_tickets_for_user, presence: true
-  after_save :update_event_data
+  after_save :update_event_date
 
   delegate :group_id, to: :event
 
@@ -64,12 +64,20 @@ class Happening < ApplicationRecord
   # scope :by_event, ->(value = nil) { where(event_id: value) if value.present? }
   # scope :by_group, ->(value = nil) { where(events: { group_id: value }) if value.present? }
   # scope :by_text,  ->(value = nil) { where [ "happenings.title ilike :text or events.title ilike :text", { text: "%#{value}%" } ] if value.present? }
-  scope :searchable, ->(from: nil, to: nil, event_id: nil, group_id: nil, text: nil) do
+  scope :searchable, ->(from: nil, to: nil, event_id: nil, group_id: nil, text: nil, soldout: nil) do
     by_keys = { start_at: (from.try(:to_date) || Date.today)..to.try(:to_date).try(:end_of_day) }
     by_keys[:event_id] = event_id if event_id.present?
     by_keys[:events] = { group_id: group_id } if group_id.present?
     by_text = text.present? ? [ "happenings.title ilike :text or events.title ilike :text", { text: "%#{text}%" } ] : nil
-    where(by_keys).where(by_text)
+    by_soldout = case soldout
+      when "soldout"
+        ["happenings.max_tickets = happenings.tickets_count"]
+      when "available"  
+        ["happenings.max_tickets > happenings.tickets_count"]
+      else
+        []
+    end
+    where(by_keys).where(by_text).where(by_soldout)
   end
 
 
@@ -89,7 +97,7 @@ class Happening < ApplicationRecord
   end
 
   def tickets_available
-    max_tickets - tickets_count
+  max_tickets - tickets_count
   end
 
   # @return [String] unique code to identify the {Happening}
@@ -112,10 +120,9 @@ class Happening < ApplicationRecord
     create ary
   end
 
-  def update_event_data
+  def update_event_date
     event.stop_on  = start_at if event.stop_on.blank? || start_at.to_date > event.stop_on
     event.start_on = start_at if event.start_on.blank? || start_at.to_date < event.start_on
-    event.happenings_count = event.happenings.count
     event.save if event.changed?
   end
 
