@@ -80,7 +80,7 @@ production:
   primary: &primary_production
     <<: *default
     host: <%= ENV.fetch("RAILS_DB_HOST") {'pg'} %>
-    database: partecipo_production
+    database: <%= ENV.fetch("RAILS_DB_NAME") {'partecipo_production'} %>
     username: <%= ENV.fetch("RAILS_DB_USER") {'partecipo'} %>
     password: <%= ENV.fetch("RAILS_DB_PASS") {'ChangeMe'} %>
   cache:
