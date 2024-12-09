@@ -16,7 +16,7 @@ module Layout
     # @option opts [Array] :categories
     #   optional, default: []
     #   Array of selectable categories
-    def initialize(url:, turbo_frame:, text: true, date_range: true, scope: nil, blank: true, categories: [])
+    def initialize(url:, turbo_frame:, text: true, date_range: true, scope: nil, blank: true, categories: [], soldout: nil)
       super
       @url = url
       @turbo_frame = turbo_frame
@@ -25,6 +25,7 @@ module Layout
       @categories = categories
       @blank = blank
       @date_range = date_range
+      @soldout = soldout
     end
 
     def include_blank

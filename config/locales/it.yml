@@ -213,4 +213,5 @@ it:
       long: "%d %B %Y %H:%M"
       short: "%d %b %H:%M"
       detailed: "%d-%m-%Y ore %H:%M"
+      from: "%d/%m/%Y alle %H:%M"
     pm: pm

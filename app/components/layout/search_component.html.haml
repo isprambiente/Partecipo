@@ -16,12 +16,16 @@
             = icon('fas fa-list', class: 'is-left')
     - if @date_range == true
       .panel-block
-        %p.control.has-icons-left
-          = f.date_field :from, value: Date.today, class: 'input', required: true, data: {action: 'form#sendForm'}
-          %span.icon.is-left
-            %i.fas.fa-play
+        %p.control
+          = f.label t('.from')
+          = f.date_field :from, value: Date.today, class: 'input d-block', required: false, data: {action: 'form#sendForm'}
       .panel-block
-        %p.control.has-icons-left
-          = f.date_field :to, class: 'input', data: {action: 'form#sendForm'}
-          %span.icon.is-left
-            %i.fas.fa-stop
+        %p.control
+          = f.label t('.to')
+          = f.date_field :to, class: 'input d-block', data: {action: 'form#sendForm'}
+    - if @soldout == true
+      .panel-block
+        .control.has-icons-left
+          %div.select.is-fullwidth
+            = f.select :soldout, [[t('.option_soldout'), 'soldout'], [t('.option_available'), 'available'], [t('.option_all'), 'all']], { selected: 'all' }, data: { action: 'form#sendForm' }
+            = icon('fas fa-list', class: 'is-left')

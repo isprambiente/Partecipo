@@ -1,15 +1,25 @@
 ---
 en:
   search: Search
-  placeholder: Text search
-  all_categories: All category
+  placeholder: Text search  
+  all_category: All category
   future: Future
   history: Old
+  from: From Date
+  to: To Date
+  option_all: 'All Dates'
+  option_available: 'Available Dates'  
+  option_soldout: 'Sold out Dates'
 it:
   search: Ricerca
   placeholder: Ricerca testo
-  all_categories: Tutte le categorie
+  all_category: Tutte le categorie
   future: Attivi
   history: Passati
+  from: Da Data
+  to: A Data
+  option_all: 'Tutte le date'
+  option_available: 'Date Disponibili'
+  option_soldout: 'Date Sold Out'
 
   

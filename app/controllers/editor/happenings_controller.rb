@@ -15,7 +15,8 @@ module Editor
       event_id = filter_params[:scope]
       group_id = @groups.exists?(filter_params[:category]) ? filter_params[:category] : @groups.pluck(:id)
       text     = filter_params[:text]
-      @pagy, @happenings = pagy(Happening.searchable(from:, to:, event_id:, group_id:, text:), items: 6)
+      soldout  = filter_params[:soldout]
+      @pagy, @happenings = pagy(Happening.searchable(from:, to:, event_id:, group_id:, text:, soldout:), items: 6)
     end
 
     # GET /editor/events/:event_id/happenings/:id
@@ -62,9 +63,10 @@ module Editor
     # GET /editor/events/:event_id/happenings/:happening_id/tickets/export
     def export
       ret = CSV.generate(headers: true) do |csv|
-        csv << [ "Email" ] + @happening.questions.pluck(:title)
+        csv << [ "Email" ] + ["Data"] + @happening.questions.pluck(:title)
+
         @happening.tickets.includes(:user, answers: [ :question ]).all.each do |ticket|
-          csv << [ ticket.user.email ] + ticket.answers.includes(:question).order("questions.weight desc").map(&:value)
+          csv << [ ticket.user.email ] + [ ticket.happening.start_at ] + ticket.answers.includes(:question).order("questions.weight desc").map(&:value)
         end
       end
       send_data ret, filename: "tickets.csv"
@@ -94,7 +96,7 @@ module Editor
 
     # Filter params for search an {Happening}
     def filter_params
-      params.fetch(:filter, {}).permit(:from, :category, :scope, :text, :to)
+      params.fetch(:filter, {}).permit(:from, :category, :scope, :text, :to, :soldout)
     end
   end
 end
