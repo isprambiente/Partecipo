@@ -7,6 +7,7 @@ en:
   single: Single
   daily: Daily
   montly: Montly
+  weekly: Weekly
   
 it:
   start_on: Dal
@@ -16,3 +17,4 @@ it:
   single: singola
   daily: giornaliera
   montly: mensile
+  weekly: Settimanale
