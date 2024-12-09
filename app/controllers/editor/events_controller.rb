@@ -30,6 +30,8 @@ module Editor
     # POST /editor/events
     def create
       @event = Event.new(event_params)
+      @event.start_on = Time.zone.today
+      @event.stop_on = Time.zone.today
       if @event.save
         @status = { success: "Evento creato" }
         redirect_to editor_event_path(@event)
