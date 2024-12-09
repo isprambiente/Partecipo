@@ -7,6 +7,7 @@
     .list-item-description
       %span.tag= icon_text 'fas fa-user-clock', l(@happening.start_at, format: :detailed)
       %span.tag= icon_text('fas fa-chair', "#{@happening.tickets_count}/#{@happening.max_tickets}")
+      %span.tag= t('.active.from') + ' ' + l(@happening.start_sale_at, format: :from)
   - if @happening.max_tickets == @happening.tickets_count 
     %div.ribbon.ribbon-oblique.is-danger
       %span.tag.is-danger= icon_text 'fas fa-ban', t('.soldout')
