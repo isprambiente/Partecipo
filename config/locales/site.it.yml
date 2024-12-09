@@ -53,6 +53,13 @@ it:
         daily: Non è possibile prenotare più volte nello stesso giorno.
         weekly: Non è possibile prenotare questo evento con frequenza inferiore a sette giorni.
         monthly: Non è possibile prenotare questo evento con frequenza inferiore a trenta giorni.
+    event:
+      tickets_frequency:
+        any: libera
+        single: singola
+        daily: giornaliera
+        weekly: settimanale
+        monthly: mensile        
     admin:
       group:
         index:
@@ -65,6 +72,16 @@ it:
         new: Nuovo evento
         index:
           title: Gestione eventi
+      events:  
+        form:
+          title: Titolo
+          group_id: Gruppo
+          tickets_frequency: Frequenza
+          single: Singolo
+          body: Corpo
+          where: Dove
+          pinned: Appuntato
+
       ticket:
         new: Nuova prenotazione
         search: Ricerca prenotazioni
