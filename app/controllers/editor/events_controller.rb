@@ -4,7 +4,7 @@ module Editor
   # This controller manage {Event} model for editors
   class EventsController < Editor::ApplicationController
     before_action :set_groups
-    before_action :set_event, only: %i[show edit update destroy]
+    before_action :set_event, only: %i[show edit update destroy export]
 
     # GET /editor/events
     def index
@@ -61,6 +61,19 @@ module Editor
       end
     end
 
+    # GET /editor/events/:event_id/tickets/export
+    def export
+      ret = CSV.generate(headers: true) do |csv|
+        csv << [ "Email" ] + ["Nome"] + ["Cognome"] + ["Data Prenotazione"]
+        @event.happenings.all.each do |happening|
+          happening.tickets.includes(:user).all.each do |ticket|
+            csv << [ ticket.user.email ] + [ ticket.user.name ] + [ ticket.user.surname ] + [ ticket.happening.start_at ]
+          end          
+        end  
+      end
+      send_data ret, filename: "tickets.csv"
+    end
+    
     private
 
     # set @event for current user when needed

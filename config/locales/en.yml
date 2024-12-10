@@ -33,4 +33,5 @@ en:
   time:
     formats:
       detailed: "%m-%d-%Y at %H:%M"
+      from: "%m-%d-%Y from %H:%M"
 

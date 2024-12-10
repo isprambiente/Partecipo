@@ -46,6 +46,8 @@ x-rails_conf: &rails_conf
   RAILS_OIDC_CLAIMS: sub email given_name family_name
   ### RAILS_MAX_THREADS, pool connection to PG database
   RAILS_MAX_THREADS: 5
+  ### RAILS_DB_NAME, database name
+  RAILS_DB_NAME: partecipo_production
   ### RAILS_DB_HOST, PG hostname server, pg is the name of compose service
   RAILS_DB_HOST: pg
   ### RAILS_DB_USER, PG user
