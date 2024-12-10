@@ -9,6 +9,8 @@ x-rails_conf: &rails_conf
   RAILS_DESCRIPTION: Partecipo description
   RAILS_HEAD_URL: /head.html
   RAILS_FOOTER_URL: /footer.html
+  ### RAILS_CLEAN_AFTER_DAYS, destroy old happening and ticket after this number of days. If nil isn't removed anything
+  RAILS_CLEAN_AFTER_DAYS: 60
   ### RAILS_PORT, port used for generate oidc url, use 80 for localhost demo, 443 on production
   RAILS_PORT: 80
   ### RAILS_SCHEME, Scheme user for generate oidc url, use "http" for localhost demo, "https" on production
