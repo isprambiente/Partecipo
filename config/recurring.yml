@@ -1,11 +1,13 @@
 production:
   periodic_cleanup:
-    class: CleanSoftDeletedRecordsJob
+    class: CleanJob
     queue: background
     args:
       days: ENV.fetch("RAILS_CLEAN_AFTER_DAYS", nil).to_i
     schedule: "0 2 * * *"
-#   periodic_command:
-#     command: "SoftDeletedRecord.due.delete_all"
-#     priority: 2
-#     schedule: at 5am every day
+  periodic_reminder:
+    class: CleanSoftDeletedRecordsJob
+    queue: background
+    args:
+      days: ENV.fetch("RAILS_CLEAN_AFTER_DAYS", nil).to_i
+    schedule: "0 6 * * *"
