@@ -24,11 +24,11 @@ class Ticket < ApplicationRecord
   belongs_to :happening, counter_cache: true
   belongs_to :user
   has_many :answers, dependent: :destroy
-  delegate :event, :event_id, :max_tickets, :max_tickets_for_user, :saleable?, :start_at, to: :happening,
-                                                                                          allow_nil: true
+  delegate :event, :event_id, :max_tickets, :max_tickets_for_user, :saleable?, :start_at, to: :happening, allow_nil: true
   accepts_nested_attributes_for :answers, reject_if: :all_blank
-
   attr_accessor :by_editor
+  after_create  -> { TicketMailer.confirm(self).deliver_later }
+  after_destroy -> { TicketMailer.deleted(self).deliver_later }
 
   validates :happening, presence: true
   validates :user, presence: true

@@ -1,0 +1,15 @@
+%h4.title.is-4= @happening.event.title
+- if @happening.title.present?
+  %h5.subtitle.is-5= @happening.title
+
+.content
+  %p
+    = t "mailer.generic.hi"
+    %b= @user.title
+
+  %p
+    = t "mailer.ticket.reminder.message"
+    = l @happening.start_at, format: :detailed
+  %p
+    = t 'mailer.ticket.confirm.manage'
+    = link_to happening_url(@happening, locale: I18n.locale), happening_url(@happening, locale: I18n.locale)

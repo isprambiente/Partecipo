@@ -1,3 +1,20 @@
-%p Buongiorno #{@ticket.user.username}
+%h4.title.is-4= @ticket.happening.event.title
+- if @ticket.happening.title.present?
+  %h5.subtitle.is-5= @ticket.happening.title
 
-%p Le confermiamo la prenotazione di n. <b>#{@ticket.seats}</b> per l'evento "<b>#{@ticket.happening.event.title}</b >" del #{l @ticket.happening.start_at, format: :detailed}
+.content
+  %p
+    = t "mailer.generic.hi"
+    %b= @ticket.user.title
+
+  %p
+    = t "mailer.ticket.confirm.message"
+    = l @ticket.happening.start_at, format: :detailed
+  - if @ticket.answers.present?
+    %p= t "mailer.ticket.confirm.data"
+    %ul
+      - @ticket.answers.each do |answer|
+        %li= [answer.question.title, answer.value].join(': ')
+  %p
+    = t 'mailer.ticket.confirm.manage'
+    = link_to happening_url(@ticket.happening, locale: I18n.locale), happening_url(@ticket.happening, locale: I18n.locale)

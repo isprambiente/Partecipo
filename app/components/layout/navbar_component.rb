@@ -76,7 +76,7 @@ module Layout
       submenu title:, sub:
     end
 
-    # @retur [Array] admin menu entries
+    # @return [Array] admin menu entries
     def admin_submenu
       return unless @user.admin?
 
@@ -87,7 +87,7 @@ module Layout
       ]
     end
 
-    # @retur [Array] admin menu entries
+    # @return [Array] admin menu entries
     def editor_submenu
       return unless @user.editor?
 
