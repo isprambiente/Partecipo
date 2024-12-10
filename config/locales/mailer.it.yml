@@ -1,0 +1,20 @@
+it:
+  mailer: 
+    generic: 
+      hi: Buongiorno
+    ticket:
+      confirm:
+        action: Conferma prenotazione 
+        message: Confermiamo la sua prenotazioni del
+        data: Dati inseriti al momento della prenotazione
+        manage: Può visualizzare i dettagli dell'evento e gestire le prenotazioni all'indirizzo 
+      deleted:
+        action: Eliminazione prenotazione
+        message: È stata eliminata la sua prenotazione del
+        manage: Può visualizzare i dettagli dell'evento e gestire le prenotazioni all'indirizzo
+        counter: Hai altre %{number} prenotazioni attive per lo stesso evento.
+      reminder:
+        action: Promemoria evento
+        message: Questo è un promemoria l'evento del  
+        manage: Può visualizzare i dettagli dell'evento e gestire le prenotazioni all'indirizzo
+

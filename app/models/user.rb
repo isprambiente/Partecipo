@@ -69,15 +69,33 @@ class User < ApplicationRecord
     user
   end
 
-  # @return [String] gravatar url for user
+  # Make gravatar url from email
+  # @return [String] gravatar user url
   def avatar_url
     hash = Digest::MD5.hexdigest(email)
     "https://www.gravatar.com/avatar/#{hash}?s=64i&d=identicon"
   end
 
+  # @return [String] name and/or surname if presents, otherwise return username or email
+  # @example User without name, surname, and username
+  #   user = User.new email: 'test@test.it'
+  #   user.title -> 'test@test.it'
+  # @example user with username
+  #   user = User.new email: 'test@isprambiente.it', username: 'test'
+  #   user.title -> 'test'
+  # @example user with all data
+  #   user = User.new name: 'Mario', surname: 'Rossi', username....
+  #   user.title: 'Mario Rossi'
+  def title
+    name.present? || surname.present? ? [name, surname].join(" ") : username || email
+  end
+
   private
 
+  # if username is empty, set username value as email
+  # @return [String] username value
   def add_username
     self.username = email unless username?
+    username
   end
 end

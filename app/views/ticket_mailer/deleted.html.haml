@@ -1,3 +1,19 @@
-%p Buongiorno #{@ticket.user.username}
+%h4.title.is-4= @ticket.happening.event.title
+- if @ticket.happening.title.present?
+  %h5.subtitle.is-5= @ticket.happening.title
 
-%p Le confermiamo l'eliminazione della prenotazione di n. <b>#{@ticket.seats}</b> per l'evento "<b>#{@ticket.happening.event.title}</b >" del #{l @ticket.happening.start_at, format: :detailed}
+.content
+  %p
+    = t "mailer.generic.hi"
+    %b= @ticket.user.title
+
+  %p
+    = t "mailer.ticket.deleted.message"
+    = l @ticket.happening.start_at, format: :detailed
+
+  - if @tickets.present?
+    %p= t 'mailer.ticket.deleted.counter', number: @tickets.count
+
+  %p
+    = t 'mailer.ticket.deleted.manage'
+    = link_to happening_url(@ticket.happening, locale: I18n.locale), happening_url(@ticket.happening, locale: I18n.locale)

@@ -1,0 +1,19 @@
+en:
+  mailer: 
+    generic: 
+      hi: Hi
+    ticket:
+      confirm:
+        action: Booking confirm
+        message: Your reservation is confirmed on
+        data: Data entered at booking
+        manage: You can check the event details and manage bookings on 
+      deleted:
+        action: Booking deleted
+        message: Your reservation is deleted on
+        manage: You can check the event details and manage bookings on
+        counter: You have other %{number} booking for this Event
+      reminder:
+        action: Event Reminder
+        message: This is a reminder for the event on
+        manage: You can check the event details and manage bookings on 

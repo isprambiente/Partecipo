@@ -7,6 +7,7 @@ it:
       back: Indietro
       from: da
       groups: Gruppi
+      hi: Buongiorno
       login: Accedi
       login_button: Accedi per continuare
       logout: Disconnettiti
