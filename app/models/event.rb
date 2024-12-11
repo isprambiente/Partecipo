@@ -7,17 +7,17 @@
 # * presence of {title}
 #
 # @!attribute [rw] id
-#   @return [Integer] unique identifier for {Fact}
+#   @return [Integer] unique identifier for {Event}
 # @!attribute [rw] title
-#   @return [String] title of {Fact}
+#   @return [String] title of {Event}
 # @!attribute [rw] where
-#   @return [string] where the {Fact} is located
+#   @return [string] where the {Event} is located
 # @!attribute [rw] pinned
-#   @return [Boolean] [true] if this {Fact} has priority
+#   @return [Boolean] [true] if this {Event} has priority
 # @!attribute [rw] start_on
-#   @return [date] when start {Fact}
+#   @return [date] when start {Event}
 # @!attribute [rw] stop_on
-#   @return [date] when end {Fact}
+#   @return [date] when end {Event}
 # @!attribute [rw] happenings_count
 #   @return [Integer] counter cache for {Happening}
 # @!attribute [rw] tickets_frequency
@@ -27,10 +27,13 @@
 # @!attribute [rw] updated_at
 #   @return [DateTime] when the record was updated
 #
-# @!method self.future()
-#   @return [Array] list of [Fact] with stop_on egual or greather than Time.zone.today, ordered by pinnes, stop_on
-# @!method self.history()
-#   @return [Array] list of [Fact] with stop_on minor than Time.zone.today, ordered by start_on desc
+# @!method self.searchable(from: nil, to: nil, group_id: nil, text: nil, editor: false)
+#   Search event with params
+#   @param from [String] (nil) [stop_on] is greather than value to date. If value is nil [stop_on] set as Time.zone.now.to_date unless editor params is true
+#   @param to [String] (nil) if present, [start_at] is minor than value to date.
+#   @param group_id [Integer] (nil) if present, search Event with valorized [group_id]
+#   @param text [String] (nil) if present search text in [title]
+#   @param editor [Boolean] (false) if true skip default from_date as Time.zone.now, Editors can view Event without Happening
 class Event < ApplicationRecord
   has_rich_text :body
   has_one_attached :image do |attachable|
@@ -44,8 +47,10 @@ class Event < ApplicationRecord
   validates :title, presence: true
   enum :tickets_frequency, %i[any single daily weekly monthly]
 
-  scope :searchable, ->(from: nil, to: nil, group_id: nil, text: nil) do
-    by_keys = { stop_on: (from.try(:to_date) || Date.today).. }
+  scope :searchable, ->(from: nil, to: nil, group_id: nil, text: nil, editor: false) do
+    from = Time.zone.now unless editor || from.present?
+    by_keys = {}
+    by_keys[:stop_on]  = (from.try(:to_date)..) if from.present?
     by_keys[:start_on] = ..to.try(:to_date) if to.present?
     by_keys[:group_id] = group_id  if group_id.present?
     by_text = text.present? ? [ "title ilike :text", { text: "%#{text}%" } ] : nil
