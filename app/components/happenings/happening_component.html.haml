@@ -1,4 +1,4 @@
-= link_to send(@url, @happening), data: {turbo_frame: @turbo_frame}, class: 'list-item box is-hoverable' do
+= link_to send(@url, @happening), data: {turbo_frame: @turbo_frame}, class: 'list-item box is-hoverable o-hidden' do
   .list-item-image  
     %figure.image.is-128x128= image_tag @happening.image_url
   .list-item-content
@@ -7,3 +7,6 @@
     .list-item-description
       %span.tag= icon_text 'fas fa-user-clock', l(@happening.start_at, format: :detailed)
       %span.tag= icon_text('fas fa-chair', "#{@happening.tickets_count}/#{@happening.max_tickets}")
+  - unless @happening.tickets_available?
+    %div.ribbon.ribbon-oblique.is-danger
+      %span.tag.is-danger= icon_text 'fas fa-ban', t('.soldout')
