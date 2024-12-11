@@ -1,5 +1,6 @@
 import { config, library, dom } from '@fortawesome/fontawesome-svg-core'
 import {
+  faBan,
   faCalendar,
   faCalendarAlt,
   faCalendarDay,
@@ -49,6 +50,7 @@ config.mutateApproach = 'sync'
 
 // We are only using the user-astronaut icon
 library.add(
+  faBan,
   faCalendar,
   faCalendarAlt,
   faCalendarDay,
