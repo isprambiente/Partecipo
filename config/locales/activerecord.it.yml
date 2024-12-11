@@ -7,15 +7,16 @@ it:
             title:
               required: Il titolo è richiesto
     attributes:
-      fact:
+      event:
         title: Titolo
         image: Immagine
-        groups: Gruppo di amministrazione
+        group_id: Gruppo di amministrazione
         start_on: Inizio
         stop_on: Fine
         body: Descrizione
         tickets_frequency: Frequenza prenotazioni
         where: Dove
+        single: Singolo
       happening:
         detail: Dettagli
         start_at: Data di inizio evento
