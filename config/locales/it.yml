@@ -212,5 +212,5 @@ it:
       default: "%a %d %b %Y, %H:%M:%S %z"
       long: "%d %B %Y %H:%M"
       short: "%d %b %H:%M"
-      detailed: "%d-%m-%Y ore %H:%M"
+      detailed: "%d-%m-%Y alle %H:%M"
     pm: pm
