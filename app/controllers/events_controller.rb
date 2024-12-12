@@ -1,6 +1,6 @@
 # frozen_string_literal: true
 
-# This controller manage the {Fact} model
+# This controller manage the {Event} model
 class EventsController < ApplicationController
   # GET /events
   def index

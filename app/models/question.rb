@@ -4,7 +4,7 @@
 #
 # === Relations
 # Relations::
-#   - belongs to {happening}
+#   - belongs to {Happening}
 #   - has_many {Answer}, dependent: :destroy
 #   - has_many {Option}, dependent: :destroy
 #
@@ -16,8 +16,8 @@
 #
 # @!attribute [rw] id
 #   @return [Integer] unique identifier
-# @!attribute [rw] section_id
-#   @return [Integer] reference for {Section}
+# @!attribute [rw] happening_id
+#   @return [Integer] reference for {Happening}
 # @!attribute [rw] title
 #   @return [String] question text
 # @!attribute [rw] category

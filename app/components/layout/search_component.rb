@@ -13,7 +13,7 @@ module Layout
     #   in the form for scoped search
     # @param text [Boolean] (true)
     #   if true add text search input
-    # @param data_range [Boolean] (true)
+    # @param date_range [Boolean] (true)
     #   if true add start_at and stop_at date input
     # @param categories [Array] ([])
     #   if present add a category select input

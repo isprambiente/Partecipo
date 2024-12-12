@@ -3,10 +3,8 @@
 module Events
   # this class render an event component for an events list
   class EventComponent < CommonComponent
-    # @param [Hash] opts
-    #   to generate content
-    # @option opts [Array] :event
-    #   event to render
+    # @param event [Object] {Event} istance to render
+    # @param url [Symbol] (:event_path) method for url generation
     def initialize(event:, url: :event_path)
       @event = event
       @url = url

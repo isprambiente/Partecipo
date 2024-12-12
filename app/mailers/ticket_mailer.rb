@@ -5,7 +5,7 @@ class TicketMailer < ApplicationMailer
   def confirm(ticket)
     @ticket = ticket
     @happening = @ticket.happening
-    mail to: @ticket.user.email, subject: subject(action: 'confirm', date: @happening.start_at)
+    mail to: @ticket.user.email, subject: subject(action: "confirm", date: @happening.start_at)
   end
 
   # Send notify email on destroy ticket
@@ -14,7 +14,7 @@ class TicketMailer < ApplicationMailer
     @ticket = ticket
     @happening = @ticket.happening
     @tickets = Ticket.where(user: ticket.user, happening: ticket.happening)
-    mail to: @ticket.user.email, subject: subject(action: 'deleted', date: @happening.start_at)
+    mail to: @ticket.user.email, subject: subject(action: "deleted", date: @happening.start_at)
   end
 
   # Send reminder for an event happeningf
@@ -24,7 +24,7 @@ class TicketMailer < ApplicationMailer
     @happening = happening
     @user = user
     @counter = @happening.tickets.with_user(@user).count
-    mail to: @user.email, subject: subject(action: 'reminder', date: @happening.start_at) if @counter > 0
+    mail to: @user.email, subject: subject(action: "reminder", date: @happening.start_at) if @counter > 0
   end
 
   private
@@ -33,7 +33,7 @@ class TicketMailer < ApplicationMailer
   # @param action [String] optional action name to add a locale path on subject: `reminder` -> `mailer.ticket.reminder.action`.
   # @param date [Date,DateTime] If present append the localized date / datetime on subject
   # @return [String] subject text
-  # @example 
+  # @example
   #   subject
   #   -> Partecipo
   #   subject action: 'prova'
@@ -45,6 +45,6 @@ class TicketMailer < ApplicationMailer
     action_text = t("mailer.ticket.#{action}.action", locale: I18n.locale) if action.present?
     data_text   = l date, format: :detailed if date.present?
     other_text  = other if other.present?
-    [title_text, action_text, data_text, other_text].compact.join(' - ')
+    [ title_text, action_text, data_text, other_text ].compact.join(" - ")
   end
 end

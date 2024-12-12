@@ -2,14 +2,14 @@
 
 # This model manage the questions template
 # === Validations
-# * presente of {template}
+# * presente of {title}
 #
 # @!attribute [rw] id
-#   @return [Integer] unique identifier for {Template}
+#   @return [Integer] unique identifier for Template
 # @!attribute [rw] title
 #   @return [String] {Template} title
 # @!attribute [rw] data
-#   @return [Array] List of {Questions} attributes
+#   @return [Array] List of {Question} attributes
 # @!attribute [rw] created_at
 #   @return [DateTime] when the record was created
 # @!attribute [rw] updated_at

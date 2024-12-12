@@ -64,8 +64,8 @@ class Happening < ApplicationRecord
     by_keys[:event_id] = event_id if event_id.present?
     by_keys[:events] = { group_id: group_id } if group_id.present?
     by_text = text.present? ? [ "happenings.title ilike :text or events.title ilike :text", { text: "%#{text}%" } ] : nil
-    @soldout = ["happenings.tickets_count < happenings.max_tickets"] if soldout == '1'
-    @soldout = ["happenings.tickets_count >= happenings.max_tickets"] if soldout == '2'
+    @soldout = [ "happenings.tickets_count < happenings.max_tickets" ] if soldout == "1"
+    @soldout = [ "happenings.tickets_count >= happenings.max_tickets" ] if soldout == "2"
     where(by_keys).where(by_text).where(@soldout)
   end
 
