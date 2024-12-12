@@ -57,7 +57,7 @@ module Editor
     # DELETE /editor/events/:event_id/happenings/:id
     def destroy
       @happening.destroy
-      redirect_to editor_root_path
+      redirect_to editor_event_path(@happening.event)
     end
 
     # GET /editor/events/:event_id/happenings/:happening_id/tickets/export

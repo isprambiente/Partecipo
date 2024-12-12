@@ -71,6 +71,6 @@
           = form.button fas_icon('save', text: t('site.generic.save')), class: 'button is-success'
           - if event.persisted?
             %a.button.is-link{href: editor_event_path(event)}= fas_icon 'chevron-left', text: 'Indietro'
-            = link_to icon_text('fas fa-trash', 'Elimina evento'), editor_event_path(event), class: 'button is-warning', data: {confirm: 'Attenzione l`evento, le date e tutte le prenotazioni saranno eliminate, confermi?', method: :delete, turbo_frame: 'yield'}
+            = link_to icon_text('fas fa-trash', 'Elimina evento'), editor_event_path(event), class: 'button is-warning', data: {turbo_method: :delete, turbo_confirm: 'Attenzione l`evento, le date e tutte le prenotazioni saranno eliminate, confermi?', turbo_frame: 'yield'}
           - else
             = link_to icon_text('chevron-left', 'Indietro'), editor_events_path, data: {turbo_frame: 'yield'}, class: 'button'
