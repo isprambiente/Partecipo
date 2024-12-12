@@ -28,7 +28,7 @@ class Ticket < ApplicationRecord
   accepts_nested_attributes_for :answers, reject_if: :all_blank
   attr_accessor :by_editor
   after_create  -> { TicketMailer.confirm(self).deliver_later }
-  after_destroy -> { TicketMailer.deleted(self).deliver_later }
+  before_destroy -> { TicketMailer.deleted(self).deliver }
 
   validates :happening, presence: true
   validates :user, presence: true
