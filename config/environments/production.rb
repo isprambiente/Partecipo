@@ -67,11 +67,11 @@ Rails.application.configure do
 
   # Specify outgoing SMTP server. Remember to add smtp/* credentials via rails credentials:edit.
   config.action_mailer.smtp_settings = {
-    user_name: ENV.fetch("RAILS_SMTP_USERNAME") { "partecipo" },
-    password: ENV.fetch("RAILS_SMTP_PASSWORD") { "MyPassword" },
+    user_name: ENV.fetch("RAILS_SMTP_USERNAME") { nil },
+    password: ENV.fetch("RAILS_SMTP_PASSWORD") { nil },
     address: ENV.fetch("RAILS_SMTP_ADDRESS") { "smtp.partecipo.it" },
     port: ENV.fetch("RAILS_SMPT_PORT") { "587" }.to_i,
-    authentication: ENV.fetch("RAILS_SMTP_AUTHENTICATION") { "plain" }.to_sym
+    authentication: ENV.fetch("RAILS_SMTP_AUTHENTICATION") { nil }
   }
 
   # Enable locale fallbacks for I18n (makes lookups for any locale fall back to
