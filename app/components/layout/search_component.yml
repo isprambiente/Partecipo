@@ -3,13 +3,25 @@ en:
   search: Search
   placeholder: Text search
   all_categories: All category
-  future: Future
-  history: Old
+  soldout_included: Soldout included
+  soldout_excluded: Exclude soldout
+  soldout_only: Soldout Only
+  label:
+    text: Text search
+    category: Category
+    from: From date
+    to: To date
 it:
   search: Ricerca
   placeholder: Ricerca testo
   all_categories: Tutte le categorie
-  future: Attivi
-  history: Passati
+  soldout_included: Includi soldout
+  soldout_excluded: Escludi soldout
+  soldout_only: Soltanto soldout
+  label:
+    text: Ricerca testo
+    category: Categoria
+    from: Da data
+    to: A data
+    soldout: soldout
 
-  

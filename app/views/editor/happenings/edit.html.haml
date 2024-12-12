@@ -70,5 +70,5 @@
           .buttons.has-text-centered
             = form.button fas_icon('save', text: t('site.generic.save')), class: 'button is-success'
             %a.button.is-link{href: editor_happening_path(@happening)}= fas_icon 'chevron-left', text: 'Indietro'
-            = link_to fas_icon('trash', text: 'Elimina'), editor_happening_path(@happening), class: 'button is-warning', data: {confirm: 'Attenzione la data e tutte le prenotazioni saranno eliminate, confermi?', method: :delete}
+            = link_to fas_icon('trash', text: 'Elimina'), editor_happening_path(@happening), class: 'button is-warning', data: {turbo_confirm: 'Attenzione la data e tutte le prenotazioni saranno eliminate, confermi?', turbo_method: :delete, turbo_frame: 'yield'}
 

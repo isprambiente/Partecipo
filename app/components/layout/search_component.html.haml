@@ -1,27 +1,25 @@
 = form_with scope: 'filter', url: @url, method: :get, data: {turbo_frame: @turbo_frame, controller: 'form', form_target: 'sender'} do |f|
   = f.hidden_field :scope, value: @scope if @scope.present?
-  %nav.panel
+  %nav.box#search.block
     %p.panel-heading= t '.search'
     - if @text == true
-      .panel-block
-        %p.control.has-icons-left
-          = f.text_field :text, placeholder: t('.placeholder'), class: 'input', data: {action: 'keyup->form#delayedSendForm'}
-          %span.icon.is-left
-            %i.fas.fa-search
+      .field
+        = f.label :text, icon_text('fas fa-search',t('.label.text')) , class: 'label is-small'
+        = f.text_field :text, placeholder: t('.placeholder'), class: 'input is-fullwidth', data: {action: 'keyup->form#delayedSendForm'}
     - if @categories.present?
-      .panel-block
-        .control.has-icons-left
-          %div.select.is-fullwidth
-            = f.select :category, @categories, include_blank, data: { action: 'form#sendForm' }
-            = icon('fas fa-list', class: 'is-left')
+      .field
+        = f.label :category, icon_text('fas fa-list',t('.label.category')) , class: 'label is-small'
+        %div.select.is-fullwidth
+          = f.select :category, @categories, include_blank, data: { action: 'form#sendForm' }
     - if @date_range == true
-      .panel-block
-        %p.control.has-icons-left
-          = f.date_field :from, value: Date.today, class: 'input', required: true, data: {action: 'form#sendForm'}
-          %span.icon.is-left
-            %i.fas.fa-play
-      .panel-block
-        %p.control.has-icons-left
-          = f.date_field :to, class: 'input', data: {action: 'form#sendForm'}
-          %span.icon.is-left
-            %i.fas.fa-stop
+      .field
+        = f.label :from, icon_text('fas fa-calendar',t('.label.from')) , class: 'label is-small'
+        = f.date_field :from, value: (Date.today unless @editor), class: 'input', required: !@editor, data: {action: 'form#sendForm'}
+      .field
+        = f.label :to, icon_text('fas fa-calendar',t('.label.to')) , class: 'label is-small'
+        = f.date_field :to, class: 'input', data: {action: 'form#sendForm'}
+    - if @soldout == true 
+      .field
+        = f.label :soldout, icon_text('fas fa-list',t('.label.soldout')) , class: 'label is-small'
+        %div.select.is-fullwidth
+          = f.select :soldout, [[t('.soldout_excluded'),1],[t('.soldout_only'),2]], {include_blank: t('.soldout_included')}, data: { action: 'form#sendForm' }

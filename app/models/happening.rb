@@ -58,17 +58,15 @@ class Happening < ApplicationRecord
 
   delegate :group_id, to: :event
 
-  default_scope { left_joins(:event).order("start_at asc") }
-  # scope :between,  ->(from = nil, to = nil) { where start_at: (from.try(:to_date) || Date.today)..to.try(:to_date).try(:end_of_day) }
-  # scope :by_event, ->(value = nil) { where(event_id: value) if value.present? }
-  # scope :by_group, ->(value = nil) { where(events: { group_id: value }) if value.present? }
-  # scope :by_text,  ->(value = nil) { where [ "happenings.title ilike :text or events.title ilike :text", { text: "%#{value}%" } ] if value.present? }
-  scope :searchable, ->(from: nil, to: nil, event_id: nil, group_id: nil, text: nil) do
+  default_scope { includes(:event).order("start_at asc") }
+  scope :searchable, ->(from: nil, to: nil, event_id: nil, group_id: nil, text: nil, soldout: nil) do
     by_keys = { start_at: (from.try(:to_date) || Date.today)..to.try(:to_date).try(:end_of_day) }
     by_keys[:event_id] = event_id if event_id.present?
     by_keys[:events] = { group_id: group_id } if group_id.present?
     by_text = text.present? ? [ "happenings.title ilike :text or events.title ilike :text", { text: "%#{text}%" } ] : nil
-    where(by_keys).where(by_text)
+    @soldout = ["happenings.tickets_count < happenings.max_tickets"] if soldout == '1'
+    @soldout = ["happenings.tickets_count >= happenings.max_tickets"] if soldout == '2'
+    where(by_keys).where(by_text).where(@soldout)
   end
 
 
