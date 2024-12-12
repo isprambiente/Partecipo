@@ -9,7 +9,7 @@ class EventsController < ApplicationController
     to       = filter_params[:to]
     group_id = filter_params[:category]
     text     = filter_params[:text]
-    @pagy, @events = pagy(Event.searchable(from:, to:, group_id:, text:), items: 6)
+    @pagy, @events = pagy(Event.searchable(from:, to:, group_id:, text:, soldout:), items: 6)
   end
 
   # GET /events/:id
@@ -23,6 +23,6 @@ class EventsController < ApplicationController
 
   # Filter params for events search
   def filter_params
-    params.fetch(:filter, {}).permit(:category, :from, :text, :to)
+    params.fetch(:filter, {}).permit(:category, :from, :text, :to, :soldout)
   end
 end

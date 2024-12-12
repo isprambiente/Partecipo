@@ -6,7 +6,7 @@
     %aside.column.is-3
       .block
         %figure.image= image_tag @happening.image_url(:aside)
-      = render Layout::SearchComponent.new(url: editor_tickets_path, turbo_frame: 'tickets', categories: @categories, scope: @event.id)
+      = render Layout::SearchComponent.new(url: editor_tickets_path, turbo_frame: 'tickets', categories: @categories, scope: @event.id, date_range: false)
       = link_to icon_text('fas fa-file-csv','Esporta dati'), export_editor_happening_path(@happening), class: 'button is-success is-fullwidth', data: {turbo: 'false'}
     .column
       %turbo-frame#event= render Events::InfoboxComponent.new(event: @event, editor: true)

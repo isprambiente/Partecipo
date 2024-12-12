@@ -15,7 +15,8 @@ module Editor
       event_id = filter_params[:scope]
       group_id = @groups.exists?(filter_params[:category]) ? filter_params[:category] : @groups.pluck(:id)
       text     = filter_params[:text]
-      @pagy, @happenings = pagy(Happening.searchable(from:, to:, event_id:, group_id:, text:), items: 6)
+      soldout  = filter_params[:soldout]
+      @pagy, @happenings = pagy(Happening.searchable(from:, to:, event_id:, group_id:, text:, soldout:), items: 6)
     end
 
     # GET /editor/events/:event_id/happenings/:id
@@ -94,7 +95,7 @@ module Editor
 
     # Filter params for search an {Happening}
     def filter_params
-      params.fetch(:filter, {}).permit(:from, :category, :scope, :text, :to)
+      params.fetch(:filter, {}).permit(:from, :category, :scope, :text, :to, :soldout)
     end
   end
 end

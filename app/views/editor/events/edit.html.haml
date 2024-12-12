@@ -6,7 +6,7 @@
     %aside.column.is-3
       .block
         %figure.image= image_tag @event.image_url(:aside)
-      = render Layout::SearchComponent.new(url: editor_happenings_path, turbo_frame: 'happenings', scope: @scope)
+      = render Layout::SearchComponent.new(url: editor_happenings_path, turbo_frame: 'happenings', scope: @scope, editor: true)
     .column
       %turbo-frame#event= render 'form', event: @event
       %turbo-frame#happenings{src: editor_happenings_path(filter: {scope: @event.id})}
