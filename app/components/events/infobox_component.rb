@@ -3,10 +3,8 @@
 module Events
   # This class render the event information box
   class InfoboxComponent < CommonComponent
-    # @param [Hash] opts
-    #   to generate content
-    # @option opts [Object] :event
-    #   {Event} istance to render
+    # @param event [Hash] {Event} istance to render
+    # @param editor [Boolean] (false) if true add link to edit {Event}
     def initialize(event:, editor: false)
       super
       @event = event

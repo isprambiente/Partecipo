@@ -5,7 +5,7 @@ class CleanJob < ApplicationJob
 
   # On perform, expired {Happening}s from an arbitrary days number are destroyed.
   # On destroy each [Happening] destroy relative [Ticket]s
-  # 
+  #
   # @param days [Integer,Nil] destroy {Happening} exired from :days
   # @return [ARRAY] of destroyed happenings
   # @return [NIL] if :days isn't defined, return nil and anyting is destroyed
@@ -15,6 +15,6 @@ class CleanJob < ApplicationJob
   #   CleanJob.perform_now
   #   CleanJob.perform_now(days: nil)
   def perform(days: nil)
-    Happening.where(start_at: [..Time.zone.now.to_date - days.to_i]).destroy_all if days.present?
+    Happening.where(start_at: [ ..Time.zone.now.to_date - days.to_i ]).destroy_all if days.present?
   end
 end

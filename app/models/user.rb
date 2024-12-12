@@ -8,6 +8,8 @@
 #
 # @!attribute [rw] id
 #   @return [Integer] unique identifier for {User}
+# @!attribute [rw] username
+#   @return [String] unique username for user
 # @!attribute [rw] email
 #   @return [String] unique contact and login name for {User}
 # @!attribute [rw] sign_in_count
@@ -87,7 +89,7 @@ class User < ApplicationRecord
   #   user = User.new name: 'Mario', surname: 'Rossi', username....
   #   user.title: 'Mario Rossi'
   def title
-    name.present? || surname.present? ? [name, surname].join(" ") : username || email
+    name.present? || surname.present? ? [ name, surname ].join(" ") : username || email
   end
 
   private

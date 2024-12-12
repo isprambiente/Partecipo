@@ -1,19 +1,23 @@
 # frozen_string_literal: true
 
-# Manage {Quesion}s answer. Each answer is referred to a {Ticket}
+# Manage {Question}s answer. Each answer is referred to a {Ticket}
 #
 # === Relations
-#   - belongs to {Ticket}
-#   - belongs to {Question}
-#   - has one attached File
+# * belongs to {Ticket}
+# * belongs to {Question}
+# * has one attached File
 # === Validations
 # * presence of {value} unless {category} is "file"
 # * presence of {file} if {category} is "file"
 # * absence of {value} if {category} is "file"
 # * absence of {file} unles category is file
 # * uniqueness of question scoped request
-# * that {value} is included in {Option} if {question is select}
+# * that {value} is included in {Option} if {Question} is select
 #
+# @!attribute [rw] value
+#   @return [String] answer content
+# @!attribute [rw] file
+#   @return [Object] has_attached istance
 # @!method category()
 #   @return [String] delegated from {Question#category}
 # @!method category_file?()

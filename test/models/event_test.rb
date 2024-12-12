@@ -25,6 +25,6 @@ class EventTest < ActiveSupport::TestCase
   test "title are required" do
     assert_not build(:event, title: nil).valid?
   end
-  
+
   ### scope
 end

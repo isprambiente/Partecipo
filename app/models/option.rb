@@ -1,7 +1,6 @@
 # frozen_string_literal: true
 
 # This model manage the {Option} object. An {Option} is a possible answer to a {Question},
-# The options are ordinated by {weight} field
 # The valid answers are marked by {acceptable} field
 #
 # === Relations
@@ -19,7 +18,7 @@
 #   @return [Integer] {Question} references
 # @!attribute [String] title
 #   @return [String] Option title
-# @!attributes [rw] weight
+# @!attribute [rw] weight
 #   @return [Integer] order value
 # @!attribute [rw] acceptable
 #   @return [Boolean] true if is a valid answer

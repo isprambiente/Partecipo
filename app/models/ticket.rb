@@ -58,7 +58,7 @@ class Ticket < ApplicationRecord
     total
   end
 
-  # count total of each other happening ticket from {user} self included
+  # count total of each other happening ticket from {User} self included
   # @return [Integer] number of tickets
   def tickets_for_user_count
     total = happening.tickets.where(user:).count

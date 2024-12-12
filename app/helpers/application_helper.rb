@@ -23,7 +23,7 @@ module ApplicationHelper
   # `<span class="icon"><i class="fas fa-home"></i></span>`
   #
   # @return [String] bulma / awesome icon structure
-  # @param [String] fa class for icon, example: "fas fa-home"
+  # @param fas [String] class for icon, example: "fas fa-home"
   # @param [Hash] opts to generate content
   # @option opts [String] :class style other "span.icon" class
   def icon(fas, **opts)
@@ -37,7 +37,7 @@ module ApplicationHelper
   # `<span class="text-icon"><span class="icon"><i class="fas fa-home"></i></span><span>text</span></span>`
   #
   # @return [String] bulma / awesome text-icon structure
-  # @param [String] fa class for icon, example: "fas fa-home"
+  # @param [String] fas class for icon, example: "fas fa-home"
   # @param [String] text for the icon
   # @param [Hash] opts to generate content
   # @option opts [String] :class style other "span.icon-text" class

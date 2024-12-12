@@ -3,11 +3,7 @@
 module Layout
   # This class manage the site navbar generation (id: nav3)
   class NavbarComponent < CommonComponent
-    # @param [Hash] opts
-    #   options to generate content
-    # @option opts [Object] user
-    #   used for define current_user in this component,
-    #   default [Nil]
+    # @param user [Hash] (nil) used for define current_user in this component
     def initialize(user: nil)
       super
       @user = user
