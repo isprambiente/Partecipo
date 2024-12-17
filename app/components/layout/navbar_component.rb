@@ -23,7 +23,8 @@ module Layout
 
     # Generate the navbar-title html block
     def navbar_title
-      safe_join([ icon_text("fas fa-signature", "P"), "artecipo" ])
+      title = ENV.fetch("RAILS_TITLE", "Partecipo")
+      safe_join([ icon_text(ENV.fetch("RAILS_ICON", "fas fa-signature"), title.first), title[1..] ])
     end
 
     # Gerate the navbar-start html block

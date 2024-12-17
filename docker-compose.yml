@@ -5,6 +5,9 @@ x-rails_conf: &rails_conf
   ### RAILS_RESTRICTED, If true entire site require authentication
   # RAILS_RESTRICTED: true
   RAILS_MASTER_KEY: 5cdcc57160c136623510fa73c7a7587f
+  ### RAILS_ICON, Used for navbar
+  RAILS_ICON: fas fa-signature
+  ### RAILS_TITLE, used for html head title, email and navbar
   RAILS_TITLE: Partecipo
   RAILS_DESCRIPTION: Partecipo description
   RAILS_HEAD_URL: /head.html
