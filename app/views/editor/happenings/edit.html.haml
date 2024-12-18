@@ -6,7 +6,7 @@
 
     %turbo-frame#happening
       .box
-        = form_with(model: [:editor, @happening], data: {turbo_frame: 'happening'}) do |form|
+        = form_with(model: [:editor, @happening], data: {turbo_frame: 'happening', controller: 'nested'}) do |form|
           = form.hidden_field :event_id, value: @event.id
           .field.is-horizontal
             .field-body
@@ -65,10 +65,15 @@
                     %i.fas.fa-chair
                 %p.help.is-danger= @happening.errors[:max_tickets_for_user].join(' - ')
           .divider Domande
-          = form.fields_for :questions do |sub_form|
-            = render Editor::Questions::SubFormComponent.new form: sub_form
+          .div{data: {nested_target: 'content'}}
+            = form.fields_for :questions do |sub_form|
+              - if sub_form.object.persisted?
+                = render Editor::Questions::SubFormComponent.new form: sub_form
+              - else
+                %template{data: {nested_target: 'template'}}= render Editor::Questions::SubFormComponent.new form: sub_form
           .buttons.has-text-centered
             = form.button fas_icon('save', text: t('site.generic.save')), class: 'button is-success'
             %a.button.is-link{href: editor_happening_path(@happening)}= fas_icon 'chevron-left', text: 'Indietro'
             = link_to fas_icon('trash', text: 'Elimina'), editor_happening_path(@happening), class: 'button is-warning', data: {turbo_confirm: 'Attenzione la data e tutte le prenotazioni saranno eliminate, confermi?', turbo_method: :delete, turbo_frame: 'yield'}
+            %a.is-success.button{data: {action: 'nested#add'}}= fas_icon 'plus', text: 'Aggiungi domanda'
 

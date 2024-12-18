@@ -46,7 +46,7 @@ class Happening < ApplicationRecord
     attachable.variant :ticket, resize_to_limit: [ 150, 68 ]
   end
 
-  accepts_nested_attributes_for :questions, reject_if: :all_blank
+  accepts_nested_attributes_for :questions, reject_if: :all_blank, allow_destroy: true
 
   validates  :event, presence: true
   validates  :start_at, presence: true
