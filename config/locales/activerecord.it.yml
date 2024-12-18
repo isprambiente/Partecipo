@@ -24,6 +24,12 @@ it:
         stop_sale_at: Data di fine prenotazioni
         repeat_in: Giorni in cui ripetere la data
         repeat_fo: N. di giorni per cui ripetere l'evento
+      question:
+        title: Titolo
+        category: Categorie
+        mandatory: Obbligatorio
+        weight: Ordine
+        _destroy: Elimina
       template:
         title: Titolo
         data: Struttura domande
@@ -42,6 +48,9 @@ it:
       happening:
         one: Data
         other: Date
+      question:
+        one: Domanda
+        other: Domande
       template:
         one: Template domande
         other: Template domande

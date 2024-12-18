@@ -2,7 +2,7 @@
   %h3.title.is-size-3.has-text-centered
     %i.fas.fa-ticket-alt
     = t 'editor'
-    = t('activerecord.models.events.other')
+    = t('activerecord.models.event.other')
   .columns
     %aside.column.is-3
       = render Layout::SearchComponent.new(url: editor_events_url, turbo_frame: 'events', categories: @categories, editor: true)

@@ -1,19 +1,23 @@
-.field
-  = @form.label :title
-  .control
-    = @form.text_field :title, class: 'input ', required: true
-
 .field.is-horizontal
   .field-body
     .field
+      = @form.label :title
+      .control
+        = @form.text_field :title, class: 'input ', required: true
+    .field
       = @form.label :category
       .control
-        = @form.select :category, [['String',:string],['Text box',:text], ['Selezione', :select], ['File', :file]], {}, mandatory: true, data: {controller: 'slim', target: 'slim.simple'}
+        .select.is-fullwidth= @form.select :category, [['Stringa',:string],['Box testo',:text], ['Selezione', :select], ['File', :file],['Data', :date],['Numero', :number]], {}, mandatory: true
     .field
-      = @form.label :madatory
+      = @form.label :mandatory
       .control
-        = @form.select :mandatory, [['Si',true],['No',false]], {}, mandatory: true, data: {controller: 'slim', target: 'slim.simple'}
+        .select.is-fullwidth= @form.select :mandatory, [['Si',true],['No',false]], {}, mandatory: true
     .field
       = @form.label :weight
       .control
         = @form.number_field :weight, class: 'input', required: true
+    .field
+      = @form.label :_destroy
+      .control
+        .select.is-fullwidth= @form.select :_destroy, [['Mantieni', nil],['Elimina', 1]]
+
