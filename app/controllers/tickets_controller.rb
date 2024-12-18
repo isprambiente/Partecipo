@@ -55,6 +55,6 @@ class TicketsController < ApplicationController
 
   # filter params for {Happening}'s {Ticket}
   def ticket_params
-    params.fetch(:ticket, {}).permit(:happening_id, answers_attributes: [ :question_id, :value ])
+    params.fetch(:ticket, {}).permit(:happening_id, answers_attributes: [ :question_id, :value, :file ])
   end
 end

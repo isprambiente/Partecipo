@@ -12,4 +12,10 @@
           = @form.text_area :value, class: 'textarea', required: @form.object.question_mandatory?
         - when 'select'
           .select.is-fullwidth= @form.select :value, @form.object.question.options.map(&:title), {}, required: @form.object.question_mandatory?
+        - when 'file'
+          = @form.file_field :file, class: 'input', required: @form.object.question_mandatory?
+        - when 'number'
+          = @form.number_field :value, class: 'input', required: @form.object.question_mandatory?
+        - when 'date'
+          = @form.date_field :value, class: 'input', required: @form.object.question_mandatory?
 
