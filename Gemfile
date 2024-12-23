@@ -1,6 +1,3 @@
-# frozen_string_literal: true
-# frozen_string_literal: true
-
 source "https://rubygems.org"
 
 ruby "3.3.5"
@@ -18,7 +15,9 @@ gem "pg", "~> 1.1"
 gem "puma", ">= 5.0"
 
 # Bundle and transpile JavaScript [https://github.com/rails/jsbundling-rails]
-gem "jsbundling-rails"
+# gem "jsbundling-rails"
+# Use JavaScript with ESM import maps [https://github.com/rails/importmap-rails]
+gem "importmap-rails"
 
 # Hotwire's SPA-like page accelerator [https://turbo.hotwired.dev]
 gem "turbo-rails"
