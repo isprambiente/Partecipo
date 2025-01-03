@@ -12,19 +12,18 @@ module Layout
     # Generate an html safe string with full ispra top menu
     # @return [String] html string menu
     def call
-      tag.div tag.div(navbar, class: "container"), id: "nav3", class: "has-background-primary-dark"
+      tag.div tag.div(navbar, class: "container"), id: "nav3"
     end
 
     # render Bulmacomp::NavbarComponent with the options
     def navbar
-      render Bulmacomp::NavbarComponent.new(brand: navbar_title, navbar_start:, navbar_end:,
-                                            class: "navbar has-background-primary-dark")
+      render Bulmacomp::NavbarComponent.new(brand: navbar_title, navbar_start:, navbar_end:)
     end
 
     # Generate the navbar-title html block
     def navbar_title
       title = ENV.fetch("RAILS_TITLE", "Partecipo")
-      safe_join([ icon_text(ENV.fetch("RAILS_ICON", "fas fa-signature"), title.first), title[1..] ])
+      safe_join([ icon(ENV.fetch("RAILS_ICON", "fas fa-signature")), tag.span(title.first), title[1..] ])
     end
 
     # Gerate the navbar-start html block
@@ -57,7 +56,7 @@ module Layout
     end
 
     def submenu(title:, sub:)
-      style = "navbar-item has-dropdown is-hoverable has-background-primary-dark"
+      style = "navbar-item has-dropdown is-hoverable"
       tag.div link_to(title, "", class: "navbar-link") + tag.div(sub, class: "navbar-dropdown"), class: style
     end
 
