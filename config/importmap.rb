@@ -11,4 +11,3 @@ pin "@fortawesome/fontawesome-free", to: "@fortawesome--fontawesome-free.js" # @
 pin "@fortawesome/fontawesome-free/js/solid.js", to: "@fortawesome--fontawesome-free--js--solid.js.js" # @6.7.2
 pin "slim-select" # @2.10.0
 pin "smart-timeout" # @2.7.1
-
