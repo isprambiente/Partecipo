@@ -4,7 +4,7 @@ module Editor
   # This controller manafe {Happening} model for editors
   class HappeningsController < Editor::ApplicationController
     before_action :set_groups
-    before_action :set_happening, only: %i[show edit update destroy export]
+    before_action :set_happening, only: %i[show edit update destroy]
 
     # GET /editor/events/:event_id/happenings
     def index
@@ -16,11 +16,21 @@ module Editor
       group_id = @groups.exists?(filter_params[:category]) ? filter_params[:category] : @groups.pluck(:id)
       text     = filter_params[:text]
       soldout  = filter_params[:soldout]
-      @pagy, @happenings = pagy(Happening.searchable(from:, to:, event_id:, group_id:, text:, soldout:), items: 6)
+      searchable = Happening.searchable( from:, to:, event_id:, group_id:, text:, soldout: )
+      respond_to do |format|
+        format.html { @pagy, @happenings = pagy(searchable, items: 6) }
+        format.csv { @happenings = searchable.includes(:questions, tickets: [:answers, :user]) }
+      end
+
     end
 
     # GET /editor/events/:event_id/happenings/:id
-    def show; end
+    def show
+      respond_to do |format|
+        format.html { }
+        format.csv { }
+      end
+    end
 
     # GET /editor/events/event_id/happenings/new
     def new
@@ -60,17 +70,6 @@ module Editor
     def destroy
       @happening.destroy
       redirect_to editor_event_path(@happening.event)
-    end
-
-    # GET /editor/events/:event_id/happenings/:happening_id/tickets/export
-    def export
-      ret = CSV.generate(headers: true) do |csv|
-        csv << [ "Email" ] + @happening.questions.pluck(:title)
-        @happening.tickets.includes(:user, answers: [ :question ]).all.each do |ticket|
-          csv << [ ticket.user.email ] + ticket.answers.includes(:question).order("questions.weight desc").map(&:value)
-        end
-      end
-      send_data ret, filename: "tickets.csv"
     end
 
     private
