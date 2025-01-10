@@ -1,41 +1,24 @@
-$ribbon-color: $grey-darker !default
-$ribbon-background-color: $white !default
-$ribbon-border: .1rem solid $grey-lighter !default
-
 // The ribbon sizes use mixins so they can be used at different breakpoints
 =ribbon-small
-  font-size: $size-small
+  font-size: var(--bulma-size-7)
 =ribbon-medium
-  font-size: $size-medium
+  font-size: var(--bulma-size-5)
 =ribbon-large
-  font-size: $size-large
+  font-size: var(--bulma-size-3)
 
 .has-ribbon
   position: relative
 
-.has-ribbon-left
-  position: relative
-  .ribbon
-    right: auto
-    left: 0
-    border-left: none
-    border-right: $ribbon-border
-
-.has-ribbon-bottom
-  position: relative
-  .ribbon
-    top: auto
-    bottom: .5em
-
 .ribbon
-  background-color: $ribbon-background-color
-  border: $ribbon-border
+  --f: .5em
+  --r: .8em 
+  background-color: var(--bulma-dark)
+  border: var(--bulma-border) var(--bulma-control-border-width) solid
   border-right: none
-  color: $ribbon-color
-  font-size: $size-normal
+  color: var(--bulma-white)
+  font-size: var(--bulma-size-6)
   justify-content: center
-  padding-left: 0.75em
-  padding-right: 0.75em
+  padding: 0.2rem 0.75em
   text-align: center
   white-space: nowrap
   position: absolute
@@ -43,17 +26,11 @@ $ribbon-border: .1rem solid $grey-lighter !default
   right: 0
   font-weight: 400
   z-index: 2
-  @each $name, $pair in $colors
-    $color: nth($pair, 1)
-    $color-invert: nth($pair, 2)
-    &.is-#{$name}:not(.is-outlined)
-      background-color: $color
-      border-color: transparent
-      color: $color-invert !important
-    &.is-#{$name}
-      &.is-outlined
-        background-color: transparent
-        border-color: $color
+  
+  right: calc(-1*var(--f))
+  border-top: var(--f) solid var(--bulma-dark)
+  border-left: var(--r) solid #0000
+  clip-path: polygon(var(--r) 100%,100% 100%,100% var(--f),calc(100% - var(--f)) 0, calc(100% - var(--f)) var(--f),var(--r) var(--f), 0 calc(50% + var(--f)/2))
 
   // Sizes
   &.is-small
@@ -64,3 +41,17 @@ $ribbon-border: .1rem solid $grey-lighter !default
     +ribbon-large
   &.is-outlined
     background-color: transparent
+    color: var(--bulma-dark)
+
+  &.is-oblique
+    top: 0
+    right: 0
+    padding-inline: 1lh
+    padding-top: 0px
+    padding-bottom: var(--f)
+    border-image: conic-gradient(#0008 0 0) 51%/var(--f)
+    clip-path: polygon(  100% calc(100% - var(--f)),100% 100%,calc(100% - var(--f)) calc(100% - var(--f)),var(--f) calc(100% - var(--f)), 0 100%,0 calc(100% - var(--f)),999px calc(100% - var(--f) - 999px),calc(100% - 999px) calc(100% - var(--f) - 999px))
+    transform: translate(calc((1 - cos(45deg))*100%), -100%) rotate(45deg)
+    transform-origin: 0% 100%
+    border: none
+

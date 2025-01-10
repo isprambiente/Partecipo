@@ -3,34 +3,9 @@
     ul
       margin-top: 0px
 
-.fix-width
-  +desktop 
-    width: 212px
-
-.min-width
-  +desktop 
-    min-width: 212px
-
-
 .turbolinks-progress-bar 
   height: 5px
   background-color: green
-
-.block
-  margin-bottom: 1rem
-
-.field, .field:not(:last-child)
-  margin-bottom: 1rem
-
-.turbolinks-progress-bar 
-  height: 5px
-  background-color: green
-
-.is-hidden
-  visibility: hidden
-
-.is-to-right
-  margin-left: auto
 
 .has-padding-left
   padding-left: 1rem
@@ -55,15 +30,16 @@ nav.panel
   margin: 0! important
 
 .button.is-secondary
-  background: $secondary
-  color: $white
-  border-color: $secondary
+  background: var(--bulma-secondary)
+  color: var(--bulma-white)
+  border-color: var(--bulma-secondary)
 
 .has-secondary-background
-  background: $secondary
+  background: var(--bulma-secondary)
 
 section.section
-  background: #fffdf5 !important
+  // background: #fffdf5 !important
+  background: var(--bulma-tertiary-100)
 
 nav.panel
   background: #ffffff
@@ -76,12 +52,6 @@ table.list-item-description
 
 .d-block
   display: block  
-
-.ribbon-oblique
-  transform: translateX(30%) translateY(0%) rotate(45deg)
-  transform-origin: top left
-  top: -20px
-  right:-20px
 
 .o-hidden
   overflow: hidden

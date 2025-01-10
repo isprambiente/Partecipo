@@ -2,3 +2,7 @@
 = turbo_stream.update("available_#{@ticket.happening_id}", @ticket.happening.tickets_available)
 - if @ticket.happening.saleable?
   = turbo_stream.replace('ticket-new', tag.turbo_frame(id: 'ticket-new', src: new_ticket_path(ticket: {happening_id: @ticket.happening.id})))
+- if @ticket.happening.tickets_available?
+  = turbo_stream.replace("ribbon-#{@ticket.happening_id}", tag.div(id: "ribbon-#{@ticket.happening_id}") )
+- else
+  = turbo_stream.replace "ribbon-#{@happening_id}",  tag.div( icon_text('fas fa-ban', t('.soldout'))  , id: "ribbon-#{@happening_id}", class: "ribbon is-oblique has-background-primary-25")

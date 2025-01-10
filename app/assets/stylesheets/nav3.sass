@@ -1,32 +1,56 @@
 #nav3
+  background: var(--bulma-primary-25)
+  .navbar, .navbar-dropdown
+    background: var(--bulma-primary-25)
+    .navbar-item, .navbar-link
+      background: var(--bulma-primary-25)
+      color: var(--bulma-white)
+      &:hover, &:active, &:focus
+        background: var(--bulma-primary)
+    .navbar-brand
+      a
+        font-weight: bold
+        font-style: italic
+        font-size: 1.25rem
+        span
+          width: 0px
+          &::first-letter, &.icon
+            color: var(--bulma-secondary)
+
+//
   .navbar-burger
     color: #ffffff
-    border-left: $primary solid 1px
+    border-left: var(--bulma-primary) solid 1px
+  a, .navbar-item, .navbar-link, .has-dropdown, .navbar-item.has-dropdown .navbar-item
+    background: var(--bulma-primary-25)
+    color: #f0f0f0
   .navbar-brand
     a
+      background: var(--bulma-primary-25)
       color: #ffffff
       font-weight: 700
       font-style: italic
       font-size: 1.25rem
       span
-        color: $secondary
+        width: 0px
+        &::first-letter, &.icon
+          color: var(--bulma-secondary)
   nav.navbar
     min-height: 40px
     .navbar-menu, .navbar-dropdown
       border: none
-      background: $primary-dark
+      background: var(--bulma-primary-25)
       a.navbar-item, a.navbar-link
         white-space: nowrap
-        color: $white
+        color: #fff
         font-size: 1rem
-
         &:hover, &:focus, &:active
           transition: all 0.5s ease  
-          background: $primary !important
+          background: var(--bulma-primary) !important
+  .navbar-item.has-dropdown:focus .navbar-link, .navbar-item.has-dropdown:hover .navbar-link, .navbar-item.has-dropdown.is-active .navbar-link
+    background: var(--bulma-primary)
 
-.navbar-item.has-dropdown:focus .navbar-link, .navbar-item.has-dropdown:hover .navbar-link, .navbar-item.has-dropdown.is-active .navbar-link
-  background: $primary  
-@media screen and (max-width: 1023px)
+//@media screen and (max-width: 1023px)
   #nav3
     .navbar-menu
       background: transparent
@@ -34,7 +58,7 @@
         background: transparent
         &:hover 
           transition: all 0.5s ease  
-          background: $primary
+          background: var(--bulma-primary)
         &:focus, &:active
           background: transparent
 
