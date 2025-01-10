@@ -80,8 +80,7 @@ module Editor
 
     # Filter params for set a {Event}
     def event_params
-      params.require(:event).permit(:tickets_frequency, :title, :group_id, :body, :start_on, :stop_on, :pinned, :image,
-                                   :where, :single)
+      params.require(:event).permit(:tickets_frequency, :title, :group_id, :body, :start_on, :stop_on, :pinned, :image, :where, :single)
     end
   end
 end

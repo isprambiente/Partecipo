@@ -7,7 +7,10 @@
       .block
         %figure.image= image_tag @event.image_url(:aside)
       = render Layout::SearchComponent.new(url: editor_happenings_path, turbo_frame: 'happenings', scope: @scope, editor: true, soldout: true)
-      = link_to icon_text('fas fa-plus','Nuova data'), new_editor_happening_path(event_id: @event.id), class: 'button is-success is-fullwidth', data: {turbo_frame: 'yield'}
+      = link_to icon_text('fas fa-plus','Nuova data'), new_editor_happening_path(event_id: @event.id), class: 'button is-success is-fullwidth block', data: {turbo_frame: 'yield'}
+      - with_options class: 'button is-link is-fullwidth block', data: {turbo: 'false'} do |export|
+        = export.link_to icon_text('fas fa-file-csv','Esporta prossime date'), editor_happenings_path(filter: {scope: @event.id, from: Time.zone.now}, format: :csv) 
+        = export.link_to icon_text('fas fa-file-csv','Esporta tutti i dati'), editor_happenings_path(filter: {scope: @event.id}, format: :csv)
     .column
       %turbo-frame#event.block= render Events::InfoboxComponent.new(event: @event, editor: true)
       .divider= icon_text 'fas fa-calendar-day', t('activerecord.models.happening.other')

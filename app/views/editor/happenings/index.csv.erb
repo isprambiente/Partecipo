@@ -1,0 +1,16 @@
+<%=
+  CSV.generate(headers: true) do |csv|
+    csv << [ "Date","Happening title","Name","Surname","Email","Question","Answer" ]
+    @happenings.each do |happening|
+      happening.tickets.each do |ticket|
+        if ticket.answers.present?
+          ticket.answers.each do |answer|
+            csv << [l(happening.start_at, format: :short), happening.title, ticket.user.name, ticket.user.surname, ticket.user.email, answer.question.title, answer.value]
+          end
+        else
+          csv << [I18n.l(happening.start_at), happening.title, ticket.user.name, ticket.user.surname, ticket.user.email]
+        end
+      end
+    end
+  end
+%>

@@ -9,9 +9,7 @@ Rails.application.routes.draw do
     namespace "editor" do
       root "events#index"
       resources :events
-      resources :happenings do
-        get :export, on: :member
-      end
+      resources :happenings
       resources :tickets, except: %i[show]
       resources :users, only: %i[index show]
     end
