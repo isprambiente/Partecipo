@@ -6,8 +6,6 @@ production:
       days: ENV.fetch("RAILS_CLEAN_AFTER_DAYS", nil).to_i
     schedule: "0 2 * * *"
   periodic_reminder:
-    class: CleanSoftDeletedRecordsJob
+    class: ReminderJob
     queue: background
-    args:
-      days: ENV.fetch("RAILS_CLEAN_AFTER_DAYS", nil).to_i
     schedule: "0 6 * * *"

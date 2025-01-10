@@ -1,4 +1,8 @@
 = render Happenings::BoxComponent.new(happening: @happening) do
+  - if @happening.tickets_available?
+    %div{id: "ribbon-#{@happening.id}"}
+  - else
+    %div{id: "ribbon-#{@happening.id}", class: "ribbon is-oblique has-background-primary-25"}= icon_text 'fas fa-ban', t('.soldout')
   - if @happening.saleable?
     %turbo-frame#ticket-new{src: new_ticket_path(ticket: {happening_id: @happening.id})}
   - else

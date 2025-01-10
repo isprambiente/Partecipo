@@ -1,9 +1,30 @@
 footer
+  #footer-first
+    padding-top: 3rem !important
+    padding-bottom: 3rem !important
+    background: var(--bulma-tertiary-95)
+    .menu
+      .menu-label
+        color: var(--bulma-primary-25)
+        font-weight: bold
+      ul.menu-list
+        li
+          a
+            background: var(--bulma-tertiary-95)
+            font-size: var(--bulma-size-7)
+            &:hover
+              background: var(--bulma-tertiary-85)
+  #footer-second
+    text-align: center
+    padding-top: 3rem !important
+    padding-bottom: 3rem !important
+    background: var(--bulma-primary-25)
+    color: var(--bulma-white)
   #pheader
     padding-top: 16px
     padding-bottom: 2rem
     margin-bottom: 1.5rem
-    border-bottom: 1px solid $primary-dark
+    border-bottom: 1px solid var(--bulma-primary-25)
     .column.is-narrow
       padding: 0px 10px
     img

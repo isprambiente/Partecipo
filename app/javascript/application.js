@@ -1,10 +1,12 @@
-// Entry point for the build script in your package.json
+// Configure your import map in config/importmap.rb. Read more: https://github.com/rails/importmap-rails
 import "@hotwired/turbo-rails"
-import "./controllers"
+import "controllers"
 
 import "trix"
 import "@rails/actiontext"
-import "./awesome.js"
+
+import "@fortawesome/fontawesome-free/js/solid.js"
+import "@fortawesome/fontawesome-free"
 
 if ('serviceWorker' in navigator) {
   // Register the service worker

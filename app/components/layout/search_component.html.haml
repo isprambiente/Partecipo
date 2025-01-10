@@ -1,7 +1,7 @@
 = form_with scope: 'filter', url: @url, method: :get, data: {turbo_frame: @turbo_frame, controller: 'form', form_target: 'sender'} do |f|
   = f.hidden_field :scope, value: @scope if @scope.present?
-  %nav.box#search.block
-    %p.panel-heading= t '.search'
+  %nav.box#search
+    %p.box-heading= t '.search'
     - if @text == true
       .field
         = f.label :text, icon_text('fas fa-search',t('.label.text')) , class: 'label is-small'

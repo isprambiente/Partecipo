@@ -1,6 +1,7 @@
 %turbo-frame#happening
   .box.has-ribbon
-    %h5.title.is-5= icon_text 'fas fa-calendar-day', @happening.title
+    - if @happening.title.present?
+      %h5.title.is-5= icon_text 'fas fa-calendar-day', @happening.title
     %hr
     = info
     %hr

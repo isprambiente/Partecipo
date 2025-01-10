@@ -6,6 +6,11 @@
     = turbo_stream.replace('ticket-new', tag.turbo_frame(id: 'ticket-new', src: new_ticket_path(ticket: {happening_id: @happening.id})))
   - else
     = turbo_stream.update("ticket-new",'')
+  - if @happening.tickets_available?
+    = turbo_stream.replace("ribbon-#{@happening.id}", tag.div(id: "ribbon-#{@happening.id}") )
+  - else
+    = turbo_stream.replace "ribbon-#{@happening.id}", tag.div( icon_text('fas fa-ban', t('.soldout'))  , id: "ribbon-#{@happening.id}", class: "ribbon is-oblique has-background-primary-25")
+    %div.ribbon.is-oblique.has-background-primary-25= icon_text 'fas fa-ban', t('.soldout')
 - else
   = turbo_stream.replace('modal', render(Layout::ModalErrorComponent.new(obj: @ticket)))
 
