@@ -4,13 +4,14 @@
     @happenings.each do |happening|
       happening.tickets.each do |ticket|
         if ticket.answers.present?
-          ticket.answers.each do |answer|
-            csv << [l(happening.start_at, format: :short), happening.title, ticket.user.name, ticket.user.surname, ticket.user.email, answer.question.title, answer.value]
+          csv << [l(happening.start_at, format: :long), happening.title, ticket.user.name, ticket.user.surname, ticket.user.email]
+          ticket.answers.includes(:question).order("questions.weight desc").each do |answer|
+            csv << ["", "", "", "", "", answer.question.title, answer.value]
           end
         else
           csv << [I18n.l(happening.start_at), happening.title, ticket.user.name, ticket.user.surname, ticket.user.email]
         end
       end
     end
-  end
+  end .html_safe
 %>
