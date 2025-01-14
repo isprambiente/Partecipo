@@ -7,7 +7,8 @@
       .block
         %figure.image= image_tag @happening.image_url(:aside)
       = render Layout::SearchComponent.new(url: editor_tickets_path, turbo_frame: 'tickets', categories: @categories, scope: @event.id, date_range: false)
-      = link_to icon_text('fas fa-file-csv','Esporta dati'), editor_happening_path(@happening, format: :csv), class: 'button is-success is-fullwidth', data: {turbo: 'false'}
+      = link_to icon_text('fas fa-file-csv','Esporta CSV'), editor_happening_path(@happening, format: :csv), class: 'button is-success is-fullwidth', data: {turbo: 'false'}
+      = link_to icon_text('fas fa-file-pdf','Esporta PDF'), editor_happening_path(@happening, format: :pdf), class: 'button is-success is-fullwidth', data: {turbo: 'false'}
     .column
       %turbo-frame#event= render Events::InfoboxComponent.new(event: @event, editor: true)
       .divider= icon_text 'fas fa-calendar-day', t('activerecord.models.happening.other')
