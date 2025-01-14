@@ -8,6 +8,7 @@ module Editor
 
     # GET /editor/events/:event_id/happenings
     def index
+      request.format = filter_params[:format].to_sym if filter_params[:format].present?
       @categories = Group.pluck :title, :id
       @scope   = filter_params[:scope]
       from     = filter_params[:from]
@@ -20,6 +21,7 @@ module Editor
       respond_to do |format|
         format.html { @pagy, @happenings = pagy(searchable, items: 6) }
         format.csv { @happenings = searchable.includes(:questions, tickets: [:answers, :user]) }
+        format.pdf { @happenings = searchable.includes(:questions, tickets: [:answers, :user]) }
       end
 
     end
@@ -29,6 +31,7 @@ module Editor
       respond_to do |format|
         format.html { }
         format.csv { }
+        format.pdf { } 
       end
     end
 
@@ -96,7 +99,7 @@ module Editor
 
     # Filter params for search an {Happening}
     def filter_params
-      params.fetch(:filter, {}).permit(:from, :category, :scope, :text, :to, :soldout)
+      params.fetch(:filter, {}).permit(:from, :category, :scope, :text, :to, :soldout, :format)
     end
   end
 end

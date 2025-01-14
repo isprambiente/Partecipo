@@ -99,3 +99,4 @@ gem "pagy"
 gem "bulmacomp"
 gem "csv"
 gem "icalendar"
+gem 'prawn-rails'
