@@ -53,6 +53,7 @@ class User < ApplicationRecord
   has_many :events, through: :groups
   scope :editors, -> { where editor: true }
   scope :admins, -> { where admin: true }
+  scope :member, -> { where member: true }
   before_validation :add_username, on: :create
   validates :username, presence: true, uniqueness: true
   unless RAILS_DEVISE_DATABASE_AUTHENTICATABLE

@@ -1,3 +1,4 @@
+name: partecipo
 ### Configure rails istances with environments
 x-rails_conf: &rails_conf
   # SECRET_KEY_BASE, This key used to sign and encrypt cookies. Change this before production 
