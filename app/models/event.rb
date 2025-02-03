@@ -34,6 +34,7 @@
 #   @param group_id [Integer] (nil) if present, search Event with valorized [group_id]
 #   @param text [String] (nil) if present search text in [title]
 #   @param editor [Boolean] (false) if true skip default from_date as Time.zone.now, Editors can view Event without Happening
+#   @param reserver [Boolean] (false) reserved event are excluded unless unless is true
 class Event < ApplicationRecord
   has_rich_text :body
   has_one_attached :image do |attachable|
@@ -51,9 +52,9 @@ class Event < ApplicationRecord
     from = Time.zone.now unless editor || from.present?
     by_keys = {}
     by_keys[:stop_on]  = (from.try(:to_date)..) if from.present?
-    by_keys[:start_on] = ..to.try(:to_date) if to.present?
+    by_keys[:start_on] = (..to.try(:to_date)) if to.present?
     by_keys[:group_id] = group_id  if group_id.present?
-    by_keys[:reserved] = false unless reserver == true
+    by_keys[:reserved] = false unless reserved == true
     by_text = text.present? ? [ "title ilike :text", { text: "%#{text}%" } ] : nil
     where(by_text).where(by_keys)
   end
