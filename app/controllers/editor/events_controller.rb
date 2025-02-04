@@ -13,7 +13,7 @@ module Editor
       to       = filter_params[:to]
       group_id = @groups.exists?(filter_params[:category]) ? filter_params[:category] : @groups.pluck(:id)
       text     = filter_params[:text]
-      @pagy, @events = pagy(Event.searchable(from:, to:, group_id:, text:, editor: true), items: 6)
+      @pagy, @events = pagy(Event.searchable(from:, to:, group_id:, text:, editor: true, reserved: true), items: 6)
     end
 
     # GET /editor/events/:id
