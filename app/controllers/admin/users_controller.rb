@@ -37,7 +37,7 @@ module Admin
 
     # Filter params for set an {User}
     def user_params
-      params.require(:user).permit(:editor, :admin, group_ids: [])
+      params.require(:user).permit(:editor, :admin, :member, group_ids: [])
     end
 
     # Filter params for search an {User}

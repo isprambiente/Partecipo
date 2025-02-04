@@ -17,6 +17,12 @@
                 %span.select.is-fullwidth= f.select :admin, [['Si',true],['No',false]], {}
                 %span.icon.is-left= fas_icon 'user-shield'
                 %p.help.is-danger= @user.errors.messages[:admin].join(' - ')
+          .control
+            .field
+              .control.has-icons-left
+                %span.select.is-fullwidth= f.select :member, [['Si',true],['No',false]], {}
+                %span.icon.is-left= fas_icon 'users'
+                %p.help.is-danger= @user.errors.messages[:admin].join(' - ')
           .control.is-expanded
             = f.select :group_ids, @groups, {}, {multiple: true, data: {controller: 'slim', target: 'slim.simple'}}
             %p.help.is-danger= @user.errors.messages[:groups].join(' - ')
