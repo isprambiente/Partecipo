@@ -17,6 +17,7 @@ it:
         tickets_frequency: Frequenza prenotazioni
         where: Dove
         single: Singolo
+        reserved: Riservato
       happening:
         detail: Dettagli
         start_at: Data di inizio evento

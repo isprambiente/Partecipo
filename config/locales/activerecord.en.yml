@@ -17,6 +17,7 @@ en:
         tickets_frequency: Booking frequency
         where: Where
         single: Single
+        reserved: Reserved
       happening:
         detail: Details
         start_at: Event start at
