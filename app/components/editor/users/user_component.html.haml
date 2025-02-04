@@ -6,5 +6,6 @@
     .list-item-description
       = confirmed_tag
       = active_tag
+      = member_tag
   .list-item-controls
     .buttons.is-right= link_to icon("fas fa-edit"), editor_user_path(@user), class: "button", data: {turbo_frame: 'yield'}
