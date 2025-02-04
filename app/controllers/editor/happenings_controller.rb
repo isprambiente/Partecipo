@@ -17,7 +17,7 @@ module Editor
       group_id = @groups.exists?(filter_params[:category]) ? filter_params[:category] : @groups.pluck(:id)
       text     = filter_params[:text]
       soldout  = filter_params[:soldout]
-      searchable = Happening.searchable( from:, to:, event_id:, group_id:, text:, soldout: )
+      searchable = Happening.searchable( from:, to:, event_id:, group_id:, text:, soldout:, reserved: true)
       respond_to do |format|
         format.html { @pagy, @happenings = pagy(searchable, items: 6) }
         format.csv { @happenings = searchable.includes(:questions, tickets: [:answers, :user]) }
