@@ -44,6 +44,8 @@ x-rails_conf: &rails_conf
   RAILS_OIDC_NAME: given_name
   ### RAILS_OIDC_SURNAME, claim used to set user `surname` param
   RAILS_OIDC_SURNAME: family_name
+  ### RAILS_OIDC_MEMBER, claim used to set user `member` param
+  #RAILS_OIDC_MEMBER: "auth.extra.raw_info.is_member"
   ### RAILS_OIDC_IDENTIFIER, String required to identify this OIDC RP from the IDP
   RAILS_OIDC_IDENTIFIER: partecipo
   ### RAILS_OIDC_SECRET, Secret string to identify this OIDC RP from the IDP

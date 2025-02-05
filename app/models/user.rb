@@ -67,6 +67,9 @@ class User < ApplicationRecord
     user.password = SecureRandom.alphanumeric(20)
     user.name = auth.info.try(ENV.fetch("RAILS_OIDC_NAME") { "given_name" })
     user.surname = auth.info.try(ENV.fetch("RAILS_OIDC_SURNAME") { "family_name" })
+    if (ENV.fetch("RAILS_OIDC_MEMBER")) 
+      user.member = eval(ENV.fetch("RAILS_OIDC_MEMBER"))
+    end 
     user.skip_confirmation! if RAILS_DEVISE_CONFIRMABLE
     user.save
     user
