@@ -52,7 +52,7 @@
         = form.rich_text_area :body
         %p.help.is-danger= event.errors[:body].join(' - ')
       .columns
-        .column.is-9.field
+        .column.is-7.field
           = form.label :where
           .control.has-icons-left
             = form.text_field :where, class: 'input'
@@ -66,6 +66,13 @@
             %span.icon.is-small.is-left
               %i.fas.fa-user
           %p.help.is-danger= event.errors[:pinned].join(' - ')
+        .column.field
+          = form.label :reserved
+          .control.has-icons-left
+            %span.select.is-fullwidth= form.select :reserved, [['SI',true],['No',false]], include_blank: false
+            %span.icon.is-small.is-left
+              %i.fas.fa-lock
+          %p.help.is-danger= event.errors[:reserved].join(' - ')
       .has-text-centered
         .buttons
           = form.button fas_icon('save', text: t('site.generic.save')), class: 'button is-success'

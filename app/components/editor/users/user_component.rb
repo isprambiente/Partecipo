@@ -21,4 +21,8 @@ class Editor::Users::UserComponent < CommonComponent
       tag.div icon_text("fas fa-unlock", t(".unlock")), class: "tag is-success"
     end
   end
+
+  def member_tag
+    tag.div icon_text("fas fa-users", 'Member'), class: "tag is-success" if @user.member?
+  end
 end

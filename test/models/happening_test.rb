@@ -103,6 +103,15 @@ class HappeningTest < ActiveSupport::TestCase
     assert_equal 2, Happening.searchable(text: "o").count
   end
 
+  test "searchable scope not show happening from reserved event unless reserved options is set to true" do
+    e1 = create :event
+    e2 = create :event,  reserved: true
+    create :happening, event: e1
+    create :happening, event: e2
+    assert_equal 1, Happening.searchable().count
+    assert_equal 2, Happening.searchable(reserved: true).count
+  end
+
   ### Class Method
   test "massive create" do
     event = create :event

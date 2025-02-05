@@ -59,10 +59,13 @@ class Happening < ApplicationRecord
   delegate :group_id, to: :event
 
   default_scope { includes(:event).order("start_at asc") }
-  scope :searchable, ->(from: nil, to: nil, event_id: nil, group_id: nil, text: nil, soldout: nil) do
+  scope :searchable, ->(from: nil, to: nil, event_id: nil, group_id: nil, text: nil, soldout: nil, reserved: false) do
+    search_event = {} 
+    search_event[:reserved] = false unless reserved == true
+    search_event[:group_id] = group_id if group_id.present?
     by_keys = { start_at: (from.try(:to_date) || Date.today)..to.try(:to_date).try(:end_of_day) }
     by_keys[:event_id] = event_id if event_id.present?
-    by_keys[:events] = { group_id: group_id } if group_id.present?
+    by_keys[:events] = search_event if search_event.present?
     by_text = text.present? ? [ "happenings.title ilike :text or events.title ilike :text", { text: "%#{text}%" } ] : nil
     @soldout = [ "happenings.tickets_count < happenings.max_tickets" ] if soldout == "1"
     @soldout = [ "happenings.tickets_count >= happenings.max_tickets" ] if soldout == "2"

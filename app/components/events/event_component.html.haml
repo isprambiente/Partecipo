@@ -5,5 +5,7 @@
     .list-item-title= icon_text "fas fa-calendar", @event.title
     .list-item-description= icon_text "fas fa-calendar-day", date
     .list-item-description
+      - if @event.reserved?
+        .tag.is-dark= icon_text 'fas fa-lock', t('activerecord.attributes.event.reserved')
       .tag= icon_text 'fas fa-list', @event.group.title
       .tag= icon_text 'fas fa-calendar-day', @event.happenings_count
