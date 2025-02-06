@@ -50,6 +50,10 @@ x-rails_conf: &rails_conf
   RAILS_OIDC_SECRET: MySuperSecureSecret
   ### RAILS_OIDC_CLAIMS, list of claims required
   RAILS_OIDC_CLAIMS: sub email given_name family_name
+  ### RAILS_OIDC_MEMBER, claim used to define member status
+  RAILS_OIDC_MEMBER: member
+  ### RAILS_OIDC_MEMBER_VALUE, string value to compare with RAILS_OIDC_MEMBER for check member statusRAILS_OIDC_MEMBER
+  RAILS_OIDC_MEMBER: 'true'
   ### RAILS_MAX_THREADS, pool connection to PG database
   RAILS_MAX_THREADS: 5
   ### RAILS_DB_HOST, PG hostname server, pg is the name of compose service
