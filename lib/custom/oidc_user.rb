@@ -1,5 +1,5 @@
 class Custom::OidcUser
-  def initialize(auth)
+  def self.from_omniauth(auth)
     user = User.find_or_initialize_by username: auth.uid
     user.email = auth.info.email
     user.password = SecureRandom.alphanumeric(20)
