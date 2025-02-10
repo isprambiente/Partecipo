@@ -1,4 +1,4 @@
-class Custom::Oidc
+class Custom::OidcUser
   def initialize(auth)
     user = User.find_or_initialize_by username: auth.uid
     user.email = auth.info.email
