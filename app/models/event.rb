@@ -49,9 +49,6 @@ class Event < ApplicationRecord
   enum :tickets_frequency, %i[any single daily weekly monthly]
 
   scope :searchable, ->(from: nil, to: nil, group_id: nil, text: nil, editor: false, reserved: false) do
-    puts ":::::AUTENTICATO::::"
-    puts reserved
-
     from = Time.zone.now unless editor || from.present?
     by_keys = {}
     by_keys[:stop_on]  = (from.try(:to_date)..) if from.present?
