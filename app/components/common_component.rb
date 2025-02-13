@@ -50,7 +50,7 @@ class CommonComponent < ViewComponent::Base
     tag.turbo_frame body, **options
   end
 
-  def level_item(head, body, id=nil)
+  def level_item(head, body, id = nil)
     tag.div tag.div(tag.p(head, class: "heading") + tag.p(body, class: "title is-6")), class: "level-item", id: id
   end
 

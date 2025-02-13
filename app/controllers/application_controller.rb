@@ -48,6 +48,6 @@ class ApplicationController < ActionController::Base
   end
 
   def include_reserved?
-    ENV.fetch('RAILS_SHOW_RESERVED', false) || current_user.try(:member)
+    ENV.fetch("RAILS_SHOW_RESERVED", false) || current_user.try(:member)
   end
 end

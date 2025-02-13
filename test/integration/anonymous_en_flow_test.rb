@@ -1,15 +1,14 @@
 require "test_helper"
-require 'capybara/rails'
+require "capybara/rails"
 
 class AnonymousEnFlowTest < ActionDispatch::IntegrationTest
-
   test "can sign in" do
     get "/en/events"
     assert_dom "a", "Sign In"
   end
 
   test "can see events in events page" do
-    event = create :event, title: 'My Event'
+    event = create :event, title: "My Event"
     create :happening, event: event
     get "/en/events"
     assert_dom "h3.title", "Events"
@@ -18,7 +17,7 @@ class AnonymousEnFlowTest < ActionDispatch::IntegrationTest
   end
 
   test "can't see reserved event" do
-    event = create :event, title: 'My Event', reserved: true
+    event = create :event, title: "My Event", reserved: true
     create :happening, event: event
     get "/en/events"
     assert_dom "#empty"
@@ -26,7 +25,7 @@ class AnonymousEnFlowTest < ActionDispatch::IntegrationTest
 
   test "can see event with his details" do
     I18n.locale = :en
-event = create :event, title: 'My Event'
+event = create :event, title: "My Event"
     happening = create :happening, title: "My Happening", event: event, start_at: Time.zone.now + 1.day
     get "/en/events/#{event.id}"
     assert_dom "h3.title", event.title
@@ -42,7 +41,7 @@ event = create :event, title: 'My Event'
 
   test "can see happenings" do
     I18n.locale = :en
-    event = create :event, title: 'My Event'
+    event = create :event, title: "My Event"
     happening = create :happening, title: "My Happening", event: event, start_at: Time.zone.now + 1.day
     get "/en/happenings/"
     assert_dom "h3.title", "Dates"
@@ -50,7 +49,7 @@ event = create :event, title: 'My Event'
 
   test "can't see reserved happenings" do
     I18n.locale = :en
-    event = create :event, title: 'My Event', reserved: true
+    event = create :event, title: "My Event", reserved: true
     happening = create :happening, title: "My Happening", event: event, start_at: Time.zone.now + 1.day
     get "/en/happenings/"
     assert_dom "#empty"
@@ -58,7 +57,7 @@ event = create :event, title: 'My Event'
 
   test "can see happening details" do
     I18n.locale = :en
-    event = create :event, title: 'My Event'
+    event = create :event, title: "My Event"
     happening = create :happening, title: "My Happening", event: event, start_at: Time.zone.now + 1.day
     get "/en/happenings/#{event.id}"
     # Event details
@@ -77,4 +76,3 @@ event = create :event, title: 'My Event'
     assert_dom "#available-tickets p.title", happening.max_tickets - happening.tickets_count
   end
 end
-

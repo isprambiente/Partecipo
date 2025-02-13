@@ -17,13 +17,12 @@ module Editor
       group_id = @groups.exists?(filter_params[:category]) ? filter_params[:category] : @groups.pluck(:id)
       text     = filter_params[:text]
       soldout  = filter_params[:soldout]
-      searchable = Happening.searchable( from:, to:, event_id:, group_id:, text:, soldout:, reserved: true)
+      searchable = Happening.searchable(from:, to:, event_id:, group_id:, text:, soldout:, reserved: true)
       respond_to do |format|
         format.html { @pagy, @happenings = pagy(searchable, items: 6) }
-        format.csv { @happenings = searchable.includes(:questions, tickets: [:answers, :user]) }
-        format.pdf { @happenings = searchable.includes(:questions, tickets: [:answers, :user]) }
+        format.csv { @happenings = searchable.includes(:questions, tickets: [ :answers, :user ]) }
+        format.pdf { @happenings = searchable.includes(:questions, tickets: [ :answers, :user ]) }
       end
-
     end
 
     # GET /editor/events/:event_id/happenings/:id
@@ -31,7 +30,7 @@ module Editor
       respond_to do |format|
         format.html { }
         format.csv { }
-        format.pdf { } 
+        format.pdf { }
       end
     end
 
