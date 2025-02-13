@@ -46,4 +46,8 @@ class ApplicationController < ActionController::Base
   def turbo_render(action, *options)
     render turbo_stream: turbo_stream.send(action, options)
   end
+
+  def include_reserved?
+    ENV.fetch('RAILS_SHOW_RESERVED', false) || current_user.try(:member)
+  end
 end

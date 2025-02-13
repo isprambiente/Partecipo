@@ -13,6 +13,8 @@ x-rails_conf: &rails_conf
   RAILS_DESCRIPTION: Partecipo description
   RAILS_HEAD_URL: /head.html
   RAILS_FOOTER_URL: /footer.html
+  ### RAILS_SHOW_RESERVED, if true anonymous and not member user can view reserved events but can't get tickets
+  RAILS_SHOW_RESERVED: false
   ### RAILS_CLEAN_AFTER_DAYS, destroy old happening and ticket after this number of days. If nil isn't removed anything
   RAILS_CLEAN_AFTER_DAYS: 60
   ### RAILS_REMINDER, if set as 'true', at 06:00AM is sent a mail reminder for next day booking
@@ -109,7 +111,6 @@ services:
     volumes:
       - rails-storage:/rails/storage
       # - ./lib/custom/oidc.rb:/rails/lib/custom/oidc.rb
-      # - ./lib/custom/affiliation.rb:/rails/lib/custom/affiliation.rb
     environment:
       <<: *rails_conf
     ports:

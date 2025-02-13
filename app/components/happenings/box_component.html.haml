@@ -11,4 +11,6 @@
       = l @happening.start_sale_at, format: :detailed
       = t '.active.to'
       = l @happening.stop_sale_at, format: :detailed
+      - if @happening.event.reserved?
+        %span.tag.is-dark= icon_text 'fas fa-lock', t('activerecord.attributes.event.reserved')
     = content
