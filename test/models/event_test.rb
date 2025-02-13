@@ -39,11 +39,11 @@ class EventTest < ActiveSupport::TestCase
   end
 
   test "searchable group_id" do
-    event = create :event 
+    event = create :event
     assert_equal 0, Event.searchable(group_id: event.group_id + 1, editor: true).count
     assert_equal 1, Event.searchable(group_id: event.group_id, editor: true).count
   end
-  
+
   test "searchable reserved" do
     create :event, reserved: true
     assert_equal 0, Event.searchable(editor: true).count
@@ -57,5 +57,4 @@ class EventTest < ActiveSupport::TestCase
     assert_equal 1, Event.searchable(from: date).count
     assert_equal 2, Event.searchable(editor: true).count
   end
-
 end

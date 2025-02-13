@@ -3,6 +3,7 @@
 ENV["RAILS_ENV"] ||= "test"
 require_relative "../config/environment"
 require "rails/test_help"
+require "capybara/rails"
 
 module ActiveSupport
   class TestCase
@@ -15,7 +16,6 @@ module ActiveSupport
     # Add more helper methods to be used by all tests here...
     include FactoryBot::Syntax::Methods
     include Devise::Test::IntegrationHelpers
-
     require "database_cleaner/active_record"
   end
 end

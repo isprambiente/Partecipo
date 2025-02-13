@@ -1,0 +1,51 @@
+{
+  "ignored_warnings": [
+    {
+      "warning_type": "Mass Assignment",
+      "warning_code": 105,
+      "fingerprint": "9e92e32e6fa2e7876b8f6f7e85856c3f0cd2e42c0e8cb7a7862331f39ce2ffad",
+      "check_name": "PermitAttributes",
+      "message": "Potentially dangerous key allowed for mass assignment",
+      "file": "app/controllers/editor/users_controller.rb",
+      "line": 52,
+      "link": "https://brakemanscanner.org/docs/warning_types/mass_assignment/",
+      "code": "params.fetch(:filter, {}).permit(:text, :admin, :editor)",
+      "render_path": null,
+      "location": {
+        "type": "method",
+        "class": "Editor::UsersController",
+        "method": "filter_params"
+      },
+      "user_input": ":admin",
+      "confidence": "High",
+      "cwe_id": [
+        915
+      ],
+      "note": "Fale positive, editor controller can filter and show admin user list"
+    },
+    {
+      "warning_type": "Mass Assignment",
+      "warning_code": 105,
+      "fingerprint": "b6178e2314edac8464b705f7c9e3ef1986beb62101e84ee3b04a943fc43f2003",
+      "check_name": "PermitAttributes",
+      "message": "Potentially dangerous key allowed for mass assignment",
+      "file": "app/controllers/admin/users_controller.rb",
+      "line": 40,
+      "link": "https://brakemanscanner.org/docs/warning_types/mass_assignment/",
+      "code": "params.require(:user).permit(:editor, :admin, :member, :group_ids => ([]))",
+      "render_path": null,
+      "location": {
+        "type": "method",
+        "class": "Admin::UsersController",
+        "method": "user_params"
+      },
+      "user_input": ":admin",
+      "confidence": "High",
+      "cwe_id": [
+        915
+      ],
+      "note": "Fale positive, admin controller can add admin role to user"
+    }
+  ],
+  "brakeman_version": "7.0.0"
+}

@@ -15,6 +15,6 @@ class Admin::Users::UserComponent < CommonComponent
   end
 
   def member_tag
-    tag.div icon_text("fas fa-users", 'Member'), class: "tag is-success" if @user.member?
+    tag.div icon_text("fas fa-users", "Member"), class: "tag is-success" if @user.member?
   end
 end

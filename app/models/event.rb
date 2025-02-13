@@ -54,7 +54,7 @@ class Event < ApplicationRecord
     by_keys[:stop_on]  = (from.try(:to_date)..) if from.present?
     by_keys[:start_on] = (..to.try(:to_date)) if to.present?
     by_keys[:group_id] = group_id  if group_id.present?
-    by_keys[:reserved] = false unless reserved == true
+    by_keys[:reserved] = false unless reserved
     by_text = text.present? ? [ "title ilike :text", { text: "%#{text}%" } ] : nil
     where(by_text).where(by_keys)
   end
