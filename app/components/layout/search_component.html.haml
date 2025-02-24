@@ -1,4 +1,4 @@
-= form_with scope: 'filter', url: @url, method: :get, data: {turbo_frame: @turbo_frame, controller: 'form', form_target: 'sender'} do |f|
+= form_with scope: 'filter', url: @url, method: :get, target: "_blank", data: {turbo_frame: @turbo_frame, controller: 'form', form_target: 'sender'} do |f|
   = f.hidden_field :scope, value: @scope if @scope.present?
   %nav.box#search
     %p.box-heading= t '.search'
@@ -23,3 +23,7 @@
         = f.label :soldout, icon_text('fas fa-list',t('.label.soldout')) , class: 'label is-small'
         %div.select.is-fullwidth
           = f.select :soldout, [[t('.soldout_excluded'),1],[t('.soldout_only'),2]], {include_blank: t('.soldout_included')}, data: { action: 'form#sendForm' }
+    - if @export == true
+      .buttons.is-centered
+        %span.button{ data: { action: 'click->form#exportPDF' } }= icon_text('fas fa-file-pdf',t('.format_pdf'))
+        %span.button{ data: { action: 'click->form#exportCSV' } }= icon_text('fas fa-file-csv',t('.format_csv'))

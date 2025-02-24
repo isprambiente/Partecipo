@@ -12,4 +12,21 @@ export default class extends Controller {
     if ( Timeout.exists('textDelay') ) { Timeout.clear('textDelay', true) }
     Timeout.set('textDelay', () => {this.sendForm(event);}, 750)
   }
+
+  exportPDF(event) {
+    this.exportFORM(event, ".pdf")
+  }
+
+  exportCSV(event) {
+    this.exportFORM(event, ".csv")
+  }
+
+  exportFORM(event, format) {
+    let action = this.senderTarget.action
+    this.senderTarget.action = action + format
+    this.senderTarget.target = "_blank"
+    this.senderTarget.requestSubmit()
+    this.senderTarget.action = action
+    this.senderTarget.target = ""
+  }
 }

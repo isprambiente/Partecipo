@@ -6,6 +6,8 @@ en:
   soldout_included: Soldout included
   soldout_excluded: Exclude soldout
   soldout_only: Soldout Only
+  format_pdf: PDF
+  format_csv: CSV
   label:
     text: Text search
     category: Category
@@ -18,6 +20,8 @@ it:
   soldout_included: Includi soldout
   soldout_excluded: Escludi soldout
   soldout_only: Soltanto soldout
+  format_pdf: PDF
+  format_csv: CSV
   label:
     text: Ricerca testo
     category: Categoria

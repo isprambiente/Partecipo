@@ -23,7 +23,7 @@ module Layout
     #   if true make start_at not mandatory
     # @param soldout [Boolean] (false)
     #   if true add soldout select input
-    def initialize(url:, turbo_frame:, text: true, date_range: true, scope: nil, blank: true, categories: [], editor: false, soldout: false)
+    def initialize(url:, turbo_frame:, text: true, date_range: true, scope: nil, blank: true, categories: [], editor: false, soldout: false, export: false)
       super
       @url = url
       @turbo_frame = turbo_frame
@@ -34,6 +34,7 @@ module Layout
       @date_range = date_range
       @soldout = soldout
       @editor = editor
+      @export = export
     end
 
     # make hash for include_blank

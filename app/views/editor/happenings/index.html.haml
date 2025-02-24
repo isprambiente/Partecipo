@@ -4,6 +4,6 @@
     Gestione
     = t 'activerecord.models.happening.other'
   .columns
-    %aside.column.is-3= render Layout::SearchComponent.new(url: editor_happenings_path, turbo_frame: 'happenings', scope: @scopei, categories: @categories, editor: true, soldout: true)
+    %aside.column.is-3= render Layout::SearchComponent.new(url: editor_happenings_path, turbo_frame: 'happenings', scope: @scopei, categories: @categories, editor: true, soldout: true, export: true)
     .column= render Layout::ListBoxedComponent.new(component: Happenings::HappeningComponent, elements: @happenings, id: 'happenings', pages: @pagy, turbo_frame: 'yield', url: :editor_happening_path)
 
