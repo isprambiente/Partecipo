@@ -5,31 +5,33 @@
 
 # Partecipo!
 
-Il programma, interamente sviluppato all'interno del settore Sviluppo di AGP-INF, nasce da una specifica necessità di [I.S.P.R.A.](http://www.isprambiente.gov.it) nel gestire le prenotazioni degli eventi per i dipendenti ISPRA.
+Il programma nasce dalla necessità [I.S.P.R.A.](http://www.isprambiente.gov.it) di gestire la prenotazione di alcuni eventi ISPRA ed è cresciuto grazie allo stimolo e la collaborazione di altri enti come il CNR.
 
-Il programma è stato appositamente sviluppato su piattaforma web per consentire l'accesso alle risorse interne tramite l'utilizzo di un comune browser web.
+Il programma permette la gestione di eventi con date multiple. Per ogni data è possibile personalizzare il numero di posti disponibili e prenotabili da un utente, inoltre è possibile definire la frequesza con la quale è possibile iscriversi ad un evento. Per ogni prenotazione è possibile richiedere la compilazione di un form con informazioni specifiche. Infine è possibile rendere accessibile un evento esclusivamente ai membri del proprio ente. Il programma permette di essere configurato tramite dei semplici environments, inclusa l'autenticazione OIDC per l'autenticazione centralizzata dei vari enti.
 
-All'interno dell'applicazione è possibile gestire la pubblicazione di eventi e le partecipazioni nelle varie date. 
+### Elenco eventi
+![Elenco eventi](./doc/images/Events.png)
+### Dettagli evento con date
+![Dettagli evento](./doc/images/Event.png)
+### Prenotazione di una data
+![Prenotazione](./doc/images/Reservation.png)
+### Gesione prenotazioni
+![Prenotazioni](./doc/images/Bookings.png)
 
 ## Licenza
 Il codice sorgente del sito progetto è rilasciato sotto licenza MIT License (codice SPDX: MIT). La licenza è visibile nel file [LICENSE](https://opensource.org/licenses/MIT)
 
-## Repository
-Questo repository contiene il codice sorgente del programma.
-
-Il sito è sviluppato in linguaggio Ruby 3.3, framework Rails 7.1.
-
 ### Specifiche tecniche progetto
-* [Ruby 3.3](https://www.ruby-lang.org)
-* [Ruby on Rais 7.1](https://rubyonrails.org/)
+* [Ruby](https://www.ruby-lang.org)
+* [RAILS](https://rubyonrails.org/)
 * [Bun](https://bun.sh/)
 * [Postgresql](https://www.postgresql.org/)
 * HTML5 + CSS3
 * no jQuery
 
 ### Requisiti tecnici per ambiente server
-* Linguaggio di programmazione: Ruby 3.5
-* Framework: Rais 8.0
+* Linguaggio di programmazione: Ruby 3.4
+* Framework: Rais 8.1
 * Bun
 * Database: PostgreSQL >= 12.2
 
@@ -70,7 +72,7 @@ Installare ruby 3.3.0, consigliato [RVM](https://rvm.io/).
       bun install
     ```
 
-3. Creare il file `config/settings.local.yml` partendo da `config/settings.yml` per sovrascrivere i parametri di default. Il file è incluso nel `.gitignore` pertanto sarà necessario ricopiarlo manualmente sul server nel path `shared/config/settings.local.yml`
+3. La maggior parte delle impostazioni sono configurabili tramite gli environments di sistema che possono essere visualizzati nel file docker-compose.yml.
 
 ### Demo con docker / docker compose
 1. Clonare il progetto in sviluppo `git clone https://github.com/isprambiente/Partecipo/`

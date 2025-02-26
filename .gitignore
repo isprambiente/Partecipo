@@ -44,3 +44,4 @@
 # Ignore doc and yard tmp
 /.yardoc
 /doc
+!/doc/images/*
