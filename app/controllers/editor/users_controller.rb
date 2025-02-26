@@ -6,11 +6,7 @@ module Editor
     before_action :set_user, only: %i[show tickets]
     # GET /editor/users
     def index
-      if filter_params[:text].present?
-        @text = [ "email ilike :text or email ilike :text",
-                 { text: "%#{filter_params[:text]}%" } ]
-      end
-      @pagy, @users = pagy User.where(@text)
+      @pagy, @users = pagy User.searchable(**filter_params.to_h)
     end
 
     # GET /editor/users/list
