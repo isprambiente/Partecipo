@@ -60,6 +60,15 @@ class User < ApplicationRecord
     attr_accessor :password
   end
 
+  scope :searchable, ->(**opts) do
+    by_text = opts[:text].present? ? [ "email ilike :text or username ilike :text", { text: "%#{opts[:text]}%" } ] : nil
+    by_keys = {}
+    by_keys[:admin] = true if opts[:admin] == true
+    by_keys[:editor] = true if opts[:editor] == true
+    by_keys[:member] = true if opts[:member] == true
+    where(by_text).where(by_keys)
+  end
+
   # Make gravatar url from email
   # @return [String] gravatar user url
   def avatar_url

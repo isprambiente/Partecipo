@@ -7,8 +7,9 @@ module Admin
 
     # GET /admin/users
     def index
-      @categories = [ "Admin", "Editor" ]
+      @categories = [ "Admin", "Editor", "Member"]
       @search = {}
+      @search[:member] = true if filter_params[:category] == "Member"
       @search[:editor] = true if filter_params[:category] == "Editor"
       @search[:admin] = true if filter_params[:category] == "Admin"
       @text = [ "email ilike :text", { text: "%#{filter_params[:text]}%" } ] if filter_params[:text].present?
