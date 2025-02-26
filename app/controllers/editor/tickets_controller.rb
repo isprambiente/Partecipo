@@ -9,13 +9,18 @@ module Editor
 
     # GET /editor/tickets
     def index
-      @scope = filter_params[:scope]
+      @happening = Happening.find(filter_params[:scope]) if filter_params[:scope].present?
       search = {}
       search[:happening] = { start_at: ((filter_params[:from].try(:to_date) || Date.today)..filter_params[:to].try(:to_date).try(:end_of_day)) }
-      search[:happening_id] = @scope if @scope.present?
+      search[:happening_id] = @happening.id if @happening.present?
       search[:user_id] = filter_params[:category] if filter_params[:category].present?
       @text = [ "events.title ilike :text or users.email ilike :text", { text: "%#{filter_params[:text]}%" } ] if filter_params[:text].present?
-      @pagy, @tickets = pagy Ticket.includes(happening: [ :event ]).where(search).where(@text), items: 10
+      searchable = Ticket.includes(happening: [ :event ]).where(search).where(@text)
+      respond_to do |format|
+        format.html { @pagy, @tickets = pagy(searchable, items: 10) }
+        format.csv { @tickets = searchable }
+        format.pdf { @tickets = searchable }
+      end
     end
 
     # GET /editor/events/:event_id/happenings/:happening_id/tickets/new

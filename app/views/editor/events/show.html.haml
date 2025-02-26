@@ -6,17 +6,8 @@
     %aside.column.is-3
       .block
         %figure.image= image_tag @event.image_url(:aside)
-      = render Layout::SearchComponent.new(url: editor_happenings_path, turbo_frame: 'happenings', scope: @scope, editor: true, soldout: true)
+      = render Layout::SearchComponent.new(url: editor_happenings_path, turbo_frame: 'happenings', scope: @scope, editor: true, soldout: true, export: true)
       = link_to icon_text('fas fa-plus','Nuova data'), new_editor_happening_path(event_id: @event.id), class: 'button is-success is-fullwidth block', data: {turbo_frame: 'yield'}
-      - with_options class: 'button is-link', data: {turbo: 'false'} do |export|
-        %p.has-text-centered Prossime date
-        .buttons.has-addons.is-centered
-          = export.link_to icon_text('fas fa-file-csv','CSV'), editor_happenings_path(filter: {scope: @event.id, from: Time.zone.now}, format: :csv) 
-          = export.link_to icon_text('fas fa-file-pdf','PDF'), editor_happenings_path(filter: {scope: @event.id, from: Time.zone.now}, format: :pdf) 
-        %p.has-text-centered Tutte le date
-        .buttons.has-addons.is-centered
-          = export.link_to icon_text('fas fa-file-csv','CSV'), editor_happenings_path(filter: {scope: @event.id, from: @event.start_on}, format: :csv)
-          = export.link_to icon_text('fas fa-file-pdf','PDF'), editor_happenings_path(filter: {scope: @event.id, from: @event.start_on}, format: :pdf)
     .column
       %turbo-frame#event.block= render Events::InfoboxComponent.new(event: @event, editor: true)
       .divider= icon_text 'fas fa-calendar-day', t('activerecord.models.happening.other')

@@ -39,7 +39,7 @@ class Ticket < ApplicationRecord
     validates :tickets_for_user_count,
               numericality: { only_integer: true, less_than_or_equal_to: :max_tickets_for_user }
     validates :missing_answers, absence: true
-    validates :member?, presence: true if :reserved?
+    validates :member?, presence: true, if: :reserved?
     validate  :validate_frequency
   end
 
