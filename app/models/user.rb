@@ -45,6 +45,7 @@
 # @!attribute [rw] updated_at
 #   @return [DateTime] when the record was updated
 class User < ApplicationRecord
+  include PgSearch::Model
   # Include default devise modules. Others available are:
   # :omniauthable
   devise *RAILS_DEVISE_MODULES
@@ -60,13 +61,13 @@ class User < ApplicationRecord
     attr_accessor :password
   end
 
-  scope :searchable, ->(**opts) do
-    by_text = opts[:text].present? ? [ "email ilike :text or username ilike :text", { text: "%#{opts[:text]}%" } ] : nil
+  pg_search_scope :search_text, against: [ :username, :email, :name, :surname ], using: { tsearch: { prefix: true } }
+  scope :searchable, ->(text: nil, **opts) do
     by_keys = {}
     by_keys[:admin] = true if opts[:admin] == true
     by_keys[:editor] = true if opts[:editor] == true
     by_keys[:member] = true if opts[:member] == true
-    where(by_text).where(by_keys)
+    text.present? ? search_text(text).where(by_keys) : where(by_keys)
   end
 
   # Make gravatar url from email

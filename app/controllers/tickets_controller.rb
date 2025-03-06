@@ -10,7 +10,7 @@ class TicketsController < ApplicationController
     search = { user: current_user }
     search[:happening] = { start_at: ((filter_params[:from].try(:to_date) || Date.today)..filter_params[:to].try(:to_date).try(:end_of_day)) }
     search[:happening_id] = @scope if @scope.present?
-    @text = [ "events.title ilike :text", { text: "%#{filter_params[:text]}%" } ] if filter_params[:text].present?
+    @text = [ "events.title ilike :text or happening.title ilike :text", { text: "%#{filter_params[:text]}%" } ] if filter_params[:text].present?
     @pagy, @tickets = pagy Ticket.includes(happening: [ :event ], answers: [ :question ]).where(search).where(@text), items: 10
   end
 

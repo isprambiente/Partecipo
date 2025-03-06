@@ -100,7 +100,7 @@ class HappeningTest < ActiveSupport::TestCase
     assert_equal 2, Happening.searchable.count
     assert_equal 1, Happening.searchable(text: "uno").count
     assert_equal 1, Happening.searchable(text: "Quattro").count
-    assert_equal 2, Happening.searchable(text: "o").count
+    assert_equal 2, Happening.searchable(text: "tr").count
   end
 
   test "searchable scope not show happening from reserved event unless reserved options is set to true" do

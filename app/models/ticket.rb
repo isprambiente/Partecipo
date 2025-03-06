@@ -21,6 +21,7 @@
 # @!attribute [rw] updated_at
 #   @return [DateTime] when the record was created
 class Ticket < ApplicationRecord
+  include PgSearch::Model
   belongs_to :happening, counter_cache: true
   belongs_to :user
   has_many :answers, dependent: :destroy
@@ -44,6 +45,7 @@ class Ticket < ApplicationRecord
   end
 
   scope :with_user, ->(user) { where user: }
+  pg_search_scope :search_text, associated_against: { happening: [ :title ], user: [ :username, :email, :name, :surname ] }, using: { tsearch: { prefix: true } }
 
   # check if exists {Event}'s {Ticket} for {User} in a time period
   # @return [Boolean] true if exist a ticket in the time range

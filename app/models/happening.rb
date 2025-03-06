@@ -1,4 +1,3 @@
-
 # frozen_string_literal: true
 
 # This model manage the happenings for each {Event}
@@ -35,6 +34,7 @@
 # @!method self.history()
 #   @return [Array] list of [Event] with stop_on minor than Time.zone.today, ordered by start_on desc
 class Happening < ApplicationRecord
+  include PgSearch::Model
   has_rich_text :body
   belongs_to :event, counter_cache: true
   has_many   :tickets, dependent: :destroy
@@ -58,18 +58,18 @@ class Happening < ApplicationRecord
 
   delegate :group_id, :reserved?, to: :event
 
-  default_scope { includes(:event).order("start_at asc") }
+  default_scope { order("start_at asc") }
+  pg_search_scope :search_text, against: [ :title ], associated_against: { event: [ :title ], rich_text_body: [ :body ] }, using: { tsearch: { prefix: true } }
   scope :searchable, ->(from: nil, to: nil, event_id: nil, group_id: nil, text: nil, soldout: nil, reserved: false) do
     search_event = {}
     search_event[:reserved] = false unless reserved
     search_event[:group_id] = group_id if group_id.present?
     by_keys = { start_at: (from.try(:to_date) || Date.today)..to.try(:to_date).try(:end_of_day) }
     by_keys[:event_id] = event_id if event_id.present?
-    by_keys[:events] = search_event if search_event.present?
-    by_text = text.present? ? [ "happenings.title ilike :text or events.title ilike :text", { text: "%#{text}%" } ] : nil
+    by_keys[:event] = search_event if search_event.present?
     @soldout = [ "happenings.tickets_count < happenings.max_tickets" ] if soldout == "1"
     @soldout = [ "happenings.tickets_count >= happenings.max_tickets" ] if soldout == "2"
-    where(by_keys).where(by_text).where(@soldout)
+    text.present? ? search_text(text).includes(:event).where(by_keys).where(@soldout) : includes(:event).where(by_keys).where(@soldout)
   end
 
 

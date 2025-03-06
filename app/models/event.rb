@@ -36,6 +36,7 @@
 #   @param editor [Boolean] (false) if true skip default from_date as Time.zone.now, Editors can view Event without Happening
 #   @param reserver [Boolean] (false) reserved event are excluded unless unless is true
 class Event < ApplicationRecord
+  include PgSearch::Model
   has_rich_text :body
   has_one_attached :image do |attachable|
     attachable.variant :card, resize_to_limit: [ 417, 278 ]
@@ -48,6 +49,7 @@ class Event < ApplicationRecord
   validates :title, presence: true
   enum :tickets_frequency, %i[any single daily weekly monthly]
 
+  pg_search_scope :search_text, against: [ :title, :where ], associated_against: { rich_text_body: [ :body ] }, using: { tsearch: { prefix: true } }
   scope :searchable, ->(from: nil, to: nil, group_id: nil, text: nil, editor: false, reserved: false) do
     from = Time.zone.now unless editor || from.present?
     by_keys = {}
@@ -55,8 +57,7 @@ class Event < ApplicationRecord
     by_keys[:start_on] = (..to.try(:to_date)) if to.present?
     by_keys[:group_id] = group_id  if group_id.present?
     by_keys[:reserved] = false unless reserved
-    by_text = text.present? ? [ "title ilike :text", { text: "%#{text}%" } ] : nil
-    where(by_text).where(by_keys)
+    text.present? ? search_text(text).where(by_keys) : where(by_keys)
   end
 
   # @return {String} image path with variand or default image
