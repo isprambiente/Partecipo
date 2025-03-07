@@ -1,4 +1,0 @@
-// es-abstract/2024/ToIntegerOrInfinity@1.23.7 downloaded from https://ga.jspm.io/npm:es-abstract@1.23.7/2024/ToIntegerOrInfinity.js
-
-import r from"./ToNumber.js";import{_ as t}from"../_/DnZ_ITza.js";import*as i from"math-intrinsics/isNaN";import*as o from"math-intrinsics/isFinite";import"get-intrinsic";import"es-errors/type";import"../helpers/isPrimitive.js";import"./ToPrimitive.js";import"es-to-primitive/es2015";import"../_/A6jACVFT.js";import"call-bound";import"safe-regex-test";import"string.prototype.trim";import"./floor.js";import"math-intrinsics/floor";var s=i;try{"default"in i&&(s=i.default)}catch(r){}var e=o;try{"default"in o&&(e=o.default)}catch(r){}var m={};var a=r;var p=t;var n=s;var f=e;m=function ToIntegerOrInfinity(r){var t=a(r);return n(t)||t===0?0:f(t)?p(t):t};var v=m;export{v as default};
-
