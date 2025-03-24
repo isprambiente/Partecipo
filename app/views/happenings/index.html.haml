@@ -3,6 +3,6 @@
     %i.fas.fa-calendar-day
     = t 'activerecord.models.happening.other'
   .columns
-    %aside.column.is-3= render Layout::SearchComponent.new(url: happenings_path, turbo_frame: 'happenings', scope: @scopei, categories: @categories, soldout: true)
+    %aside.column.is-3= render Layout::SearchComponent.new(url: happenings_path, turbo_frame: 'happenings', scope: @scopei, categories: @categories, soldout: true, calendar: true)
     .column= render Layout::ListBoxedComponent.new(component: Happenings::HappeningComponent, elements: @happenings, id: 'happenings', pages: @pagy, turbo_frame: 'yield')
 

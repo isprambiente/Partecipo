@@ -6,7 +6,7 @@
     %aside.column.is-3
       .block
         %figure.image= image_tag @event.image_url(:aside)
-      = render Layout::SearchComponent.new(url: happenings_path, turbo_frame: 'happenings', categories: @categories, scope: @event.id, soldout: true)
+      = render Layout::SearchComponent.new(url: happenings_path, turbo_frame: 'happenings', categories: @categories, scope: @event.id, soldout: true, calendar: true)
     .column
       = render Events::InfoboxComponent.new(event: @event)
       .divider= icon_text 'fas fa-calendar-day', t('activerecord.models.happening.other')
