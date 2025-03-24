@@ -24,10 +24,23 @@ class HappeningsController < ApplicationController
     access_denied! if @event.reserved? && !include_reserved?
   end
 
+  # GET /happenings/calendar
+  def calendar
+    @month = filter_params[:month].to_i
+    @day = Date.today.at_beginning_of_month + @month.month
+    @category = filter_params[:category]
+    @scope = filter_params[:scope]
+    @from = @day - @day.wday.days
+    @to = @from + 41
+    @days = Happening.highlight_dates(from: @from, to: @to, group_id: @category, event_id: @scope, reserved: include_reserved?).join(' ')
+    #start = Date.today.at_beginning_of_month
+    #@range = (start...start.+(12.month)).step(1.month)
+  end
+
   private
 
   # filter params for search {Happening}
   def filter_params
-    params.fetch(:filter, {}).permit(:category, :from, :scope, :text, :to, :soldout)
+    params.fetch(:filter, {}).permit(:category, :from, :scope, :text, :to, :soldout, :month)
   end
 end

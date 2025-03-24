@@ -1,0 +1,19 @@
+%turbo-frame#calendar{data: {form_target: 'calendar'}}
+  %nav#calendar.box.has-heading{data: {turbo_frame: 'calendar', controller: 'calendar', calendar_days_value: @days}}
+    %p.box-heading= t 'site.generic.calendar' 
+    %table.table.is-fullwidth.is-striped
+      %thead
+        %tr.month
+          %th= link_to '<', calendar_happenings_path(filter: {month: @month -1 , category: @category, scope: @scope})
+          %th{colspan: 5}= t("date.month_names")[@day.month]
+          %th= link_to '>', calendar_happenings_path(filter: {month: @month +1 , category: @category, scope: @scope})
+
+        %tr
+          - %w(D L M M G V S).each do |day|
+            %th= day
+      %tbody{data: {calendar_target: 'container'}}
+        - (@from..@to).each_slice(7) do |week|
+          %tr
+            - week.each do |date|
+              %td
+                %a{id: "calendar-date-#{date}", data: { action: 'click->form#getDate', form_date_param: date }}= date.day

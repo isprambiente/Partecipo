@@ -5,6 +5,7 @@ it:
     generic:
       all: Tutti
       back: Indietro
+      calendar: Calendario
       from: da
       groups: Gruppi
       hi: Buongiorno

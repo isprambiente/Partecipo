@@ -1,6 +1,8 @@
-= form_with scope: 'filter', url: @url, method: :get, target: "_blank", data: {turbo_frame: @turbo_frame, controller: 'form', form_target: 'sender'} do |f|
-  = f.hidden_field :scope, value: @scope if @scope.present?
-  %nav.box#search
+= form_with scope: 'filter', url: @url, method: :get, target: "_blank", data: {turbo_frame: @turbo_frame, controller: 'form calendar', form_target: 'sender'} do |f|
+  = f.hidden_field :scope, value: @scope, data: {form_target: 'scope'} if @scope.present?
+  - if @calendar == true
+    %turbo-frame#calendar{ src: calendar_happenings_path(filter: {scope: @scope, category: nil}), data: {form_target: 'calendar'}}
+  %nav#search.box.has-heading
     %p.box-heading= t '.search'
     - if @text == true
       .field
@@ -10,14 +12,14 @@
       .field
         = f.label :category, icon_text('fas fa-list',t('.label.category')) , class: 'label is-small'
         %div.select.is-fullwidth
-          = f.select :category, @categories, include_blank, data: { action: 'form#sendForm' }
+          = f.select :category, @categories, include_blank, data: { action: 'form#sendForm form#updateCalendar', form_target: 'category' }
     - if @date_range == true
       .field
         = f.label :from, icon_text('fas fa-calendar',t('.label.from')) , class: 'label is-small'
-        = f.date_field :from, value: (Date.today unless @editor), class: 'input', required: !@editor, data: {action: 'form#sendForm'}
+        = f.date_field :from, value: (Date.today unless @editor), class: 'input', required: !@editor, data: {action: 'form#sendForm', form_target: 'daySelect'}
       .field
         = f.label :to, icon_text('fas fa-calendar',t('.label.to')) , class: 'label is-small'
-        = f.date_field :to, class: 'input', data: {action: 'form#sendForm'}
+        = f.date_field :to, class: 'input', data: {action: 'form#sendForm', form_target: 'daySelect'}
     - if @soldout == true 
       .field
         = f.label :soldout, icon_text('fas fa-list',t('.label.soldout')) , class: 'label is-small'

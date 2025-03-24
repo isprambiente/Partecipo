@@ -5,6 +5,7 @@ en:
     generic:
       all: All
       back: Back
+      calendar: Calendar
       from: from
       groups: Groups
       hi: Hi
