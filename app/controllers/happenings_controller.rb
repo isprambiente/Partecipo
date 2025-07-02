@@ -32,9 +32,9 @@ class HappeningsController < ApplicationController
     @scope = filter_params[:scope]
     @from = @day - @day.wday.days
     @to = @from + 41
-    @days = Happening.highlight_dates(from: @from, to: @to, group_id: @category, event_id: @scope, reserved: include_reserved?).join(' ')
-    #start = Date.today.at_beginning_of_month
-    #@range = (start...start.+(12.month)).step(1.month)
+    @days = Happening.highlight_dates(from: @from, to: @to, group_id: @category, event_id: @scope, reserved: include_reserved?).join(" ")
+    # start = Date.today.at_beginning_of_month
+    # @range = (start...start.+(12.month)).step(1.month)
   end
 
   private

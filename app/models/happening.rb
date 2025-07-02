@@ -72,8 +72,8 @@ class Happening < ApplicationRecord
     where(by_keys).where(by_text).where(@soldout)
   end
 
-  scope :highlight_dates, -> (from: Date.today, to: Date.today + 6.month, event_id: nil, group_id: nil, reserved: false) do
-    searchable( soldout: '1', from: , to: , event_id:, group_id: , reserved:).distinct.pluck(Arel.sql('DATE(start_at) as start_at'))
+  scope :highlight_dates, ->(from: Date.today, to: Date.today + 6.month, event_id: nil, group_id: nil, reserved: false) do
+    searchable(soldout: "1", from:, to:, event_id:, group_id:, reserved:).distinct.pluck(Arel.sql("DATE(start_at) as start_at"))
   end
 
   # @return [Boolean] check seaelability time
