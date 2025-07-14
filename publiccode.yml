@@ -2,7 +2,7 @@ publiccodeYmlVersion: "0.4"
 name: Partecipo
 url: https://github.com/isprambiente/Partecipo
 landingURL: https://github.com/isprambiente/Partecipo
-softwareVersion: 4.0.1
+softwareVersion: 4.1.0
 releaseDate: 2025-07-14
 platforms:
   - web
@@ -53,6 +53,8 @@ description:
       l'autenticazione locale o esclusiva. Tutte le configurazioni vengono
       eseguite tramite environment. Docker compose diventa il sistema di
       distribuzioni principale.
+
+      * Dalla versione 4.1.0 è incluso il calendario per evento per aiutare gli utenti a selezionare facilmente una data libera e le estrazioni in CSV con criteri di recerca
 
     features:
       - Gestione eventi
