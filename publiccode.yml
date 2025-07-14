@@ -2,13 +2,16 @@ publiccodeYmlVersion: "0.4"
 name: Partecipo
 url: https://github.com/isprambiente/Partecipo
 landingURL: https://github.com/isprambiente/Partecipo
-softwareVersion: 4.0.0
-releaseDate: 2024-12-06
+softwareVersion: 4.0.1
+releaseDate: 2025-07-14
 platforms:
   - web
 categories:
   - event-management
   - online-booking
+usedBy:
+  - ISPRA
+  - CNR
 developmentStatus: stable
 softwareType: standalone/web
 description:
@@ -24,22 +27,23 @@ description:
 
       Il programma prevede la gestione multipla di eventi da vari gruppi di
       editor. Gli eventi gestiscono le date e per ogni data si possono
-      specificare luogo, numero di posti, biglietti prenotabili a persona,
+      specificare luogo, numero di posti, biglietti prenotabili a persona, frequenza di prenotazione per utente su singolo evento (giornaliero, settimanale, mensile, ecc),
       informazioni richieste durante il processo di prenotazione e molti altri
       parametri.
-
 
       Gli utenti infine possono gestire e verificare le proprie prenotazioni. Il
       programma è stato appositamente sviluppato su piattaforma web per
       consentire un facile accesso dal proprio computer o smartphone.
-                                                                                                     
+
+      Il programma infine permette l'eliminazione automatica dei dati trascors
+                                                                                                   
       * Dalla versione 2.2.0 il programma può essere configurato per permettere
       la visualizzazione senza autenticazione degli eventi e richiederela
       soltanto al momento della prenotazione dei ticket (visualizzazione
       pubblica). In questo modo è possibile utilizzare l'applicazione anche come
       frontend pubblico oltre che come applicazione
       interna.                                                     
-                                                                                                     
+                                                                                                   
       * Dalla versione 2.4.0 il programma è localizzato in italiano ed inglese.
 
       * Dalla versione 3.1.0 il programma prevede anche di porre domande
@@ -48,7 +52,8 @@ description:
       * Dalla versione 4.0.0 è possibile configurare OIDC in cooperazione con
       l'autenticazione locale o esclusiva. Tutte le configurazioni vengono
       eseguite tramite environment. Docker compose diventa il sistema di
-      distribuzioni principale
+      distribuzioni principale.
+
     features:
       - Gestione eventi
       - Gestione prenotazioni
@@ -70,9 +75,6 @@ localisation:
   availableLanguages:
     - en
     - it
-usedBy:
-  - ISPRA
-  - CNR
 it:
   countryExtensionVersion: "1.0"
   conforme:
