@@ -2,7 +2,6 @@
 
 class Admin::Users::UserComponent < CommonComponent
   def initialize(user:)
-    super
     @user = user
   end
 

@@ -2,7 +2,6 @@
 
 class Groups::GroupComponent < CommonComponent
   def initialize(group:)
-    super
     @group = group
   end
 

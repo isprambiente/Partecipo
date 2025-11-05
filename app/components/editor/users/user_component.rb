@@ -2,7 +2,6 @@
 
 class Editor::Users::UserComponent < CommonComponent
   def initialize(user:)
-    super
     @user = user
   end
 

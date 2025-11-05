@@ -5,7 +5,6 @@ module Layout
   class NavbarComponent < CommonComponent
     # @param user [Hash] (nil) used for define current_user in this component
     def initialize(user: nil)
-      super
       @user = user
     end
 

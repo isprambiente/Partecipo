@@ -6,7 +6,6 @@ module Events
     # @param event [Hash] {Event} istance to render
     # @param editor [Boolean] (false) if true add link to edit {Event}
     def initialize(event:, editor: false)
-      super
       @event = event
       @editor = editor
     end

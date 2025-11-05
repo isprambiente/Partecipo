@@ -2,7 +2,7 @@
 
 # This controller contain the methods shared for all controller
 class ApplicationController < ActionController::Base
-  include Pagy::Backend
+  include Pagy::Method
   around_action :switch_locale
   before_action :authenticate_user! if ENV.fetch("RAILS_RESTRICTED") { false }
 

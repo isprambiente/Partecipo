@@ -2,7 +2,6 @@
 
 class Layout::FormErrorComponent < CommonComponent
   def initialize(form:)
-    super
     @form = form
   end
 end
