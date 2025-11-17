@@ -28,9 +28,9 @@ module Layout
     # Gerate the navbar-start html block
     def navbar_start
       safe_join [
-        link_to(icon_text("fas fa-calendar", t(".events")), events_path, data: { turbo_frame: "yield" }, class: "navbar-item"),
-        link_to(icon_text("fas fa-calendar-day", t(".happenings")), happenings_path, data: { turbo_frame: "yield" }, class: "navbar-item"),
-        link_to(icon_text("fas fa-ticket-alt", t(".tickets")), tickets_path, data: { turbo_frame: "yield" }, class: "navbar-item")
+        link_to(icon_text("fas fa-calendar", t(".events")), events_path, data: { turbo_frame: "yield", turbo_action: "advance" }, class: "navbar-item"),
+        link_to(icon_text("fas fa-calendar-day", t(".happenings")), happenings_path, data: { turbo_frame: "yield", turbo_action: "advance" }, class: "navbar-item"),
+        link_to(icon_text("fas fa-ticket-alt", t(".tickets")), tickets_path, data: { turbo_frame: "yield", turbo_action: "advance" }, class: "navbar-item")
       ]
     end
 
