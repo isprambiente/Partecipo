@@ -3,7 +3,6 @@
 # Common component
 class CommonComponent < ViewComponent::Base
   include ApplicationHelper
-  include Pagy::Frontend
 
   # Make an html structure for a bulma/awesome icon
   #
@@ -41,7 +40,7 @@ class CommonComponent < ViewComponent::Base
 
   # make html structure for pagination with pagy
   def pagy(data)
-    tag.div pagy_bulma_nav(data).html_safe, data: { controller: "pagy-initializer" }
+    tag.div data.series_nav(:bulma).html_safe, data: { controller: "pagy-initializer" }
   end
 
   # Shortkut, Make a turbo frame with id yield

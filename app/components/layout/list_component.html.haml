@@ -4,5 +4,5 @@
       = render @component.with_collection(@elements, **@opts)
     - else
       #empty.has-text-centered= icon_text("fas fa-folder-open", t(".empty"))
-  = pagy(@pages) if @pages.present?
+  = pagy @pages
 

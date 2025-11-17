@@ -4,8 +4,6 @@
 #
 # * include Pagy::Frontend
 module ApplicationHelper
-  include Pagy::Frontend
-
   # make a div for the font-awesome icons
   def fas_icon(fa_style, span_style: nil, style: false, text: "", tooltip: false)
     # "<span class='icon #{span_style}' #{"style='#{style}'" if style.present?} data-tooltip=\"#{tooltip if tooltip.present?}\" ><i class='fas fa-#{fa_style}' aria-hidden='true'></i></span> #{"<span>#{text}</span>" if text.present?}".html_safe

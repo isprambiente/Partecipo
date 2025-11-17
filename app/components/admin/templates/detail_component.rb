@@ -2,7 +2,6 @@
 
 class Admin::Templates::DetailComponent < CommonComponent
   def initialize(template:)
-    super
     @template = template
   end
 end

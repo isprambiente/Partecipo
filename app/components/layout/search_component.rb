@@ -24,7 +24,6 @@ module Layout
     # @param soldout [Boolean] (false)
     #   if true add soldout select input
     def initialize(url:, turbo_frame:, text: true, date_range: true, scope: nil, blank: true, categories: [], editor: false, soldout: false, export: false, calendar: false)
-      super
       @url = url
       @turbo_frame = turbo_frame
       @text = text
