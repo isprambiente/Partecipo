@@ -76,9 +76,9 @@ module Layout
       return unless @user.admin?
 
       [
-        link_to(t(".admin.groups"), admin_groups_path, data: { turbo: { frame: "yield" } }, class: "navbar-item"),
-        link_to(t(".admin.users"), admin_users_path, data: { turbo: { frame: "yield" } }, class: "navbar-item"),
-        link_to(t(".admin.templates"), admin_templates_path, data: { turbo: { frame: "yield" } }, class: "navbar-item")
+        link_to(t(".admin.groups"), admin_groups_path, data: { turbo_frame: "yield", turbo_action: "advance" }, class: "navbar-item"),
+        link_to(t(".admin.users"), admin_users_path, data: { turbo_frame: "yield", turbo_action: "advance" }, class: "navbar-item"),
+        link_to(t(".admin.templates"), admin_templates_path, data: { turbo_frame: "yield", turbo_action: "advance" }, class: "navbar-item")
       ]
     end
 
@@ -87,9 +87,9 @@ module Layout
       return unless @user.editor?
 
       [
-        link_to(t(".editor.events"), editor_events_path, data: { turbo: { frame: "yield" } }, class: "navbar-item"),
-        link_to(t(".editor.happenings"), editor_happenings_path, data: { turbo: { frame: "yield" } }, class: "navbar-item"),
-        link_to(t(".editor.users"), editor_users_path, data: { turbo: { frame: "yield" } }, class: "navbar-item")
+        link_to(t(".editor.events"), editor_events_path, data: { turbo_frame: "yield", turbo_action: "advance" }, class: "navbar-item"),
+        link_to(t(".editor.happenings"), editor_happenings_path, data: { turbo_frame: "yield", turbo_action: "advance" }, class: "navbar-item"),
+        link_to(t(".editor.users"), editor_users_path, data: { turbo_frame: "yield", turbo_action: "advance" }, class: "navbar-item")
       ]
     end
   end
