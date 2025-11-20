@@ -1,4 +1,4 @@
-= link_to send(@url, @event), data: {turbo_frame: 'yield'}, class: 'list-item box is-hoverable' do
+= link_to send(@url, @event), data: {turbo_frame: 'yield', turbo_action: "advance" }, class: 'list-item box is-hoverable' do
   .list-item-image  
     %figure.image.is-128x128= image_tag @event.image_url
   .list-item-content

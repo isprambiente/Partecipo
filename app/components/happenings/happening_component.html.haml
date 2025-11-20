@@ -1,4 +1,4 @@
-= link_to send(@url, @happening), data: {turbo_frame: @turbo_frame}, class: 'list-item box is-hoverable' do
+= link_to send(@url, @happening), data: {turbo_frame: @turbo_frame, turbo_action: "advance" }, class: 'list-item box is-hoverable' do
   .list-item-image  
     %figure.image.is-128x128= image_tag @happening.image_url
   .list-item-content
