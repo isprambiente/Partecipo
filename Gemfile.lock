@@ -81,7 +81,7 @@ GEM
     ast (2.4.3)
     attr_required (1.0.2)
     base64 (0.3.0)
-    bcrypt (3.1.21)
+    bcrypt (3.1.22)
     bigdecimal (3.3.1)
     bindata (2.5.1)
     bindex (0.8.1)
@@ -475,7 +475,7 @@ PLATFORMS
   x86_64-linux
 
 DEPENDENCIES
-  bcrypt (~> 3.1.7)
+  bcrypt (~> 3.1.22)
   bootsnap
   brakeman
   bulmacomp
