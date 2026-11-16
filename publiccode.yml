@@ -2,7 +2,7 @@ publiccodeYmlVersion: "0.4"
 name: Partecipo
 url: https://github.com/isprambiente/Partecipo
 landingURL: https://github.com/isprambiente/Partecipo
-softwareVersion: 4.1.0
+softwareVersion: 4.2.0
 releaseDate: 2025-07-14
 platforms:
   - web
